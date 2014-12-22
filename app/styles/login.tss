@@ -1,0 +1,27 @@
+
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#9F9F9F",
+	font:{fontSize:14},	
+},
+".welcomeText" : {
+	color: "#ffffff", 
+	font:{fontSize:30},
+	left: 0,
+	top: 5
+},
+".descText" : {
+	color: "#ffffff", 
+	font:{fontSize:12},
+	left: 0,
+	top: 5
+},
+".btnText" : {
+	color: "#ffffff", 
+	font:{fontSize:16},   
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+  	width: "100%", 
+  	height: "30"
+}
+

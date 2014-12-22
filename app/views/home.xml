@@ -1,17 +1,17 @@
 <Alloy>
 	<View class="container" layout="vertical">
 		
-		<View layout="vertical" backgroundColor="#DE5E2B" height="150">
+		<View layout="vertical" backgroundImage="/images/top_bg.png" height="150">
 			<View layout="vertical" height="50"  width="90%">
 				<Label class="welcomeText">Welcome</Label>
 				<Label class="descText">Enjoy privilege at everywhere and everytime</Label>
 			</View>	
 			<View layout="horizontal" height="100" width="90%" top="40">
-				<View layout="horizontal" borderRadius="15" backgroundColor="#A53D18" height="30" width="45%">
-					<Label class="btnText">Member Login</Label>
+				<View layout="horizontal"  height="30" width="45%">
+					<ImageView image="/images/btn_login.png" />
 				</View>
-				<View layout="horizontal" borderRadius="15"  backgroundColor="#2B3D96" height="30" width="45%" left="10">
-					<Label class="btnText">Sign Up Now</Label>
+				<View layout="horizontal"  height="30" width="45%" left="10">
+					<ImageView image="/images/btn_signup.png" />
 				</View>
 			</View>	
 		</View>
