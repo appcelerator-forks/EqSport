@@ -1,0 +1,11 @@
+
+".menuTable" : {
+  separatorColor : "#000000",
+  backgroundColor : "#000000",
+  top : 50
+},
+".menuLabel" : {
+  width : Ti.UI.FILL,
+  left : 20,
+  color : "#ffffff"
+}

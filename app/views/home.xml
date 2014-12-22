@@ -1,0 +1,35 @@
+<Alloy>
+	<View class="container" layout="vertical">
+		
+		<View layout="vertical" backgroundColor="#DE5E2B" height="150">
+			<View layout="vertical" height="50"  width="90%">
+				<Label class="welcomeText">Welcome</Label>
+				<Label class="descText">Enjoy privilege at everywhere and everytime</Label>
+			</View>	
+			<View layout="horizontal" height="100" width="90%" top="40">
+				<View layout="horizontal" borderRadius="15" backgroundColor="#A53D18" height="30" width="45%">
+					<Label class="btnText">Member Login</Label>
+				</View>
+				<View layout="horizontal" borderRadius="15"  backgroundColor="#2B3D96" height="30" width="45%" left="10">
+					<Label class="btnText">Sign Up Now</Label>
+				</View>
+			</View>	
+		</View>
+		<View layout="horizontal" width="90%" height="130">
+			<ImageView onClick="goTo" mod="Card"  image="/images/home01.png" width="42%" left="5" right="10"  top="10" ></ImageView>
+			<ImageView image="/images/home02.png" width="42%" left="20" top="10"></ImageView>
+		</View>
+		<View layout="horizontal" width="88%" height="30">
+			<Label width="40%" left="5" right="5" top="5" onClick="goTo" mod="Card" textAlign=Ti.UI.TEXT_ALIGNMENT_CENTER>EQLink Card</Label>
+			<Label width="40%" top="5" left="25" textAlign=Ti.UI.TEXT_ALIGNMENT_CENTER>Play with EQLink</Label>
+		</View>
+		<View layout="horizontal" width="90%" height="130">
+			<ImageView image="/images/home03.png" width="42%" left="5" right="10"  top="10" ></ImageView>
+			<ImageView image="/images/home04.png" width="42%" left="20" top="10"></ImageView>
+		</View>
+		<View layout="horizontal" width="90%" height="30">
+			<Label width="40%" left="5" right="5" top="5" textAlign=Ti.UI.TEXT_ALIGNMENT_CENTER>Win with EQLink</Label>
+			<Label width="40%" left="25" top="5" textAlign=Ti.UI.TEXT_ALIGNMENT_CENTER>Reload EQLink</Label>
+		</View>
+	</View>
+</Alloy>

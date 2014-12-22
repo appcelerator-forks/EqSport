@@ -1,0 +1,8 @@
+"#header": {
+	width: Ti.UI.FILL,
+	height: "45",
+	top: '0',
+},
+".container" : {
+	backgroundColor: "#ffffff"
+}

@@ -1,0 +1,9 @@
+"#drawer": {
+    openDrawerGestureMode: "OPEN_MODE_ALL",
+    closeDrawerGestureMode: "CLOSE_MODE_ALL",
+    animationMode : "ANIMATION_NONE",
+    leftDrawerWidth: 180
+}
+"Window": {
+    backgroundColor: 'white'
+}

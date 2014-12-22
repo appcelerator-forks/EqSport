@@ -1,0 +1,16 @@
+<Alloy>
+	 
+    	
+     <View class="container" layout="vertical">
+		<View id="header" >
+				<ImageView   image="/images/logo.png" />
+				 
+				<View bottom='0' class="hr"></View>
+		</View> 
+		<View layout="vertical" backgroundColor="#ffffff" height="150">
+			<Label class="btnText">EQ CARD</Label>
+		</View>
+		
+	</View>
+     
+</Alloy>

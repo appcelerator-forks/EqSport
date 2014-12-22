@@ -1,0 +1,27 @@
+<Alloy>
+    <TableView class="menuTable"  onClick="doMenuClick" >
+    	<TableViewRow height="50"  >
+			<Label class="menuLabel">Home</Label>
+		</TableViewRow>
+    	<TableViewRow height="50"  >
+			<Label class="menuLabel">EQLink Card</Label>
+		</TableViewRow>
+		<TableViewRow height="50">
+			<Label class="menuLabel">Play with EQLink</Label>
+		</TableViewRow>
+		
+		<TableViewRow height="50">
+			<Label class="menuLabel">Win with EQLink</Label>
+		</TableViewRow>
+		
+		<TableViewRow height="50">
+			<Label class="menuLabel">Reload EQLink</Label>
+		</TableViewRow>
+		
+		<TableViewRow height="50">
+			<Label class="menuLabel">Member Login</Label>
+		</TableViewRow>
+		
+		 
+    </TableView>
+</Alloy>

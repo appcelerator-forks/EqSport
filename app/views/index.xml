@@ -1,0 +1,25 @@
+<Alloy>
+    <Widget id="drawer" src="nl.fokkezb.drawer">
+
+        <Window module="xp.ui" role="leftWindow" backgroundColor="#000000" >
+            <Require src="menu"></Require>
+        </Window>
+
+        <NavigationWindow platform="ios" role="centerWindow" id="iosNavWind">
+            <Window titleImage="/images/logo.png"  >
+                <LeftNavButton>
+                    <ImageView image="/images/menu_toggle.png" left="0" onClick="menuToggle" height="40" width="40" />
+                </LeftNavButton>
+                <Require src="home"></Require>
+               
+            </Window>
+        </NavigationWindow>
+        
+        <View platform="android" role="centerWindow">
+        	<ImageView image="/images/menu_toggle.png" left="0" to="0" onClick="menuToggle" height="40" width="40" />
+           <Require src="home"></Require>
+        </View>
+
+         
+    </Widget>
+</Alloy>
