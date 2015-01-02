@@ -8,7 +8,7 @@
 			</View>	
 			<View layout="horizontal" height="100" width="90%" top="40">
 				<View layout="horizontal"  height="30" width="45%">
-					<ImageView image="/images/btn_login.png" />
+					<ImageView image="/images/btn_login.png" onClick="login" />
 				</View>
 				<View layout="horizontal"  height="30" width="45%" left="10">
 					<ImageView image="/images/btn_signup.png" />

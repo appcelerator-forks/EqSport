@@ -9,3 +9,9 @@ function navigation(target){
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
+
+function login(e){
+	var win = Alloy.createController("login").getView();
+	Alloy.Globals.Drawer.setCenterWindow(win); 
+	Alloy.Globals.Drawer.closeLeftWindow();
+}
