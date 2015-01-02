@@ -8,7 +8,7 @@ var xhr = new XHR();
 // APP authenticate user and key
 var USER  = 'TESTWEBSEUID';
 var KEY   = 'TESTWEBSEPWD';
-var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
+var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
 var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
 var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
  
@@ -19,7 +19,7 @@ var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&US
 **********************/
 //login to app
 exports.login = function (ex){
-	var url = loginUrl;
+	var url = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -39,6 +39,11 @@ exports.login = function (ex){
 		       	var address  = getValueFromXml(this.responseXML, 'LOGIN' , 'ADDRESS');
 		       	var msisdn 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'MSISDN');
 		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL');
+		       	
+		       	//Insert to local DB
+		       	
+		       	// go to next view
+		       	
 	     	}
 	       	 
 	       
