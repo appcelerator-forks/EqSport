@@ -41,5 +41,5 @@
 				<View top="0" backgroundColor="#00BFFF" width="30" height="1" ></View> 
 			</View>
 		</View>
-	</Window>
+	</View>
 </Alloy>
