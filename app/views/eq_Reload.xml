@@ -1,22 +1,17 @@
 <Alloy>
-	<Window id="win">
-		<View layout="composite" height="50" backgroundColor="white" >
-			<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
-			<ImageView image="/images/logo.png"></ImageView>
+	<View class="container" layout="vertical">
+		<View id="header" >
+				<ImageView   image="/images/logo.png" />
+				 
+				<View bottom='0' class="hr"></View>
+		</View> 
+		<View layout="vertical" backgroundColor="#ffffff">
+			<ScrollView layout="vertical">
+            	<ImageView top="10" width="300" height="300" image="/images/home04.png" ></ImageView>
+            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
+        	</ScrollView>
 		</View>
-    	<View id="menu">
-    		<Label id="lbl1" mod="0" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#FFFFFF" color="#494949" borderColor="#FFFFFF" borderWidth="0.5">Overview</Label>
-    		<Label id="lbl2" mod="1" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">Details</Label>
-    		<Label id="lbl3" mod="2" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">T&C</Label>
-    	</View>
-    	<!--<View id="hover" />-->
-        <ScrollableView id="scrollableView" showPagingControl="false" scrollingEnabled="false">
-        	<Require src="eq_Card1"/>
-        	<Require src="eq_Card2"/>
-        	<Require src="eq_Card3"/>
-        </ScrollableView>
-    </Window>
-
+	</View>
 	 <!--<TabGroup id="tabGroup">
         <Tab id="tab1" title="Info" icon="">
             <Window id="win1" title="Info" backgroundColor="white">
@@ -24,12 +19,13 @@
                     <ImageView image="/images/menu_toggle.png" left="0" onClick="closeWindow" height="40" width="40" />
                 </LeftNavButton>
             	<ScrollView layout="vertical">
-	            	<ImageView top="10" width="300" height="300" image="/images/home01.png" ></ImageView>
+	            	<ImageView top="10" width="300" height="300" image="/images/home04.png" ></ImageView>
 	            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
             	</ScrollView>
             </Window>
         </Tab>
-        <Tab id="tab2" title="Details" icon="">
+     </TabGroup>-->
+        <!--<Tab id="tab2" title="Details" icon="">
             <Window id="win2" title="Details" backgroundColor="white">
             	<LeftNavButton>
                     <ImageView image="/images/menu_toggle.png" left="0" onClick="closeWindow" height="40" width="40" />
@@ -50,30 +46,5 @@
 	            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
 	            </ScrollView>
             </Window>
-        </Tab>
-</TabGroup>-->
-    	
-     <!--<View class="container" layout="vertical">
-		<View id="header" >
-				<ImageView   image="/images/logo.png" />
-				 
-				<View bottom='0' class="hr"></View>
-		</View> 
-		<View layout="vertical" backgroundColor="#ffffff" height="150">
-			<Label class="btnText">EQ CARD</Label>
-			<TabGroup id="tabGroup">
-		        <Tab id="tab1" title="Hello" icon="myicon.png">
-		            <Window id="win1" title="Hello"/>
-		        </Tab>
-		        <Tab id="tab2" title="Hello" icon="myicon.png">
-		            <Window id="win2" title="Hello"/>
-		        </Tab>
-		        <Tab id="tab3" title="Hello" icon="myicon.png">
-		            <Window id="win3" title="Hello"/>
-		        </Tab>
-		  	</TabGroup>
-		</View>
-		
-</View>-->
-     
+        </Tab>-->
 </Alloy>

@@ -1,0 +1,33 @@
+"Label": {
+	//color: "#4c66a4",
+	font: {
+		fontSize: '10',
+		//fontFamily: 'Helvetica Neue'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+},
+".label1":{
+	font: {
+		fontSize: '9',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+".label2":{
+	font: {
+		fontSize: '10',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+".label3":{
+	font: {
+		fontSize: '20',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+},
+".btnLabel":{
+	//height: '34dp',
+	//width: '70dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	// left: '5dp',
+	// right: '5dp',
+},
