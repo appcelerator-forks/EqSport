@@ -24,13 +24,8 @@ function navigation(target){
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
 
-// function iOSnavigation(target){
-	// var win = Alloy.createController("eq_"+target).getView();
-	// nav.openWindow(win);
-// }
-
 function login()
-{
+{ 
 	var win = Alloy.createController("login").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();

@@ -1,5 +1,6 @@
 var args = arguments[0] || {};
 
+ 
 function submit()
 {
 	var account = $.account.value;
@@ -21,6 +22,7 @@ function submit()
 	    	 	onload : function(e) {
 				//var res = JSON.parse(this.responseText);
 				Ti.API.info(this.responseText);
+				
 		       
 		     },
 		     // function called when an error occurs, including a timeout
