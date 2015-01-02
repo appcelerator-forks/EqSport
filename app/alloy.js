@@ -10,4 +10,9 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
-
+var API = require('api');
+var getValueFromXml = function(xml, parent,child){
+	var parentNode =  xml.getElementsByTagName(parent).item(0); 
+	var childNode = parentNode.getElementsByTagName(child).item(0).textContent;
+	return childNode;
+};
