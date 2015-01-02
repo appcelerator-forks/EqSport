@@ -19,5 +19,4 @@ function doMenuClick(e){
 	}
 }
  
-
-API.login(); 
+ 
