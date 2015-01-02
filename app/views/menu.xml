@@ -1,5 +1,5 @@
 <Alloy>
-    <TableView id="tblMenu" class="menuTable"  onClick="doMenuClick" >
+    <TableView id="tblMenu" class="menuTable"  onClick="doMenuClick" showVerticalScrollIndicator="false" scrollable="true">
     	<!--<TableViewSection id="secGeneral" headerView=null>
 	    	<TableViewRow height="50"  >
 				<Label class="menuLabel">EQLINK CARD</Label>

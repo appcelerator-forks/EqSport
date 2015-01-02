@@ -77,7 +77,7 @@ function closeWindow(){
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
 
-// function menuToggle(e){
-	// var fn = 'toggleLeftWindow';
-    // $.drawer[fn]();
-// }
+function menuToggle(e){
+	var fn = 'toggleLeftWindow';
+    $.drawer[fn]();
+}

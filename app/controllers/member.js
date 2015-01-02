@@ -1,3 +1,8 @@
+if(Ti.Platform.osname == "android")
+{
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+}
+
 function menuToggle(e){
 	var fn = 'toggleLeftWindow';
     $.drawer[fn]();

@@ -1,0 +1,22 @@
+<Alloy>
+	<View>
+		<View layout="composite" height="50" backgroundColor="white" >
+			<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
+			<ImageView image="/images/logo.png"></ImageView>
+		</View>
+		<View layout="vertical" backgroundColor="#A5A5A5">
+			<Label top="10">Your available balance</Label>
+			<View layout="composite" height="180" top="10">
+				<View backgroundColor="white" borderRadius="90" height="180" width="180"></View>
+				<View layout="vertical" height="Ti.UI.SIZE">
+					<Label>RM</Label>
+					<Label class="amount">85.05</Label>
+				</View>
+			</View>
+			<Label>LASTEST UPDATED</Label>
+			<Label>31/12/2014</Label>
+			<Label>11:59:59PM</Label>
+			<ImageView height="40" image="/images/Button_topup.png"></ImageView>
+		</View>
+	</View>
+</Alloy>

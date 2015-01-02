@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="win">
+	<View layout="vertical" id="win" backgroundColor="white">
 		<View layout="composite" height="50" backgroundColor="white" >
 			<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
 			<ImageView image="/images/logo.png"></ImageView>
@@ -15,7 +15,7 @@
         	<Require src="eq_Card2"/>
         	<Require src="eq_Card3"/>
         </ScrollableView>
-    </Window>
+    </View>
 
 	 <!--<TabGroup id="tabGroup">
         <Tab id="tab1" title="Info" icon="">
