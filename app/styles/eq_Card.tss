@@ -1,4 +1,49 @@
 
 ".container" : {
   
+},
+
+"Window": {
+	backgroundColor: "#fff",
+	layout: "vertical",
+},
+"Label": {
+	// color: "#4c66a4",
+	// font: {
+		// fontSize: '14dp',
+		// fontFamily: 'Helvetica Neue'
+	// },
+},
+"#menu":{
+	height: Ti.UI.SIZE,
+	backgroundColor: "#fff",
+	layout: 'horizontal',
+},
+".menuItem":{
+	height: '34dp',
+	//width: '70dp',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	// left: '5dp',
+	// right: '5dp',
+},
+"#hover":{
+	// backgroundColor: '#4c66a4',
+	// width: '80dp',
+	// height: '2dp',
+	// bottom: '0dp',
+	// left: '0dp',
+	// layout: 'composite',
+},
+"#titleContainer":{
+	// backgroundColor: "#4c66a4",
+	// height: Ti.UI.SIZE,
+},
+"#title":{
+	 color: "#fff",
+	// height: '42dp',
+	// font: {
+		// fontSize: '18dp'
+	// },
+	// textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+	// left: '10dp',
 }

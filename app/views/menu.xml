@@ -1,27 +1,60 @@
 <Alloy>
-    <TableView class="menuTable"  onClick="doMenuClick" >
-    	<TableViewRow height="50"  >
-			<Label class="menuLabel">Home</Label>
-		</TableViewRow>
-    	<TableViewRow height="50"  >
-			<Label class="menuLabel">EQLink Card</Label>
-		</TableViewRow>
-		<TableViewRow height="50">
-			<Label class="menuLabel">Play with EQLink</Label>
-		</TableViewRow>
+    <TableView id="tblMenu" class="menuTable"  onClick="doMenuClick" >
+    	<!--<TableViewSection id="secGeneral" headerView=null>
+	    	<TableViewRow height="50"  >
+				<Label class="menuLabel">EQLINK CARD</Label>
+			</TableViewRow>
+			<TableViewRow height="50">
+				<Label class="menuLabel">PLAY WITH EQLINK</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">WIN WITH EQLINK</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">RELOAD EQLINK</Label>
+			</TableViewRow>
+		</TableViewSection>
 		
-		<TableViewRow height="50">
-			<Label class="menuLabel">Win with EQLink</Label>
-		</TableViewRow>
+		<TableViewSection id="secNonMember" headerView=null>
+			<TableViewRow height="50">
+				<Label class="menuLabel">MEMBER LOGIN</Label>
+			</TableViewRow>
+		</TableViewSection>
 		
-		<TableViewRow height="50">
-			<Label class="menuLabel">Reload EQLink</Label>
-		</TableViewRow>
-		
-		<TableViewRow height="50">
-			<Label class="menuLabel">Member Login</Label>
-		</TableViewRow>
-		
-		 
+		<TableViewSection id="secMember" headerView=null>
+			<TableViewRow height="50">
+				<Label class="menuLabel">MY ACCOUNT</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">PLAY</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">WITHDRAWAL</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">CHECK AMOUNT BALANCE</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">RACE CARD</Label>
+			</TableViewRow>
+			 
+			<TableViewRow height="50">
+				<Label class="menuLabel">RACE ODD</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">RACE RESULT</Label>
+			</TableViewRow>
+			
+			<TableViewRow height="50">
+				<Label class="menuLabel">LOGOUT</Label>
+			</TableViewRow>
+		</TableViewSection>-->
     </TableView>
 </Alloy>

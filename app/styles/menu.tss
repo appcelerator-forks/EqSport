@@ -1,11 +1,19 @@
-
 ".menuTable" : {
-  separatorColor : "#000000",
-  backgroundColor : "#000000",
-  top : 50
+  separatorColor : "#454545",
+  backgroundColor : "#262626",
+  top : 50,
+  separatorInsets: {
+  		left:0,
+    	right:0
+    }
 },
 ".menuLabel" : {
   width : Ti.UI.FILL,
   left : 20,
-  color : "#ffffff"
+  color : "#ffffff",
+  font: {
+        fontSize: '12dp',
+        fontStyle: 'normal',
+        fontWeight: 'normal'
+    }
 }
