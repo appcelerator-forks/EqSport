@@ -61,6 +61,33 @@ exports.login = function (ex){
 };
 
 //check user balance
+exports.resultNdividend = function (ex){
+	var url = resultNdividend;
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	       	var respcode = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'RESPCODE');
+	       	
+	       	if(respcode == "1"){
+	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
+	     		alert(errdesc);
+	     	}else{
+	     		//success	
+	     	}
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+//check user balance
 exports.checkBalance = function (ex){
 	var url = checkBalance;
 	var client = Ti.Network.createHTTPClient({
@@ -74,8 +101,43 @@ exports.checkBalance = function (ex){
 	     	}else{
 	     		//success	
 	     	}
-			 
-	       
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+
+//get RTO Results
+exports.getRTOResults = function(ex){
+	var url = "http://54.169.180.5/eqsport/test_xml.php";
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	       	var respcode = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESPCODE');
+	       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
+	       	
+	       	if(no_race_result > 0){
+	       		for(var i=1; i <= no_race_result; i++){
+	       			var resultno = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
+	       			
+	       			var raceDate = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
+	       			var raceDay = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
+	       			var raceNo = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
+	       			var location = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
+	       			var result = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
+	       			 
+	       		}
+	       		
+	       	}
+	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
