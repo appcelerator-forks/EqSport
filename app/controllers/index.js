@@ -18,5 +18,3 @@ function doMenuClick(e){
 			break;
 	}
 }
- 
- 

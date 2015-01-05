@@ -24,9 +24,10 @@ function withdrawal()
 
 function amountBalance()
 {
-	var win = Alloy.createController("").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+	API.checkBalance();
+	// var win = Alloy.createController("amountBalance").getView();
+	// Alloy.Globals.Drawer.setCenterWindow(win); 
+	// Alloy.Globals.Drawer.closeLeftWindow();
 }
 
 function transaction()

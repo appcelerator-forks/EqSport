@@ -47,3 +47,5 @@ var getValueFromPipe = function(xml){
 	} 
 	return obj;
 };
+
+API.getRTOResults();

@@ -10,16 +10,18 @@ var USER  = 'TESTWEBSEUID';
 var KEY   = 'TESTWEBSEPWD';
 var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
 var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
-var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
+//var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
+ var resultNdividend = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
  
- 
- http://175.143.113.177/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD
+ //http://175.143.113.177/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD
 /*********************
 **** API FUNCTION*****
 **********************/
 //login to app
 exports.login = function (ex){
+	
 	var url = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin;
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -31,7 +33,7 @@ exports.login = function (ex){
 	     		var username = getValueFromXml(this.responseXML, 'LOGIN' , 'USERNAME');
 		       	var sex 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'SEX');
 		       	var dob		 = getValueFromXml(this.responseXML, 'LOGIN' , 'DOB');
-		       	var occuptation = getValueFromXml(this.responseXML, 'LOGIN' , 'OCCUPTATION');
+		       	var occupation = getValueFromXml(this.responseXML, 'LOGIN' , 'OCCUPTATION');
 		       	var race 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'RACE');
 		       	var nation 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'NATION');
 		       	var oldic 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'OLDIC');
@@ -41,42 +43,31 @@ exports.login = function (ex){
 		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL');
 		       	
 		       	//Insert to local DB
-		       	
+		       	// var userInfo = Alloy.createModel('info', { 
+					// username: username, 
+					// sex: sex,
+					// dob: dob,
+					// occupation: occupation,
+					// race: race,
+					// nation: nation,
+					// oldic: oldic,
+					// newic: newic,
+					// address: address,
+					// msisdn: msisdn,
+					// email: email
+				// }); 
+				// userInfo.save(); 
+				
 		       	// go to next view
-		       	
+		       	var win = Alloy.createController("member").getView();
+				Alloy.Globals.Drawer.setCenterWindow(win); 
+				Alloy.Globals.Drawer.closeLeftWindow();
 	     	}
-	       	 
 	       
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	
-	     },
-	     timeout : 10000  // in milliseconds
-	 });
-	 // Prepare the connection.
-	 client.open("GET", url);
-	 // Send the request.
-	 client.send(); 
-};
-
-//check user balance
-exports.resultNdividend = function (ex){
-	var url = resultNdividend;
-	var client = Ti.Network.createHTTPClient({
-	     // function called when the response data is available
-	     onload : function(e) {
-	       	var respcode = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'RESPCODE');
-	       	
-	       	if(respcode == "1"){
-	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
-	     		alert(errdesc);
-	     	}else{
-	     		//success	
-	     	}
-	     },
-	     // function called when an error occurs, including a timeout
-	     onerror : function(e) {
+	     	alert("Unable to login");
 	     	
 	     },
 	     timeout : 10000  // in milliseconds
@@ -100,7 +91,26 @@ exports.checkBalance = function (ex){
 	     		alert(errdesc);
 	     	}else{
 	     		//success	
+	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG');
+	     		var arr = message.split(" ");
+	     		var amount = arr[5];
+	     		var date = arr[3];
+	     		var time = arr[4];
+	     		
+	     		//Insert to local DB
+		       	// var checkBalance = Alloy.createModel('balance', { 
+					// amount: amount, 
+					// date: date,
+					// time: time,
+				// }); 
+				// checkBalance.save(); 
+				
+				// go to next view
+				var win = Alloy.createController("amountBalance").getView();
+				Alloy.Globals.Drawer.setCenterWindow(win); 
+				Alloy.Globals.Drawer.closeLeftWindow();
 	     	}
+	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -122,21 +132,56 @@ exports.getRTOResults = function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var respcode = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESPCODE');
-	       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 	       	
-	       	if(no_race_result > 0){
-	       		for(var i=1; i <= no_race_result; i++){
-	       			var resultno = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
-	       			
-	       			var raceDate = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
-	       			var raceDay = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
-	       			var raceNo = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
-	       			var location = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
-	       			var result = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-	       			 
-	       		}
-	       		
-	       	}
+	       	if(respcode == "1")
+	       	{
+	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
+	     		alert(errdesc);
+	     	}
+	     	else
+	     	{
+	     	
+		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
+		       	
+		       	if(no_race_result > 0){
+		       		for(var i=1; i <= no_race_result; i++){
+		       			var resultno = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
+		       			
+		       			var raceDate = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
+		       			var raceDay = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
+		       			var raceNo = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
+		       			var location = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
+		       			var result = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
+		       			
+		       			var obj = {};
+		       			obj[i]["resultno"] = resultno.trim();
+		       			obj[i]["raceDate"] = raceDate.trim();
+		       			obj[i]["raceDay"] = raceDate.trim();
+		       			obj[i]["raceNo"] = raceDate.trim();
+		       			obj[i]["location"] = raceDate.trim();
+		       			obj[i]["result"] = raceDate.trim();
+		       			
+		       			Ti.API.info(obj);
+		       			//var arr[i] = [resultno, raceDate, raceDay, raceNo, location, result] ;
+		       		}
+		       		
+		       	}
+		       	
+		       	//Insert to local DB
+		       	// var getRTOResults = Alloy.createModel('rtoResults', { 
+					// no_race_result: no_race_result, 
+					// // resultno: resultno,
+					// // raceDate: raceDate,
+					// // raceDay: raceDay,
+					// // raceNo: raceNo,
+					// // location: location,
+					// // result: result
+					// arr: arr
+				// }); 
+				// getRTOResults.save(); 
+			}
+	       	
+	       	
 	     
 	     },
 	     // function called when an error occurs, including a timeout
