@@ -22,7 +22,7 @@ var getValueFromPipe = function(xml){
 	var data = res.split("||");  
  	var obj = {};
  	
-	if(data[1] == "S:"){
+	if(data[1] == "S:" || data[1] == "R:"){
 		for(var i=2; i <= data.length; i++){
 			if(i != data.length){
 				var inner = data[i].split(":"); 
