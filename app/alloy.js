@@ -16,3 +16,34 @@ var getValueFromXml = function(xml, parent,child){
 	var childNode = parentNode.getElementsByTagName(child).item(0).textContent;
 	return childNode;
 };
+
+var getValueFromPipe = function(xml){
+	var res = getValueFromXml(xml, 'HTML' , 'BODY');
+	var data = res.split("||");  
+ 	var obj = {};
+ 	
+	if(data[1] == "S:"){
+		for(var i=2; i <= data.length; i++){
+			if(i != data.length){
+				var inner = data[i].split(":"); 
+		       	if(inner[0] !== ""){
+		       		
+		       		//fixed key space
+		       		var inner_key = inner[0].replace(" ", "");
+		       		 
+		       		var val_inner = inner[1];
+		       		
+		       		//fixed for time format
+		       		if(inner.length > 2){
+		       			val_inner = inner[1] +":"+inner[2] +":"+inner[3];
+		       		}
+		       		
+		       		obj[inner_key] = val_inner.trim();
+		       	}
+	      
+	    	}
+		}
+			
+	} 
+	return obj;
+};

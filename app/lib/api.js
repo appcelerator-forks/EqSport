@@ -151,6 +151,48 @@ exports.getRTOResults = function(ex){
 	 client.send(); 
 };
 
+exports.submitRaceBet= function(ex){
+	var url = "http://54.169.180.5/eqsport/submitRaceBet.php"; 
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	       	var res = getValueFromPipe(this.responseXML);
+	       console.log(res);
+	      
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+exports.confirmRaceBet= function(ex){
+	var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	       	var res = getValueFromPipe(this.responseXML);
+	       console.log(res);
+	      
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
 //private function
 function onErrorCallback(e) {
 	var common = require('common');
