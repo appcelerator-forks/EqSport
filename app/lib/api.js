@@ -147,30 +147,26 @@ exports.getRTOResults = function(ex){
 	     	
 		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 		       	
-		       	/*if(no_race_result > 0){
+		       	var ary = [];
+		       	if(no_race_result > 0){
+
 		       		for(var i=1; i <= no_race_result; i++){
-		       			var resultno = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
-		       			
-		       			var raceDate = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
-		       			var raceDay = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
-		       			var raceNo = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
-		       			var location = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
-		       			var result = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			
 		       			var obj = {};
-		       			obj[i]["resultno"] = resultno.trim();
-		       			obj[i]["raceDate"] = raceDate.trim();
-		       			obj[i]["raceDay"] = raceDate.trim();
-		       			obj[i]["raceNo"] = raceDate.trim();
-		       			obj[i]["location"] = raceDate.trim();
-		       			obj[i]["result"] = raceDate.trim();
 		       			
-		       			Ti.API.info(obj);
+		       			obj["resultno"]  = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
+		       			obj["raceDate"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
+		       			obj["raceDay"] 	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
+		       			obj["raceNo"]  	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
+		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
+		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
+		       			 
+		       			ary.push(obj);
+		       			 
 		       			//var arr[i] = [resultno, raceDate, raceDay, raceNo, location, result] ;
 		       		}
-		       		
-		       	}*/
 		       	
+		       	}
+		       	Ti.API.info(ary);
 		       	//Insert to local DB
 		       	// var getRTOResults = Alloy.createModel('rtoResults', { 
 					// no_race_result: no_race_result, 
