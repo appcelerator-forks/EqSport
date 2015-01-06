@@ -1,7 +1,7 @@
 exports.definition = {
 	config: {
 		columns: {
-		    //"id": "string"
+		    "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
 		    "amount": "TEXT",
 		    "date": "TEXT",
 		    "time": "TEXT"
@@ -23,26 +23,25 @@ exports.definition = {
 			// extended functions and properties go here
 			getBalance: function(){
 				var collection = this;
-                var sql = "SELECT * FROM " + collection.config.adapter.collection_name;
+                var sql = "SELECT * FROM " + collection.config.adapter.collection_name + "ORDER BY id LIMIT 1";
                 
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 var res = db.execute(sql);
-                var listArr = []; 
-                var count = 0;
-                while (res.isValidRow()){
-					listArr[count] = {
-					    //id: res.fieldByName('id'),
+                var result = []; 
+                
+                if (res.isValidRow()){
+					result = {
+					    id: res.fieldByName('id'),
 					    amount: res.fieldByName('amount'),
 					    date: res.fieldByName('date'),
 					    time: res.fieldByName('time')
 					};
-					res.next();
-					count++;
+					
 				} 
 				res.close();
                 db.close();
                 collection.trigger('sync');
-                return listArr;
+                return result;
 			},
 		});
 

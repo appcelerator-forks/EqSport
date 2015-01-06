@@ -10,7 +10,7 @@ function menuToggle(e){
 
 function play()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("play").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }

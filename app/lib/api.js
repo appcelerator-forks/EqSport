@@ -81,6 +81,7 @@ exports.login = function (ex){
 //check user balance
 exports.checkBalance = function (ex){
 	var url = checkBalance;
+	//var url = "http://54.169.180.5/eqsport/balanceRequest.php";
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -97,13 +98,13 @@ exports.checkBalance = function (ex){
 	     		var date = arr[3];
 	     		var time = arr[4];
 	     		
-	     		//Insert to local DB
-		       	// var checkBalance = Alloy.createModel('balance', { 
-					// amount: amount, 
-					// date: date,
-					// time: time,
-				// }); 
-				// checkBalance.save(); 
+	     		// Insert to local DB
+		       	var checkBalance = Alloy.createModel('balance', { 
+					amount: amount, 
+					date: date,
+					time: time,
+				}); 
+				checkBalance.save(); 
 				
 				// go to next view
 				var win = Alloy.createController("amountBalance").getView();
@@ -114,7 +115,10 @@ exports.checkBalance = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	
+	     	alert("An error occurs");
+	     	var win = Alloy.createController("amountBalance").getView();
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -143,7 +147,7 @@ exports.getRTOResults = function(ex){
 	     	
 		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 		       	
-		       	if(no_race_result > 0){
+		       	/*if(no_race_result > 0){
 		       		for(var i=1; i <= no_race_result; i++){
 		       			var resultno = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
 		       			
@@ -165,7 +169,7 @@ exports.getRTOResults = function(ex){
 		       			//var arr[i] = [resultno, raceDate, raceDay, raceNo, location, result] ;
 		       		}
 		       		
-		       	}
+		       	}*/
 		       	
 		       	//Insert to local DB
 		       	// var getRTOResults = Alloy.createModel('rtoResults', { 
@@ -186,7 +190,7 @@ exports.getRTOResults = function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -207,7 +211,7 @@ exports.submitRaceBet= function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -228,7 +232,7 @@ exports.confirmRaceBet= function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });

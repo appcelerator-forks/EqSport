@@ -1,0 +1,25 @@
+".title":{
+	font: {
+		fontSize: '25',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+".amount":{
+	font: {
+		fontSize: '40',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+".label1":{
+	font: {
+		fontSize: '12',
+		fontWeight: 'bold'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+".label2":{
+	font: {
+		fontSize: '12',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},

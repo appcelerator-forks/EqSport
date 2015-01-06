@@ -20,6 +20,7 @@
 	        	<ImageView image="/images/menu_toggle.png" left="0" onClick="menuToggle" height="40" width="40" />
 	        	<ImageView image="/images/logo.png"></ImageView>
         	</View>
+           <!--<Require src="home"></Require>-->
            <Require src="home"></Require>
         </View>
 
