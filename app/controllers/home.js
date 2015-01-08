@@ -1,5 +1,5 @@
-var args = arguments[0] || {};
-var nav = Alloy.Globals.iosNavWind;
+var args = arguments[0] || {}; 
+
 
 if(Ti.Platform.osname == "android")
 {

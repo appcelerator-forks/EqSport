@@ -1,15 +1,14 @@
 var args = arguments[0] || {};
-
 var module= require('dk.napp.drawer'); 
+var info =  Alloy.createCollection('info');
+initMenu();
 
-initMenu(true);
-
-function initMenu(isMember){
+function initMenu(){
 	var data=[];
-	
+	var isUser =  info.getInfo(); 
 	var title = ['EQLINK CARD', 'PLAY WITH EQLINK', 'WIN WITH EQLINK', 'RELOAD EQLINK'];
 	
-	if (isMember) {
+	if (isUser.length > 0 ) {
 		title.push('MY ACCOUNT', 'PLAY', 'WITHDRAWAL', 'CHECK AMOUNT BALANCE', 'RACE CARD', 'RACE ODD', 'RACE RESULT', 'LOGOUT');
 	}
 	else {
@@ -42,36 +41,34 @@ function initMenu(isMember){
 function doMenuClick(e){ 
 	switch(e.index){
 		case 0: 
-			var win = Alloy.createController("eq_Card").getView();  
-			Alloy.Globals.Drawer.setCenterWindow(win); 
-			Alloy.Globals.Drawer.closeLeftWindow();
-			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			navigation("eq_Card");  
 			break;
-		case 1: 
-			var win = Alloy.createController("eq_Play").getView();  
-			Alloy.Globals.Drawer.setCenterWindow(win); 
-			Alloy.Globals.Drawer.closeLeftWindow();
-			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+		case 1:   
+			navigation("eq_Play"); 
 			break;
-		case 2: 
-			var win = Alloy.createController("eq_Win").getView();  
-			Alloy.Globals.Drawer.setCenterWindow(win); 
-			Alloy.Globals.Drawer.closeLeftWindow();
-			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+		case 2:   
+			navigation("eq_Win"); 
 			break;
-		case 3: 
-			var win = Alloy.createController("eq_Reload").getView();  
-			Alloy.Globals.Drawer.setCenterWindow(win); 
-			Alloy.Globals.Drawer.closeLeftWindow();
-			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+		case 3:   
+			navigation("eq_Reload");
 			break;
 	 
-		
+		case 11:   
+			info.resetInfo();
+			initMenu(); 
+			navigation("home");
+			break;
 	}
 }
 
 function navigation(target){
- 	var win = Alloy.createController("eq_"+target).getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+	var win = Alloy.createController( target).getView();
+	Alloy.Globals.Drawer.setCenterWindow(win);  
+	Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL); 
+	Alloy.Globals.Drawer.closeLeftWindow();  
 }
+
+// event 
+Ti.App.addEventListener("app:refreshMenu", function(e) {
+	initMenu();
+});

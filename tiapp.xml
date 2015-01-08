@@ -38,10 +38,10 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-    	<manifest>
-    		<application android:theme="@style/Theme.NoActionBar"/>
-    		<uses-sdk android:minSdkVersion="14"/>
-    	</manifest>
+        <manifest>
+            <application android:theme="@style/Theme.NoActionBar"/>
+            <uses-sdk android:minSdkVersion="14"/>
+        </manifest>
     </android>
     <mobileweb>
         <precache/>
@@ -53,7 +53,7 @@
     </mobileweb>
     <modules>
         <module platform="iphone">dk.napp.drawer</module>
-        <module platform="android">dk.napp.drawer</module>
+        <module platform="android" version="1.1.4">dk.napp.drawer</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
@@ -62,7 +62,7 @@
         <target device="iphone">true</target>
         <target device="mobileweb">false</target>
     </deployment-targets>
-    <sdk-version>3.4.0.GA</sdk-version>
+    <sdk-version>3.4.1.GA</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
     </plugins>

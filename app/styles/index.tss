@@ -1,9 +1,10 @@
 "#drawer": {
     openDrawerGestureMode: "OPEN_MODE_ALL",
-    closeDrawerGestureMode: "CLOSE_MODE_ALL",
+	closeDrawerGestureMode: "CLOSE_MODE_PANNING_CENTERWINDOW", 
     animationMode : "ANIMATION_NONE",
-    leftDrawerWidth: 190
-}
+    leftDrawerWidth: 190,
+    orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+},
 "Window": {
     backgroundColor: 'white'
 }

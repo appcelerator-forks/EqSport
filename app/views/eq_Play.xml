@@ -1,10 +1,6 @@
 <Alloy>
 	<View class="container" layout="vertical">
-		<View id="header" >
-				<ImageView   image="/images/logo.png" />
-				 
-				<View bottom='0' class="hr"></View>
-		</View> 
+		<Require src="_header"></Require>
 		<View layout="vertical" backgroundColor="#ffffff">
 			<ScrollView layout="vertical">
             	<ImageView top="10" width="300" height="300" image="/images/home02.png" ></ImageView>

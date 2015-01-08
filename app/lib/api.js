@@ -1,7 +1,7 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.143.112.185";
+var API_DOMAIN = "175.139.227.132";
 var XHR = require("xhr");
 var xhr = new XHR();
 
@@ -40,28 +40,28 @@ exports.login = function (ex){
 		       	var newic	 = getValueFromXml(this.responseXML, 'LOGIN' , 'NEWIC');
 		       	var address  = getValueFromXml(this.responseXML, 'LOGIN' , 'ADDRESS');
 		       	var msisdn 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'MSISDN');
-		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL');
-		       	
+		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL'); 
 		       	//Insert to local DB
-		       	// var userInfo = Alloy.createModel('info', { 
-					// username: username, 
-					// sex: sex,
-					// dob: dob,
-					// occupation: occupation,
-					// race: race,
-					// nation: nation,
-					// oldic: oldic,
-					// newic: newic,
-					// address: address,
-					// msisdn: msisdn,
-					// email: email
-				// }); 
-				// userInfo.save(); 
-				
+		       	var userInfo = Alloy.createModel('info', { 
+					username: username, 
+					sex: sex,
+					dob: dob,
+					occupation: occupation,
+					race: race,
+					nation: nation,
+					oldic: oldic,
+					newic: newic,
+					address: address,
+					msisdn: msisdn,
+					email: email
+				}); 
+				userInfo.save();  
+    			Ti.App.fireEvent("app:refreshMenu");
+
 		       	// go to next view
 		       	var win = Alloy.createController("member").getView();
 				Alloy.Globals.Drawer.setCenterWindow(win); 
-				Alloy.Globals.Drawer.closeLeftWindow();
+				Alloy.Globals.Drawer.closeLeftWindow(); 
 	     	}
 	       
 	     },
