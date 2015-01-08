@@ -1,9 +1,11 @@
 var args = arguments[0] || {};
 var module= require('dk.napp.drawer'); 
 var info =  Alloy.createCollection('info');
-initMenu();
-
+initMenu(); 
 function initMenu(){
+	var balance = Alloy.createCollection('balance');
+	var info = Alloy.createCollection('info');
+	var rtoResults = Alloy.createCollection('rtoResults');
 	var data=[];
 	var isUser =  info.getInfo(); 
 	var title = ['EQLINK CARD', 'PLAY WITH EQLINK', 'WIN WITH EQLINK', 'RELOAD EQLINK'];
@@ -39,6 +41,7 @@ function initMenu(){
 }
 
 function doMenuClick(e){ 
+	console.log(e.index);
 	switch(e.index){
 		case 0: 
 			navigation("eq_Card");  
@@ -51,8 +54,55 @@ function doMenuClick(e){
 			break;
 		case 3:   
 			navigation("eq_Reload");
+			break; 
+	 	case 4: 
+			var win = Alloy.createController("member").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+		case 5: 
+			var win = Alloy.createController("play").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+		case 6: 
+			var win = Alloy.createController("withdrawal").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
 			break;
 	 
+		case 7: 
+			balance.resetBalance();
+			info.resetInfo();
+			rtoResults.resetResults();
+			var win = Alloy.createController("amountBalance").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+		case 8: 
+			var win = Alloy.createController("raceCard").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+		case 9: 
+			var win = Alloy.createController("raceOdd").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+		case 10: 
+			var win = Alloy.createController("raceResult").getView();  
+			Alloy.Globals.Drawer.setCenterWindow(win); 
+			Alloy.Globals.Drawer.closeLeftWindow();
+			Alloy.Globals.Drawer.setOpenDrawerGestureMode(module.OPEN_MODE_ALL);  
+			break;
+	
+		
 		case 11:   
 			info.resetInfo();
 			initMenu(); 

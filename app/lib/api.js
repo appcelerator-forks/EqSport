@@ -115,7 +115,7 @@ exports.checkBalance = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	console.log("An error occurs");
 	     	var win = Alloy.createController("amountBalance").getView();
 			Alloy.Globals.Drawer.setCenterWindow(win); 
 			Alloy.Globals.Drawer.closeLeftWindow();

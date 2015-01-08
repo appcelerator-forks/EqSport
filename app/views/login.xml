@@ -37,8 +37,8 @@
 			<Label top="20" color="black">Need a EQLink Account?</Label>
 			<ImageView top="10" height="40" image="/images/btn_getone.png" onClick="newAccount"></ImageView>
 			<View top="10" layout="vertical" height="Ti.UI.SIZE">
-				<Label color="#00BFFF" width="30">Skip</Label>
-				<View top="0" backgroundColor="#00BFFF" width="30" height="1" ></View> 
+				<Label color="#00BFFF" width="30" onClick="skip">Skip</Label>
+				<View top="0" backgroundColor="#00BFFF" width="30" height="1" onClick="skip"></View> 
 			</View>
 		</View>
 	</View>

@@ -18,7 +18,7 @@
         <View platform="android" layout="vertical" role="centerWindow" backgroundColor="white">
         	<Require src="_header"></Require>
            <!--<Require src="home"></Require>-->
-           <Require src="home"></Require>
+           <Require src="member"></Require>
         </View>
 
          

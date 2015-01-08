@@ -59,9 +59,9 @@ exports.definition = {
                 db.close();
                 collection.trigger('sync');
                 return listArr;
-			},
-			
+			}, 
 			resetInfo : function(){
+ 
 				var collection = this;
                 var sql = "DELETE FROM " + collection.config.adapter.collection_name;
                 db = Ti.Database.open(collection.config.adapter.db_name);

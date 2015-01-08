@@ -23,7 +23,8 @@ exports.definition = {
 			// extended functions and properties go here
 			getBalance: function(){
 				var collection = this;
-                var sql = "SELECT * FROM " + collection.config.adapter.collection_name + "ORDER BY id LIMIT 1";
+                //var sql = "SELECT * FROM " + collection.config.adapter.collection_name + "ORDER BY id LIMIT 1";
+                var sql = "SELECT * FROM " + collection.config.adapter.collection_name;
                 
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 var res = db.execute(sql);
@@ -43,6 +44,14 @@ exports.definition = {
                 collection.trigger('sync');
                 return result;
 			},
+			resetBalance: function(){
+				var collection = this;
+                var sql = "DELETE FROM " + collection.config.adapter.collection_name;
+                db = Ti.Database.open(collection.config.adapter.db_name);
+                db.execute(sql);
+                db.close();
+                collection.trigger('sync');
+            },
 		});
 
 		return Collection;

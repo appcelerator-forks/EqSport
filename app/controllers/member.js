@@ -30,14 +30,14 @@ function amountBalance()
 
 function transaction()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("transaction").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
 
 function raceCard()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("raceCard").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
