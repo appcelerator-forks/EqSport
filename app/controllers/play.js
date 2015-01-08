@@ -4,7 +4,28 @@ var raceNo;
 var pool;
 var runner;
 
-$.scrollView2.scrollType = "horizontal";
+var label = Ti.UI.createLabel({
+    left: 0,
+    text: "JAP (GOOD)",
+    color: 'black',
+    font: {
+        fontFamily:'Arial',
+        fontSize: '14dp',
+        fontStyle: 'normal',
+        fontWeight: 'normal',
+        fontColor: 'black'
+    }
+});
+
+$.row1.add(label);
+$.row1.title = label.text;
+
+if(Ti.Platform.osname == "android")
+{
+	$.scrollView2.scrollType = "horizontal";
+	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+}
 
 var containerView = Ti.UI.createView({
 	layout: "composite",
@@ -16,29 +37,11 @@ var containerView = Ti.UI.createView({
 var cancelBtn;
 var confirmBtn;
 
-// var cancelBtn = Ti.UI.createImageView({
-	// image:'/images/Button_Cancel.png',
-	// width: 80,
-	// height: 80,
-	// right: 10
-// });
-// 
-// var confirmBtn = Ti.UI.createImageView({
-	// image:'/images/Button_Confirm.png',
-	// width: 80,
-	// height: 80,
-	// left: 10
-// });
-
-$.picker1.addEventListener('change',venue);
-
 function venue(e)
 {
 	venue = e.row.title;
 	console.log(venue);
 }
-
-$.picker2.addEventListener('change',raceNo);
 
 function raceNo(e)
 {
@@ -46,15 +49,11 @@ function raceNo(e)
 	console.log(raceNo);
 }
 
-$.picker3.addEventListener('change',pool);
-
 function pool(e)
 {
 	pool = e.row.title;
 	console.log(pool);
 }
-
-$.picker4.addEventListener('change',runner);
 
 function runner(e){
 	runner = e.row.title;
@@ -67,12 +66,7 @@ $.bet.addEventListener('focus', function f(e){
 });
 
 function back()
-{
-	$.picker1.removeEventListener('change',venue);
-	$.picker2.removeEventListener('change',raceNo);
-	$.picker3.removeEventListener('change',pool);
-	$.picker4.removeEventListener('change',runner);
-	
+{	
 	var win = Alloy.createController("member").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
@@ -113,6 +107,11 @@ function confirm()
 		showVerticalScrollIndicator: false,
   		showHorizontalScrollIndicator: false,
 	});
+	
+	if(Ti.Platform.osname == "android")
+	{
+		contentView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	}
 	
 	var horizontalView1 = Ti.UI.createView({
 		layout:"horizontal",
@@ -261,17 +260,9 @@ function confirm()
 	containerView.add(confirmView);
 	$.mainView.add(containerView);
 	
-	//testing(cancelBtn);
-	
 	cancelBtn.addEventListener('click',cancel);
 	confirmBtn.addEventListener('click',process);
 }
-
-// function testing(cancelBtn)
-// {
-	// cancelBtn.addEventListener('click',cancel);
-	// //confirmBtn.addEventListener('click',process);
-// }
 
 function cancel()
 {

@@ -1,7 +1,7 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.143.112.185";
+var API_DOMAIN = "175.139.227.132";
 var XHR = require("xhr");
 var xhr = new XHR();
 
@@ -115,7 +115,7 @@ exports.checkBalance = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	console.log("An error occurs");
 	     	var win = Alloy.createController("amountBalance").getView();
 			Alloy.Globals.Drawer.setCenterWindow(win); 
 			Alloy.Globals.Drawer.closeLeftWindow();

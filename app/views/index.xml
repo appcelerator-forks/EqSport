@@ -21,7 +21,7 @@
 	        	<ImageView image="/images/logo.png"></ImageView>
         	</View>
            <!--<Require src="home"></Require>-->
-           <Require src="home"></Require>
+           <Require src="member"></Require>
         </View>
 
          
