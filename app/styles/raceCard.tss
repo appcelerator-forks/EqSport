@@ -1,0 +1,13 @@
+".title":{
+	font: {
+		fontSize: '25',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+".boldTitle":{
+	font: {
+		//fontSize: '12',
+		fontWeight: 'bold'
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},

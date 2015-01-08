@@ -6,7 +6,7 @@
 					<Label class="title" color="white" minimumFontSize="12">PLAY</Label>
 				</View>
 				<View width="15%" left="0" onClick="back">
-					<ImageView image="/images/others_08.png" onClick="back"></ImageView>
+					<ImageView image="/images/others_08.png"></ImageView>
 				</View>
 			</View>
 			<View layout="vertical" height="170">
@@ -48,7 +48,7 @@
 					</View>
 					<View layout="horizontal" height="30" width="100%">
 						<View width="19%">
-							<Label color="black">w</Label>
+							<Label color="orange">w</Label>
 						</View>
 						<View width="20%">
 							<Label color="black">6</Label>
@@ -65,7 +65,7 @@
 					</View>
 					<View layout="horizontal" height="30" width="100%">
 						<View width="19%">
-							<Label color="black">w</Label>
+							<Label color="orange">w</Label>
 						</View>
 						<View width="20%">
 							<Label color="black">6</Label>
@@ -84,7 +84,7 @@
 			</View>
 			<View layout="vertical" backgroundColor="#A5A5A5" height="Ti.UI.SIZE">
 				<Label color="black" top="10">Your available balance is RM85.05</Label>
-				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="10">
+				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
 					<View layout="horizontal" height="50" width="90%">
 						<View width="40%">
 							<Label left="5" color="black">Venue</Label>
@@ -139,7 +139,7 @@
 					</View>
 					<View layout="horizontal" height="50" width="90%">
 						<View width="40%">
-							<Label left="5" color="black" width="40%">Bet (RM)</Label>
+							<Label left="5" color="black">Bet (RM)</Label>
 						</View>
 						<View width="60%">
 							<TextField id="bet" width="100%" backgroundColor="#A5A5A5" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>

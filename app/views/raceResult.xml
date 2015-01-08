@@ -5,66 +5,62 @@
 				<Label class="title" color="white" minimumFontSize="12">RACE RESULT</Label>
 			</View>
 			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png" onClick="back"></ImageView>
+				<ImageView image="/images/others_08.png"></ImageView>
 			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
 			<View width="30%">
-				<Label class="title" color="black">Date</Label>
+				<Label class="boldTitle" color="black" left="10">Date</Label>
 			</View>
-			<View width="50%">
-				<Picker id="picker1" onChange="date" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5" color="black">
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<Picker id="picker1" onChange="date" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="30/11/2014"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>
 			</View>
-			<View width="20%">
-				<ImageView image="" backgroundColor="blue" width="40" height="40"></ImageView>
-			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
 			<View width="30%">
-				<Label class="title" color="black">Race No.</Label>
+				<Label class="boldTitle" color="black" left="10">Race No.</Label>
 			</View>
-			<View width="50%">
-				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5" color="black">
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="12"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>
 			</View>
-			<View width="20%">
-				<ImageView image="" backgroundColor="blue" width="40" height="40"></ImageView>
-			</View>
 		</View>
 		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white" top="10">
-			<View layout="horizontal" height="50" backgroundColor="#EA431A" width="100%">
+			<View layout="horizontal" height="60" backgroundColor="#EA431A" width="100%">
 				<View width="25%" backgroundColor="gray">
 					<View layout="vertical">
-						<Label class="title" color="white">RACE</Label>
+						<Label class="smallTitle" color="white">RACE</Label>
 						<Label class="largeTitle" color="white">9</Label>
 					</View>
 				</View>
 				<View width="74.9%">
-					<View layout="vertical" width="Ti.UI.SIZE" left="10">
-						<Label class="title" color="white">RESULT</Label>
-						<Label class="largeTitle" color="white">7,9,10</Label>
+					<View layout="vertical" width="Ti.UI.SIZE" left="0">
+						<Label class="smallTitle" color="white" left="10">RESULT</Label>
+						<Label class="largeTitle" color="white" left="10">7,9,10</Label>
 					</View>
 				</View>
 			</View>
 			<!--Sample of the result view 1-->
 			<View id="contentView1" layout="horizontal" height="60" width="100%">
-				<View id="leftView1" width="33%">
-					<Label id="leftLabel1" color="black">999</Label>
+				<View id="leftView1" width="25%">
+					<Label id="leftLabel1" color="black">WIN</Label>
 				</View>
-				<View id="centerView1" width="33%">
-					<Label id="centerLabel1" color="black">01</Label>
+				<View id="centerView1" width="44.9%">
+					<Label id="centerLabel1" color="black">7</Label>
 				</View>
-				<View id="rightView1" width="33%">
-					<Label id="rightLabel1" color="black">999</Label>
+				<View id="rightView1" width="30%">
+					<Label id="rightLabel1" color="black">RM15</Label>
 				</View>
 			</View>
 			<View id="centerLineView1" width="100%" height="1" bottom="2">
@@ -72,14 +68,14 @@
 			</View>
 			<!--Sample of the result view 2-->
 			<View id="contentView2" layout="horizontal" height="60" width="100%">
-				<View id="leftView2" width="33%">
-					<Label id="leftLabel2" color="black">999</Label>
+				<View id="leftView2" width="25%">
+					<Label id="leftLabel2" color="black">QIN</Label>
 				</View>
-				<View id="centerView2" width="33%">
-					<Label id="centerLabel2" color="black">01</Label>
+				<View id="centerView2" width="44.9%">
+					<Label id="centerLabel2" color="black">7</Label>
 				</View>
-				<View id="rightView2" width="33%">
-					<Label id="rightLabel2" color="black">999</Label>
+				<View id="rightView2" width="30%">
+					<Label id="rightLabel2" color="black">RM8</Label>
 				</View>
 			</View>
 			<View id="centerLineView2" width="100%" height="1" bottom="2">

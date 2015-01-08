@@ -5,52 +5,48 @@
 				<Label class="title" color="white" minimumFontSize="12">RACE ODD</Label>
 			</View>
 			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png" onClick="back"></ImageView>
+				<ImageView image="/images/others_08.png"></ImageView>
 			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
 			<View width="30%">
-				<Label class="title" color="black">Venue</Label>
+				<Label class="boldTitle" color="black" left="10">Venue</Label>
 			</View>
-			<View width="50%">
-				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5" color="black">
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow backgroundColor="yellow" color="red" title="JAP (GOOD)"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>
 			</View>
-			<View width="20%">
-				<ImageView image="" backgroundColor="blue" width="40" height="40"></ImageView>
-			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
 			<View width="30%">
-				<Label class="title" color="black">Race No.</Label>
+				<Label class="boldTitle" color="black" left="10">Race No.</Label>
 			</View>
-			<View width="50%">
-				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5" color="black">
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="12"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>
 			</View>
-			<View width="20%">
-				<ImageView image="" backgroundColor="blue" width="40" height="40"></ImageView>
-			</View>
 		</View>
-		<Label class="title" color="black" top="20" bottom="20" height="30">Min to Race: 34</Label>
+		<Label color="black" top="20" bottom="20" height="30">Min to Race: 34</Label>
 		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white">
 			<View layout="horizontal" height="50" backgroundColor="#EA431A" width="100%">
 				<View width="33%">
-					<Label class="title" color="white">WIN</Label>
+					<Label color="white">WIN</Label>
 				</View>
 				<View width="33%">
-					<Label class="title" color="white">RUNNER</Label>
+					<Label color="white">RUNNER</Label>
 				</View>
 				<View width="33%">
-					<Label class="title" color="white">PLACE</Label>
+					<Label color="white">PLACE</Label>
 				</View>
 			</View>
 			<!--Sample of the result view 1-->

@@ -10,3 +10,10 @@ function menuToggle(e){
 	var fn = 'toggleLeftWindow';
     $.drawer[fn]();
 }
+
+function back()
+{	
+	var win = Alloy.createController("member").getView();
+	Alloy.Globals.Drawer.setCenterWindow(win); 
+	Alloy.Globals.Drawer.closeLeftWindow();
+}
