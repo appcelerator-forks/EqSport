@@ -15,7 +15,7 @@ function play()
 
 function withdrawal()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("withdrawal").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
@@ -44,14 +44,14 @@ function raceCard()
 
 function raceOdd()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("raceOdd").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
 
 function raceResult()
 {
-	var win = Alloy.createController("").getView();
+	var win = Alloy.createController("raceResult").getView();
 	Alloy.Globals.Drawer.setCenterWindow(win); 
 	Alloy.Globals.Drawer.closeLeftWindow();
 }

@@ -91,7 +91,7 @@
 						</View>
 						<View width="60%">
 							<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5">
-								<PickerRow id="row1" ></PickerRow>
+								<PickerRow title="JAP (GOOD)"></PickerRow>
 								<PickerRow title="1"></PickerRow>
 								<PickerRow title="2"></PickerRow>
 								<PickerRow title="3"></PickerRow>
@@ -142,7 +142,7 @@
 							<Label left="5" color="black" width="40%">Bet (RM)</Label>
 						</View>
 						<View width="60%">
-							<TextField id="bet" width="100%" backgroundColor="#A5A5A5" color="white" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="bet" width="100%" backgroundColor="#A5A5A5" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
 						</View>
 					</View>
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">

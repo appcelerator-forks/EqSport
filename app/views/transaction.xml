@@ -15,7 +15,7 @@
 				</View>
 				<View id="pickerView" width="90%" height="215" backgroundColor="black" visible="false" top="60">
 					<Button height="50" width="100%" color="white" top="0" right="0" onClick="done">Done</Button>
-					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" selectionIndicator="true" top="55">
+					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="100%" selectionIndicator="true" top="50" backgroundColor="white">
 					</Picker>
 				</View>
 			</View>
