@@ -1,5 +1,6 @@
-var args = arguments[0] || {};
+var args = arguments[0] || {}; 
  
 function menuToggle(e){ 
-    Alloy.Globals.Drawer['toggleLeftWindow']();
+	Alloy.Globals.Drawer['toggleLeftWindow']();
+       
 }

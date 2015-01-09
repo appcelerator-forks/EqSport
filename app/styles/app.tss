@@ -1,8 +1,12 @@
-
+".hr" :{
+	width: Ti.UI.FILL,
+	height: '1',
+	backgroundColor: '#ed1c24',
+},
 "#header": {
 	width: Ti.UI.FILL,
-	height: "45",
-	top: '0',
+	height: 50,
+	top: Alloy.Globals.topbarTop,
 },
 ".container" : {
 	backgroundColor: "#ffffff"

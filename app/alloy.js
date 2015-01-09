@@ -9,7 +9,16 @@
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};
-
+if (Ti.Platform.osname == 'iphone') {
+    if (Ti.Platform.version >= '7.0.0') {
+        Alloy.Globals.topbarTop = 20;
+    } else {
+        Alloy.Globals.topbarTop = 10;
+    }
+    
+} else{
+	Alloy.Globals.topbarTop = 0;
+}
 var API = require('api');
 var getValueFromXml = function(xml, parent,child){
 	var parentNode =  xml.getElementsByTagName(parent).item(0); 

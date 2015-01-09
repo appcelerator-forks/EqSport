@@ -1,21 +1,12 @@
 var args = arguments[0] || {}; 
 
 
-if(Ti.Platform.osname == "android")
-{
+if(Ti.Platform.osname == "android") {
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
 }
 
 function goTo(e){
-	navigation(e.source.mod);
-	// if(Ti.Platform.osname == "android")
-	// {
-		// navigation(e.source.mod);
-	// }
-	// else
-	// {
-		// iOSnavigation(e.source.mod);
-	// }
+	navigation(e.source.mod); 
 }
 
 function navigation(target){

@@ -6,19 +6,17 @@
         </Window>
 
         <NavigationWindow platform="ios" role="centerWindow" id="iosNavWind">
-            <Window titleImage="/images/logo.png" barColor="white">
-                <LeftNavButton>
-                    <ImageView image="/images/menu_toggle.png" left="0" onClick="menuToggle" height="40" width="40" />
-             	</LeftNavButton>
+            <Window navBarHidden="true" fullscreen="true" barColor="white">
+                
                 <!--<Require src="home"></Require>-->
                 <Require src="home"></Require>
             </Window>
         </NavigationWindow>
         
         <View platform="android" layout="vertical" role="centerWindow" backgroundColor="white">
-        	<Require src="_header"></Require>
-           <!--<Require src="home"></Require>-->
-           <Require src="member"></Require>
+        	 
+           <Require src="home"></Require>
+           <!--<Require src="member"></Require>-->
         </View>
 
          
