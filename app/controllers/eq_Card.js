@@ -70,14 +70,6 @@ function scrollend(event){
 $.scrollableView.addEventListener("scrollend", scrollend);
 
 function closeWindow(){
-    //$.eq_Card.close();
-    Ti.API.info("close");
-    var win = Alloy.createController("index").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+   DRAWER.navigation("home");
 }
-
-function menuToggle(e){
-	var fn = 'toggleLeftWindow';
-    $.drawer[fn]();
-}
+ 

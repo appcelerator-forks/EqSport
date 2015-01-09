@@ -18,9 +18,7 @@ function back()
 	// $.picker4.removeEventListener('change',runner);
 	//$.picker.removeEventListener('change',transaction);
 	
-	var win = Alloy.createController("member").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+	DRAWER.navigation("member");
 }
 
 //$.picker.addEventListener('change',transaction);
@@ -37,20 +35,17 @@ function back()
 	// */
 // }
 
-function showDate()
-{
+function showDate(){
 	$.dateView.height = 285;
 	$.pickerView.show();
 }
 
-function displayDate(day,month,year)
-{
+function displayDate(day,month,year){
 	var string = day + "/" + month + "/" + year;
 	$.date.text = string;
 }
 
-function done()
-{
+function done(){
 	$.pickerView.hide();
 	$.dateView.height = 70;
 	var value = $.picker.value;

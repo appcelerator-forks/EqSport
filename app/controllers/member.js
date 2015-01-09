@@ -6,52 +6,33 @@ function menuToggle(e){
     $.drawer[fn]();
 }
 
-function play()
-{
-	var win = Alloy.createController("play").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function play(){
+	DRAWER.navigation("play");
 }
 
-function withdrawal()
-{
-	var win = Alloy.createController("withdrawal").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function withdrawal(){
+	DRAWER.navigation("withdrawal");
 }
 
-function amountBalance()
-{
+function amountBalance(){
 	API.checkBalance();
 	// var win = Alloy.createController("amountBalance").getView();
 	// Alloy.Globals.Drawer.setCenterWindow(win); 
 	// Alloy.Globals.Drawer.closeLeftWindow();
 }
 
-function transaction()
-{
-	var win = Alloy.createController("transaction").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function transaction(){ 
+	DRAWER.navigation("transaction");
 }
 
-function raceCard()
-{
-	var win = Alloy.createController("raceCard").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function raceCard(){
+	DRAWER.navigation("raceCard");
 }
 
-function raceOdd()
-{ 
-	var win = Alloy.createController("raceOdd").getView(); 
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function raceOdd(){  
+	DRAWER.navigation("raceOdd");
 }
 
-function raceResult()
-{ 
-	var win = Alloy.createController("raceResult").getView(); 
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function raceResult(){  
+	DRAWER.navigation("raceResult");
 }

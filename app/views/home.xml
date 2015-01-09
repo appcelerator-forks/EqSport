@@ -1,6 +1,6 @@
 <Alloy>
 	<View class="container" layout="vertical">
-	<Require src="_header"></Require>
+	<Require src="_header" ></Require>
 	<ScrollView id="scrollView" class="container" layout="vertical" disableBounce="true" height="Ti.UI.SIZE" scrollType="vertical">
 		
 		<View layout="vertical" backgroundImage="/images/top_bg.png" height="150">
@@ -9,7 +9,7 @@
 				<Label class="descText">Enjoy privilege at everywhere and everytime</Label>
 			</View>	
 			<View layout="horizontal" height="80" width="100%">
-				<View height="100%" width="50%">
+				<View height="100%" width="49.9%">
 					<ImageView height="40" image="/images/btn_login.png" onClick="login" />
 				</View>
 				<View height="100%" width="49.9%">

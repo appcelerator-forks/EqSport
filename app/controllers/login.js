@@ -1,20 +1,14 @@
 var args = arguments[0] || {};
  
-function submit()
-{
+function submit(){
 	var account = $.account.value;
 	var pin = $.pin.value;
 
-	if(account == "")
-	{
+	if(account == ""){
 		alert("no email/account");
-	}
-	else if(pin == "")
-	{
+	}else if(pin == ""){
 		alert("no pin");
-	}
-	else
-	{
+	}else{
 		API.login({
 			acc_no : account,
 			acc_pin: pin
@@ -22,22 +16,14 @@ function submit()
 	}
 }
 
-function newAccount()
-{
+function newAccount(){
 	
 }
 
-function close()
-{
-	Ti.API.info("close");
-	var win = Alloy.createController("home").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function close(){ 
+	DRAWER.navigation("home");
 }
 
-function skip()
-{
-	var win = Alloy.createController("home").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function skip(){
+	DRAWER.navigation("home");
 }

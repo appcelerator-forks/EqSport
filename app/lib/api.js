@@ -57,11 +57,7 @@ exports.login = function (ex){
 				}); 
 				userInfo.save();  
     			Ti.App.fireEvent("app:refreshMenu");
-
-		       	// go to next view
-		       	var win = Alloy.createController("member").getView();
-				Alloy.Globals.Drawer.setCenterWindow(win); 
-				Alloy.Globals.Drawer.closeLeftWindow(); 
+ 
 	     	}
 	       
 	     },

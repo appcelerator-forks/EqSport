@@ -1,5 +1,0 @@
-<Alloy>
-    <TableView id="tblMenu" class="menuTable"  onClick="doMenuClick" showVerticalScrollIndicator="false" scrollable="true">
-     
-    </TableView>
-</Alloy>

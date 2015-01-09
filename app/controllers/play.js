@@ -71,16 +71,11 @@ $.bet.addEventListener('focus', function f(e){
     $.bet.removeEventListener('focus', f);
 });
 
-function back()
-{	
-	var win = Alloy.createController("member").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function back(){	
+	DRAWER.navigation("member");
 }
 
-function confirm()
-{
-	console.log("confirm");
+function confirm(){
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
 		height:"80%",

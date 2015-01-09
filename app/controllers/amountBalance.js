@@ -7,13 +7,9 @@ $.date.text = details.date;
 $.time.text = details.time;
 
 function menuToggle(e){
-	var fn = 'toggleLeftWindow';
-    $.drawer[fn]();
+	DRAWER.closeToggle();
 }
 
-function back()
-{	
-	var win = Alloy.createController("member").getView();
-	Alloy.Globals.Drawer.setCenterWindow(win); 
-	Alloy.Globals.Drawer.closeLeftWindow();
+function back(){	
+	DRAWER.navigation("member");
 }
