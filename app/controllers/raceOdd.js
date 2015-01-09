@@ -8,12 +8,12 @@ function back()
 	Alloy.Globals.Drawer.closeLeftWindow();
 }
 
-function date()
+function venue()
 {
 	
 }
 
-function venue()
+function raceNo()
 {
 	
 }
@@ -28,7 +28,7 @@ for(var i=0, i < arr.length, i++)
 	});
 	
 	var leftView+i = Titanium.UI.createView({
-		width:"30%"
+		width:"33%"
 	});
 	
 	var leftLabel+i = Ti.UI.createLabel({
@@ -37,7 +37,7 @@ for(var i=0, i < arr.length, i++)
 	});
 	
 	var centerView+i = Titanium.UI.createView({
-		width:"50%"
+		width:"33%"
 	});
 	
 	var centerLabel+i = Ti.UI.createLabel({
@@ -46,7 +46,12 @@ for(var i=0, i < arr.length, i++)
 	});
 	
 	var rightView+i = Titanium.UI.createView({
-		width:"20%"
+		width:"33%"
+	});
+	
+	var rightLabel+i = Ti.UI.createLabel({
+		color: "black",
+		text: arr[i].value
 	});
 	
 	var lineView = Titanium.UI.createView({
@@ -64,6 +69,7 @@ for(var i=0, i < arr.length, i++)
 	
 	leftView+i.add(leftLabel+i);
 	centerView+i.add(centerLabel+i);
+	rightView+i.add(rightLabel+i);
 	contentView+i.add(leftView+i);
 	contentView+i.add(centerView+i);
 	contentView+i.add(rightView+i);

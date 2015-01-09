@@ -4,6 +4,18 @@
 	},
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 },
+".largeTitle":{
+	font: {
+		fontSize: '30',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+".smallTitle":{
+	font: {
+		fontSize: '12',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
 ".boldTitle":{
 	font: {
 		//fontSize: '12',

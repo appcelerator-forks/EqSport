@@ -1,25 +1,11 @@
 <Alloy>
 	<View id="mainView" layout="vertical" backgroundColor="#A5A5A5">
-		<View layout="composite" height="50" backgroundColor="#EA431A" >
+		<View layout="composite" height="50" backgroundColor="#EA431A">
 			<View width="100%">
-				<Label class="title" color="white" minimumFontSize="12">RACE CARD</Label>
+				<Label class="title" color="white" minimumFontSize="12">RACE RESULT</Label>
 			</View>
 			<View width="15%" left="0" onClick="back">
 				<ImageView image="/images/others_08.png"></ImageView>
-			</View>
-		</View>
-		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Venue</Label>
-			</View>
-			<View width="70%">
-				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
-				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<PickerRow title="JAP (GOOD)"></PickerRow>
-					<PickerRow title="1"></PickerRow>
-					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>
-				</Picker>
 			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
@@ -28,27 +14,53 @@
 			</View>
 			<View width="70%">
 				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
-				<Picker id="picker2" onChange="date" width="100%" selectionIndicator="true" backgroundColor="transparent">
+				<Picker id="picker1" onChange="date" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="30/11/2014"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>
 			</View>
-			<!--<View width="20%">
-				<ImageView image="/images/others_10.png" width="40" height="40"></ImageView>
-		</View>-->
+		</View>
+		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+			<View width="30%">
+				<Label class="boldTitle" color="black" left="10">Race No.</Label>
+			</View>
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
+					<PickerRow title="12"></PickerRow>
+					<PickerRow title="1"></PickerRow>
+					<PickerRow title="2"></PickerRow>
+					<PickerRow title="3"></PickerRow>
+				</Picker>
+			</View>
 		</View>
 		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white" top="10">
+			<View layout="horizontal" height="60" backgroundColor="#EA431A" width="100%">
+				<View width="25%" backgroundColor="gray">
+					<View layout="vertical">
+						<Label class="smallTitle" color="white">RACE</Label>
+						<Label class="largeTitle" color="white">9</Label>
+					</View>
+				</View>
+				<View width="74.9%">
+					<View layout="vertical" width="Ti.UI.SIZE" left="0">
+						<Label class="smallTitle" color="white" left="10">RESULT</Label>
+						<Label class="largeTitle" color="white" left="10">7,9,10</Label>
+					</View>
+				</View>
+			</View>
 			<!--Sample of the result view 1-->
 			<View id="contentView1" layout="horizontal" height="60" width="100%">
-				<View id="leftView1" width="30%">
-					<Label id="leftLabel1" color="black">9</Label>
+				<View id="leftView1" width="25%">
+					<Label id="leftLabel1" color="black">WIN</Label>
 				</View>
-				<View id="centerView1" width="50%">
-					<Label id="centerLabel1" color="black">1:35:00PM</Label>
+				<View id="centerView1" width="44.9%">
+					<Label id="centerLabel1" color="black">7</Label>
 				</View>
-				<View id="rightView1" width="20%">
+				<View id="rightView1" width="30%">
+					<Label id="rightLabel1" color="black">RM15</Label>
 				</View>
 			</View>
 			<View id="centerLineView1" width="100%" height="1" bottom="2">
@@ -56,13 +68,14 @@
 			</View>
 			<!--Sample of the result view 2-->
 			<View id="contentView2" layout="horizontal" height="60" width="100%">
-				<View id="leftView2" width="30%">
-					<Label id="leftLabel2" color="black">10</Label>
+				<View id="leftView2" width="25%">
+					<Label id="leftLabel2" color="black">QIN</Label>
 				</View>
-				<View id="centerView2" width="50%">
-					<Label id="centerLabel2" color="black">1:35:00PM</Label>
+				<View id="centerView2" width="44.9%">
+					<Label id="centerLabel2" color="black">7</Label>
 				</View>
-				<View id="rightView2" width="20%">
+				<View id="rightView2" width="30%">
+					<Label id="rightLabel2" color="black">RM8</Label>
 				</View>
 			</View>
 			<View id="centerLineView2" width="100%" height="1" bottom="2">

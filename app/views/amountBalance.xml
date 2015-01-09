@@ -3,11 +3,11 @@
 		<View layout="horizontal" height="50" backgroundColor="#EA431A" >
 			<!--<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
 			<ImageView image="/images/logo.png"></ImageView>-->
-			<View width="10%">
-				<ImageView image="/images/others_08.png"></ImageView>
-			</View>
-			<View width="90%">
+			<View width="100%">
 				<Label class="title" color="white" minimumFontSize="12">CHECK AMOUNT BALANCE</Label>
+			</View>
+			<View width="15%" left="0" onClick="back">
+				<ImageView image="/images/others_08.png"></ImageView>
 			</View>
 		</View>
 		<View layout="vertical" backgroundColor="#F5F5F5">

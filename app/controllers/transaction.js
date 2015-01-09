@@ -6,6 +6,10 @@ var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + today
 
 $.date.text = toDisplay;
 
+// $.picker.minDate = new Date(2009,0,1);
+// $.picker.maxDate = new Date();
+// $.picker.value = new Date();
+
 function back()
 {
 	// $.picker1.removeEventListener('change',venue);

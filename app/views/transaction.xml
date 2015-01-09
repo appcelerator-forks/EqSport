@@ -6,7 +6,7 @@
 					<Label class="title" color="white" minimumFontSize="12">VIEW TRANSACTION</Label>
 				</View>
 				<View width="15%" left="0" onClick="back">
-					<ImageView image="/images/others_08.png" onClick="back"></ImageView>
+					<ImageView image="/images/others_08.png"></ImageView>
 				</View>
 			</View>
 			<View id="dateView" height="70" width="100%" backgroundColor="#A5A5A5">
@@ -15,7 +15,7 @@
 				</View>
 				<View id="pickerView" width="90%" height="215" backgroundColor="black" visible="false" top="60">
 					<Button height="50" width="100%" color="white" top="0" right="0" onClick="done">Done</Button>
-					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" selectionIndicator="true" top="55">
+					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="100%" selectionIndicator="true" top="50" backgroundColor="white">
 					</Picker>
 				</View>
 			</View>

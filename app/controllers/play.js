@@ -1,24 +1,29 @@
-//Assign value in case the user didn't change data
-var venue;
-var raceNo;
-var pool;
-var runner;
+//Assign value in case the user didn't change data --- solve by using setSelectedRow
+// var venue;
+// var raceNo;
+// var pool;
+// var runner;
 
-var label = Ti.UI.createLabel({
-    left: 0,
-    text: "JAP (GOOD)",
-    color: 'black',
-    font: {
-        fontFamily:'Arial',
-        fontSize: '14dp',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontColor: 'black'
-    }
-});
+$.picker1.setSelectedRow(0,false);
+$.picker2.setSelectedRow(0,false);
+$.picker3.setSelectedRow(0,false);
+$.picker4.setSelectedRow(0,false);
 
-$.row1.add(label);
-$.row1.title = label.text;
+// var label = Ti.UI.createLabel({
+    // left: 0,
+    // text: "JAP (GOOD)",
+    // color: 'black',
+    // font: {
+        // fontFamily:'Arial',
+        // fontSize: '14dp',
+        // fontStyle: 'normal',
+        // fontWeight: 'normal',
+        // fontColor: 'black'
+    // }
+// });
+// 
+// $.row1.add(label);
+// $.row1.title = label.text;
 
 if(Ti.Platform.osname == "android")
 {
@@ -39,6 +44,7 @@ var confirmBtn;
 
 function venue(e)
 {
+	console.log("venue");
 	venue = e.row.title;
 	console.log(venue);
 }

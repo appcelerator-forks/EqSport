@@ -12,7 +12,7 @@
 				<View height="100%" width="50%">
 					<ImageView height="40" image="/images/btn_login.png" onClick="login" />
 				</View>
-				<View height="100%" width="50%">
+				<View height="100%" width="49.9%">
 					<ImageView height="40" image="/images/btn_signup.png" />
 				</View>
 			</View>	
@@ -22,7 +22,7 @@
 				<!--<ImageView onClick="goTo" mod="Card"  image="/images/home01.png" width="100%" left="10" right="10"  top="10" ></ImageView>-->
 				<ImageView onClick="goTo" mod="Card"  image="/images/home01.png" width="100%"></ImageView>
 			</View>
-			<View width="50%" height="100%">
+			<View width="49.9%" height="100%">
 				<!--<ImageView onClick="goTo" mod="Play" image="/images/home02.png" width="100%" left="25" top="10"></ImageView>-->
 				<ImageView onClick="goTo" mod="Play" image="/images/home02.png" width="100%"></ImageView>	
 			</View>
@@ -32,7 +32,7 @@
 				<!--<Label width="40%" left="10" right="5" top="20" onClick="goTo" mod="Card" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">EQLink Card</Label>-->
 				<Label width="100%" onClick="goTo" mod="Card" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">EQLink Card</Label>
 			</View>
-			<View width="50%" height="100%">
+			<View width="49.9%" height="100%">
 				<!--<Label width="40%" left="40" top="20" onClick="goTo" mod="Play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play with EQLink</Label>-->
 				<Label width="100%" onClick="goTo" mod="Play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play with EQLink</Label>
 			</View>
@@ -42,7 +42,7 @@
 				<!--<ImageView onClick="goTo" mod="Win" image="/images/home03.png" width="42%" left="10" right="10"  top="20" ></ImageView>-->
 				<ImageView onClick="goTo" mod="Win" image="/images/home03.png" width="100%"></ImageView>
 			</View>
-			<View width="50%" height="100%">
+			<View width="49.9%" height="100%">
 				<!--<ImageView onClick="goTo" mod="Reload" image="/images/home04.png" width="42%" left="25" top="20"></ImageView>-->
 				<ImageView onClick="goTo" mod="Reload" image="/images/home04.png" width="100%"></ImageView>
 			</View>
@@ -52,7 +52,7 @@
 				<!--<Label width="40%" left="10" right="5" top="30" onClick="goTo" mod="Win" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Win with EQLink</Label>-->
 				<Label width="100%" onClick="goTo" mod="Win" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Win with EQLink</Label>
 			</View>
-			<View width="50%" height="100%">
+			<View width="49.9%" height="100%">
 				<!--<Label width="40%" left="40" top="30" onClick="goTo" mod="Reload" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Reload EQLink</Label>-->
 				<Label width="100%" onClick="goTo" mod="Reload" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Reload EQLink</Label>
 			</View>
