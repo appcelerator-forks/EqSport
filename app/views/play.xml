@@ -1,6 +1,6 @@
 <Alloy>
-	<View id="mainView">
-		<ScrollView id="scrollView" layout="vertical" backgroundColor="white">
+	<View id="mainView" backgroundImage="/images/BG_Large.jpg">
+		<ScrollView id="scrollView" layout="vertical">
 			<View layout="composite" height="50" backgroundColor="#EA431A" >
 				<View width="100%">
 					<Label class="title" color="white" minimumFontSize="12">PLAY</Label>
@@ -9,7 +9,7 @@
 					<ImageView image="/images/others_08.png"></ImageView>
 				</View>
 			</View>
-			<View layout="vertical" height="170">
+			<View layout="vertical" height="170" backgroundColor="white">
 				<View height="50" top="10" width="90%">
 					<View layout="horizontal" width="Ti.UI.SIZE" >
 						<View width="42%">
@@ -29,7 +29,7 @@
 						</View>
 					</View>
 				</View>
-				<ScrollView id="scrollView2" layout="vertical" height="90" width="90%" top="10" backgroundColor="#A5A5A5" bottom="10">
+				<ScrollView id="scrollView2" layout="vertical" height="90" width="90%" top="10" backgroundColor="#EFEFEF" bottom="10">
 					<View layout="horizontal" height="30" width="100%">
 						<View width="19%">
 						</View>
@@ -82,7 +82,7 @@
 					</View>
 				</ScrollView>
 			</View>
-			<View layout="vertical" backgroundColor="#A5A5A5" height="Ti.UI.SIZE">
+			<View layout="vertical" height="Ti.UI.SIZE">
 				<Label color="black" top="10">Your available balance is RM85.05</Label>
 				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
 					<View layout="horizontal" height="50" width="90%">
@@ -90,7 +90,7 @@
 							<Label left="5" color="black">Venue</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5">
+							<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF">
 								<PickerRow title="JAP (GOOD)"></PickerRow>
 								<PickerRow title="1"></PickerRow>
 								<PickerRow title="2"></PickerRow>
@@ -103,7 +103,7 @@
 							<Label left="5" color="black">Race No.</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5">
+							<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF">
 								<PickerRow title="10"></PickerRow>
 								<PickerRow title="1"></PickerRow>
 								<PickerRow title="2"></PickerRow>
@@ -116,7 +116,7 @@
 							<Label left="5" color="black">Pool</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker3" onChange="pool" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5">
+							<Picker id="picker3" onChange="pool" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF">
 								<PickerRow title="WIN / PLA"></PickerRow>
 								<PickerRow title="1"></PickerRow>
 								<PickerRow title="2"></PickerRow>
@@ -129,12 +129,13 @@
 							<Label left="5" color="black">Runner*</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker4" onChange="runner" width="100%" selectionIndicator="true" backgroundColor="#A5A5A5">
+							<!--<Picker id="picker4" onChange="runner" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF">
 								<PickerRow title="1"></PickerRow>
 								<PickerRow title="2"></PickerRow>
 								<PickerRow title="3"></PickerRow>
 								<PickerRow title="4"></PickerRow>
-							</Picker>
+						</Picker>-->
+						<TextField id="runner" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
 						</View>
 					</View>
 					<View layout="horizontal" height="50" width="90%">
@@ -142,7 +143,7 @@
 							<Label left="5" color="black">Bet (RM)</Label>
 						</View>
 						<View width="60%">
-							<TextField id="bet" width="100%" backgroundColor="#A5A5A5" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="bet" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
 						</View>
 					</View>
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">

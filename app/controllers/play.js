@@ -7,7 +7,7 @@
 $.picker1.setSelectedRow(0,false);
 $.picker2.setSelectedRow(0,false);
 $.picker3.setSelectedRow(0,false);
-$.picker4.setSelectedRow(0,false);
+// $.picker4.setSelectedRow(0,false);
 
 // var label = Ti.UI.createLabel({
     // left: 0,
@@ -61,10 +61,10 @@ function pool(e)
 	console.log(pool);
 }
 
-function runner(e){
-	runner = e.row.title;
-	console.log(runner);
-}
+// function runner(e){
+	// runner = e.row.title;
+	// console.log(runner);
+// }
 
 $.bet.addEventListener('focus', function f(e){
     $.bet.blur();
@@ -103,7 +103,7 @@ function confirm(){
 		layout: "vertical",
 		height:"85%",
 		width:"100%",
-		backgroundColor:"#A5A5A5",
+		backgroundColor:"#EFEFEF",
 		scrollType: "vertical",
 		showVerticalScrollIndicator: false,
   		showHorizontalScrollIndicator: false,
@@ -200,7 +200,7 @@ function confirm(){
 	
 	var runnerLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: runner,
+		text: $.runner.value,
 		width: "50%"
 	});
 	

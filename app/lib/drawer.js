@@ -43,10 +43,10 @@ var createLeftMenu = function(obj){
 	
 	var data=[];
 	var isUser =  info.getInfo(); 
-	var title = ['EQLINK CARD', 'PLAY WITH EQLINK', 'WIN WITH EQLINK', 'RELOAD EQLINK'];
+	var title = ['HOME', 'EQLINK CARD', 'PLAY WITH EQLINK', 'WIN WITH EQLINK', 'RELOAD EQLINK'];
  
 	if (isUser.length > 0 ) {
-		title.push('MY ACCOUNT', 'PLAY', 'WITHDRAWAL', 'CHECK AMOUNT BALANCE', 'RACE CARD', 'RACE ODD', 'RACE RESULT', 'LOGOUT');
+		title.push('MY ACCOUNT', 'PLAY', 'LOGOUT');
 	}
 	else {
 		title.push('MEMBER LOGIN');
@@ -55,6 +55,7 @@ var createLeftMenu = function(obj){
 	var style = obj.createStyle({
         classes: 'menuLabel',
         apiName: 'Button',
+        color: 'white'
     });
     
     
@@ -83,53 +84,38 @@ var createLeftMenu = function(obj){
 	tableView.addEventListener("click", function(e){ 
 		switch(e.index){
 			case 0: 
-			navigation("home");  
-			//navigation("eq_Card");  
+			navigation("home");   
 			break;
 		case 1:   
-			navigation("eq_Play"); 
+			navigation("eq_Card"); 
 			break;
 		case 2:   
-			navigation("eq_Win"); 
+			navigation("eq_Play"); 
 			break;
 		case 3:   
-			navigation("eq_Reload");
+			navigation("eq_Win");
 			break; 
 	 	case 4: 
-	 		var isUser =  info.getInfo(); 
+	 		navigation("eq_Reload");
+			break;
+		case 5: 
+			var isUser =  info.getInfo(); 
 	 		if (isUser.length > 0 ) {
 				navigation("member");
 			}
 			else {
-				navigation("home");
+				navigation("login");
 			}
-			 
-			break;
-		case 5: 
-			navigation("play");
 			break;
 		case 6:  
-			navigation("withdrawal");
+			navigation("play");
 			break;
 	 
 		case 7: 
-			balance.resetBalance();
-			info.resetInfo();
-			rtoResults.resetResults(); 
-			navigation("amountBalance");
-			break;
-		case 8:  
-			navigation("raceCard");
-			break;
-		case 9:  
-			navigation("raceOdd"); 
-			break;
-		case 10:  
-			navigation("raceResult");
-			break;
-	
-		
-		case 11:   
+			// balance.resetBalance();
+			// info.resetInfo();
+			// rtoResults.resetResults(); 
+			// navigation("amountBalance");
 			logout(obj);
 			break;
 		}
@@ -188,10 +174,11 @@ exports.navigation = function(target){
 };
 
 exports.closeToggle = function(target){
+	console.log("closeToggle");
 	nappDrawer.toggleLeftWindow();
 };
 
 exports.initMenu = function(obj){  
 	nappDrawer.setLeftWindow(createLeftMenu(obj)); 
-	navigation("home");
+	navigation("member");
 };

@@ -11,3 +11,8 @@ function goTo(e){
 function login(){ 
 	DRAWER.navigation("login");
 }
+
+function signUp()
+{
+	DRAWER.navigation("signUp");
+}

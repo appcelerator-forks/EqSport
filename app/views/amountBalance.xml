@@ -1,6 +1,6 @@
 <Alloy>
-	<View layout="vertical">
-		<View layout="horizontal" height="50" backgroundColor="#EA431A" >
+	<View layout="vertical" backgroundImage="/images/BG_Large.jpg">
+		<View layout="composite" height="50" backgroundColor="#EA431A" >
 			<!--<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
 			<ImageView image="/images/logo.png"></ImageView>-->
 			<View width="100%">
@@ -10,7 +10,7 @@
 				<ImageView image="/images/others_08.png"></ImageView>
 			</View>
 		</View>
-		<View layout="vertical" backgroundColor="#F5F5F5">
+		<View layout="vertical">
 			<Label top="30" color="#444444" class="label1">Your available balance</Label>
 			<View layout="composite" height="180" top="20">
 				<View backgroundColor="white" borderRadius="90" height="180" width="180"></View>

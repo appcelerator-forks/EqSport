@@ -1,5 +1,5 @@
 <Alloy>
-	<View class="container" layout="vertical">
+	<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
 	<Require src="_header" ></Require>
 	<ScrollView id="scrollView" class="container" layout="vertical" disableBounce="true" height="Ti.UI.SIZE" scrollType="vertical">
 		
@@ -13,7 +13,7 @@
 					<ImageView height="40" image="/images/btn_login.png" onClick="login" />
 				</View>
 				<View height="100%" width="49.9%">
-					<ImageView height="40" image="/images/btn_signup.png" />
+					<ImageView height="40" image="/images/btn_signup.png" onClick="signUp" />
 				</View>
 			</View>	
 		</View>

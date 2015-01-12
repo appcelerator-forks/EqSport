@@ -1,5 +1,5 @@
 <Alloy>
-	<View id="mainView" layout="vertical" backgroundColor="#A5A5A5">
+	<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
 		<View layout="composite" height="50" backgroundColor="#EA431A" >
 			<View width="100%">
 				<Label class="title" color="white" minimumFontSize="12">RACE CARD</Label>

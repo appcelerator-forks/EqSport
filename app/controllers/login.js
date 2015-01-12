@@ -17,7 +17,7 @@ function submit(){
 }
 
 function newAccount(){
-	
+	DRAWER.navigation("signUp");
 }
 
 function close(){ 

@@ -1,5 +1,13 @@
-$.picker1.setSelectedRow(0,false);
-$.picker2.setSelectedRow(0,false);
+// $.picker1.setSelectedRow(0,false);
+// $.picker2.setSelectedRow(0,false);
+
+var todayDate = new Date().getDate();
+var todayMonth = new Date().getMonth()+1;
+var todayYear = new Date().getFullYear();
+
+var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + todayYear.toString();
+
+$.date.text = toDisplay;
 
 function back(){	
 	DRAWER.navigation("member");
@@ -11,6 +19,33 @@ function raceNo(){
 
 function date(){
 	
+}
+
+function showDate(){
+	$.dateContainer.height = 265;
+	$.dateView.height = 265;
+	$.pickerView.show();
+}
+
+function displayDate(day,month,year){
+	var string = day + "/" + month + "/" + year;
+	$.date.text = string;
+}
+
+function done(){
+	$.pickerView.hide();
+	$.dateContainer.height = 50;
+	$.dateView.height = 50;
+	var value = $.picker.value;
+	var dayInt = value.getDate();
+	var monthInt = value.getMonth()+1;
+	var yearInt = value.getFullYear() ;
+	
+	var day = dayInt.toString();
+	var month = monthInt.toString();
+	var year = yearInt.toString();
+	
+	displayDate(day,month,year);
 }
 
 /*

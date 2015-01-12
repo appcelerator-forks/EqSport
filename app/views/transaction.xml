@@ -1,6 +1,6 @@
 <Alloy>
-	<View>
-		<ScrollView id="scrollView" layout="vertical" backgroundColor="white">
+	<View backgroundImage="/images/BG_Large.jpg">
+		<ScrollView id="scrollView" layout="vertical">
 			<View layout="composite" height="50" backgroundColor="#EA431A" >
 				<View width="100%">
 					<Label class="title" color="white" minimumFontSize="12">VIEW TRANSACTION</Label>
@@ -9,7 +9,7 @@
 					<ImageView image="/images/others_08.png"></ImageView>
 				</View>
 			</View>
-			<View id="dateView" height="70" width="100%" backgroundColor="#A5A5A5">
+			<View id="dateView" height="70" width="100%">
 				<View width="90%" height="50" backgroundColor="white" onClick="showDate" top="10">
 					<Label id="date" onClick="showDate" color="black"></Label>
 				</View>
@@ -19,7 +19,7 @@
 					</Picker>
 				</View>
 			</View>
-			<View id="contentView">
+			<View id="contentView" backgroundColor="white">
 				
 			</View>
 		</ScrollView>

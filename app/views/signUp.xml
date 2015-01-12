@@ -1,0 +1,13 @@
+<Alloy>
+	<View id="mainView" layout="vertical" backgroundColor="#A5A5A5">
+		<View layout="composite" height="50" backgroundColor="#EA431A" >
+			<View width="100%">
+				<Label class="title" color="white" minimumFontSize="12">SIGN UP</Label>
+			</View>
+			<View width="15%" left="0" onClick="back">
+				<ImageView image="/images/others_08.png"></ImageView>
+			</View>
+		</View>
+		<WebView id="webview" url="http://www.google.com"></WebView>
+	</View>
+</Alloy>

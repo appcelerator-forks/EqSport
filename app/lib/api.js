@@ -11,8 +11,11 @@ var KEY   = 'TESTWEBSEPWD';
 var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
 var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
 //var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
- var resultNdividend = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
- 
+var resultNdividend = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
+var requestRaceFavouriteOdds = "http://"+API_DOMAIN+"/j2me/v3/FavOdds_Track.asp";
+var requestRaceCard = "http://"+API_DOMAIN+"/j2me/v3/Racelist_Track.asp";
+var requestRaceResultWithDate = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME=WEBSEUSER&PWD=WEBSE";
+
  //http://175.143.113.177/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD
 /*********************
 **** API FUNCTION*****
@@ -225,6 +228,75 @@ exports.confirmRaceBet= function(ex){
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
 	     	alert("An error occurs");
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+//favourite odds
+exports.favourite = function (ex){
+	var url = requestRaceFavouriteOdds;
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	     	console.log("favourite");
+	       	var res = getValueFromPipe(this.responseXML);
+	       console.log(res);
+	     
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	console.log("An error occurs");
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+//raceCard
+exports.raceCard = function (ex){
+	var url = requestRaceCard;
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	     	console.log("raceCard");
+	       	var res = getValueFromPipe(this.responseXML);
+	       console.log(res);
+	     
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	console.log("An error occurs");
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+//raceResult
+exports.raceResult = function (ex){
+	var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	     	console.log("raceResult");
+	       	var res = getValueFromPipe(this.responseXML);
+	       console.log(res);
+	     
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	console.log("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });

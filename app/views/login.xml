@@ -1,6 +1,6 @@
 <Alloy>
  
-	<View class="container" layout="vertical">
+	<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
 		
 		<!--<View layout="vertical" backgroundImage="/images/top_bg.png" height="150">
 			<View layout="vertical" height="50"  width="90%">
