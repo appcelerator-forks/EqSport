@@ -2,9 +2,9 @@
 	<View layout="vertical" id="win" backgroundColor="white">
 		<Require src="_header"></Require>
     	<View id="menu">
-    		<Label id="lbl1" mod="0" width="33.3%" onTouchend="goSlide" class="menuItem" backgroundColor="#FFFFFF" color="#494949" borderColor="#FFFFFF" borderWidth="0.5">Overview</Label>
-    		<Label id="lbl2" mod="1" width="33.3%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">Details</Label>
-    		<Label id="lbl3" mod="2" width="33.3%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">T&C</Label>
+    		<Label id="lbl1" mod="0" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#FFFFFF" color="#494949" borderColor="#FFFFFF" borderWidth="0.5">Overview</Label>
+    		<Label id="lbl2" mod="1" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">Details</Label>
+    		<Label id="lbl3" mod="2" width="33%" onTouchend="goSlide" class="menuItem" backgroundColor="#D1D1D1" color="#838383" borderColor="#ADADAD" borderWidth="0.5">T&C</Label>
     	</View>
     	<!--<View id="hover" />-->
         <ScrollableView id="scrollableView" showPagingControl="false" scrollingEnabled="false">

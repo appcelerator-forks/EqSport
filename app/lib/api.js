@@ -64,6 +64,7 @@ exports.login = function (ex){
 					pin: pin
 				}); 
 				userInfo.save();  
+				Alloy.Globals.menuType = "2";
     			Ti.App.fireEvent("app:refreshMenu");
  
 	     	}

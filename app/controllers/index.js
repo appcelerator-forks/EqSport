@@ -1,5 +1,7 @@
-DRAWER.initDrawer($);
+Alloy.Globals.appView = $;
+
+DRAWER.initDrawer();
 // event 
 Ti.App.addEventListener("app:refreshMenu", function(e) {
-	DRAWER.initMenu($);
+	DRAWER.initMenu();
 });

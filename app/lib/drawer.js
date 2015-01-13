@@ -8,6 +8,7 @@ var rtoResults = Alloy.createCollection('rtoResults');
 
 /** Initialize variable**/
 var nappDrawer = null;
+var menu_no = "1";
 
 /**Private function**/
 var createCenterNavWindow = function(){	
@@ -38,90 +39,9 @@ var openNewNavWindow = function(target){
 	return navController;
 };
 
-var createLeftMenu = function(obj){
-	var win = Ti.UI.createView({backgroundColor: '#262626'});
-	
-	var data=[];
-	var isUser =  info.getInfo(); 
-	var title = ['HOME', 'EQLINK CARD', 'PLAY WITH EQLINK', 'WIN WITH EQLINK', 'RELOAD EQLINK'];
- 
-	if (isUser.length > 0 ) {
-		title.push('MY ACCOUNT', 'PLAY', 'LOGOUT');
-	}
-	else {
-		title.push('MEMBER LOGIN');
-	}
-	
-	var style = obj.createStyle({
-        classes: 'menuLabel',
-        apiName: 'Button',
-        color: 'white'
-    });
-    
-    
-	for (var i=0; i<title.length; i++) {
-		var row = Ti.UI.createTableViewRow({
-			height : '50'
-    	});	
-    	
-    	var lbl = Ti.UI.createLabel({
-			text : title[i]
-		}); 
-		lbl.applyProperties(style);
-		row.add(lbl);
-    	data.push(row);
-	}
-	
-	var style2 = obj.createStyle({
-        classes: 'menuTable' 
-    });
-    
-    
-	var tableView = Ti.UI.createTableView({
-		data:data
-	});
-	tableView.applyProperties(style2);
-	tableView.addEventListener("click", function(e){ 
-		switch(e.index){
-			case 0: 
-			navigation("home");   
-			break;
-		case 1:   
-			navigation("eq_Card"); 
-			break;
-		case 2:   
-			navigation("eq_Play"); 
-			break;
-		case 3:   
-			navigation("eq_Win");
-			break; 
-	 	case 4: 
-	 		navigation("eq_Reload");
-			break;
-		case 5: 
-			var isUser =  info.getInfo(); 
-	 		if (isUser.length > 0 ) {
-				navigation("member");
-			}
-			else {
-				navigation("login");
-			}
-			break;
-		case 6:  
-			navigation("play");
-			break;
+var createLeftMenu = function(){
 	 
-		case 7: 
-			// balance.resetBalance();
-			// info.resetInfo();
-			// rtoResults.resetResults(); 
-			// navigation("amountBalance");
-			logout(obj);
-			break;
-		}
-	});
-	
-	win.add(tableView);
+	var win = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
 	return win;
 };
 
@@ -135,42 +55,32 @@ var navigation = function(target, skipToggle){
 	
 };
 
-var logout = function(obj){
-	info.resetInfo();  
-	nappDrawer.setLeftWindow(createLeftMenu(obj)); 
-	navigation("home");
+function getLeftMenu(){
+	var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
+	nappDrawer.leftWindow = leftmenu; 
 };
+
 
 /**API function to call **/
-exports.initDrawer = function (obj){ 
-	var drawer = NappDrawerModule.createDrawer({
-		fullscreen:true, 
-		leftWindow: createLeftMenu(obj),
-		centerWindow: createCenterNavWindow(), 
-		//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
-		openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
-		showShadow: false, //no shadow in iOS7
-		leftDrawerWidth: 200, 
-		statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
-		orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
-	});
+exports.initDrawer = function (){ 
+	
 	if (Ti.Platform.osname == 'iphone') {
-	    drawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL);
+	    nappDrawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL);
+	    getLeftMenu(); 
 	}
-	nappDrawer = drawer;
-	
-	drawer.addEventListener('windowDidOpen', function(e) {
+	 
+	nappDrawer.addEventListener('windowDidOpen', function(e) {
 	});
 	
-	drawer.addEventListener('windowDidClose', function(e) {
+	nappDrawer.addEventListener('windowDidClose', function(e) {
 	});
 	
-	drawer.open(); 
+	nappDrawer.open(); 
 };
 
 
-exports.navigation = function(target){
-	navigation(target , 1); 
+exports.navigation = function(target,isSkipToggle){ 
+	navigation(target , isSkipToggle); 
 };
 
 exports.closeToggle = function(target){
@@ -178,7 +88,27 @@ exports.closeToggle = function(target){
 	nappDrawer.toggleLeftWindow();
 };
 
-exports.initMenu = function(obj){  
-	nappDrawer.setLeftWindow(createLeftMenu(obj)); 
-	navigation("member");
+exports.initMenu = function(){ 
+	//getLeftMenu();
+	navigation("member");  
+	//
 };
+
+exports.logout = function(){
+	Alloy.Globals.menuType = "1";
+	info.resetInfo();  
+	//getLeftMenu();
+	navigation("home");
+};
+
+var nappDrawer = NappDrawerModule.createDrawer({
+		fullscreen:true, 
+		//leftWindow: createLeftMenu(),
+		centerWindow: createCenterNavWindow(), 
+		//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
+		openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
+		showShadow: false, //no shadow in iOS7
+		leftDrawerWidth: 200, 
+		statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
+		orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+});

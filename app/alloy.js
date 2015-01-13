@@ -9,7 +9,9 @@
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};
- 
+
+Alloy.Globals.menuType = "1";//public
+
 var API = require('api');
 var DRAWER = require('drawer');
 var getValueFromXml = function(xml, parent,child){

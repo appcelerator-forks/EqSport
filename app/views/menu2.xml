@@ -1,0 +1,30 @@
+<Alloy>
+	<View class="container" backgroundColor="#262626">
+		<TableView class="menuTable" onClick="navMenu">
+			<TableViewRow height=50>
+				<Label text="HOME" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="EQLINK CARD" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="PLAY WITH EQLINK" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="WIN WITH EQLINK" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="RELOAD EQLINK" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="MY ACCOUNT" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="PLAY" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+			<TableViewRow height=50>
+				<Label text="LOGOUT" class="menuLabel" color="#ffffff" apiName="Button" />
+			</TableViewRow>
+		</TableView>
+	</View>
+</Alloy>  
