@@ -12,7 +12,7 @@
 			<View width="25%">
 				<Label class="boldTitle" color="black" left="10">Date</Label>
 			</View>
-			<View id="dateView" width="75%" height="50">
+			<View id="dateView" width="74.9%" height="50">
 				<View width="100%" height="30" backgroundColor="white" onClick="showDate" top="10">
 					<Label id="date" onClick="showDate" color="black"></Label>
 				</View>
@@ -35,7 +35,7 @@
 			<View width="25%">
 				<Label class="boldTitle" color="black" left="10">Race No.</Label>
 			</View>
-			<View width="75%">
+			<View width="74.9%">
 				<!--<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
 				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="12"></PickerRow>

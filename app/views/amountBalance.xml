@@ -22,7 +22,7 @@
 			<Label top="30" color="#444444" class="label1">LASTEST UPDATED</Label>
 			<Label id="date" color="#A5A5A5" class="label2">31/12/2014</Label>
 			<Label id="time" color="#A5A5A5" class="label2">11:59:59PM</Label>
-			<ImageView height="40" top="40" image="/images/Button_topup.png"></ImageView>
+			<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp"></ImageView>
 		</View>
 	</View>
 </Alloy>

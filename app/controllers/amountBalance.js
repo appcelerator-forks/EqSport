@@ -14,3 +14,7 @@ function menuToggle(e){
 function back(){	
 	DRAWER.navigation("member");
 }
+
+function topUp(){	
+	DRAWER.navigation("topUp");
+}

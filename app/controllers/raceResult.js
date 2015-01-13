@@ -1,23 +1,23 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
+var value = new Date();
+var dayInt = value.getDate();
+var monthInt = value.getMonth()+1;
+var yearInt = value.getFullYear();
+$.picker.value = value;
 
-var todayDate = new Date().getDate();
-var todayMonth = new Date().getMonth()+1;
-var todayYear = new Date().getFullYear();
+displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 
-var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + todayYear.toString();
-
-$.date.text = toDisplay;
+// var toDisplay = dayInt.toString() + "/" + monthInt.toString() + "/" + yearInt.toString();
+// 
+// $.date.text = toDisplay;
 
 function back(){	
 	DRAWER.navigation("member");
 }
 
-function raceNo(){
-	
-}
-
-function date(){
+function keyboardReturn()
+{
 	
 }
 
@@ -33,20 +33,32 @@ function displayDate(day,month,year){
 }
 
 function done(){
+	console.log("done");
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
-	var value = $.picker.value;
-	var dayInt = value.getDate();
-	var monthInt = value.getMonth()+1;
-	var yearInt = value.getFullYear() ;
+	value = $.picker.value;
+	dayInt = value.getDate();
+	monthInt = value.getMonth()+1;
+	yearInt = value.getFullYear() ;
 	
 	var day = dayInt.toString();
 	var month = monthInt.toString();
 	var year = yearInt.toString();
+	var date = day + month + year;
 	
 	displayDate(day,month,year);
+	
+	if($.raceNo.value != "")
+	{
+		API.raceResult({
+			raceNumber : $.raceNo.value,
+			raceDate: date
+		});
+	}
 }
+
+$.raceNo.addEventListener('return', done);
 
 /*
 for(var i=0, i < arr.length, i++)
