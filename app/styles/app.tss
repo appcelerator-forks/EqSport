@@ -1,0 +1,32 @@
+".menuTable" : {
+  separatorColor : "#454545",
+  backgroundColor : "#262626",
+  top : 50,
+  separatorInsets: {
+  		left:0,
+    	right:0
+    }
+},
+".menuLabel" : {
+  width : Ti.UI.FILL,
+  left : 20,
+  color : "#ffffff",
+  font: {
+        fontSize: '12dp',
+        fontStyle: 'normal',
+        fontWeight: 'normal'
+    }
+},
+".hr" :{
+	width: Ti.UI.FILL,
+	height: '1',
+	backgroundColor: '#ed1c24',
+},
+"#header": {
+	width: Ti.UI.FILL,
+	height: 50,
+	top: 0,
+},
+".container" : {
+	backgroundColor: "#ffffff"
+}
