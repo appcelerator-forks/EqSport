@@ -118,9 +118,14 @@
 						<View width="60%">
 							<Picker id="picker3" onChange="pool" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF">
 								<PickerRow title="WIN / PLA"></PickerRow>
-								<PickerRow title="1"></PickerRow>
-								<PickerRow title="2"></PickerRow>
-								<PickerRow title="3"></PickerRow>
+								<PickerRow title="WIN"></PickerRow>
+								<PickerRow title="PLA"></PickerRow>
+								<PickerRow title="QIN"></PickerRow>
+								<PickerRow title="EXA"></PickerRow>
+								<PickerRow title="QPS"></PickerRow>
+								<PickerRow title="TRI"></PickerRow>
+								<PickerRow title="FC4"></PickerRow>
+								<PickerRow title="TRO"></PickerRow>
 							</Picker>
 						</View>
 					</View>

@@ -13,7 +13,7 @@
 				<Label class="boldTitle" color="black" left="10">Venue</Label>
 			</View>
 			<View width="70%">
-				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow backgroundColor="yellow" color="red" title="JAP (GOOD)"></PickerRow>
 					<PickerRow title="1"></PickerRow>
@@ -27,7 +27,7 @@
 				<Label class="boldTitle" color="black" left="10">Race No.</Label>
 			</View>
 			<View width="70%">
-				<ImageView image="/images/others_10.png" width="27" height="41" right="10"></ImageView>
+				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
 					<PickerRow title="12"></PickerRow>
 					<PickerRow title="1"></PickerRow>

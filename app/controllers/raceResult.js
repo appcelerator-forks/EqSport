@@ -2,7 +2,7 @@
 // $.picker2.setSelectedRow(0,false);
 var value = new Date();
 var dayInt = value.getDate();
-var monthInt = value.getMonth()+1;
+var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
 $.picker.value = value;
 
@@ -13,12 +13,8 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 // $.date.text = toDisplay;
 
 function back(){	
+	$.raceNo.removeEventListener('return', done);
 	DRAWER.navigation("member");
-}
-
-function keyboardReturn()
-{
-	
 }
 
 function showDate(){
@@ -39,7 +35,7 @@ function done(){
 	$.dateView.height = 50;
 	value = $.picker.value;
 	dayInt = value.getDate();
-	monthInt = value.getMonth()+1;
+	monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 	yearInt = value.getFullYear() ;
 	
 	var day = dayInt.toString();
@@ -51,7 +47,8 @@ function done(){
 	
 	if($.raceNo.value != "")
 	{
-		API.raceResult({
+		console.log("api");
+		API.getRTOResults({
 			raceNumber : $.raceNo.value,
 			raceDate: date
 		});

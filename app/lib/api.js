@@ -9,7 +9,7 @@ var xhr = new XHR();
 var USER  = 'TESTWEBSEUID';
 var KEY   = 'TESTWEBSEPWD';
 var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
-var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
+var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 //var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
 //var resultNdividend = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
 var requestRaceFavouriteOdds = "http://"+API_DOMAIN+"/j2me/v3/FavOdds_Track.asp";
@@ -44,6 +44,9 @@ exports.login = function (ex){
 		       	var address  = getValueFromXml(this.responseXML, 'LOGIN' , 'ADDRESS');
 		       	var msisdn 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'MSISDN');
 		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL'); 
+		       	var account	 = ex.acc_no;
+		       	var pin      = ex.acc_pin;
+		       	
 		       	//Insert to local DB
 		       	var userInfo = Alloy.createModel('info', { 
 					username: username, 
@@ -56,7 +59,9 @@ exports.login = function (ex){
 					newic: newic,
 					address: address,
 					msisdn: msisdn,
-					email: email
+					email: email,
+					account: account,
+					pin: pin
 				}); 
 				userInfo.save();  
     			Ti.App.fireEvent("app:refreshMenu");
@@ -79,8 +84,9 @@ exports.login = function (ex){
 
 //check user balance
 exports.checkBalance = function (ex){
-	var url = checkBalance;
+	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin;
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php";
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -92,10 +98,12 @@ exports.checkBalance = function (ex){
 	     	}else{
 	     		//success	
 	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG');
+	     		console.log(message);
 	     		var arr = message.split(" ");
 	     		var amount = arr[5];
 	     		var date = arr[3];
 	     		var time = arr[4];
+	     		console.log(time);
 	     		
 	     		// Insert to local DB
 		       	var checkBalance = Alloy.createModel('balance', { 
@@ -106,18 +114,13 @@ exports.checkBalance = function (ex){
 				checkBalance.save(); 
 				
 				// go to next view
-				var win = Alloy.createController("amountBalance").getView();
-				Alloy.Globals.Drawer.setCenterWindow(win); 
-				Alloy.Globals.Drawer.closeLeftWindow();
+				DRAWER.navigation("amountBalance");
 	     	}
 	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	console.log("An error occurs");
-	     	var win = Alloy.createController("amountBalance").getView();
-			Alloy.Globals.Drawer.setCenterWindow(win); 
-			Alloy.Globals.Drawer.closeLeftWindow();
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -128,9 +131,10 @@ exports.checkBalance = function (ex){
 };
 
 
-//get RTO Results
+//get RTO Results / race result with date
 exports.getRTOResults = function(ex){
-	var url = "http://54.169.180.5/eqsport/test_xml.php";
+	//var url = "http://54.169.180.5/eqsport/test_xml.php";
+	var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -138,7 +142,7 @@ exports.getRTOResults = function(ex){
 	       	
 	       	if(respcode == "1")
 	       	{
-	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
+	     		var errdesc = getValueFromXml(this.responseXML, 'RTORESULTS' , 'ERRDESC');
 	     		alert(errdesc);
 	     	}
 	     	else
@@ -250,7 +254,7 @@ exports.favourite = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	console.log("An error occurs");
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -269,34 +273,14 @@ exports.raceCard = function (ex){
 	     	console.log("raceCard");
 	       	var res = getValueFromPipe(this.responseXML);
 	       console.log(res);
+	       
+	       
+	       DRAWER.navigation(ex.title);
 	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	console.log("An error occurs");
-	     },
-	     timeout : 10000  // in milliseconds
-	 });
-	 // Prepare the connection.
-	 client.open("GET", url);
-	 // Send the request.
-	 client.send(); 
-};
-
-//raceResult
-exports.raceResult = function (ex){
-	var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
-	var client = Ti.Network.createHTTPClient({
-	     // function called when the response data is available
-	     onload : function(e) {
-	     	console.log("raceResult");
-	       	var res = getValueFromPipe(this.responseXML);
-	       console.log(res);
-	     
-	     },
-	     // function called when an error occurs, including a timeout
-	     onerror : function(e) {
-	     	console.log("An error occurs");
+	     	alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });

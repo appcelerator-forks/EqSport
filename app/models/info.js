@@ -13,6 +13,8 @@ exports.definition = {
 		    "address": "TEXT",
 		    "msisdn": "INTEGER",
 		    "email": "TEXT",
+		    "account": "INTEGER",
+		    "pin": "INTEGER"
 		},
 		adapter: {
 			type: "sql",
@@ -50,7 +52,9 @@ exports.definition = {
 					    newic: res.fieldByName('newic'),
 					    address: res.fieldByName('address'),
 					    msisdn: res.fieldByName('msisdn'),
-					    email: res.fieldByName('email')
+					    email: res.fieldByName('email'),
+					    account: res.fieldByName('account'),
+					    pin: res.fieldByName('pin')
 					};
 					res.next();
 					count++;

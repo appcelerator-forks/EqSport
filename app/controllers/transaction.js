@@ -1,10 +1,14 @@
-var todayDate = new Date().getDate();
-var todayMonth = new Date().getMonth()+1;
-var todayYear = new Date().getFullYear();
+var value = new Date();
+var dayInt = value.getDate();
+var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
+var yearInt = value.getFullYear();
+$.picker.value = value;
 
-var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + todayYear.toString();
+displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 
-$.date.text = toDisplay;
+// var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + todayYear.toString();
+// 
+// $.date.text = toDisplay;
 
 // $.picker.minDate = new Date(2009,0,1);
 // $.picker.maxDate = new Date();
@@ -48,14 +52,17 @@ function displayDate(day,month,year){
 function done(){
 	$.pickerView.hide();
 	$.dateView.height = 70;
-	var value = $.picker.value;
-	var dayInt = value.getDate();
-	var monthInt = value.getMonth()+1;
-	var yearInt = value.getFullYear() ;
+	value = $.picker.value;
+	dayInt = value.getDate();
+	monthInt = ("0"+(value.getMonth()+1)).slice(-2);
+	yearInt = value.getFullYear() ;
 	
 	var day = dayInt.toString();
 	var month = monthInt.toString();
 	var year = yearInt.toString();
+	var date = day + month + year;
 	
 	displayDate(day,month,year);
+	
+	//transaction api
 }
