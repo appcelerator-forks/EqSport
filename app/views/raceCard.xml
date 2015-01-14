@@ -5,7 +5,7 @@
 				<Label class="title" color="white" minimumFontSize="12">RACE CARD</Label>
 			</View>
 			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png"></ImageView>
+				<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
 			</View>
 		</View>
 		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">

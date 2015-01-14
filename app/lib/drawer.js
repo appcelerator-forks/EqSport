@@ -73,8 +73,7 @@ var navigation = function(target, skipToggle){
 	if(skipToggle != 1){
 		nappDrawer.toggleLeftWindow();
 	}
-	
-}; 
+};
 
 /**API function to call **/
 exports.initDrawer = function (){  
