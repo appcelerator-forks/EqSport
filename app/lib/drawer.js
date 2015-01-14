@@ -137,7 +137,7 @@ var navigation = function(target, skipToggle){
 
 var logout = function(obj){
 	info.resetInfo();  
-	nappDrawer.setLeftWindow(createLeftMenu(obj)); 
+	//nappDrawer.setLeftWindow(createLeftMenu(obj)); 
 	navigation("home");
 };
 
@@ -179,6 +179,6 @@ exports.closeToggle = function(target){
 };
 
 exports.initMenu = function(obj){  
-	nappDrawer.setLeftWindow(createLeftMenu(obj)); 
+	//nappDrawer.setLeftWindow(createLeftMenu(obj)); 
 	navigation("member");
 };

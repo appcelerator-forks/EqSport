@@ -4,9 +4,21 @@
 // var pool;
 // var runner;
 
-$.picker1.setSelectedRow(0,false);
-$.picker2.setSelectedRow(0,false);
-$.picker3.setSelectedRow(0,false);
+if(Ti.Platform.osname == "android")
+{
+	$.picker1.setSelectedRow(0,false);
+	$.picker2.setSelectedRow(0,false);
+	$.picker3.setSelectedRow(0,false);
+}
+
+if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+{
+	console.log("ios picker setter");
+	$.picker1.setSelectedRow(0,3,false);
+	$.picker2.setSelectedRow(0,3,false);
+	$.picker3.setSelectedRow(0,8,false);
+}
+
 // $.picker4.setSelectedRow(0,false);
 
 // var label = Ti.UI.createLabel({
@@ -47,18 +59,33 @@ function venue(e)
 	console.log("venue");
 	venue = e.row.title;
 	console.log(venue);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		$.picker1.visible = false;
+		$.venueLabel.text = venue;
+	}
 }
 
 function raceNo(e)
 {
 	raceNo = e.row.title;
 	console.log(raceNo);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		$.picker2.visible = false;
+		$.raceNoLabel.text = raceNo;
+	}
 }
 
 function pool(e)
 {
 	pool = e.row.title;
 	console.log(pool);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		$.picker3.visible = false;
+		$.poolLabel.text = pool;
+	}
 }
 
 // function runner(e){
@@ -66,10 +93,13 @@ function pool(e)
 	// console.log(runner);
 // }
 
-$.bet.addEventListener('focus', function f(e){
-    $.bet.blur();
-    $.bet.removeEventListener('focus', f);
-});
+if(Ti.Platform.osname == "android")
+{
+	$.bet.addEventListener('focus', function f(e){
+	    $.bet.blur();
+	    $.bet.removeEventListener('focus', f);
+	});
+}
 
 function back(){	
 	DRAWER.navigation("member");
@@ -280,4 +310,45 @@ function process()
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
 	$.mainView.remove(containerView);
+}
+
+function showVenue()
+{
+	$.picker1.setVisible(true);
+	return false;
+	 // $.venueView.height = 300;
+	// $.picker1.visible = true;
+	// var pickerView = Ti.UI.createView({
+		// layout: "composite",
+		// height:"Ti.UI.SIZE",
+		// width:"100%"
+	// });
+// 	
+	// var picker = Ti.UI.createPicker({
+	  // top:50
+	// });
+// 	
+	// var data = [];
+	// data[0]=Ti.UI.createPickerRow({title:'Bananas'});
+	// data[1]=Ti.UI.createPickerRow({title:'Strawberries'});
+	// data[2]=Ti.UI.createPickerRow({title:'Mangos'});
+	// data[3]=Ti.UI.createPickerRow({title:'Grapes'});
+// 	
+	// picker.add(data);
+	// picker.selectionIndicator = true;
+// 	
+	// pickerView.add(picker);
+	// $.venueView.add(pickerView);
+}
+
+function showRaceNo()
+{
+	$.picker2.setVisible(true);
+	return false;
+}
+
+function showPool()
+{
+	$.picker3.setVisible(true);
+	return false;
 }
