@@ -1,5 +1,7 @@
 var balance = Alloy.createCollection('balance'); 
 var info = Alloy.createCollection('info');
+var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
+var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoDetails = info.getInfo();
 
 if(Ti.Platform.osname == "android"){
@@ -12,8 +14,13 @@ function menuToggle(e){
 }
 
 function play(){
-	API.favourite();
-	DRAWER.navigation("play",1);
+	//API.favourite();
+	raceCardInfo.resetInfo();
+	raceCardDetails.resetDetails();
+	API.raceCard({
+		title: "play"
+	});
+	//DRAWER.navigation("play",1);
 }
 
 function withdrawal(){
