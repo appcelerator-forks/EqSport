@@ -9,7 +9,9 @@
 // object. For example:
 //
 // Alloy.Globals.someGlobalFunction = function(){};
- 
+
+Alloy.Globals.menuType = "1";//public
+
 var API = require('api');
 var DRAWER = require('drawer');
 var getValueFromXml = function(xml, parent,child){
@@ -28,10 +30,8 @@ var getValueFromPipe = function(xml){
 			if(i != data.length){
 				var inner = data[i].split(":"); 
 		       	if(inner[0] !== ""){
-		       		
 		       		//fixed key space
-		       		var inner_key = inner[0].replace(" ", "");
-		       		 
+		       		var inner_key = inner[0].replace(" ", ""); 
 		       		var val_inner = inner[1];
 		       		
 		       		//fixed for time format
@@ -39,13 +39,43 @@ var getValueFromPipe = function(xml){
 		       			val_inner = inner[1] +":"+inner[2] +":"+inner[3];
 		       		}
 		       		
-		       		obj[inner_key] = val_inner.trim();
+		       		obj[inner_key] = val_inner;
 		       	}
 	      
 	    	}
 		}
 			
 	} 
+	return obj;
+};
+
+var getValueFromDollarAndPipe = function(xml){
+	var res = getValueFromXml(xml, 'HTML' , 'BODY');
+	var data = res.split("||");  
+ 	var obj = {};
+ 	
+	if(data[1] == "S:" || data[1] == "R:"){
+		for(var i=2; i <= data.length; i++){
+			if(i != data.length){
+				var inner = data[i].split("$");  
+		       	if(inner[0] !== ""){
+		       		//console.log(inner);
+		       		obj['id'] = inner[0];
+		       		obj['venue'] = inner[1];
+		       		obj['totalRunner'] = inner[2];
+		       		var count =1;
+		       		for(var i=3; i < 3 + parseInt(inner[2]); i++){
+		       			var runner = inner[i].split("*"); 
+		       			obj['runner'+count] = runner;
+		       			count++;
+		       		}
+		       		 
+		       	}
+	      
+	    	}
+		}
+			
+	}  
 	return obj;
 };
 

@@ -2,7 +2,7 @@ $.picker1.setSelectedRow(0,false);
 $.picker2.setSelectedRow(0,false);
 
 function back(){	
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 function venue(){

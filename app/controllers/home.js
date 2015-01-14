@@ -4,15 +4,14 @@ if(Ti.Platform.osname == "android") {
 }
 
 function goTo(e){ 
-	DRAWER.navigation("eq_"+e.source.mod);
+	DRAWER.navigation("eq_"+e.source.mod,1);
 }
- 
-
-function login(){ 
-	DRAWER.navigation("login");
+  
+function login(){  
+	DRAWER.navigation("login",1);
 }
 
 function signUp()
 {
-	DRAWER.navigation("signUp");
+	DRAWER.navigation("signUp",1);
 }

@@ -102,7 +102,7 @@ if(Ti.Platform.osname == "android")
 }
 
 function back(){	
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 function confirm(){
