@@ -1,3 +1,43 @@
+var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
+var raceCardDetails = Alloy.createCollection('raceCardDetails');
+var infoValue = raceCardInfo.getRaceCardInfo();
+var detailsValue = raceCardDetails.getRaceCardDetails("1");
+
+console.log(detailsValue);
+// console.log(infoValue);
+// console.log("length:"+infoValue.length);
+// console.log("venue:"+infoValue[0].venue);
+setPicker1();
+
+function setPicker1()
+{
+	for(var i = 0 ; i < infoValue.length; i++)
+	{
+		var data = [];
+		data[i]=Ti.UI.createPickerRow({title:infoValue[i].venue});
+	}
+	console.log("data picker 1");
+	console.log(data);
+	$.picker1.add(data);
+	$.picker1.selectionIndicator = true;
+}
+
+function setPicker2()
+{
+	console.log("picker2");
+	var data = [];
+	for(var i = 0 ; i < detailsValue.length; i++)
+	{
+		
+		data[i]=Ti.UI.createPickerRow({title:detailsValue[i].runner_id});
+	}
+	console.log("runner_id:"+detailsValue[0].runner_id);
+	console.log("runner_id:"+detailsValue[1].runner_id);
+	console.log(data);
+	$.picker2.add(data);
+	$.picker2.selectionIndicator = true;
+}
+
 //Assign value in case the user didn't change data --- solve by using setSelectedRow
 // var venue;
 // var raceNo;
@@ -14,8 +54,8 @@ if(Ti.Platform.osname == "android")
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 {
 	console.log("ios picker setter");
-	$.picker1.setSelectedRow(0,3,false);
-	$.picker2.setSelectedRow(0,3,false);
+	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
+	$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
 }
 
@@ -64,6 +104,7 @@ function venue(e)
 		$.picker1.visible = false;
 		$.venueLabel.text = venue;
 	}
+	setPicker2();
 }
 
 function raceNo(e)
@@ -106,6 +147,19 @@ function back(){
 }
 
 function confirm(){
+	
+	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value =="" )
+	{
+		alert("Fields cannot be empty");
+		return;
+	}
+	
+	if($.bet.value <= 1)
+	{
+		alert("Minimum bet: 2");
+		return;
+	}
+	
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
 		height:"80%",
