@@ -45,8 +45,7 @@ exports.login = function (ex){
 		       	var msisdn 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'MSISDN');
 		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL'); 
 		       	var account	 = ex.acc_no;
-		       	var pin      = ex.acc_pin;
-		       	
+		       	var pin      = ex.acc_pin; 
 		       	//Insert to local DB
 		       	var userInfo = Alloy.createModel('info', { 
 					username: username, 
