@@ -11,9 +11,9 @@ function menuToggle(e){
 }
 
 function back(){	
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 function topUp(){	
-	DRAWER.navigation("topUp");
+	DRAWER.navigation("topUp",1);
 }

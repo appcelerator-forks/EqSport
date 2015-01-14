@@ -14,7 +14,7 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 
 function back(){	
 	$.raceNo.removeEventListener('return', done);
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 function showDate(){

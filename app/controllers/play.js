@@ -72,7 +72,7 @@ $.bet.addEventListener('focus', function f(e){
 });
 
 function back(){	
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 function confirm(){

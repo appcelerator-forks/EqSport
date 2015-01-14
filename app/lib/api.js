@@ -115,7 +115,7 @@ exports.checkBalance = function (ex){
 				checkBalance.save(); 
 				
 				// go to next view
-				DRAWER.navigation("amountBalance");
+				DRAWER.navigation("amountBalance",1);
 	     	}
 	     
 	     },
@@ -271,12 +271,18 @@ exports.raceCard = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	console.log("raceCard");
-	       	var res = getValueFromPipe(this.responseXML);
-	       console.log(res);
+	     	var res = getValueFromDollarAndPipe(this.responseXML);
+	         console.log(res);
+			for(var i = 1; i <= res['totalRunner']; i++){
+				var runner_id = res['runner'+i][0];
+				var runner_date = res['runner'+i][1];
+				var runner_time = res['runner'+i][2];
+				console.log(runner_id+'=='+runner_date+"=="+runner_time);
+				
+			}
 	       
 	       
-	       DRAWER.navigation(ex.title);
+	     	DRAWER.navigation(ex.title,1);
 	     
 	     },
 	     // function called when an error occurs, including a timeout

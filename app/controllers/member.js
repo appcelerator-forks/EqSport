@@ -13,11 +13,11 @@ function menuToggle(e){
 
 function play(){
 	API.favourite();
-	DRAWER.navigation("play");
+	DRAWER.navigation("play",1);
 }
 
 function withdrawal(){
-	DRAWER.navigation("withdrawal");
+	DRAWER.navigation("withdrawal",1);
 }
 
 function amountBalance(){
@@ -26,7 +26,7 @@ function amountBalance(){
 		account: infoDetails[0].account,
 		pin: infoDetails[0].pin
 	});
-	// DRAWER.navigation("amountBalance");
+	// DRAWER.navigation("amountBalance",1);
 	
 	// var win = Alloy.createController("amountBalance").getView();
 	// Alloy.Globals.Drawer.setCenterWindow(win); 
@@ -34,23 +34,23 @@ function amountBalance(){
 }
 
 function transaction(){ 
-	DRAWER.navigation("transaction");
+	DRAWER.navigation("transaction",1);
 }
 
 function raceCard(){
 	API.raceCard({
 			title : "raceCard"
 		});
-	//DRAWER.navigation("raceCard");
+	//DRAWER.navigation("raceCard",1);
 }
 
 function raceOdd(){  
 	API.raceCard({
 			title : "raceOdd"
 		});
-	// DRAWER.navigation("raceOdd");
+	// DRAWER.navigation("raceOdd",1);
 }
 
 function raceResult(){  
-	DRAWER.navigation("raceResult");
+	DRAWER.navigation("raceResult",1);
 }

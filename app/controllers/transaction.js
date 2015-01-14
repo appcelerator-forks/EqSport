@@ -22,7 +22,7 @@ function back()
 	// $.picker4.removeEventListener('change',runner);
 	//$.picker.removeEventListener('change',transaction);
 	
-	DRAWER.navigation("member");
+	DRAWER.navigation("member",1);
 }
 
 //$.picker.addEventListener('change',transaction);

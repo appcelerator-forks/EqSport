@@ -80,6 +80,7 @@ exports.initDrawer = function (){
 
 
 exports.navigation = function(target,isSkipToggle){ 
+	 
 	navigation(target , isSkipToggle); 
 };
 
@@ -90,7 +91,7 @@ exports.closeToggle = function(target){
 
 exports.initMenu = function(){ 
 	//getLeftMenu();
-	navigation("member");  
+	navigation("member",1);  
 	//
 };
 
