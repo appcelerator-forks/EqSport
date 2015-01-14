@@ -10,6 +10,39 @@ var rtoResults = Alloy.createCollection('rtoResults');
 var nappDrawer = null;
 var menu_no = "1";
 
+function createMyDrawer(leftMenuWindow){
+	nappDrawer = NappDrawerModule.createDrawer({
+			fullscreen:true, 
+			//leftWindow: createLeftMenu(),
+			leftWindow: leftMenuWindow,
+			centerWindow: createCenterNavWindow(), 
+			//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
+			openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
+			showShadow: false, //no shadow in iOS7
+			leftDrawerWidth: 200, 
+			rightDrawerWidth: 200, 
+			statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
+			orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
+	});	
+	
+	if (Ti.Platform.osname == 'iphone') {
+	    nappDrawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL); 
+	}
+	 
+	nappDrawer.addEventListener('windowDidOpen', function(e) {
+	});
+	
+	nappDrawer.addEventListener('windowDidClose', function(e) {
+	});
+}
+
+function refreshMenu(){
+	nappDrawer = null;
+ 	var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
+	createMyDrawer(leftmenu);
+	 
+	nappDrawer.open(); 
+}
 /**Private function**/
 var createCenterNavWindow = function(){	
 	var leftBtn = Ti.UI.createButton({title:"Left"});
@@ -38,12 +71,7 @@ var openNewNavWindow = function(target){
 	}
 	return navController;
 };
-
-var createLeftMenu = function(){
-	 
-	var win = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
-	return win;
-};
+ 
 
 var navigation = function(target, skipToggle){
 	var newWin = openNewNavWindow(target);
@@ -56,24 +84,17 @@ var navigation = function(target, skipToggle){
 };
 
 function getLeftMenu(){
-	var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
-	nappDrawer.leftWindow = leftmenu; 
+	//var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
+	//nappDrawer.leftWindow = leftmenu; 
+	var leftmenu = Alloy.createController("menu1").getView();
+	nappDrawer.setLeftWindow(leftmenu); 
 };
 
 
 /**API function to call **/
 exports.initDrawer = function (){ 
-	
-	if (Ti.Platform.osname == 'iphone') {
-	    nappDrawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL);
-	    getLeftMenu(); 
-	}
-	 
-	nappDrawer.addEventListener('windowDidOpen', function(e) {
-	});
-	
-	nappDrawer.addEventListener('windowDidClose', function(e) {
-	});
+	var leftmenu = Alloy.createController("menu1").getView();
+	createMyDrawer(leftmenu);
 	
 	nappDrawer.open(); 
 };
@@ -84,13 +105,12 @@ exports.navigation = function(target,isSkipToggle){
 	navigation(target , isSkipToggle); 
 };
 
-exports.closeToggle = function(target){
-	console.log("closeToggle");
+exports.closeToggle = function(target){ 
 	nappDrawer.toggleLeftWindow();
 };
 
 exports.initMenu = function(){ 
-	//getLeftMenu();
+	refreshMenu();
 	navigation("member",1);  
 	//
 };
@@ -98,18 +118,8 @@ exports.initMenu = function(){
 exports.logout = function(){
 	Alloy.Globals.menuType = "1";
 	info.resetInfo();  
-	//getLeftMenu();
-	navigation("home");
+	refreshMenu();
+	navigation("home",1);
 };
 
-var nappDrawer = NappDrawerModule.createDrawer({
-		fullscreen:true, 
-		//leftWindow: createLeftMenu(),
-		centerWindow: createCenterNavWindow(), 
-		//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
-		openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
-		showShadow: false, //no shadow in iOS7
-		leftDrawerWidth: 200, 
-		statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
-		orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
-});
+

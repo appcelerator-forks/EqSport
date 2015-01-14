@@ -6,9 +6,8 @@ if(Ti.Platform.osname == "android") {
 function goTo(e){ 
 	DRAWER.navigation("eq_"+e.source.mod,1);
 }
- 
-
-function login(){ 
+  
+function login(){  
 	DRAWER.navigation("login",1);
 }
 

@@ -21,6 +21,7 @@
 			<View width="50%" height="100%">
 				<!--<ImageView onClick="goTo" mod="Card"  image="/images/home01.png" width="100%" left="10" right="10"  top="10" ></ImageView>-->
 				<ImageView onClick="goTo" mod="Card"  image="/images/home01.png" width="100%"></ImageView>
+				
 			</View>
 			<View width="49.9%" height="100%">
 				<!--<ImageView onClick="goTo" mod="Play" image="/images/home02.png" width="100%" left="25" top="10"></ImageView>-->

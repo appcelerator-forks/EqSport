@@ -30,10 +30,8 @@ var getValueFromPipe = function(xml){
 			if(i != data.length){
 				var inner = data[i].split(":"); 
 		       	if(inner[0] !== ""){
-		       		
 		       		//fixed key space
-		       		var inner_key = inner[0].replace(" ", "");
-		       		 
+		       		var inner_key = inner[0].replace(" ", ""); 
 		       		var val_inner = inner[1];
 		       		
 		       		//fixed for time format
