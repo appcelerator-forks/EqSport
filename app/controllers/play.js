@@ -44,9 +44,7 @@ function setPicker2()
 	var row = [];
 	var column2 = Ti.UI.createPickerColumn();
 	for(var i = 0 ; i < detailsValue.length; i++){	
-		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id});
-		console.log("picker 2 data");
-		console.log(detailsValue[i].runner_id);
+		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id}); 
 		$.pickerColumn2.addRow(data);
 	} 
 }
@@ -62,7 +60,7 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 {
 	console.log("ios picker setter");
 	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
-	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
 }
 
