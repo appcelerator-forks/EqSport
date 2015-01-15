@@ -40,14 +40,12 @@ function setPicker1()
 function setPicker2()
 {
 	var data = [];
+	var row = [];
 	var column2 = Ti.UI.createPickerColumn();
-	for(var i = 0 ; i < detailsValue.length; i++)
-	{	
-		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id});
-		console.log("picker 2 data");
-		console.log(detailsValue[i].runner_id);
+	for(var i = 0 ; i < detailsValue.length; i++){	
+		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id}); 
 		$.pickerColumn2.addRow(data);
-	}
+	} 
 }
 
 if(Ti.Platform.osname == "android")
