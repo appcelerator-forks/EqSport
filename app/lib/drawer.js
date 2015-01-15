@@ -12,16 +12,15 @@ var menu_no = "1";
 
 function createMyDrawer(leftMenuWindow){
 	nappDrawer = NappDrawerModule.createDrawer({
-			fullscreen:true, 
-			//leftWindow: createLeftMenu(),
+			fullscreen:true,  
 			leftWindow: leftMenuWindow,
 			centerWindow: createCenterNavWindow(), 
 			//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
 			openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
-			showShadow: false, //no shadow in iOS7
+			showShadow: false,  
 			leftDrawerWidth: 200, 
 			rightDrawerWidth: 200, 
-			statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  // remember to set UIViewControllerBasedStatusBarAppearance to false in tiapp.xml
+			statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  
 			orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
 	});	
 	
@@ -29,23 +28,17 @@ function createMyDrawer(leftMenuWindow){
 	    nappDrawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL); 
 	}
 	 
-	nappDrawer.addEventListener('windowDidOpen', function(e) {
-	});
-	
-	nappDrawer.addEventListener('windowDidClose', function(e) {
-	});
 }
 
 function refreshMenu(){
-	nappDrawer = null;
- 	var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
-	createMyDrawer(leftmenu);
-	 
+	nappDrawer = null; 
+	createMyDrawer(Alloy.createController("menu"+Alloy.Globals.menuType).getView());
 	nappDrawer.open(); 
 }
+
 /**Private function**/
 var createCenterNavWindow = function(){	
-	var leftBtn = Ti.UI.createButton({title:"Left"});
+	var leftBtn = Ti.UI.createButton();
 	leftBtn.addEventListener("click", function(){
 		nappDrawer.toggleLeftWindow();
 	});
@@ -80,29 +73,15 @@ var navigation = function(target, skipToggle){
 	if(skipToggle != 1){
 		nappDrawer.toggleLeftWindow();
 	}
-	
 };
-
-
-function getLeftMenu(){
-	//var leftmenu = Alloy.createController("menu"+Alloy.Globals.menuType).getView();
-	//nappDrawer.leftWindow = leftmenu; 
-	var leftmenu = Alloy.createController("menu1").getView();
-	nappDrawer.setLeftWindow(leftmenu); 
-};
-
 
 /**API function to call **/
-exports.initDrawer = function (){ 
-	var leftmenu = Alloy.createController("menu1").getView();
-	createMyDrawer(leftmenu);
-	
-	nappDrawer.open(); 
+exports.initDrawer = function (){  
+	refreshMenu();
 };
 
 
-exports.navigation = function(target,isSkipToggle){ 
-	 
+exports.navigation = function(target,isSkipToggle){  
 	navigation(target , isSkipToggle); 
 };
 
@@ -112,8 +91,7 @@ exports.closeToggle = function(target){
 
 exports.initMenu = function(){ 
 	refreshMenu();
-	navigation("member",1);  
-	//
+	navigation("member",1);   
 };
 
 exports.logout = function(){

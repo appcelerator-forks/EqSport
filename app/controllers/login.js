@@ -17,13 +17,13 @@ function submit(){
 }
 
 function newAccount(){
-	DRAWER.navigation("signUp");
+	DRAWER.navigation("signUp",1);
 }
 
 function close(){ 
-	DRAWER.navigation("home");
+	DRAWER.navigation("home",1);
 }
 
 function skip(){
-	DRAWER.navigation("home");
+	DRAWER.navigation("home",1);
 }

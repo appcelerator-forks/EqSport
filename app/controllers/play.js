@@ -41,6 +41,7 @@ function setPicker1()
 function setPicker2()
 {
 	var data = [];
+	var column2 = Ti.UI.createPickerColumn();
 	for(var i = 0 ; i < detailsValue.length; i++)
 	{	
 		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id});
@@ -60,8 +61,8 @@ if(Ti.Platform.osname == "android")
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 {
 	console.log("ios picker setter");
-	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
-	$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	//$.picker1.setSelectedRow(0,(infoValue.length-1),false);
+	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
 }
 
