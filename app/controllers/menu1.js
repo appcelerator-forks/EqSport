@@ -1,5 +1,6 @@
 var args = arguments[0] || {};
-
+var info  = Alloy.createCollection('info');
+var users = info.getInfo(); 
 function navMenu(e){
 	switch(e.index){
 		case 0: 

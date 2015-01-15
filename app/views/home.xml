@@ -8,13 +8,19 @@
 				<Label class="welcomeText">Welcome</Label>
 				<Label class="descText">Enjoy privilege at everywhere and everytime</Label>
 			</View>	
-			<View layout="horizontal" height="80" width="100%">
-				<View height="100%" width="49.9%">
+			<View layout="horizontal" height="80" width="100%" id="bannerPublicBtn" visible="false">
+				<View height="100%" width="49.9%" >
 					<ImageView height="40" image="/images/btn_login.png" onClick="login" />
 				</View>
-				<View height="100%" width="49.9%">
+				<View height="100%" width="49.9%" >
 					<ImageView height="40" image="/images/btn_signup.png" onClick="signUp" />
 				</View>
+			</View>	
+			<View layout="horizontal" height="80" width="100%" id="bannerMemberBtn"  visible="false">
+				<View height="100%" width="49.9%" >
+					<ImageView height="40" image="/images/logout.png" onClick="logout" />
+				</View>
+				 
 			</View>	
 		</View>
 		<View layout="horizontal" width="100%" height="130" top="10">

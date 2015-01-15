@@ -1,4 +1,3 @@
-Alloy.Globals.appView = $;
 
 DRAWER.initDrawer();
 // event 

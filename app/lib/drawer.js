@@ -5,6 +5,13 @@ var NappDrawerModule = require('dk.napp.drawer');
 var balance    = Alloy.createCollection('balance');
 var info       = Alloy.createCollection('info');
 var rtoResults = Alloy.createCollection('rtoResults');
+ 
+var users = info.getInfo(); 
+if(users.length == 0){
+	Alloy.Globals.menuType = "1";
+}else{
+	Alloy.Globals.menuType = "2";
+}
 
 /** Initialize variable**/
 var nappDrawer = null;
@@ -18,8 +25,8 @@ function createMyDrawer(leftMenuWindow){
 			//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
 			openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
 			showShadow: false,  
-			leftDrawerWidth: 200, 
-			rightDrawerWidth: 200, 
+			leftDrawerWidth: 200,  
+			animationMode: NappDrawerModule.ANIMATION_NONE,  
 			statusBarStyle: NappDrawerModule.STATUSBAR_WHITE,  
 			orientationModes: [Ti.UI.PORTRAIT, Ti.UI.UPSIDE_PORTRAIT]
 	});	
@@ -42,9 +49,13 @@ var createCenterNavWindow = function(){
 	leftBtn.addEventListener("click", function(){
 		nappDrawer.toggleLeftWindow();
 	});
-	 
-	var navController = openNewNavWindow('home');
-
+	  
+	if(Alloy.Globals.menuType == "1"){
+		var navController = openNewNavWindow('home');
+	}else{
+		var navController = openNewNavWindow('member');
+	}
+	
 	return navController;
 };
 

@@ -1,5 +1,4 @@
 var args = arguments[0] || {};
-var args = arguments[0] || {};
 
 function navMenu(e){
 	switch(e.index){
@@ -19,7 +18,7 @@ function navMenu(e){
 	 		DRAWER.navigation("eq_Reload",2);
 			break;
 		case 5: 
-			DRAWER.navigation("login",2);
+			DRAWER.navigation("member",2);
 			break;
 		case 6:  
 			DRAWER.navigation("play",2);
