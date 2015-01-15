@@ -1,7 +1,7 @@
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails(1);
+var detailsValue = raceCardDetails.getRaceCardDetails("1");
 
 setPicker1();
 //setPicker2();
