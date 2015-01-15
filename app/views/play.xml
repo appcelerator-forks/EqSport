@@ -154,10 +154,7 @@
 						<View width="60%" height="50" backgroundColor="white">
 							<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 							<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								<PickerRow title="JAP (GOOD)"></PickerRow>
-								<PickerRow title="1"></PickerRow>
-								<PickerRow title="2"></PickerRow>
-								<PickerRow title="3"></PickerRow>
+								 
 							</Picker>
 						</View>
 						<!--<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
