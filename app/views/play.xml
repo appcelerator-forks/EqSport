@@ -157,9 +157,9 @@
 						</View>
 						<View width="60%" height="50" backgroundColor="white">
 							<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<View id="view1" visible="false" height="Ti.UI.SIZE">
-								<Button id="btn1" width="100%" height="40" top="0" onClick="hidePicker" visible="false" backgroundColor="blue">Confirm</Button>
-								<Picker id="picker1" onChange="venue" width="100%" top="40" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+							<View layout="vertical" id="view1" visible="false" height="Ti.UI.SIZE">
+								<Button id="btn1" width="100%" height="40"  onClick="hidePicker" visible="false" backgroundColor="blue">Confirm</Button>
+								<Picker id="picker1" onChange="venue" width="100%"  height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
 									<PickerColumn id="pickerColumn1">
 									</PickerColumn>
 								</Picker>

@@ -4,7 +4,7 @@ var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails(1);
 
 setPicker1();
-setPicker2();
+//setPicker2();
 
 function refresh(index)
 {
@@ -17,7 +17,6 @@ function refresh(index)
 	                _col.removeRow(_row);
 	        }
 	}
-	
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
 	setPicker2();
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
@@ -31,7 +30,7 @@ function setPicker1()
 	var data = [];
 	for(var i = 0 ; i < infoValue.length; i++)
 	{
-		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].race_id});
+		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].id});
 		$.pickerColumn1.addRow(data);
 	}
 	console.log("data picker 1");
@@ -61,7 +60,7 @@ if(Ti.Platform.osname == "android")
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 {
 	console.log("ios picker setter");
-	//$.picker1.setSelectedRow(0,(infoValue.length-1),false);
+	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
 	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
 }
@@ -93,6 +92,7 @@ function venue(e)
 		$.picker1.visible = false;
 		$.venueLabel.text = venue;
 	}
+	
 	refresh(e.row.race_id);
 }
 

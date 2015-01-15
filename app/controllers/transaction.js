@@ -40,7 +40,15 @@ function back()
 // }
 
 function showDate(){
-	$.dateView.height = 285;
+	if(Ti.Platform.osname == "android")
+	{
+		$.dateView.height = 285;
+	}
+	
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		$.dateView.height = 335;
+	}
 	$.pickerView.show();
 }
 
