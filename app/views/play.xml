@@ -91,7 +91,8 @@
 						</View>
 						<View width="60%">
 							<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								
+								<PickerColumn id="pickerColumn1">
+								</PickerColumn>
 							</Picker>
 						</View>
 					</View>
@@ -101,7 +102,8 @@
 						</View>
 						<View width="60%">
 							<Picker id="picker2" onChange="raceNo" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								
+								<PickerColumn id="pickerColumn2">
+								</PickerColumn>
 							</Picker>
 						</View>
 					</View>
@@ -111,15 +113,17 @@
 						</View>
 						<View width="60%">
 							<Picker id="picker3" onChange="pool" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								<PickerRow title="WIN / PLA"></PickerRow>
-								<PickerRow title="WIN"></PickerRow>
-								<PickerRow title="PLA"></PickerRow>
-								<PickerRow title="QIN"></PickerRow>
-								<PickerRow title="EXA"></PickerRow>
-								<PickerRow title="QPS"></PickerRow>
-								<PickerRow title="TRI"></PickerRow>
-								<PickerRow title="FC4"></PickerRow>
-								<PickerRow title="TRO"></PickerRow>
+								<PickerColumn id="pickerColumn3">
+									<PickerRow title="WIN / PLA"></PickerRow>
+									<PickerRow title="WIN"></PickerRow>
+									<PickerRow title="PLA"></PickerRow>
+									<PickerRow title="QIN"></PickerRow>
+									<PickerRow title="EXA"></PickerRow>
+									<PickerRow title="QPS"></PickerRow>
+									<PickerRow title="TRI"></PickerRow>
+									<PickerRow title="FC4"></PickerRow>
+									<PickerRow title="TRO"></PickerRow>
+								</PickerColumn>
 							</Picker>
 						</View>
 					</View>
@@ -153,16 +157,15 @@
 						</View>
 						<View width="60%" height="50" backgroundColor="white">
 							<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								 
-							</Picker>
+
+							<View id="view1" visible="false" height="Ti.UI.SIZE">
+								<Button id="btn1" width="100%" height="40" top="0" onClick="hidePicker" visible="false" backgroundColor="blue">Confirm</Button>
+								<Picker id="picker1" onChange="venue" width="100%" top="40" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+									<PickerColumn id="pickerColumn1">
+									</PickerColumn>
+								</Picker>
+							</View>
 						</View>
-						<!--<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-							<PickerRow title="JAP (GOOD)"></PickerRow>
-							<PickerRow title="1"></PickerRow>
-							<PickerRow title="2"></PickerRow>
-							<PickerRow title="3"></PickerRow>
-					</Picker>-->
 					</View>
 					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
 						<View width="40%" height="50">
@@ -171,7 +174,8 @@
 						<View width="60%" height="50" backgroundColor="white">
 							<Label id="raceNoLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 							<Picker id="picker2" onChange="raceNo" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								 
+								<PickerColumn id="pickerColumn2">
+								</PickerColumn>
 							</Picker>
 						</View>
 					</View>
@@ -182,15 +186,17 @@
 						<View width="60%" height="50" backgroundColor="white">
 							<Label id="poolLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showPool" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 							<Picker id="picker3" onChange="pool" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								<PickerRow title="WIN / PLA"></PickerRow>
-								<PickerRow title="WIN"></PickerRow>
-								<PickerRow title="PLA"></PickerRow>
-								<PickerRow title="QIN"></PickerRow>
-								<PickerRow title="EXA"></PickerRow>
-								<PickerRow title="QPS"></PickerRow>
-								<PickerRow title="TRI"></PickerRow>
-								<PickerRow title="FC4"></PickerRow>
-								<PickerRow title="TRO"></PickerRow>
+								<PickerColumn id="pickerColumn3">
+									<PickerRow title="WIN / PLA"></PickerRow>
+									<PickerRow title="WIN"></PickerRow>
+									<PickerRow title="PLA"></PickerRow>
+									<PickerRow title="QIN"></PickerRow>
+									<PickerRow title="EXA"></PickerRow>
+									<PickerRow title="QPS"></PickerRow>
+									<PickerRow title="TRI"></PickerRow>
+									<PickerRow title="FC4"></PickerRow>
+									<PickerRow title="TRO"></PickerRow>
+								</PickerColumn>
 							</Picker>
 						</View>
 					</View>

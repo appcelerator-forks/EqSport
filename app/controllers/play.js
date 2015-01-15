@@ -1,48 +1,55 @@
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1");
+var detailsValue = raceCardDetails.getRaceCardDetails(1);
 
-console.log(detailsValue);
-// console.log(infoValue);
-// console.log("length:"+infoValue.length);
-// console.log("venue:"+infoValue[0].venue);
 setPicker1();
+setPicker2();
+
+function refresh(index)
+{
+	console.log("refresh");
+	if($.picker2.pickerColumn2) {
+	    var _col = $.picker2.pickerColumn2;
+	        var len = _col.rowCount;
+	        for(var x = len-1; x >= 0; x-- ){
+	                var _row = _col.rows[x];
+	                _col.removeRow(_row);
+	        }
+	}
+	
+	detailsValue = raceCardDetails.getRaceCardDetails(index);
+	setPicker2();
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	}
+}
 
 function setPicker1()
 {
+	var data = [];
 	for(var i = 0 ; i < infoValue.length; i++)
 	{
-		var data = [];
-		data[i]=Ti.UI.createPickerRow({title:infoValue[i].venue});
+		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].race_id});
+		$.pickerColumn1.addRow(data);
 	}
 	console.log("data picker 1");
 	console.log(data);
-	$.picker1.add(data);
-	$.picker1.selectionIndicator = true;
 }
 
 function setPicker2()
 {
-	console.log("picker2");
 	var data = [];
 	var row = [];
 	var column2 = Ti.UI.createPickerColumn();
-	for(var i = 0 ; i < detailsValue.length; i++)
-	{
-		row =Ti.UI.createPickerRow({title:"TEST"});
-		column2.addRow(row);
-	}
- 
-	$.picker2.add([column2]);
-	$.picker2.selectionIndicator = true;
+	for(var i = 0 ; i < detailsValue.length; i++){	
+		data = Ti.UI.createPickerRow({title:detailsValue[i].runner_id});
+		console.log("picker 2 data");
+		console.log(detailsValue[i].runner_id);
+		$.pickerColumn2.addRow(data);
+	} 
 }
-
-//Assign value in case the user didn't change data --- solve by using setSelectedRow
-// var venue;
-// var raceNo;
-// var pool;
-// var runner;
 
 if(Ti.Platform.osname == "android")
 {
@@ -58,24 +65,6 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
 }
-
-// $.picker4.setSelectedRow(0,false);
-
-// var label = Ti.UI.createLabel({
-    // left: 0,
-    // text: "JAP (GOOD)",
-    // color: 'black',
-    // font: {
-        // fontFamily:'Arial',
-        // fontSize: '14dp',
-        // fontStyle: 'normal',
-        // fontWeight: 'normal',
-        // fontColor: 'black'
-    // }
-// });
-// 
-// $.row1.add(label);
-// $.row1.title = label.text;
 
 if(Ti.Platform.osname == "android")
 {
@@ -104,7 +93,7 @@ function venue(e)
 		$.picker1.visible = false;
 		$.venueLabel.text = venue;
 	}
-	setPicker2();
+	refresh(e.row.race_id);
 }
 
 function raceNo(e)
@@ -128,11 +117,6 @@ function pool(e)
 		$.poolLabel.text = pool;
 	}
 }
-
-// function runner(e){
-	// runner = e.row.title;
-	// console.log(runner);
-// }
 
 if(Ti.Platform.osname == "android")
 {
@@ -368,31 +352,11 @@ function process()
 
 function showVenue()
 {
+	
 	$.picker1.setVisible(true);
+	$.btn1.setVisible(true);
+	$.view1.setVisible(true);
 	return false;
-	 // $.venueView.height = 300;
-	// $.picker1.visible = true;
-	// var pickerView = Ti.UI.createView({
-		// layout: "composite",
-		// height:"Ti.UI.SIZE",
-		// width:"100%"
-	// });
-// 	
-	// var picker = Ti.UI.createPicker({
-	  // top:50
-	// });
-// 	
-	// var data = [];
-	// data[0]=Ti.UI.createPickerRow({title:'Bananas'});
-	// data[1]=Ti.UI.createPickerRow({title:'Strawberries'});
-	// data[2]=Ti.UI.createPickerRow({title:'Mangos'});
-	// data[3]=Ti.UI.createPickerRow({title:'Grapes'});
-// 	
-	// picker.add(data);
-	// picker.selectionIndicator = true;
-// 	
-	// pickerView.add(picker);
-	// $.venueView.add(pickerView);
 }
 
 function showRaceNo()
@@ -405,4 +369,11 @@ function showPool()
 {
 	$.picker3.setVisible(true);
 	return false;
+}
+
+function hidePicker()
+{
+	$.picker1.setVisible(true);
+	$.picker2.setVisible(true);
+	$.picker3.setVisible(true);
 }
