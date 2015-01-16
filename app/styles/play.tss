@@ -4,3 +4,16 @@
 	},
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 },
+".balanceLabel":{
+	font: {
+		fontSize: '14',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},
+
+".topLabel":{
+	font: {
+		fontSize: '14',
+	},
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
+},

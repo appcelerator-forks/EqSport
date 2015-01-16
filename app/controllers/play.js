@@ -1,4 +1,5 @@
-
+var balance = Alloy.createCollection('balance'); 
+var balanceInfo = balance.getBalance();
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
@@ -6,6 +7,7 @@ var detailsValue = raceCardDetails.getRaceCardDetails("1");
 console.log(infoValue);
 console.log(detailsValue);
 //var column1 = Ti.UI.createPickerColumn();
+$.balance.text = "Your available balance is " + balanceInfo.amount;
 
 setPicker1(); 
 
@@ -97,9 +99,15 @@ var cancelBtn;
 var confirmBtn;
 
 function venue(e){  
+	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-		$.picker1.visible = false;
-		$.venueLabel.text = e.row.title;
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+		$.pickerView1.height = 50;
+		$.pickerView1.setVisible(false);
+		$.done1.setVisible(false);
+		$.picker1.setVisible(false);
+		$.venueLabel.text = venue;
 	}
 	
 	refresh(e.row.race_id);
@@ -108,15 +116,27 @@ function venue(e){
 function raceNo(e){
 	raceNo = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-		$.picker2.visible = false;
+		$.raceNoView.height = 50;
+		$.raceNoContentView.height = 50;
+		$.pickerView2.height = 50;
+		$.pickerView2.setVisible(false);
+		$.done2.setVisible(false);
+		$.picker2.setVisible(false);
 		$.raceNoLabel.text = raceNo;
+		// $.venue.text = "Venue: " + venue;
+		// $.race.text = "Race: " + raceNo;
 	}
 }
 
 function pool(e){
 	pool = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-		$.picker3.visible = false;
+		$.poolView.height = 50;
+		$.poolContentView.height = 50;
+		$.pickerView3.height = 50;
+		$.pickerView3.setVisible(false);
+		$.done3.setVisible(false);
+		$.picker3.setVisible(false);
 		$.poolLabel.text = pool;
 	}
 }
@@ -143,6 +163,13 @@ function confirm(){
 		alert("Minimum bet: 2");
 		return;
 	}
+	
+	console.log(venue);
+	console.log(raceNo);
+	console.log(pool);
+	console.log($.runner.value);
+	console.log($.bet.value);
+
 	
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
@@ -351,17 +378,31 @@ function process()
 }
 
 function showVenue() {
-	
+	$.venueView.height = 160;
+	$.venueContentView.height = 160;
+	$.pickerView1.height = 160;
+	$.pickerView1.setVisible(true);
+	$.done1.setVisible(true);
 	$.picker1.setVisible(true);
 	return false;
 }
 
 function showRaceNo() {
+	$.raceNoView.height = 160;
+	$.raceNoContentView.height = 160;
+	$.pickerView2.height = 160;
+	$.pickerView2.setVisible(true);
+	$.done2.setVisible(true);
 	$.picker2.setVisible(true);
 	return false;
 }
 
 function showPool() {
+	$.poolView.height = 160;
+	$.poolContentView.height = 160;
+	$.pickerView3.height = 160;
+	$.pickerView3.setVisible(true);
+	$.done3.setVisible(true);
 	$.picker3.setVisible(true);
 	return false;
 }
@@ -370,4 +411,34 @@ function hidePicker() {
 	$.picker1.setVisible(true);
 	$.picker2.setVisible(true);
 	$.picker3.setVisible(true);
+}
+
+function done1()
+{
+	$.venueView.height = 50;
+	$.venueContentView.height = 50;
+	$.pickerView1.height = 50;
+	$.pickerView1.setVisible(false);
+	$.done1.setVisible(false);
+	$.picker1.setVisible(false);
+}
+
+function done2()
+{
+	$.raceNoView.height = 50;
+	$.raceNoContentView.height = 50;
+	$.pickerView2.height = 50;
+	$.pickerView2.setVisible(false);
+	$.done2.setVisible(false);
+	$.picker2.setVisible(false);
+}
+
+function done3()
+{
+	$.poolView.height = 50;
+	$.poolContentView.height = 50;
+	$.pickerView3.height = 50;
+	$.pickerView3.setVisible(false);
+	$.done3.setVisible(false);
+	$.picker3.setVisible(false);
 }

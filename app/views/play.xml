@@ -1,5 +1,5 @@
 <Alloy>
-	<View layout="vertical" id="mainView" backgroundImage="/images/BG_Large.jpg">
+	<View layout="vertical" id="mainView" width="100%" height="100%" backgroundImage="/images/BG_Large.jpg">
 		<View layout="composite" height="50" backgroundColor="#EA431A" >
 			<View width="100%">
 				<Label class="title" color="white" minimumFontSize="12">PLAY</Label>
@@ -10,22 +10,22 @@
 		</View>
 		<ScrollView id="scrollView" layout="vertical">
 			<View layout="vertical" height="170" backgroundColor="white">
-				<View height="50" top="10" width="90%">
+				<View height="40" top="10" width="90%">
 					<View layout="horizontal" width="100%" >
-						<View width="42%">
-							<Label id="venue" minimumFontSize="4" color="black">Venue: JAP (Good)</Label>
+						<View width="32%">
+							<Label id="venue" class="topLabel"  color="black">Venue:JAP (Good)</Label>
 						</View>
 						<View width="1.9%">
-							<Label color="black">|</Label>
+							<Label class="topLabel" class="topLabel" color="black"> | </Label>
 						</View>
-						<View width="20%">
-							<Label id="race" minimumFontSize="4" color="black">Race: 10</Label>
+						<View width="32%">
+							<Label id="race" class="topLabel"  color="black">Race:10</Label>
 						</View>
 						<View width="1.9%">
-							<Label color="black">|</Label>
+							<Label class="topLabel" color="black"> | </Label>
 						</View>
-						<View width="34%">
-							<Label id="mtr" minimumFontSize="4" color="black">Min to Race: 34</Label>
+						<View width="32%">
+							<Label id="mtr" class="topLabel"  color="black">Min to Race:34</Label>
 						</View>
 					</View>
 				</View>
@@ -145,23 +145,19 @@
 				</View>
 		</View>
 		<View platform="ios" layout="vertical" height="Ti.UI.SIZE">
-				<Label color="black" top="10">Your available balance is RM85.05</Label>
+				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM85.05</Label>
 				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
-					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
+					<View id="venueView" layout="horizontal" height="50" width="90%" backgroundColor="white">
 						<View width="40%" height="50">
 							<Label left="5" height="30" color="black">Venue</Label>
 						</View>
-						<View width="60%" height="50" backgroundColor="white">
+						<View id="venueContentView" width="60%" height="50" backgroundColor="white">
 							<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								<!--<PickerColumn id="pickerColumn1">
-									
-							</PickerColumn>-->
-								<!--<PickerRow title="JAP (GOOD)"></PickerRow>
-								<PickerRow title="1"></PickerRow>
-								<PickerRow title="2"></PickerRow>
-								<PickerRow title="3"></PickerRow>-->
-							</Picker>
+							<View id="pickerView1" height="50" width="100%" visible="false" >
+								<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
+								<Picker id="picker1" onChange="venue" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+								</Picker>
+							</View>
 						</View>
 						<!--<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
 							<PickerRow title="JAP (GOOD)"></PickerRow>
@@ -170,24 +166,28 @@
 							<PickerRow title="3"></PickerRow>
 					</Picker>-->
 					</View>
-					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
+					<View id="raceNoView" layout="horizontal" height="50" width="90%" backgroundColor="white">
 						<View width="40%" height="50">
 							<Label left="5" height="30" color="black">Race No.</Label>
 						</View>
-						<View width="60%" height="50" backgroundColor="white">
+						<View id="raceNoContentView" width="60%" height="50" backgroundColor="white">
 							<Label id="raceNoLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<Picker id="picker2" onChange="raceNo" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-							</Picker>
+							<View id="pickerView2" height="50" width="100%" visible="false" >
+								<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
+								<Picker id="picker2" onChange="raceNo" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+								</Picker>
+							</View>
 						</View>
 					</View>
-					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
+					<View id="poolView" layout="horizontal" height="50" width="90%" backgroundColor="white">
 						<View width="40%" height="50">
 							<Label left="5" color="black">Pool</Label>
 						</View>
-						<View width="60%" height="50" backgroundColor="white">
+						<View id="poolContentView" width="60%" height="50" backgroundColor="white">
 							<Label id="poolLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showPool" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<Picker id="picker3" onChange="pool" width="100%" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								<PickerColumn id="pickerColumn3">
+							<View id="pickerView3" height="50" width="100%" visible="false" >
+								<Button id="done3" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done3" visible="false">Done</Button>
+								<Picker id="picker3" onChange="pool" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
 									<PickerRow title="WIN / PLA"></PickerRow>
 									<PickerRow title="WIN"></PickerRow>
 									<PickerRow title="PLA"></PickerRow>
@@ -197,8 +197,8 @@
 									<PickerRow title="TRI"></PickerRow>
 									<PickerRow title="FC4"></PickerRow>
 									<PickerRow title="TRO"></PickerRow>
-								</PickerColumn>
-							</Picker>
+								</Picker>
+							</View>
 						</View>
 					</View>
 					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
