@@ -266,7 +266,7 @@ exports.favourite = function (ex){
 
 //raceCard
 exports.raceCard = function (ex){
-	var url = requestRaceCard;
+	var url =  requestRaceCard; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
