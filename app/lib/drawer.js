@@ -4,7 +4,7 @@ var NappDrawerModule = require('dk.napp.drawer');
 /**Include System Model**/
 var balance    = Alloy.createCollection('balance');
 var info       = Alloy.createCollection('info');
-var rtoResults = Alloy.createCollection('rtoResults');
+//var rtoResults = Alloy.createCollection('rtoResults');
  
 var users = info.getInfo(); 
 if(users.length == 0){
@@ -12,6 +12,7 @@ if(users.length == 0){
 }else{
 	Alloy.Globals.menuType = "2";
 }
+
 
 /** Initialize variable**/
 var nappDrawer = null;
