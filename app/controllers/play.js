@@ -2,14 +2,11 @@
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1");
-console.log(infoValue);
-console.log(detailsValue);
+var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
 
 setPicker1(); 
 
-function refresh(index){
-	console.log("refresh");
+function refresh(index){ 
 	if($.picker2.pickerColumn2) {
 	    var _col = $.picker2.pickerColumn2;
 	        var len = _col.rowCount;
@@ -31,22 +28,13 @@ function setPicker1(){
 	for(var i = 0 ; i < infoValue.length; i++){
 		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].id});
 		$.pickerColumn1.addRow(data);
-	}
-	console.log("data picker 1");
-	console.log(data);
+	} 
 }
 
-function setPicker2(){
-	 
-	var list = [];
-	for(var j = 0 ; j < detailsValue.length; j++){	
-		var geo = detailsValue[j].runner_id;
-		list.push(geo); 
-	}  
-	
+function setPicker2(){ 
 	var column1 = Ti.UI.createPickerColumn();
-	for(var i=0, ilen=list.length; i<ilen; i++){
-	  var rec = list[i];
+	for(var i=0; i < detailsValue.length; i++){
+	  var rec = detailsValue[i].runner_id;
 	  var row = Ti.UI.createPickerRow({
 	    title: rec.toString()
 	  });
@@ -64,8 +52,7 @@ if(Ti.Platform.osname == "android"){
 	$.picker3.setSelectedRow(0,false);
 }
 
-if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-	console.log("ios picker setter");
+if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
 	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
 	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	$.picker3.setSelectedRow(0,8,false);
@@ -87,21 +74,17 @@ var containerView = Ti.UI.createView({
 var cancelBtn;
 var confirmBtn;
 
-function venue(e){
-	console.log("venue");
-	venue = e.row.title;
-	console.log(venue);
+function venue(e){  
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.picker1.visible = false;
-		$.venueLabel.text = venue;
+		$.venueLabel.text = e.row.title;
 	}
 	
 	refresh(e.row.race_id);
 }
 
 function raceNo(e){
-	raceNo = e.row.title;
-	console.log(raceNo);
+	raceNo = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.picker2.visible = false;
 		$.raceNoLabel.text = raceNo;
@@ -109,8 +92,7 @@ function raceNo(e){
 }
 
 function pool(e){
-	pool = e.row.title;
-	console.log(pool);
+	pool = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.picker3.visible = false;
 		$.poolLabel.text = pool;
