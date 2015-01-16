@@ -5,14 +5,16 @@ var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 console.log(infoValue);
 console.log(detailsValue);
+//var column1 = Ti.UI.createPickerColumn();
 
 setPicker1(); 
 
 function refresh(index){
 	console.log("refresh");
-	if($.picker2.pickerColumn2) {
-	    var _col = $.picker2.pickerColumn2;
+	if($.picker2.columns[0]) {
+	    var _col = $.picker2.columns[0];
 	        var len = _col.rowCount;
+	        console.log("len: "+len);
 	        for(var x = len-1; x >= 0; x-- ){
 	                var _row = _col.rows[x];
 	                _col.removeRow(_row);
@@ -27,34 +29,43 @@ function refresh(index){
 }
 
 function setPicker1(){
-	var data = [];
+	/*var data = [];
 	for(var i = 0 ; i < infoValue.length; i++){
 		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].id});
 		$.pickerColumn1.addRow(data);
+	}*/
+	
+	for(var i = 0 ; i < infoValue.length; i++){
+		var venue = infoValue[i].venue;
+		var race_id = infoValue[i].id;
+		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		//$.pickerColumn1.addRow(data);
+		$.picker1.add(data);
 	}
+	
 	console.log("data picker 1");
 	console.log(data);
 }
 
 function setPicker2(){
 	 
-	var list = [];
+	/*var list = [];
 	for(var j = 0 ; j < detailsValue.length; j++){	
 		var geo = detailsValue[j].runner_id;
 		list.push(geo); 
-	}  
+	} */
 	
-	var column1 = Ti.UI.createPickerColumn();
-	for(var i=0, ilen=list.length; i<ilen; i++){
-	  var rec = list[i];
+	
+	for(var i=0; i < detailsValue.length; i++){
+	  var rec = detailsValue[i].runner_id;
 	  var row = Ti.UI.createPickerRow({
 	    title: rec.toString()
 	  });
-	  column1.addRow(row);
-	  
+	  //column1.addRow(row);
+	  $.picker2.add(row);
 	}
 	
-	$.picker2.add(column1);
+	//$.picker2.add(column1);
 	 
 }
 
@@ -349,8 +360,6 @@ function process()
 function showVenue() {
 	
 	$.picker1.setVisible(true);
-	$.btn1.setVisible(true);
-	$.view1.setVisible(true);
 	return false;
 }
 
