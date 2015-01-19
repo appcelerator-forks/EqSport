@@ -1,7 +1,7 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.139.227.132";
+var API_DOMAIN = "175.143.114.122";
 var XHR = require("xhr");
 var xhr = new XHR();
 

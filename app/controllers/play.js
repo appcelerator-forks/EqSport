@@ -108,6 +108,7 @@ function venue(e){
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
 		$.venueLabel.text = venue;
+		//$.venue.text = "Venue: " + venue;
 	}
 	
 	refresh(e.row.race_id);
@@ -162,6 +163,31 @@ function confirm(){
 	if($.bet.value <= 1) {
 		alert("Minimum bet: 2");
 		return;
+	}
+	
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA")
+	{
+		if($.bet.value % 5 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			return;
+		}
+	}
+	else
+	{
+		if($.bet.value % 2 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
+			return;
+		}
 	}
 	
 	console.log(venue);

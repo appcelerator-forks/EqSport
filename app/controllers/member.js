@@ -3,6 +3,8 @@ var info = Alloy.createCollection('info');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoDetails = info.getInfo();
+var pHeight = Ti.Platform.displayCaps.platformHeight;
+$.scrollView.height = pHeight - 50;
 
 if(Ti.Platform.osname == "android"){
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
@@ -45,17 +47,17 @@ function transaction(){
 }
 
 function raceCard(){
-	API.raceCard({
-			title : "raceCard"
-		});
-	//DRAWER.navigation("raceCard",1);
+	// API.raceCard({
+			// title : "raceCard"
+		// });
+	DRAWER.navigation("raceCard",1);
 }
 
 function raceOdd(){  
-	API.raceCard({
-			title : "raceOdd"
-		});
-	// DRAWER.navigation("raceOdd",1);
+	// API.raceCard({
+			// title : "raceOdd"
+		// });
+	DRAWER.navigation("raceOdd",1);
 }
 
 function raceResult(){  

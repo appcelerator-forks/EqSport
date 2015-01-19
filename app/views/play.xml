@@ -206,7 +206,7 @@
 							<Label left="5" color="black">Runner*</Label>
 						</View>
 						<View width="60%" backgroundColor="white">
-							<TextField id="runner" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="runner" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
 						</View>
 					</View>
 					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
@@ -214,7 +214,7 @@
 							<Label left="5" color="black">Bet (RM)</Label>
 						</View>
 						<View width="60%" backgroundColor="white">
-							<TextField id="bet" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="bet" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
 						</View>
 					</View>
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
