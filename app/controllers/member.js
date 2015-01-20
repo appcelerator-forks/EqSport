@@ -27,8 +27,12 @@ function play(){
 	//DRAWER.navigation("play",1);
 }
 
-function withdrawal(){ 
+function withdrawal(){
 	
+}
+
+function account(){ 
+	var config = [];
 	// double click prevention
 	var currentTime = new Date();
 	if (currentTime - clickTime < 1000) {
@@ -43,16 +47,26 @@ function withdrawal(){
 			layout : "horizontal",
 			top : 10
 	});
+	
+	var svTitle = $.UI.create('Label', {
+		text:"Account",
+		classes: ['description_header'],
+			 
+		width:'100%',
+		textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,  
+	});
+	
 	var imaView1 = Ti.UI.createImageView({
 		width    : "40%", 
 		left : 10,
-		right : 10,
+		right : 10, 
+		destination : "withdrawal",
 		image : "/images/Button02.png"
 	});
 	var imaView2 = Ti.UI.createImageView({
-		width    : "40%", 
-		height : "80", 
-		left : 10,
+		width    : "40%",  
+		left : 10, 
+		destination : "amountBalance",
 		image : "/images/Button03.png"
 	});
 	
@@ -60,49 +74,148 @@ function withdrawal(){
 	  color: '#ffffff',
 	  font: { fontSize:8 },
 	  left : 10,
-		right : 10,
+	  right : 10, 
 	  text: 'Withdrawal',
+	  destination : "withdrawal",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  width: "40%", height: Ti.UI.SIZE
+	  width: "40%" 
 	});
 	var label2 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  left : 10,
-	 
+	  left : 10, 
 	  text: 'Check Account Balance',
+	  destination : "amountBalance",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  width: "35%", height: Ti.UI.SIZE
+	  width: "35%" 
 	});
-	
+	var sepView = Ti.UI.createView({ 
+			width : "100%", 
+			height : "15", 
+			layout : "horizontal" 
+	});
 	var imaView3 = Ti.UI.createImageView({
-		width    : "40%", 
-		top    : 10,
-		left : 15,
-		right : 10,
-		bottom : 10,
+		width    : "40%",  
+		left : 10, 
+	    right : 100,
+	    destination : "transaction",
 		image : "/images/Button04.png"
 	});
 	var label3 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  left : 30,
-		right : 10,
+	  left : 10,
 	  text: 'View Transaction',
-	  textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT, 
-	  width: "95%", height: Ti.UI.SIZE
+	  destination : "transaction",
+	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
+	  width: "40%" 
 	});
 	
+	subView.add(svTitle);
 	subView.add(imaView1);	
 	subView.add(imaView2);	
 	subView.add(label1);	
 	subView.add(label2);
+	subView.add(sepView);	 
 	subView.add(imaView3);	
 	subView.add(label3);
-	var pop = API.popup(subView);
-	pop.open({fullscreen:true, navBarHidden: true});
+	addClickEvent(subView);
+	config.width = "70%";
+	config.height = "50%";
 	 
-	//DRAWER.navigation("withdrawal",1);
+	var pop = API.popup(subView,config);
+	pop.open({fullscreen:true, navBarHidden: true}); 
+}
+
+function racing(){
+	var config = [];
+	// double click prevention
+	var currentTime = new Date();
+	if (currentTime - clickTime < 1000) {
+		return;
+	};
+	clickTime = currentTime;
+	
+	//Create subview content
+	var subView = Ti.UI.createView({ 
+			width : "100%", 
+			height : "auto", 
+			layout : "horizontal",
+			top : 10
+	});
+	var svTitle = Ti.UI.createLabel({
+	  color: '#ffffff',
+	  font: { fontSize:8 },
+	  left : 10,
+	  right : 10, 
+	  text: 'Race Card',
+	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
+	  width: "40%" 
+	});
+	var svTitle = $.UI.create('Label', {
+		text:"Racing",
+		classes: ['description_header'],
+		width:'100%',
+		textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,  
+	});
+		
+	var imaView1 = Ti.UI.createImageView({
+		width    : "40%", 
+		left : 10,
+		right : 10, 
+		bottom:10,
+		destination : "raceCard",
+		image : "/images/Button05.png"
+	});
+	var imaView2 = Ti.UI.createImageView({
+		width    : "40%", 
+		left : 10, 
+		bottom:10,
+		destination    : "raceResult",
+		image : "/images/Button07.png"
+	});
+	
+	var label1 = Ti.UI.createLabel({
+	  color: '#ffffff',
+	  font: { fontSize:8 },
+	  left : 10,
+	  right : 10, 
+	  text: 'Race Card',
+	  destination    : "raceCard",
+	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
+	  width: "40%" 
+	});
+	var label2 = Ti.UI.createLabel({
+	  color: '#ffffff',
+	  font: { fontSize:8 },
+	  left : 10, 
+	  text: 'Race Result',
+	  destination    : "raceResult",
+	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
+	  width: "35%" 
+	});
+	 
+	subView.add(svTitle);
+	subView.add(imaView1);	
+	subView.add(imaView2);	
+	subView.add(label1);	
+	subView.add(label2); 
+	
+	config.width = "70%";
+	config.height = "30%";
+	 
+	var pop = API.popup(subView,config);
+	addClickEvent(subView, pop);
+	pop.open({fullscreen:true, navBarHidden: true}); 
+}
+
+function addClickEvent(myView, popView){
+	myView.addEventListener('click', function(e){
+		if(e.source.destination != null){
+			DRAWER.navigation(e.source.destination,1); 
+			popView.close();
+		} 
+	});
 }
 
 function amountBalance(){

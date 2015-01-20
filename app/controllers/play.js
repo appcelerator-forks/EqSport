@@ -4,8 +4,8 @@ var raceCardInfo = Alloy.createCollection('raceCardInfo');
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
-$.balance.text = "Your available balance is " + balanceInfo.amount;
-
+$.balance.setText("Your available balance is " + balanceInfo.amount);
+//console.log(balanceInfo);
 setPicker1(); 
 
 function refresh(index){
@@ -154,26 +154,17 @@ function confirm(){
 		return;
 	}
 	
-	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA")
-	{
-		if($.bet.value % 5 == 0)
-		{
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA") {
+		if($.bet.value % 5 == 0) {
 			
-		}
-		else
-		{
+		} else {
 			alert("Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
 			return;
 		}
-	}
-	else
-	{
-		if($.bet.value % 2 == 0)
-		{
+	} else {
+		if($.bet.value % 2 == 0) {
 			
-		}
-		else
-		{
+		} else {
 			alert("Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
 			return;
 		}
@@ -188,8 +179,8 @@ function confirm(){
 	
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
-		height:"80%",
-		width:"90%"
+		height:"100%",
+		width:"100%"
 	});
 	
 	var titleView = Ti.UI.createView({
@@ -201,8 +192,8 @@ function confirm(){
 	
 	var titleLabel = Ti.UI.createLabel({
 		color: 'black',
-		font: { fontSize:25 },
-		text: 'Bet Confirmtion',
+		font: { fontSize:16 },
+		text: 'Bet Confirmation',
 		textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
 		width: Ti.UI.SIZE, 
 		height: Ti.UI.SIZE,
@@ -226,32 +217,32 @@ function confirm(){
 	
 	var horizontalView1 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"50",
+		height:"40",
 		width:"100%",
 		top: 10
 	});
 	
 	var horizontalView2 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"50",
+		height:"40",
 		width:"100%"
 	});
 	
 	var horizontalView3 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"50",
+		height:"40",
 		width:"100%"
 	});
 	
 	var horizontalView4 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"50",
+		height:"40",
 		width:"100%"
 	});
 	
 	var horizontalView5 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"50",
+		height:"40",
 		width:"100%"
 	});
 	
@@ -322,7 +313,7 @@ function confirm(){
 	
 	var centerImageView = Ti.UI.createView({
 		layout: "composite",
-		height:"100",
+		height:"80",
 		width: "100%",
 	});
 	
@@ -369,11 +360,22 @@ function confirm(){
 	confirmView.add(titleView);
 	confirmView.add(contentView);
 	containerView.add(confirmView);
-	$.mainView.add(containerView);
-	
-	cancelBtn.addEventListener('click',cancel);
+	var config = [];
+	config.width = "70%";
+	config.height = "70%";
+	//$.mainView.add(containerView);
+	var pop = API.popup(containerView,config);
+	pop.open({fullscreen:true, navBarHidden: true}); 
+	addClickEvent(cancelBtn,pop); 
 	confirmBtn.addEventListener('click',process);
 }
+
+function addClickEvent(myView, popView){
+	myView.addEventListener('click', function(e){
+		popView.close(); 
+	});
+}
+
 
 function cancel()
 {

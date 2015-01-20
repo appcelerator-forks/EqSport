@@ -83,7 +83,7 @@
 				</ScrollView>
 			</View>
 			<View platform="android" layout="vertical" height="Ti.UI.SIZE">
-				<Label color="black" top="10">Your available balance is RM85.05</Label>
+				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
 				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
 					<View layout="horizontal" height="50" width="90%">
 						<View width="40%">
@@ -145,7 +145,7 @@
 				</View>
 		</View>
 		<View platform="ios" layout="vertical" height="Ti.UI.SIZE">
-				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM85.05</Label>
+				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
 				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
 					<View id="venueView" layout="horizontal" height="50" width="90%" backgroundColor="white">
 						<View width="40%" height="50">
@@ -218,7 +218,7 @@
 						</View>
 					</View>
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
-						<Label color="white" onClick="confirm">Confirm</Label>
+						<Label color="white">Confirm</Label>
 					</View>
 				</View>
 			</View>

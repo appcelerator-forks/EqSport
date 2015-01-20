@@ -7,6 +7,12 @@
     	right:0
     }
 },
+".boldText" :{
+	font: { 
+        fontStyle: 'normal',
+        fontWeight: 'bold'
+    }
+},
 ".menuLabel" : {
   width : Ti.UI.FILL,
   left : 20,

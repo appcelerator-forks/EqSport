@@ -5,12 +5,7 @@
 	color: "#000000",
 	font:{fontSize:14},	
 },
-".boldText" :{
-	font: { 
-        fontStyle: 'normal',
-        fontWeight: 'bold'
-    }
-},
+
 ".welcomeText" : {
 	color: "#ffffff", 
 	font:{fontSize:30},
