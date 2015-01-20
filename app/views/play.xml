@@ -218,7 +218,7 @@
 						</View>
 					</View>
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
-						<Label color="white" onClick="confirm">Confirm</Label>
+						<Label color="white">Confirm</Label>
 					</View>
 				</View>
 			</View>

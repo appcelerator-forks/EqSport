@@ -15,6 +15,7 @@ var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNA
 var requestRaceFavouriteOdds = "http://"+API_DOMAIN+"/j2me/v3/FavOdds_Track.asp";
 var requestRaceCard = "http://"+API_DOMAIN+"/j2me/v3/Racelist_Track.asp";
 var requestRaceResultWithDate = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
+var confirmRaceBet = "http://"+API_DOMAIN+"/j2me/v3/ConfirmRaceBet.asp";
 
  //http://175.143.113.177/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD
 /*********************
@@ -221,13 +222,15 @@ exports.submitRaceBet= function(ex){
 };
 
 exports.confirmRaceBet= function(ex){
-	var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
+	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
+	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
 	       console.log(res);
-	      
+	      Ti.API.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -251,10 +254,13 @@ exports.favourite = function (ex){
 	       	var res = getValueFromPipe(this.responseXML);
 	       console.log(res);
 	     
+	     	console.log("favourite api");
+	     	DRAWER.navigation("play",1);
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	alert("An error occurs : Favourite");
+	     	DRAWER.navigation("play",1);
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -271,7 +277,7 @@ exports.raceCard = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);
-	     	
+	     	console.log(res);
 			//Insert to local DB
 			var raceCardInfo = Alloy.createModel('raceCardInfo', { 
 				id: res.id,
@@ -295,8 +301,16 @@ exports.raceCard = function (ex){
 				}); 
 				raceCardDetails.save(); 
 			}
-	
-	     	DRAWER.navigation(ex.title,1);
+			
+			DRAWER.navigation(ex.title,1);
+			/*if(ex.title == "play")
+			{
+				API.favourite();
+			}
+			else
+			{
+	     		DRAWER.navigation(ex.title,1);
+	     	}to be used when favourite API online*/
 	     
 	     },
 	     // function called when an error occurs, including a timeout
