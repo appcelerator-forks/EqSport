@@ -273,6 +273,7 @@ exports.favourite = function (ex){
 //raceCard
 exports.raceCard = function (ex){
 	var url =  requestRaceCard; 
+ 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -323,6 +324,49 @@ exports.raceCard = function (ex){
 	 client.open("GET", url);
 	 // Send the request.
 	 client.send(); 
+};
+
+exports.popup = function(subView,config){
+    //Popup win
+	var popupWin = Ti.UI.createWindow({
+		backgroundImage : "/images/Transparent.png",
+		opacity            : 0, 
+		id                : "popupWin"
+	});
+	
+	//View that used to show the msg
+	var popupView = Ti.UI.createView({
+		width    : config.width,
+		height    : config.height,
+		backgroundColor : "#000000",
+		borderRadius : 10,
+		borderColor : "#565656",
+		borderWidth : 1
+	});
+	 
+	 
+	popupView.add(subView ); 
+	popupWin.add(popupView);
+ 
+	//Event to close the popup window
+	popupWin.addEventListener("click", function(e){
+		if(e.source.id != null){
+			popupWin.close();
+		}
+	});
+		
+	var matrix = Ti.UI.create2DMatrix(); 
+	matrix = matrix.scale(1.3, 1.3);
+	  
+	var a = Ti.UI.createAnimation({
+	    transform : matrix,
+	    opacity: 1, 
+	    duration : 500, 
+	});
+	
+	popupWin.navBarHidden = true; 
+	popupWin.animate(a);  
+	return popupWin;
 };
 
 //private function

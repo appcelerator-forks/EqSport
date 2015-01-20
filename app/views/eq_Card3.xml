@@ -1,6 +1,9 @@
 <Alloy>
-	<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" scrollType="vertical" backgroundImage="/images/BG_Large.jpg">
-    	<ImageView top="10" width="300" height="300" image="" backgroundColor="green" ></ImageView>
-    	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
+	<ScrollView id="scrollView" layout="vertical" height="100%" scrollType="vertical" backgroundImage="/images/BG_Large.jpg">
+    	<!--<ImageView top="10" width="300" height="300" image="" backgroundColor="green" ></ImageView>-->
+    	<Label class="description_text" width="90%" top="8">1.	The Account Holder must be non-Muslim, and above the age of 18 Years.</Label>
+    	<Label class="description_text" width="90%" top="8">2.	The Account Holder agrees to be bound by the provisions of the Act (“the Racing (Totalisator Board) Act 1961”), the Totalisator Agency Scheme 1961 and the Rules laid down by the Lembaga Totalisator Malaysia pursuant to the authority of and for the purposes provided by Section 14(e) of the Act and any subsequent amendments thereto.</Label>
+    	<Label class="description_text" width="90%" top="8">3.	The Account Holder shall access and use the EQ Link Account in accordance with these Terms and Conditions of use of the EQ Link, the guide provided by EQ Sport containing information on the EQ Link and access to the EQ Link, the instructions of EQ Sport issued from time to time (and all amendments, revisions and supplements thereto). The Account Holder shall be deemed to be bound by these Terms and Conditions upon the opening and maintenance of a EQ Link Account with EQ Sport.</Label>
+    	<Label class="description_text" width="90%" top="8">4.	The above terms and conditions form an integral part of the Terms and Conditions of use of the EQ Link, issued by EQ Sport from time to time. The Terms and Conditions shall be governed by and construed in accordance with the laws of Malaysia.</Label>
     </ScrollView>
 </Alloy>

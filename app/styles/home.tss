@@ -2,9 +2,10 @@
 "Label": {
 	width: Ti.UI.SIZE,
 	height: Ti.UI.SIZE,
-	color: "#9F9F9F",
+	color: "#000000",
 	font:{fontSize:14},	
 },
+
 ".welcomeText" : {
 	color: "#ffffff", 
 	font:{fontSize:30},

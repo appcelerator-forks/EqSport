@@ -7,12 +7,36 @@
     	right:0
     }
 },
+".boldText" :{
+	font: { 
+        fontStyle: 'normal',
+        fontWeight: 'bold'
+    }
+},
 ".menuLabel" : {
   width : Ti.UI.FILL,
   left : 20,
   color : "#ffffff",
   font: {
         fontSize: '12dp',
+        fontStyle: 'normal',
+        fontWeight: 'normal'
+    }
+},
+".description_header" : {
+  width : Ti.UI.FILL,
+  color : "#F26522",
+  font: {
+        fontSize: '16dp',
+        fontStyle: 'normal',
+        fontWeight: 'bold'
+    }
+},
+".description_text" : {
+  width : Ti.UI.FILL,
+  color : "#000000",
+  font: {
+        fontSize: '14dp',
         fontStyle: 'normal',
         fontWeight: 'normal'
     }

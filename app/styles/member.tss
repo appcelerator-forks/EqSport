@@ -1,10 +1,8 @@
 "Label": {
-	//color: "#4c66a4",
-	font: {
-		fontSize: '10',
-		//fontFamily: 'Helvetica Neue'
-	},
-	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#000000",
+	font:{fontSize:14},	
 },
 ".label1":{
 	font: {
