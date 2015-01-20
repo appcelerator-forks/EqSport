@@ -17,6 +17,24 @@
         fontWeight: 'normal'
     }
 },
+".description_header" : {
+  width : Ti.UI.FILL,
+  color : "#F26522",
+  font: {
+        fontSize: '16dp',
+        fontStyle: 'normal',
+        fontWeight: 'bold'
+    }
+},
+".description_text" : {
+  width : Ti.UI.FILL,
+  color : "#000000",
+  font: {
+        fontSize: '14dp',
+        fontStyle: 'normal',
+        fontWeight: 'normal'
+    }
+},
 ".hr" :{
 	width: Ti.UI.FILL,
 	height: '1',

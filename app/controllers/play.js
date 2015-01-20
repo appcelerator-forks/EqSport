@@ -3,10 +3,7 @@ var balanceInfo = balance.getBalance();
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1");
-console.log(infoValue);
-console.log(detailsValue);
-//var column1 = Ti.UI.createPickerColumn();
+var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
 $.balance.text = "Your available balance is " + balanceInfo.amount;
 
 setPicker1(); 
@@ -30,13 +27,7 @@ function refresh(index){
 	}
 }
 
-function setPicker1(){
-	/*var data = [];
-	for(var i = 0 ; i < infoValue.length; i++){
-		data = Ti.UI.createPickerRow({title:infoValue[i].venue,race_id:infoValue[i].id});
-		$.pickerColumn1.addRow(data);
-	}*/
-	
+function setPicker1(){ 
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
@@ -44,9 +35,7 @@ function setPicker1(){
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
-	
-	console.log("data picker 1");
-	console.log(data);
+	 
 }
 
 function setPicker2(){

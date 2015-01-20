@@ -2,45 +2,63 @@
 	<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
 		<Require src="_header"></Require>
 		<View layout="vertical">
-			<ScrollView layout="vertical">
-            	<ImageView top="10" width="300" height="300" image="/images/home04.png" ></ImageView>
-            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
+			<View width="90%" height="40" top="2"><Label height="35" class="description_header" top="10" bottom="10" textAlign="center">Topup With EQLINK</Label></View>
+			<ScrollView layout="vertical" height=Ti.UI.SIZE> 
+            	<Label class="description_text" width="90%" top="8">The following Top-Up Channels are offered to EQ Link members:-</Label>
+            	
+            	<View top="15" layout="horizontal" height="20" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">Maybank2U</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="20" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">Public Bank</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="20" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">Hong Leong Bank</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="20" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">CIMB Bank</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="15" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">RHB Bank</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="20" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">E-Pay</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="35" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">FPX (MEPS) Inter-bank real time top up from your preferred bank</Label></View>
+            	</View>
+            	
+            	<View top="15" layout="horizontal" height="35" width="90%">
+            		<View width="5%"><Label class="description_text" top="0">-</Label></View>
+            		<View width="95%"><Label class="description_text">Selected Counters at Selangor Turf Club, Perak Turf Club and Penang Turf Club</Label></View>
+            	</View>
+            	
+            	<View top="25" layout="horizontal"  width="90%">
+            		<ImageView width="30%" height="30" right="5" image="/images/payment/maybank.png" /> 
+            		<ImageView width="30%" height="30" right="5" image="/images/payment/hlb.png" /> 
+            		<ImageView width="30%" height="30" right="5" image="/images/payment/fpx.png" /> 
+            		<ImageView width="30%" height="30" top="10" right="5" image="/images/payment/pbb.png" /> 
+            		<ImageView width="30%" height="30" top="10" right="5" image="/images/payment/rhb.png" /> 
+            		<ImageView width="30%" height="30" top="10" image="/images/payment/cimb.png" /> 
+            		<ImageView width="auto" height="40" top="10" right="5" image="/images/payment/e-pay.png" />
+            		<ImageView width="30%" height="40" top="10"  image="/images/payment/others.png" /> 
+            	</View>
         	</ScrollView>
+		 
 		</View>
 	</View>
-	 <!--<TabGroup id="tabGroup">
-        <Tab id="tab1" title="Info" icon="">
-            <Window id="win1" title="Info" backgroundColor="white">
-            	<LeftNavButton>
-                    <ImageView image="/images/menu_toggle.png" left="0" onClick="closeWindow" height="40" width="40" />
-                </LeftNavButton>
-            	<ScrollView layout="vertical">
-	            	<ImageView top="10" width="300" height="300" image="/images/home04.png" ></ImageView>
-	            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
-            	</ScrollView>
-            </Window>
-        </Tab>
-     </TabGroup>-->
-        <!--<Tab id="tab2" title="Details" icon="">
-            <Window id="win2" title="Details" backgroundColor="white">
-            	<LeftNavButton>
-                    <ImageView image="/images/menu_toggle.png" left="0" onClick="closeWindow" height="40" width="40" />
-                </LeftNavButton>
-            	<ScrollView layout="vertical">
-	            	<ImageView top="10" width="300" height="300" image="" backgroundColor="blue" ></ImageView>
-	            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
-            	</ScrollView>
-            </Window>
-        </Tab>
-        <Tab id="tab3" title="T&C" icon="">
-            <Window id="win3" title="T&C" backgroundColor="white">
-            	<LeftNavButton>
-                    <ImageView image="/images/menu_toggle.png" left="0" onClick="closeWindow" height="40" width="40" />
-                </LeftNavButton>
-            	<ScrollView layout="vertical">
-	            	<ImageView top="10" width="300" height="300" image="" backgroundColor="green" ></ImageView>
-	            	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
-	            </ScrollView>
-            </Window>
-        </Tab>-->
+	 
 </Alloy>

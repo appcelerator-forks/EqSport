@@ -1,7 +1,7 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.139.227.132";
+var API_DOMAIN = "175.143.114.122";
 var XHR = require("xhr");
 var xhr = new XHR();
 
@@ -309,6 +309,49 @@ exports.raceCard = function (ex){
 	 client.open("GET", url);
 	 // Send the request.
 	 client.send(); 
+};
+
+exports.popup = function(subView){
+    //Popup win
+	var popupWin = Ti.UI.createWindow({
+		backgroundImage : "/images/gray_bg.png",
+		opacity            : 0, 
+		id                : "popupWin"
+	});
+	
+	//View that used to show the msg
+	var popupView = Ti.UI.createView({
+		width    : "60%",
+		height    : "45%",
+		backgroundColor : "#000000",
+		borderRadius : 10,
+		borderColor : "#565656",
+		borderWidth : 1
+	});
+	 
+	 
+	popupView.add(subView ); 
+	popupWin.add(popupView);
+	
+	//Event to close the popup window
+	popupWin.addEventListener("click", function(e){
+		if(e.source.id != null){
+			popupWin.close();
+		}
+	});
+		
+	var matrix = Ti.UI.create2DMatrix(); 
+	matrix = matrix.scale(1.3, 1.3);
+	  
+	var a = Ti.UI.createAnimation({
+	    transform : matrix,
+	    opacity: 0.9, 
+	    duration : 500, 
+	});
+	
+	popupWin.navBarHidden = true; 
+	popupWin.animate(a);  
+	return popupWin;
 };
 
 //private function

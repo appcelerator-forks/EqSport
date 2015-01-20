@@ -1,6 +1,8 @@
 <Alloy>
-	<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" scrollType="vertical" backgroundImage="/images/BG_Large.jpg">
-    	<ImageView top="10" width="300" height="300" image="/images/home01.png" ></ImageView>
-    	<Label width="90%">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Label>
+	<ScrollView id="scrollView" layout="vertical" height="100%" scrollType="vertical" backgroundImage="/images/BG_Large.jpg">
+    	<!--<ImageView top="10" width="300" height="300" image="/images/home01.png" ></ImageView>-->
+    	<Label class="description_text" width="90%" top="8">1.	EQ Sport Sdn. Bhd. (Company no. 1047946-T), a company incorporated in Malaysia with its registered address at No.30-A, Jalan 17/155C, Bandar Bukit Jalil, 57000 Kuala Lumpur. The operations office is situated at Selangor Turf Club, Jalan Kuda Emas, off Jalan Sungaiu Besi, 57100 Kuala Lumpur. EQ Sport Sdn. Bhd. is the authorised agent of the Lembaga Totalisator Malaysia to conduct, manage and operate the racing totalisator and number forecast totalisator in Malaysia.</Label>
+		<Label class="description_text" width="90%" top="8">2.	EQ Link refers to the exclusive in-depth services provided by EQ Sport to facilitate EQ Link’s members on information and investments by telephone/mobile/electronic tele-betting facilities on the racing totalisator and number forecast totalisator operated under the Racing (Totalisator Board) Act 1961.</Label>
+		<Label class="description_text" width="90%" top="8">3.	EQ Link Account refers to the tele-betting accounts opened and maintained by EQ Link members with EQ Sport Sdn. Bhd.</Label>
 	</ScrollView>
 </Alloy>

@@ -37,11 +37,11 @@
 		<View layout="horizontal" width="100%" height="30" top="10">
 			<View width="50%" height="100%">
 				<!--<Label width="40%" left="10" right="5" top="20" onClick="goTo" mod="Card" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">EQLink Card</Label>-->
-				<Label width="100%" onClick="goTo" mod="Card" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">EQLink Card</Label>
+				<Label class="boldText" width="100%" onClick="goTo" mod="Card" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">EQLink Card</Label>
 			</View>
 			<View width="49.9%" height="100%">
 				<!--<Label width="40%" left="40" top="20" onClick="goTo" mod="Play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play with EQLink</Label>-->
-				<Label width="100%" onClick="goTo" mod="Play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play with EQLink</Label>
+				<Label class="boldText" width="100%" onClick="goTo" mod="Play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play with EQLink</Label>
 			</View>
 		</View>
 		<View layout="horizontal" width="100%" height="130" top="10">
@@ -57,11 +57,11 @@
 		<View layout="horizontal" width="100%" height="30" top="10">
 			<View width="50%" height="100%">
 				<!--<Label width="40%" left="10" right="5" top="30" onClick="goTo" mod="Win" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Win with EQLink</Label>-->
-				<Label width="100%" onClick="goTo" mod="Win" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Win with EQLink</Label>
+				<Label class="boldText" width="100%" onClick="goTo" mod="Win" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Win with EQLink</Label>
 			</View>
 			<View width="49.9%" height="100%">
 				<!--<Label width="40%" left="40" top="30" onClick="goTo" mod="Reload" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Reload EQLink</Label>-->
-				<Label width="100%" onClick="goTo" mod="Reload" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Reload EQLink</Label>
+				<Label class="boldText" width="100%" onClick="goTo" mod="Reload" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Reload EQLink</Label>
 			</View>
 		</View>
 	</ScrollView>
