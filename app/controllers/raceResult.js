@@ -1,5 +1,19 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
+
+var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
+
+if(Ti.Platform.osname == "android"){
+	$.picker.width = "100%";
+	$.picker.top = 50;
+}
+
+if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+	$.picker.width = "125%";
+	$.picker.transform = transformPicker;
+	$.picker.top = -20;
+}
+
 var value = new Date();
 var dayInt = value.getDate();
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
@@ -18,8 +32,8 @@ function back(){
 }
 
 function showDate(){
-	$.dateContainer.height = 265;
-	$.dateView.height = 265;
+	$.dateContainer.height = 275;
+	$.dateView.height = 275;
 	$.pickerView.show();
 }
 

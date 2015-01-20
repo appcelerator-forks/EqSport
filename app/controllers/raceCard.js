@@ -1,16 +1,27 @@
-$.picker1.setSelectedRow(0,false);
-$.picker2.setSelectedRow(0,false);
+if(Ti.Platform.osname == "android"){
+	$.picker1.setSelectedRow(0,false);
+}
+if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+	$.picker1.setSelectedRow(0,3,false);
+}
+//$.picker2.setSelectedRow(0,false);
 
 function back(){	
 	DRAWER.navigation("member",1);
 }
 
-function date(){
-	
-}
-
-function venue(){
-	
+function venue(e){
+	venue = e.row.title;
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+		$.pickerView1.height = 50;
+		$.pickerView1.setVisible(false);
+		$.done1.setVisible(false);
+		$.picker1.setVisible(false);
+		$.venueLabel.text = venue;
+	}
+	//reload result view
 }
 
 /*
@@ -67,3 +78,23 @@ for(var i=0, i < arr.length, i++)
 	$.scrollView.add(centerLineView);
 }
 */
+
+function done1()
+{
+	$.venueView.height = 50;
+	$.venueContentView.height = 50;
+	$.pickerView1.height = 50;
+	$.pickerView1.setVisible(false);
+	$.done1.setVisible(false);
+	$.picker1.setVisible(false);
+}
+
+function showVenue() {
+	$.venueView.height = 250;
+	$.venueContentView.height = 250;
+	$.pickerView1.height = 250;
+	$.pickerView1.setVisible(true);
+	$.done1.setVisible(true);
+	$.picker1.setVisible(true);
+	//return false;
+}
