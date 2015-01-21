@@ -88,7 +88,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin;
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php";
-	console.log(url);
+	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -100,12 +100,12 @@ exports.checkBalance = function (ex){
 	     	}else{
 	     		//success	
 	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG');
-	     		console.log(message);
+	     		//console.log(message);
 	     		var arr = message.split(" ");
 	     		var amount = arr[5];
 	     		var date = arr[3];
 	     		var time = arr[4];
-	     		console.log(time);
+	     		//console.log(time);
 	     		
 	     		// Insert to local DB
 		       	var checkBalance = Alloy.createModel('balance', { 
@@ -208,7 +208,7 @@ exports.submitRaceBet= function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       console.log(res);
+	       //console.log(res);
 	      
 	     },
 	     // function called when an error occurs, including a timeout
@@ -226,13 +226,13 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
-	console.log(url);
+	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       	console.log(this.responseXML);
-	       console.log(res);
+	       	console.log("response geo" + this.responseXML);
+	       //console.log(res);
 	       
 	       /*if(res.response =="Success")
 	       {
@@ -259,8 +259,8 @@ exports.favourite = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	console.log("favourite");
-	       	var res = getValueFromPipe(this.responseXML);
+	     	console.log("favourite"); 
+	       	var res = getValueForFavOdd(this.responseXML);
 	       console.log(res);
 	     
 	     	console.log("favourite api");
@@ -286,7 +286,7 @@ exports.raceCard = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);
-	     	console.log(res);
+	     	//console.log(res);
 			//Insert to local DB
 			var raceCardInfo = Alloy.createModel('raceCardInfo', { 
 				id: res.id,
