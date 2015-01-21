@@ -34,50 +34,50 @@
 						<View width="19%">
 						</View>
 						<View width="20%">
-							<Label color="orange">13</Label>
+							<Label id="a1" color="orange">13</Label>
 						</View>
 						<View width="20%">
-							<Label color="orange">11</Label>
+							<Label id="a2" color="orange">11</Label>
 						</View>
 						<View width="20%">
-							<Label color="orange">10</Label>
+							<Label id="a3" color="orange">10</Label>
 						</View>
 						<View width="20%">
-							<Label color="orange">9</Label>
+							<Label id="a4" color="orange">9</Label>
 						</View>
 					</View>
 					<View layout="horizontal" height="30" width="100%">
 						<View width="19%">
-							<Label color="orange">w</Label>
+							<Label color="orange">W</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">6</Label>
+							<Label id="b1" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="b2" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="b3" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="b4" color="black">9999</Label>
 						</View>
 					</View>
 					<View layout="horizontal" height="30" width="100%">
 						<View width="19%">
-							<Label color="orange">w</Label>
+							<Label color="orange">P</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">6</Label>
+							<Label id="c1" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="c2" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="c3" color="black">9999</Label>
 						</View>
 						<View width="20%">
-							<Label color="black">9999</Label>
+							<Label id="c4" color="black">9999</Label>
 						</View>
 					</View>
 				</ScrollView>

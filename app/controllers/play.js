@@ -3,9 +3,20 @@ var balanceInfo = balance.getBalance();
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
-$.balance.setText("Your available balance is " + balanceInfo.amount);
-//console.log(balanceInfo);
+var detailsValue = raceCardDetails.getRaceCardDetails("1");
+var info = Alloy.createCollection('info');
+var infoDetails = info.getInfo();
+console.log(infoDetails);
+
+var runnerIndex;
+var dateFormatted;
+var timeFormatted;
+console.log(infoValue);
+console.log("play****************");
+console.log(detailsValue);
+//var column1 = Ti.UI.createPickerColumn();
+$.balance.text = "Your available balance is " + balanceInfo.amount;
+
 setPicker1(); 
 
 function refresh(index){
@@ -97,13 +108,14 @@ function venue(e){
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
 		$.venueLabel.text = venue;
-		//$.venue.text = "Venue: " + venue;
+		$.venue.text = "Venue: " + venue;
 	}
 	
 	refresh(e.row.race_id);
 }
 
 function raceNo(e){
+	runnerIndex = e.rowIndex;
 	raceNo = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.raceNoView.height = 50;
@@ -113,8 +125,8 @@ function raceNo(e){
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
 		$.raceNoLabel.text = raceNo;
-		// $.venue.text = "Venue: " + venue;
-		// $.race.text = "Race: " + raceNo;
+		$.venue.text = "Venue: " + venue;
+		$.race.text = "Race: " + raceNo;
 	}
 }
 
@@ -142,9 +154,9 @@ function back(){
 	DRAWER.navigation("member",1);
 }
 
-function confirm(){
-	
-	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value =="" ) {
+function confirm()
+{
+	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
 		alert("Fields cannot be empty");
 		return;
 	}
@@ -170,12 +182,123 @@ function confirm(){
 		}
 	}
 	
+	console.log("transaction valid");
+	
+	console.log(detailsValue[runnerIndex].runner_date);
+	var oriData = detailsValue[runnerIndex].runner_date;
+	var res = oriData.split("/");
+	var month = ("0"+res[0]).slice(-2);
+	var day = ("0"+res[1]).slice(-2);
+	var year = res[2];
+	dateFormatted = month + day +year;
+	
+	console.log(detailsValue[runnerIndex].runner_time);
+	var oriTime = detailsValue[runnerIndex].runner_time;
+	var temp = oriTime.split(" ");
+	var res = temp[0].split(":");
+	var hour = ("0"+res[0]).slice(-2);
+	var minute = ("0"+res[1]).slice(-2);
+	var second = ("0"+res[2]).slice(-2);
+	timeFormatted = hour + minute + second;
+	
+	console.log("*******************");
+	console.log(infoDetails[0].msisdn);
+	console.log(infoDetails[0].pin);
+	console.log(dateFormatted);
+	console.log(timeFormatted);
+	console.log(raceNo);
+	console.log($.runner.value);
+	console.log(pool);
+	
+	var betInfo = Alloy.createModel('betInfo', { 
+		msisdn:infoDetails[0].msisdn,
+		account: (infoDetails[0].account).toString(), 
+		pin: infoDetails[0].pin.toString(),
+		date: dateFormatted,
+		time: detailsValue[runnerIndex].runner_time,
+		venue: venue,
+		raceNo: raceNo,
+		pool: pool,
+		bet: $.bet.value,
+		runner: $.runner.value
+	}); 
+	betInfo.save(); 
+	
+	API.confirmRaceBet({
+		msisdn: infoDetails[0].msisdn,
+		pin: infoDetails[0].pin,
+		date: dateFormatted,
+		time: timeFormatted,
+		raceNo: raceNo,
+		runner: $.runner.value,
+		pool: pool
+	});
+	
+}
+
+function submit(){
+	console.log("submit");
+	/*if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
+		alert("Fields cannot be empty");
+		return;
+	}
+	
+	if($.bet.value <= 1) {
+		alert("Minimum bet: 2");
+		return;
+	}
+	
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA")
+	{
+		if($.bet.value % 5 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			return;
+		}
+	}
+	else
+	{
+		if($.bet.value % 2 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
+			return;
+		}
+	}
+	console.log("transaction valid");
 	console.log(venue);
 	console.log(raceNo);
 	console.log(pool);
 	console.log($.runner.value);
-	console.log($.bet.value);
+	console.log($.bet.value);*/
+	
+	var betInfo = Alloy.createCollection('betInfo'); 
+	var bet = betInfo.getBetInfo();
 
+	var oriTime = bet[0].time;
+	console.log(oriTime);
+	var temp = oriTime.split(" ");
+	var res = temp[0].split(":");
+	var hourInt = parseInt(res[0]);
+	if(temp[1]=='PM')
+	{
+		hourInt = hourInt + 12;
+	}
+	
+	var hour = ("0"+hourInt.toString()).slice(-2);
+	var minute = ("0"+res[1]).slice(-2);
+	var second = ("0"+res[2]).slice(-2);
+	
+	var timeFormatted24 = hour + minute + second;
+	
+	console.log("time24"+timeFormatted24);
 	
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
@@ -216,32 +339,32 @@ function confirm(){
 	
 	var horizontalView1 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%",
 		top: 10
 	});
 	
 	var horizontalView2 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView3 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView4 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView5 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
@@ -282,31 +405,31 @@ function confirm(){
 	
 	var venueLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: venue,
+		text: bet[0].venue,
 		width: "50%"
 	});
 	
 	var raceNoLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: raceNo,
+		text: bet[0].raceNo,
 		width: "50%"
 	});
 	
 	var poolLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: pool,
+		text: bet[0].pool,
 		width: "50%"
 	});
 	
 	var runnerLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: $.runner.value,
+		text: bet[0].runner,
 		width: "50%"
 	});
 	
 	var betLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: $.bet.value,
+		text: bet[0].bet,
 		width: "50%"
 	});
 	
@@ -380,7 +503,9 @@ function addClickEvent(myView, popView){
 			alert("Action Submit");
 		}
 	});
-} 
+ 
+}
+ 
 
 function showVenue() {
 	$.venueView.height = 160;
@@ -444,3 +569,7 @@ function done3(){
 	$.done3.setVisible(false);
 	$.picker3.setVisible(false);
 }
+
+Ti.API.addEventListener('confirmSuccess', function(e){
+	submit();
+});
