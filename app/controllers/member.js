@@ -20,6 +20,7 @@ function menuToggle(e){
 
 function play(){
 	//API.favourite();
+	balance.resetBalance();
 	favourite.resetInfo();
 	raceCardInfo.resetInfo();
 	raceCardDetails.resetDetails();
@@ -221,6 +222,7 @@ function addClickEvent(myView, popView){
 }
 
 function amountBalance(){
+	console.log("amountBalance");
 	balance.resetBalance();
 	API.checkBalance({
 		account: infoDetails[0].account,

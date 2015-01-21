@@ -11,7 +11,7 @@ exports.definition = {
 		    "oldic": "TEXT",
 		    "newic": "INTEGER",
 		    "address": "TEXT",
-		    "msisdn": "INTEGER",
+		    "msisdn": "TEXT",
 		    "email": "TEXT",
 		    "account": "INTEGER",
 		    "pin": "INTEGER"

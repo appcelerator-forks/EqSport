@@ -7,11 +7,7 @@ var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var info = Alloy.createCollection('info');
 var bet = Alloy.createCollection('betInfo');
 var favourite = Alloy.createCollection('favourite');
-var favouriteInfo = favourite.getFavouriteInfo();
 var infoDetails = info.getInfo();
-console.log("favourite****************");
-console.log(favouriteInfo);
-console.log("favourite****************end");
 console.log(infoDetails);
 
 var pop;
@@ -135,7 +131,7 @@ function raceNo(e){
 	}
 	$.venue.text = "Venue: " + venue;
 	$.race.text = "Race: " + raceNo;
-	favouriteOdd(parseInt(raceNo));
+	favouriteOdd(raceNo);
 }
 
 function pool(e){
@@ -153,31 +149,56 @@ function pool(e){
 
 function favouriteOdd(selectedRow)
 {
-	$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
-	
-	var runner = favouriteInfo[0].runner;
-	var run = runner.split("$");
-	
-	var win_odd = favouriteInfo[0].win_odd;
-	var win = win_odd.split("$");
-	
-	var pla_odd = favouriteInfo[0].pla_odd;
-	var pla = pla_odd.split("$");
-	
-	$.a1.text = run[0];
-	$.a2.text = run[1];
-	$.a3.text = run[2];
-	$.a4.text = run[3];
-	
-	$.b1.text = win[0];
-	$.b2.text = win[1];
-	$.b3.text = win[2];
-	$.b4.text = win[3];
-	
-	$.c1.text = pla[0];
-	$.c2.text = pla[1];
-	$.c3.text = pla[2];
-	$.c4.text = pla[3];
+	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
+	console.log("favouriteInfo");
+	console.log(favouriteInfo);
+	if(favouriteInfo == "")
+	{
+		$.mtr.text = "Min to Race:-";
+		
+		$.a1.text = "-";
+		$.a2.text = "-";
+		$.a3.text = "-";
+		$.a4.text = "-";
+		
+		$.b1.text = "-";
+		$.b2.text = "-";
+		$.b3.text = "-";
+		$.b4.text = "-";
+		
+		$.c1.text = "-";
+		$.c2.text = "-";
+		$.c3.text = "-";
+		$.c4.text = "-";
+	}
+	else
+	{
+		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
+		
+		var runner = favouriteInfo[0].runner;
+		var run = runner.split("$");
+		
+		var win_odd = favouriteInfo[0].win_odd;
+		var win = win_odd.split("$");
+		
+		var pla_odd = favouriteInfo[0].pla_odd;
+		var pla = pla_odd.split("$");
+		
+		$.a1.text = run[0];
+		$.a2.text = run[1];
+		$.a3.text = run[2];
+		$.a4.text = run[3];
+		
+		$.b1.text = win[0];
+		$.b2.text = win[1];
+		$.b3.text = win[2];
+		$.b4.text = win[3];
+		
+		$.c1.text = pla[0];
+		$.c2.text = pla[1];
+		$.c3.text = pla[2];
+		$.c4.text = pla[3];
+	}
 }
 
 if(Ti.Platform.osname == "android"){
