@@ -27,7 +27,7 @@ exports.login = function (ex){
 	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
-	     onload : function(e) {
+	     onload : function(e) { 
 	     	var respcode = getValueFromXml(this.responseXML, 'LOGIN' , 'RESPCODE');
 	     	if(respcode == "1"){
 	     		var errdesc  = getValueFromXml(this.responseXML, 'LOGIN' , 'ERRDESC');
@@ -70,7 +70,7 @@ exports.login = function (ex){
 	       
 	     },
 	     // function called when an error occurs, including a timeout
-	     onerror : function(e) {
+	     onerror : function(e) { 
 	     	alert("Unable to login");
 	     	
 	     },
@@ -349,7 +349,7 @@ exports.popup = function(subView,config){
 	    opacity: 1, 
 	    duration : 500, 
 	});
-	
+	//Titanium.Android.ActionBar.hide();
 	popupWin.navBarHidden = true; 
 	popupWin.animate(a);  
 	return popupWin;

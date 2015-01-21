@@ -210,8 +210,7 @@ function confirm(){
   		showHorizontalScrollIndicator: false,
 	});
 	
-	if(Ti.Platform.osname == "android")
-	{
+	if(Ti.Platform.osname == "android") {
 		contentView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
 	}
 	
@@ -325,6 +324,7 @@ function confirm(){
 	
 	cancelBtn = Ti.UI.createImageView({
 		image:'/images/Button_Cancel.png',
+		btnAction : "cancel",
 		width: 80,
 		height: 80,
 		right: 10
@@ -332,6 +332,7 @@ function confirm(){
 
 	confirmBtn = Ti.UI.createImageView({
 		image:'/images/Button_Confirm.png',
+		btnAction : "confirm",
 		width: 80,
 		height: 80,
 		left: 10
@@ -367,32 +368,19 @@ function confirm(){
 	var pop = API.popup(containerView,config);
 	pop.open({fullscreen:true, navBarHidden: true}); 
 	addClickEvent(cancelBtn,pop); 
-	confirmBtn.addEventListener('click',process);
+	addClickEvent(confirmBtn,pop);  
 }
 
 function addClickEvent(myView, popView){
+	
 	myView.addEventListener('click', function(e){
-		popView.close(); 
+		if(e.source.btnAction == "cancel"){
+			popView.close(); 
+		}else{
+			alert("Action Submit");
+		}
 	});
-}
-
-
-function cancel()
-{
-	cancelBtn.removeEventListener('click',cancel);
-	confirmBtn.removeEventListener('click',process);
-	$.mainView.remove(containerView);
-}
-
-function process()
-{
-	//send data to server
-	
-	
-	cancelBtn.removeEventListener('click',cancel);
-	confirmBtn.removeEventListener('click',process);
-	$.mainView.remove(containerView);
-}
+} 
 
 function showVenue() {
 	$.venueView.height = 160;
@@ -430,8 +418,7 @@ function hidePicker() {
 	$.picker3.setVisible(true);
 }
 
-function done1()
-{
+function done1() {
 	$.venueView.height = 50;
 	$.venueContentView.height = 50;
 	$.pickerView1.height = 50;
@@ -440,8 +427,7 @@ function done1()
 	$.picker1.setVisible(false);
 }
 
-function done2()
-{
+function done2(){
 	$.raceNoView.height = 50;
 	$.raceNoContentView.height = 50;
 	$.pickerView2.height = 50;
@@ -450,8 +436,7 @@ function done2()
 	$.picker2.setVisible(false);
 }
 
-function done3()
-{
+function done3(){
 	$.poolView.height = 50;
 	$.poolContentView.height = 50;
 	$.pickerView3.height = 50;
