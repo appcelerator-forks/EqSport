@@ -208,14 +208,23 @@ exports.submitRaceBet= function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       //console.log(res);
+	       	console.log(res);
 	      
-	      /*if(res.status =="Good")
+	      if(res.Status =="Good")
 	       {
 	       		Ti.API.fireEvent('submitSuccess');
-	       }used when API is ready*/
+	       }
+	       else
+	       {
+	       		var a = Titanium.UI.createAlertDialog({
+				    title:res.Status,
+				    message: res.ErrorNumber + '\n' + res.ErrorDescription
+				});
+				a.show();
+				Ti.API.fireEvent('submitFailed');
+	       }
 	      
-	      Ti.API.fireEvent('submitSuccess');
+	      //Ti.API.fireEvent('submitSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -267,17 +276,17 @@ exports.favourite = function (ex){
 	     onload : function(e) {
 	     	console.log("favourite"); 
 	       	var res = getValueForFavOdd(this.responseXML);
-	       	console.log(res);
+	       	//console.log(res);
 	     	
 	     	var favouriteInfo = Alloy.createModel('favourite', { 
-				min_to_race: res.min_to_race,
-				pla_odd: res.pla_odd, 
-				race_date: res.race_date,
-				race_no: res.race_no,
-				runner: res.runner, 
-				time: res.time,
-				venue: res.venue,
-				win_odd: res.win_odd
+				min_to_race: res[0].min_to_race,
+				pla_odd: res[0].pla_odd, 
+				race_date: res[0].race_date,
+				race_no: res[0].race_no,
+				runner: res[0].runner, 
+				time: res[0].time,
+				venue: res[0].venue,
+				win_odd: res[0].win_odd
 			}); 
 			favouriteInfo.save(); 
 	     	

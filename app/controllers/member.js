@@ -2,6 +2,7 @@ var balance = Alloy.createCollection('balance');
 var info = Alloy.createCollection('info');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
+var favourite = Alloy.createCollection('favourite');
 var infoDetails = info.getInfo(); 
 var clickTime = null;
  
@@ -19,6 +20,7 @@ function menuToggle(e){
 
 function play(){
 	//API.favourite();
+	favourite.resetInfo();
 	raceCardInfo.resetInfo();
 	raceCardDetails.resetDetails();
 	API.raceCard({

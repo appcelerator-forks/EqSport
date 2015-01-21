@@ -86,14 +86,16 @@ var getValueForFavOdd = function(xml){
  	var ary = [];
 	if(data[1] == "S:" || data[1] == "R:"){ 
 		var obj = {};
-		var w_arr = data[5].split("$"); 
-		var p_arr = data[7].split("$"); 
+		//var w_arr = data[5].split("$"); 
+		//var p_arr = data[7].split("$"); 
 		obj["race_date"]  = data[2];
 		obj["race_no"]  = data[3];
 		obj["min_to_race"]  = data[4];
-		obj["win_odd"]  = w_arr;
+		//obj["win_odd"]  = w_arr;
+		obj["win_odd"]  = data[5];
 		obj["runner"]  = data[6];
-		obj["pla_odd"]  = p_arr;
+		//obj["pla_odd"]  = p_arr;
+		obj["pla_odd"]  = data[7];
 		obj["venue"]  = data[8];
 		obj["time"]  = data[9];
 		ary.push(obj);

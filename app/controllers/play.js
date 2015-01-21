@@ -6,9 +6,15 @@ var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var info = Alloy.createCollection('info');
 var bet = Alloy.createCollection('betInfo');
+var favourite = Alloy.createCollection('favourite');
+var favouriteInfo = favourite.getFavouriteInfo();
 var infoDetails = info.getInfo();
+console.log("favourite****************");
+console.log(favouriteInfo);
+console.log("favourite****************end");
 console.log(infoDetails);
 
+var pop;
 var runnerIndex;
 var dateFormatted;
 var timeFormatted;
@@ -110,9 +116,8 @@ function venue(e){
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
 		$.venueLabel.text = venue;
-		$.venue.text = "Venue: " + venue;
 	}
-	
+	$.venue.text = "Venue: " + venue;
 	refresh(e.row.race_id);
 }
 
@@ -127,9 +132,10 @@ function raceNo(e){
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
 		$.raceNoLabel.text = raceNo;
-		$.venue.text = "Venue: " + venue;
-		$.race.text = "Race: " + raceNo;
 	}
+	$.venue.text = "Venue: " + venue;
+	$.race.text = "Race: " + raceNo;
+	favouriteOdd(parseInt(raceNo));
 }
 
 function pool(e){
@@ -143,6 +149,35 @@ function pool(e){
 		$.picker3.setVisible(false);
 		$.poolLabel.text = pool;
 	}
+}
+
+function favouriteOdd(selectedRow)
+{
+	$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
+	
+	var runner = favouriteInfo[0].runner;
+	var run = runner.split("$");
+	
+	var win_odd = favouriteInfo[0].win_odd;
+	var win = win_odd.split("$");
+	
+	var pla_odd = favouriteInfo[0].pla_odd;
+	var pla = pla_odd.split("$");
+	
+	$.a1.text = run[0];
+	$.a2.text = run[1];
+	$.a3.text = run[2];
+	$.a4.text = run[3];
+	
+	$.b1.text = win[0];
+	$.b2.text = win[1];
+	$.b3.text = win[2];
+	$.b4.text = win[3];
+	
+	$.c1.text = pla[0];
+	$.c2.text = pla[1];
+	$.c3.text = pla[2];
+	$.c4.text = pla[3];
 }
 
 if(Ti.Platform.osname == "android"){
@@ -492,7 +527,7 @@ function submit(){
 	config.width = "70%";
 	config.height = "70%";
 	//$.mainView.add(containerView);
-	var pop = API.popup(containerView,config);
+	pop = API.popup(containerView,config);
 	pop.open({fullscreen:true, navBarHidden: true}); 
 	addClickEvent(cancelBtn,pop); 
 	addClickEvent(confirmBtn,pop);  
@@ -505,7 +540,7 @@ function addClickEvent(myView, popView){
 		}else{
 			//alert("Action Submit");
 			process();
-			popView.close(); 
+			//popView.close(); 
 		}
 	});
 }
@@ -579,9 +614,19 @@ function success(){
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
 	$.mainView.remove(containerView);
+	pop.close();
 	alert("Transaction Successful");
 }
  
+function fail()
+{
+	cancelBtn.removeEventListener('click',cancel);
+	confirmBtn.removeEventListener('click',process);
+	$.mainView.remove(containerView);
+	$.runner.value = "";
+	$.bet.value = "";
+	pop.close();
+}
 
 function showVenue() {
 	$.venueView.height = 160;
@@ -652,4 +697,8 @@ Ti.API.addEventListener('confirmSuccess', function(e){
 
 Ti.API.addEventListener('submitSuccess', function(e){
 	success();
+});
+
+Ti.API.addEventListener('submitFailed', function(e){
+	fail();
 });
