@@ -65,6 +65,7 @@ exports.login = function (ex){
 					pin: pin
 				}); 
 				userInfo.save();  
+				
 				Alloy.Globals.menuType = "2";
     			Ti.App.fireEvent("app:refreshMenu");
  
@@ -85,10 +86,9 @@ exports.login = function (ex){
 };
 
 //check user balance
-exports.checkBalance = function (ex){
+exports.checkBalance = function (ex){ 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin;
-	//var url = "http://54.169.180.5/eqsport/balanceRequest.php";
-	//console.log(url);
+	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -107,22 +107,22 @@ exports.checkBalance = function (ex){
 	     		var time = arr[4];
 	     		//console.log(time);
 	     		
+				var library = Alloy.createCollection('balance'); 
+	     		library.resetBalance();
 	     		// Insert to local DB
-		       	var checkBalance = Alloy.createModel('balance', { 
+		       	var chkBalance = Alloy.createModel('balance', { 
 					amount: amount, 
 					date: date,
 					time: time,
 				}); 
-				checkBalance.save(); 
+				chkBalance.save(); 
 				
-				// go to next view
-				DRAWER.navigation("amountBalance",1);
 	     	}
-	     
+	     	return "1";
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -392,14 +392,19 @@ exports.popup = function(subView,config){
 	var matrix = Ti.UI.create2DMatrix(); 
 	matrix = matrix.scale(1.3, 1.3);
 	  
-	var a = Ti.UI.createAnimation({
-	    transform : matrix,
-	    opacity: 1, 
-	    duration : 500, 
-	});
-	//Titanium.Android.ActionBar.hide();
-	popupWin.navBarHidden = true; 
-	popupWin.animate(a);  
+	popupWin.addEventListener('open', function(){
+	    if (Titanium.Platform.name == 'android') {
+    		popupWin.activity.actionBar.hide();
+		}
+	    
+	    var a = Ti.UI.createAnimation({
+		    transform : matrix,
+		    opacity: 1, 
+		    duration : 500, 
+		});
+		popupWin.animate(a);  
+	}); 
+	 
 	return popupWin;
 };
 

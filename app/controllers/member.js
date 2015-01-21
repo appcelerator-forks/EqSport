@@ -4,8 +4,7 @@ var raceCardInfo = Alloy.createCollection('raceCardInfo');
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var favourite = Alloy.createCollection('favourite');
 var infoDetails = info.getInfo(); 
-var clickTime = null;
- 
+var clickTime = null; 
 var pHeight = Ti.Platform.displayCaps.platformHeight;
 $.scrollView.height = pHeight - 50; 
 
@@ -121,12 +120,13 @@ function account(){
 	subView.add(sepView);	 
 	subView.add(imaView3);	
 	subView.add(label3);
-	addClickEvent(subView);
+	
 	config.width = "70%";
 	config.height = "50%";
 	 
 	var pop = API.popup(subView,config);
-	pop.open({fullscreen:true, navBarHidden: true}); 
+	addClickEvent(subView, pop);
+	pop.open(); 
 }
 
 function racing(){
@@ -208,7 +208,7 @@ function racing(){
 	 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
-	pop.open({fullscreen:true, navBarHidden: true}); 
+	pop.open(); 
 }
 
 function addClickEvent(myView, popView){
@@ -221,11 +221,7 @@ function addClickEvent(myView, popView){
 }
 
 function amountBalance(){
-	balance.resetBalance();
-	API.checkBalance({
-		account: infoDetails[0].account,
-		pin: infoDetails[0].pin
-	});
+	 
 	// DRAWER.navigation("amountBalance",1);
 	
 	// var win = Alloy.createController("amountBalance").getView();
