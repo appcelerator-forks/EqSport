@@ -12,7 +12,7 @@ var runnerIndex;
 var dateFormatted;
 var timeFormatted;
 console.log(infoValue);
-console.log("****************");
+console.log("play****************");
 console.log(detailsValue);
 //var column1 = Ti.UI.createPickerColumn();
 $.balance.text = "Your available balance is " + balanceInfo.amount;
@@ -210,6 +210,20 @@ function confirm()
 	console.log($.runner.value);
 	console.log(pool);
 	
+	var betInfo = Alloy.createModel('betInfo', { 
+		msisdn:infoDetails[0].msisdn,
+		account: (infoDetails[0].account).toString(), 
+		pin: infoDetails[0].pin.toString(),
+		date: dateFormatted,
+		time: detailsValue[runnerIndex].runner_time,
+		venue: venue,
+		raceNo: raceNo,
+		pool: pool,
+		bet: $.bet.value,
+		runner: $.runner.value
+	}); 
+	betInfo.save(); 
+	
 	API.confirmRaceBet({
 		msisdn: infoDetails[0].msisdn,
 		pin: infoDetails[0].pin,
@@ -264,7 +278,27 @@ function submit(){
 	console.log(pool);
 	console.log($.runner.value);
 	console.log($.bet.value);*/
+	
+	var betInfo = Alloy.createCollection('betInfo'); 
+	var bet = betInfo.getBetInfo();
 
+	var oriTime = bet[0].time;
+	console.log(oriTime);
+	var temp = oriTime.split(" ");
+	var res = temp[0].split(":");
+	var hourInt = parseInt(res[0]);
+	if(temp[1]=='PM')
+	{
+		hourInt = hourInt + 12;
+	}
+	
+	var hour = ("0"+hourInt.toString()).slice(-2);
+	var minute = ("0"+res[1]).slice(-2);
+	var second = ("0"+res[2]).slice(-2);
+	
+	var timeFormatted24 = hour + minute + second;
+	
+	console.log("time24"+timeFormatted24);
 	
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
@@ -306,32 +340,32 @@ function submit(){
 	
 	var horizontalView1 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%",
 		top: 10
 	});
 	
 	var horizontalView2 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView3 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView4 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
 	var horizontalView5 = Ti.UI.createView({
 		layout:"horizontal",
-		height:"40",
+		height:"35",
 		width:"100%"
 	});
 	
@@ -372,31 +406,31 @@ function submit(){
 	
 	var venueLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: venue,
+		text: bet[0].venue,
 		width: "50%"
 	});
 	
 	var raceNoLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: raceNo,
+		text: bet[0].raceNo,
 		width: "50%"
 	});
 	
 	var poolLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: pool,
+		text: bet[0].pool,
 		width: "50%"
 	});
 	
 	var runnerLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: $.runner.value,
+		text: bet[0].runner,
 		width: "50%"
 	});
 	
 	var betLabelValue = Ti.UI.createLabel({
 		color: 'black',
-		text: $.bet.value,
+		text: bet[0].bet,
 		width: "50%"
 	});
 	
@@ -468,6 +502,7 @@ function addClickEvent(myView, popView){
 
 function cancel()
 {
+	console.log("cancel");
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
 	$.mainView.remove(containerView);
@@ -476,7 +511,22 @@ function cancel()
 function process()
 {
 	//send data to server
+	var betInfo = Alloy.createCollection('betInfo'); 
+	var bet = betInfo.getBetInfo();
 	
+	//Submit API Calling
+	API.submitRaceBet({
+		msisdn:bet[0].msisdn,
+		account: bet[0].account, 
+		pin: bet[0].pin,
+		date: bet[0].date,
+		time: timeFormatted24,
+		venue: bet[0].venue,
+		raceNo: bet[0].raceNo,
+		pool: bet[0].pool,
+		bet: bet[0].bet,
+		runner: bet[0].runner
+	});
 	
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
