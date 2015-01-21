@@ -38,7 +38,8 @@ function refresh(index){
 	setPicker2();
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
-		$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+		$.picker2.setSelectedRow(0,0,false);
 	}
 }
 
@@ -81,9 +82,11 @@ if(Ti.Platform.osname == "android"){
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
-	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
-	$.picker3.setSelectedRow(0,8,false);
+	// $.picker1.setSelectedRow(0,(infoValue.length-1),false);
+	// //$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	// $.picker3.setSelectedRow(0,8,false);
+	$.picker1.setSelectedRow(0,0,false);
+	$.picker3.setSelectedRow(0,0,false);
 }
 
 if(Ti.Platform.osname == "android"){

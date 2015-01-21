@@ -123,7 +123,7 @@ function account(){
 	subView.add(label3);
 	
 	config.width = "70%";
-	config.height = "50%";
+	config.height = "55%";
 	 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
@@ -241,6 +241,7 @@ function raceCard(){
 }
 
 function raceOdd(){  
+	console.log("raceOdd");
 	// API.raceCard({
 			// title : "raceOdd"
 		// });
