@@ -1,7 +1,15 @@
 exports.definition = {
 	config: {
 		columns: {
-		    "id": "string"
+		    //"id": "string"
+		    "min_to_race": "TEXT",
+			"pla_odd": "TEXT", 
+			"race_date": "TEXT",
+			"race_no": "TEXT",
+			"runner": "TEXT", 
+			"time": "TEXT",
+			"venue": "TEXT",
+			"win_odd": "TEXT"
 		},
 		adapter: {
 			type: "sql",

@@ -29,7 +29,7 @@ exports.login = function (ex){
 	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
-	     onload : function(e) {
+	     onload : function(e) { 
 	     	var respcode = getValueFromXml(this.responseXML, 'LOGIN' , 'RESPCODE');
 	     	if(respcode == "1"){
 	     		var errdesc  = getValueFromXml(this.responseXML, 'LOGIN' , 'ERRDESC');
@@ -72,7 +72,7 @@ exports.login = function (ex){
 	       
 	     },
 	     // function called when an error occurs, including a timeout
-	     onerror : function(e) {
+	     onerror : function(e) { 
 	     	alert("Unable to login");
 	     	
 	     },
@@ -88,7 +88,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin;
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php";
-	console.log(url);
+	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -100,12 +100,12 @@ exports.checkBalance = function (ex){
 	     	}else{
 	     		//success	
 	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG');
-	     		console.log(message);
+	     		//console.log(message);
 	     		var arr = message.split(" ");
 	     		var amount = arr[5];
 	     		var date = arr[3];
 	     		var time = arr[4];
-	     		console.log(time);
+	     		//console.log(time);
 	     		
 	     		// Insert to local DB
 		       	var checkBalance = Alloy.createModel('balance', { 
@@ -208,7 +208,7 @@ exports.submitRaceBet= function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       console.log(res);
+	       //console.log(res);
 	      
 	      /*if(res.status =="Good")
 	       {
@@ -232,13 +232,13 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
-	console.log(url);
+	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       	console.log(this.responseXML);
-	       console.log(res);
+	       	console.log("response geo" + this.responseXML);
+	       //console.log(res);
 	       
 	       /*if(res.response =="Success")
 	       {
@@ -265,10 +265,22 @@ exports.favourite = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	console.log("favourite");
-	       	var res = getValueFromPipe(this.responseXML);
-	       console.log(res);
-	     
+	     	console.log("favourite"); 
+	       	var res = getValueForFavOdd(this.responseXML);
+	       	console.log(res);
+	     	
+	     	var favouriteInfo = Alloy.createModel('favourite', { 
+				min_to_race: res.min_to_race,
+				pla_odd: res.pla_odd, 
+				race_date: res.race_date,
+				race_no: res.race_no,
+				runner: res.runner, 
+				time: res.time,
+				venue: res.venue,
+				win_odd: res.win_odd
+			}); 
+			favouriteInfo.save(); 
+	     	
 	     	console.log("favourite api");
 	     	DRAWER.navigation("play",1);
 	     },
@@ -292,7 +304,7 @@ exports.raceCard = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);
-	     	console.log(res);
+	     	//console.log(res);
 			//Insert to local DB
 			var raceCardInfo = Alloy.createModel('raceCardInfo', { 
 				id: res.id,
@@ -376,7 +388,7 @@ exports.popup = function(subView,config){
 	    opacity: 1, 
 	    duration : 500, 
 	});
-	
+	//Titanium.Android.ActionBar.hide();
 	popupWin.navBarHidden = true; 
 	popupWin.animate(a);  
 	return popupWin;
