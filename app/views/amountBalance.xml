@@ -16,11 +16,11 @@
 				<View backgroundColor="white" borderRadius="90" height="180" width="180"></View>
 				<View layout="vertical" height="Ti.UI.SIZE">
 					<Label color="#474747" class="label1">RM</Label>
-					<Label id="amount" color="#474747" class="amount">85.05</Label>
+					<Label id="amount" color="#474747" class="amount">0.00</Label>
 				</View>
 			</View>
 			<Label top="30" color="#444444" class="label1">LASTEST UPDATED</Label>
-			<Label id="date" color="#A5A5A5" class="label2">31/12/2014</Label>
+			<Label id="date" color="#A5A5A5" class="label2">01/01/2015</Label>
 			<Label id="time" color="#A5A5A5" class="label2">11:59:59PM</Label>
 			<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp"></ImageView>
 		</View>
