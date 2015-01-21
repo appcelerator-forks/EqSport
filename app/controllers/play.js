@@ -5,12 +5,14 @@ var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var info = Alloy.createCollection('info');
+var bet = Alloy.createCollection('betInfo');
 var infoDetails = info.getInfo();
 console.log(infoDetails);
 
 var runnerIndex;
 var dateFormatted;
 var timeFormatted;
+var timeFormatted24;
 console.log(infoValue);
 console.log("play****************");
 console.log(detailsValue);
@@ -156,6 +158,8 @@ function back(){
 
 function confirm()
 {
+	bet.resetInfo();
+	
 	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
 		alert("Fields cannot be empty");
 		return;
@@ -296,7 +300,7 @@ function submit(){
 	var minute = ("0"+res[1]).slice(-2);
 	var second = ("0"+res[2]).slice(-2);
 	
-	var timeFormatted24 = hour + minute + second;
+	timeFormatted24 = hour + minute + second;
 	
 	console.log("time24"+timeFormatted24);
 	
@@ -510,27 +514,65 @@ function cancel()
 
 function process()
 {
-	//send data to server
-	var betInfo = Alloy.createCollection('betInfo'); 
-	var bet = betInfo.getBetInfo();
+	var dialog = Ti.UI.createAlertDialog({
+	    title: 'Enter Pin No.',
+	    style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
+	    buttonNames: ['Confirm', 'Cancel']
+	});
+	dialog.show();
 	
-	//Submit API Calling
-	API.submitRaceBet({
-		msisdn:bet[0].msisdn,
-		account: bet[0].account, 
-		pin: bet[0].pin,
-		date: bet[0].date,
-		time: timeFormatted24,
-		venue: bet[0].venue,
-		raceNo: bet[0].raceNo,
-		pool: bet[0].pool,
-		bet: bet[0].bet,
-		runner: bet[0].runner
+	dialog.addEventListener('click', function(e){
+		var betInfo = Alloy.createCollection('betInfo'); 
+		var bet = betInfo.getBetInfo();
+		Ti.API.info('e.index: ' + e.index);
+	    Ti.API.info('e.text: ' + e.text);
+		if(e.index == 0)
+		{
+			console.log("indexing");
+			dialog.hide();
+			if(e.text == bet[0].pin)
+			{
+				//Submit API Calling
+				API.submitRaceBet({
+					msisdn:bet[0].msisdn,
+					account: bet[0].account, 
+					pin: bet[0].pin,
+					date: bet[0].date,
+					time: timeFormatted24,
+					venue: bet[0].venue,
+					raceNo: bet[0].raceNo,
+					pool: bet[0].pool,
+					bet: bet[0].bet,
+					runner: bet[0].runner
+				});
+			}
+			else
+			{
+				alert("Wrong Pin No.");
+			}
+		}
 	});
 	
+	//Submit API Calling
+	// API.submitRaceBet({
+		// msisdn:bet[0].msisdn,
+		// account: bet[0].account, 
+		// pin: bet[0].pin,
+		// date: bet[0].date,
+		// time: timeFormatted24,
+		// venue: bet[0].venue,
+		// raceNo: bet[0].raceNo,
+		// pool: bet[0].pool,
+		// bet: bet[0].bet,
+		// runner: bet[0].runner
+	// });
+}
+
+function success(){
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
 	$.mainView.remove(containerView);
+	alert("Transaction Successful");
 }
 
 function showVenue() {
@@ -601,4 +643,8 @@ function done3()
 
 Ti.API.addEventListener('confirmSuccess', function(e){
 	submit();
+});
+
+Ti.API.addEventListener('submitSuccess', function(e){
+	success();
 });

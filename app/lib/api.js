@@ -203,13 +203,19 @@ exports.getRTOResults = function(ex){
 
 exports.submitRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/submitRaceBet.php"; 
-	var url = submitRaceBet; 
+	var url = submitRaceBet + "?UID=" +ex.msisdn+ "||" + ex.account + "||" +ex.pin+ "||" +ex.date+ "||" +ex.time+ "||" +ex.venue+ "||" +ex.raceNo+ "||" +ex.pool+ "||" +ex.bet+ "||0||" +ex.runner; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
 	       console.log(res);
 	      
+	      /*if(res.status =="Good")
+	       {
+	       		Ti.API.fireEvent('submitSuccess');
+	       }used when API is ready*/
+	      
+	      Ti.API.fireEvent('submitSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
