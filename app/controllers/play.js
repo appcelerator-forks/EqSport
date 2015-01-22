@@ -23,7 +23,12 @@ var dateFormatted;
 var timeFormatted;
 var timeFormatted24;
 
- 
+var containerView = Ti.UI.createView({
+	layout: "composite",
+	height:"100%",
+	width:"100%",
+	backgroundColor: "black"
+}); 
 //var column1 = Ti.UI.createPickerColumn();
 //$.balance.text = "Your available balance is " + balanceInfo.amount;
 
@@ -130,9 +135,10 @@ function done3(){
 
 function success(){
 	cancelBtn.removeEventListener('click',cancel);
-	confirmBtn.removeEventListener('click',process);
-	$.mainView.remove(containerView);
+	confirmBtn.removeEventListener('click',process); 
 	pop.close();
+	$.runner.value = "";
+	$.bet.value = "";
 	alert("Transaction Successful");
 }
  
@@ -288,6 +294,62 @@ if(Ti.Platform.osname == "android"){
 	});
 } 
 
+function process()
+{
+	var dialog = Ti.UI.createAlertDialog({
+	    title: 'Enter Pin No.',
+	    style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
+	    buttonNames: ['Confirm', 'Cancel']
+	});
+	dialog.show();
+	
+	dialog.addEventListener('click', function(e){
+		var betInfo = Alloy.createCollection('betInfo'); 
+		var bet = betInfo.getBetInfo();
+		Ti.API.info('e.index: ' + e.index);
+	    Ti.API.info('e.text: ' + e.text);
+		if(e.index == 0)
+		{
+			console.log("indexing");
+			dialog.hide();
+			if(e.text == bet[0].pin)
+			{
+				//Submit API Calling
+				API.submitRaceBet({
+					msisdn:bet[0].msisdn,
+					account: bet[0].account, 
+					pin: bet[0].pin,
+					date: bet[0].date,
+					time: timeFormatted24,
+					venue: bet[0].venue,
+					raceNo: bet[0].raceNo,
+					pool: bet[0].pool,
+					bet: bet[0].bet,
+					runner: bet[0].runner
+				});
+			}
+			else
+			{
+				alert("Wrong Pin No.");
+			}
+		}
+	});
+	
+	//Submit API Calling
+	// API.submitRaceBet({
+		// msisdn:bet[0].msisdn,
+		// account: bet[0].account, 
+		// pin: bet[0].pin,
+		// date: bet[0].date,
+		// time: timeFormatted24,
+		// venue: bet[0].venue,
+		// raceNo: bet[0].raceNo,
+		// pool: bet[0].pool,
+		// bet: bet[0].bet,
+		// runner: bet[0].runner
+	// });
+}
+
 function confirm(){
 	bet.resetInfo();
 	
@@ -354,6 +416,281 @@ function confirm(){
 		runner: $.runner.value,
 		pool: pool
 	});
+}
+
+function submit(){
+	console.log("submit");
+	/*if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
+		alert("Fields cannot be empty");
+		return;
+	}
+	
+	if($.bet.value <= 1) {
+		alert("Minimum bet: 2");
+		return;
+	}
+	
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA")
+	{
+		if($.bet.value % 5 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			return;
+		}
+	}
+	else
+	{
+		if($.bet.value % 2 == 0)
+		{
+			
+		}
+		else
+		{
+			alert("Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
+			return;
+		}
+	}
+	console.log("transaction valid");
+	console.log(venue);
+	console.log(raceNo);
+	console.log(pool);
+	console.log($.runner.value);
+	console.log($.bet.value);*/
+	
+	var betInfo = Alloy.createCollection('betInfo'); 
+	var bet = betInfo.getBetInfo();
+
+	var oriTime = bet[0].time;
+	console.log(oriTime);
+	var temp = oriTime.split(" ");
+	var res = temp[0].split(":");
+	var hourInt = parseInt(res[0]);
+	if(temp[1]=='PM')
+	{
+		hourInt = hourInt + 12;
+	}
+	
+	var hour = ("0"+hourInt.toString()).slice(-2);
+	var minute = ("0"+res[1]).slice(-2);
+	var second = ("0"+res[2]).slice(-2);
+	
+	timeFormatted24 = hour + minute + second;
+	
+	console.log("time24"+timeFormatted24);
+	
+	var confirmView = Ti.UI.createView({
+		layout: "vertical",
+		height:"100%",
+		width:"100%"
+	});
+	
+	var titleView = Ti.UI.createView({
+		layout: "composite",
+		height:"15%",
+		width:"100%",
+		backgroundColor:"white"
+	});
+	
+	var titleLabel = Ti.UI.createLabel({
+		color: 'black',
+		font: { fontSize:16 },
+		text: 'Bet Confirmation',
+		textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+		width: Ti.UI.SIZE, 
+		height: Ti.UI.SIZE,
+		left: 10
+	});
+	
+	var contentView = Ti.UI.createScrollView({
+		layout: "vertical",
+		height:"85%",
+		width:"100%",
+		backgroundColor:"#EFEFEF",
+		scrollType: "vertical",
+		showVerticalScrollIndicator: false,
+  		showHorizontalScrollIndicator: false,
+	});
+	
+	if(Ti.Platform.osname == "android") {
+		contentView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	}
+	
+	var horizontalView1 = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		width:"100%",
+		top: 10
+	});
+	
+	var horizontalView2 = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		width:"100%"
+	});
+	
+	var horizontalView3 = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		width:"100%"
+	});
+	
+	var horizontalView4 = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		width:"100%"
+	});
+	
+	var horizontalView5 = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		width:"100%"
+	});
+	
+	var venueLabel = Ti.UI.createLabel({
+		color: 'black',
+		text: 'Venue',
+		width: "40%",
+		left: 10
+	});
+	
+	var raceNoLabel = Ti.UI.createLabel({
+		color: 'black',
+		text: 'Race No.',
+		width: "40%",
+		left: 10
+	});
+	
+	var poolLabel = Ti.UI.createLabel({
+		color: 'black',
+		text: 'Pool',
+		width: "40%",
+		left: 10
+	});
+	
+	var runnerLabel = Ti.UI.createLabel({
+		color: 'black',
+		text: 'Runner*',
+		width: "40%",
+		left: 10
+	});
+	
+	var betLabel = Ti.UI.createLabel({
+		color: 'black',
+		text: 'Bet (RM)',
+		width: "40%",
+		left: 10
+	});
+	
+	var venueLabelValue = Ti.UI.createLabel({
+		color: 'black',
+		text: bet[0].venue,
+		width: "50%"
+	});
+	
+	var raceNoLabelValue = Ti.UI.createLabel({
+		color: 'black',
+		text: bet[0].raceNo,
+		width: "50%"
+	});
+	
+	var poolLabelValue = Ti.UI.createLabel({
+		color: 'black',
+		text: bet[0].pool,
+		width: "50%"
+	});
+	
+	var runnerLabelValue = Ti.UI.createLabel({
+		color: 'black',
+		text: bet[0].runner,
+		width: "50%"
+	});
+	
+	var betLabelValue = Ti.UI.createLabel({
+		color: 'black',
+		text: bet[0].bet,
+		width: "50%"
+	});
+	
+	var centerImageView = Ti.UI.createView({
+		layout: "composite",
+		height:"80",
+		width: "100%",
+	});
+	
+	var imageView = Ti.UI.createView({
+		layout: "horizontal",
+		height: Ti.UI.SIZE,
+		width: Ti.UI.SIZE,
+	});
+	
+	cancelBtn = Ti.UI.createImageView({
+		image:'/images/Button_Cancel.png',
+		btnAction : "cancel",
+		width: 80,
+		height: 80,
+		right: 10
+	});
+
+	confirmBtn = Ti.UI.createImageView({
+		image:'/images/Button_Confirm.png',
+		btnAction : "confirm",
+		width: 80,
+		height: 80,
+		left: 10
+	});
+	
+	horizontalView1.add(venueLabel);
+	horizontalView1.add(venueLabelValue);
+	horizontalView2.add(raceNoLabel);
+	horizontalView2.add(raceNoLabelValue);
+	horizontalView3.add(poolLabel);
+	horizontalView3.add(poolLabelValue);
+	horizontalView4.add(runnerLabel);
+	horizontalView4.add(runnerLabelValue);
+	horizontalView5.add(betLabel);
+	horizontalView5.add(betLabelValue);
+	imageView.add(cancelBtn);
+	imageView.add(confirmBtn);
+	centerImageView.add(imageView);
+	contentView.add(horizontalView1);
+	contentView.add(horizontalView2);
+	contentView.add(horizontalView3);
+	contentView.add(horizontalView4);
+	contentView.add(horizontalView5);
+	contentView.add(centerImageView);
+	titleView.add(titleLabel);
+	confirmView.add(titleView);
+	confirmView.add(contentView);
+	containerView.add(confirmView);
+	var config = [];
+	config.width = "70%";
+	config.height = "70%";
+	//$.mainView.add(containerView);
+	pop = API.popup(containerView,config);
+	pop.open({fullscreen:true, navBarHidden: true}); 
+	addClickEvent(cancelBtn,pop); 
+	addClickEvent(confirmBtn,pop);  
+}
+
+function addClickEvent(myView, popView){
+	myView.addEventListener('click', function(e){
+		if(e.source.btnAction == "cancel"){
+			cancel();
+		}else{ 
+			process(); 
+		}
+	});
+}
+
+function cancel(){
+	 
+	cancelBtn.removeEventListener('click',cancel);
+	confirmBtn.removeEventListener('click',process);
+	pop.close(); 
 }
 
 Ti.API.addEventListener('confirmSuccess', function(e){

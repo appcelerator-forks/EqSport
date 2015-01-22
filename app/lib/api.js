@@ -259,7 +259,7 @@ exports.confirmRaceBet= function(ex){
 	       		
 	       }
 	      
-	      //Ti.API.fireEvent('confirmSuccess');
+	      Ti.API.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
