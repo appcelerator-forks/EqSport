@@ -1,5 +1,5 @@
 <Alloy>
-	<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
+	<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg" height="Ti.UI.SIZE">
 		<View layout="composite" height="50" backgroundColor="#EA431A" >
 			<View width="100%">
 				<Label class="title" color="white" minimumFontSize="12">RACE CARD</Label>
@@ -33,10 +33,6 @@
 				<View id="pickerView1" height="50" width="100%" visible="false">
 					<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
 					<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-						<PickerRow title="JAP (GOOD)"></PickerRow>
-						<PickerRow title="1"></PickerRow>
-						<PickerRow title="2"></PickerRow>
-						<PickerRow title="3"></PickerRow>
 					</Picker>
 				</View>
 			</View>
@@ -59,9 +55,9 @@
 				<ImageView image="/images/others_10.png" width="40" height="40"></ImageView>
 		</View>-->
 		</View>
-		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white" top="10">
+		<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="10" bottom="10">
 			<!--Sample of the result view 1-->
-			<View id="contentView1" layout="horizontal" height="60" width="100%">
+			<!--<View id="contentView1" layout="horizontal" height="60" width="100%">
 				<View id="leftView1" width="30%">
 					<Label id="leftLabel1" color="black">9</Label>
 				</View>
@@ -73,9 +69,9 @@
 			</View>
 			<View id="centerLineView1" width="100%" height="1" bottom="2">
 				<View id="lineView1" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>
+			</View>-->
 			<!--Sample of the result view 2-->
-			<View id="contentView2" layout="horizontal" height="60" width="100%">
+			<!--<View id="contentView2" layout="horizontal" height="60" width="100%">
 				<View id="leftView2" width="30%">
 					<Label id="leftLabel2" color="black">10</Label>
 				</View>
@@ -87,7 +83,7 @@
 			</View>
 			<View id="centerLineView2" width="100%" height="1" bottom="2">
 				<View id="lineView2" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>
+			</View>-->
 		</ScrollView>
 	</View>
 </Alloy>

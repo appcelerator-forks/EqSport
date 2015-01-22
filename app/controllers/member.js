@@ -39,7 +39,7 @@ function play(){
 	API.raceCard({
 		title: "play"
 	});
-	DRAWER.navigation("play",1);
+	//DRAWER.navigation("play",1);
 }
 
 function withdrawal(){
