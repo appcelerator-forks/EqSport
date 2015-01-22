@@ -217,7 +217,7 @@ exports.submitRaceBet= function(ex){
 	       else
 	       {
 	       		var a = Titanium.UI.createAlertDialog({
-				    title:res.Status,
+				    title: "Error Code: "+res.Status,
 				    message: res.ErrorNumber + '\n' + res.ErrorDescription
 				});
 				a.show();
@@ -249,12 +249,16 @@ exports.confirmRaceBet= function(ex){
 	        
 	       //console.log(res);
 	       
-	       /*if(res.response =="Success")
+	       if(res.response =="Success")
 	       {
 	       		Ti.API.fireEvent('confirmSuccess');
-	       }used when API is ready*/
+	       }
+	       else
+	       {
+	       		
+	       }
 	      
-	      Ti.API.fireEvent('confirmSuccess');
+	      //Ti.API.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -344,7 +348,7 @@ exports.raceCard = function (ex){
 			}
 			else
 			{
-	     		DRAWER.navigation(ex.title,1);
+	     		//DRAWER.navigation(ex.title,1);
 	     	}
 	     
 	     },
