@@ -15,10 +15,10 @@
 			<View width="70%">
 				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<PickerRow title="JAP (GOOD)"></PickerRow>
+					<!--<PickerRow title="JAP (GOOD)"></PickerRow>
 					<PickerRow title="1"></PickerRow>
 					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>
+					<PickerRow title="3"></PickerRow>-->
 				</Picker>
 				
 			</View>

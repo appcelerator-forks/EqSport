@@ -21,6 +21,10 @@ API.checkBalance({
 	pin: infoDetails[0].pin
 });
 
+API.raceCard({
+	title: ""
+});
+
 if(Ti.Platform.osname == "android"){
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
 } 

@@ -30,7 +30,7 @@ var containerView = Ti.UI.createView({
 	backgroundColor: "black"
 }); 
 //var column1 = Ti.UI.createPickerColumn();
-//$.balance.text = "Your available balance is " + balanceInfo.amount;
+$.balance.text = "Your available balance is " + balanceInfo.amount;
 
 setPicker1(); 
 

@@ -213,6 +213,19 @@ exports.submitRaceBet= function(ex){
 	      
 	      if(res.Status =="Good")
 	       {
+	       		var transactionInfo = Alloy.createModel('transaction', { 
+					balance: (res.Balance).trim(), 
+					date: res.Date,
+					location: res.Location,
+					poolType: res.PoolType,
+					race: res.Race,
+					raceTime: res.RaceTime,
+					runner: res.Runner,
+					status: res.Status,
+					transactionID: res.TransactionID,
+					unitAmount: (res.UnitAmount).trim()
+				}); 
+				transactionInfo.save(); 
 	       		Ti.API.fireEvent('submitSuccess');
 	       }
 	       else

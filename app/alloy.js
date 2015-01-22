@@ -128,4 +128,13 @@ function mysql_real_escape_string (str) {
     });
 }
 
+function removeAllChildren(viewObject){
+    //copy array of child object references because view's "children" property is live collection of child object references
+    var children = viewObject.children.slice(0);
+ 
+    for (var i = 0; i < children.length; ++i) {
+        viewObject.remove(children[i]);
+    }
+}
+
 //API.getRTOResults();

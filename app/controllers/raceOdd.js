@@ -1,11 +1,63 @@
+var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
+var raceCardDetails = Alloy.createCollection('raceCardDetails');
+var infoValue = raceCardInfo.getRaceCardInfo();
+var detailsValue = raceCardDetails.getRaceCardDetails("1");
+var favourite = Alloy.createCollection('favourite');
+
+setPicker1(); 
+
+function refresh(index){
+	console.log("refresh");
+	if($.picker2.columns[0]) {
+	    var _col = $.picker2.columns[0];
+	        var len = _col.rowCount;
+	        console.log("len: "+len);
+	        for(var x = len-1; x >= 0; x-- ){
+	                var _row = _col.rows[x];
+	                _col.removeRow(_row);
+	        }
+	}
+	detailsValue = raceCardDetails.getRaceCardDetails(index);
+	setPicker2();
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
+	{
+		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+		$.picker2.setSelectedRow(0,0,false);
+	}
+}
+
+function setPicker1(){ 
+	console.log("infoValue.length: "+infoValue.length);
+	for(var i = 0 ; i < infoValue.length; i++){
+		var venue = infoValue[i].venue;
+		var race_id = infoValue[i].id;
+		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		//$.pickerColumn1.addRow(data);
+		$.picker1.add(data);
+	}
+	 
+}
+
+function setPicker2(){ 
+	for(var i=0; i < detailsValue.length; i++){
+	  var rec = detailsValue[i].runner_id;
+	  var row = Ti.UI.createPickerRow({
+	    title: rec.toString()
+	  }); 
+	  $.picker2.add(row);
+	}
+}
+
 if(Ti.Platform.osname == "android"){
 	$.picker1.setSelectedRow(0,false);
 	$.picker2.setSelectedRow(0,false);
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-	$.picker1.setSelectedRow(0,3,false);
-	$.picker2.setSelectedRow(0,3,false);
+	// $.picker1.setSelectedRow(0,3,false);
+	// $.picker2.setSelectedRow(0,3,false);
+	$.picker1.setSelectedRow(0,0,false);
+	//$.picker2.setSelectedRow(0,0,false);
 }
 
 function back(){	
@@ -23,6 +75,7 @@ function venue(e){
 		$.picker1.setVisible(false);
 		$.venueLabel.text = venue;
 	}
+	refresh(e.row.race_id);
 }
 
 function raceNo(e){
@@ -34,10 +87,98 @@ function raceNo(e){
 		$.pickerView2.setVisible(false);
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
-		$.raceNoLabel.text = venue;
+		$.raceNoLabel.text = raceNo;
 	}
+	raceOdd(venue,raceNo);
 }
 
+function raceOdd(venue,raceNo)
+{
+	removeAllChildren($.scrollView);
+	
+	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);
+	console.log(favouriteInfo);
+	if(favouriteInfo == "")
+	{
+		$.mtr.text = "Min to Race: -";
+		var win = "-";
+		var run = "-";
+		var pla = "-";
+	}
+	else
+	{
+		$.mtr.text = "Min to Race: " + favouriteInfo[0].min_to_race;
+		
+		var win_odd = favouriteInfo[0].win_odd;
+		var win = win_odd.split("$");
+		var runner = favouriteInfo[0].runner;
+		var run = runner.split("$");
+		var pla_odd = favouriteInfo[0].pla_odd;
+		var pla = pla_odd.split("$");
+		console.log(win);
+		console.log(win.length);
+	}
+	
+	for(var i=0; i < win.length; i++)
+	{
+		console.log("win: "+win[i]);
+		var contentView = Titanium.UI.createView({
+			layout: "horizontal",
+			width:"100%",
+			height:60
+		});
+		
+		var leftView = Titanium.UI.createView({
+			width:"33%"
+		});
+		
+		var leftLabel = Ti.UI.createLabel({
+			color: "black",
+			text: win[i]
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"33%"
+		});
+		
+		var centerLabel = Ti.UI.createLabel({
+			color: "black",
+			text: run[i]
+		});
+		
+		var rightView = Titanium.UI.createView({
+			width:"33%"
+		});
+		
+		var rightLabel = Ti.UI.createLabel({
+			color: "black",
+			text: pla[i]
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		leftView.add(leftLabel);
+		centerView.add(centerLabel);
+		rightView.add(rightLabel);
+		contentView.add(leftView);
+		contentView.add(centerView);
+		contentView.add(rightView);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+	}
+}
 /*
 for(var i=0, i < arr.length, i++)
 {

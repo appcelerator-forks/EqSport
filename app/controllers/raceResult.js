@@ -15,7 +15,7 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 }
 
 var value = new Date();
-var dayInt = value.getDate();
+var dayInt = ("0"+value.getDate()).slice(-2);
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
 $.picker.value = value;
@@ -48,7 +48,7 @@ function done(){
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
 	value = $.picker.value;
-	dayInt = value.getDate();
+	dayInt = ("0"+value.getDate()).slice(-2);
 	monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 	yearInt = value.getFullYear() ;
 	

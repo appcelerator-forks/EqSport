@@ -1,6 +1,6 @@
-var res = API.raceCard({
-	title: ""
-});
+// var res = API.raceCard({
+	// title: ""
+// });
 
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
@@ -10,6 +10,7 @@ var detailsValue = raceCardDetails.getRaceCardDetails("1");
 setPicker1(); 
 
 function setPicker1(){ 
+	console.log("infoValue.length: "+infoValue.length);
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
@@ -49,6 +50,16 @@ function venue(e){
 }
 
 function refresh(race_id){
+	removeAllChildren($.scrollView);
+	// if($.picker1.columns[0]) {
+	    // var _col = $.picker1.columns[0];
+	        // var len = _col.rowCount;
+	        // console.log("len: "+len);
+	        // for(var x = len-1; x >= 0; x-- ){
+	                // var _row = _col.rows[x];
+	                // _col.removeRow(_row);
+	        // }
+	// }
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
 	
 	$.date.text = detailsValue[0].runner_date;
