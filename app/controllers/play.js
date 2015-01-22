@@ -4,12 +4,16 @@ var bet = Alloy.createCollection('betInfo');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var favourite = Alloy.createCollection('favourite');
+var info = Alloy.createCollection('info');
+var bet = Alloy.createCollection('betInfo');
+var favourite = Alloy.createCollection('favourite');
 
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
-var favouriteInfo = favourite.getFavouriteInfo();
-var infoDetails = info.getInfo();
+ 
+
+var infoDetails = info.getInfo(); 
 
 var cancelBtn;
 var confirmBtn;
@@ -40,7 +44,8 @@ function refresh(index){
 	setPicker2();
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
-		$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+		$.picker2.setSelectedRow(0,0,false);
 	}
 }
 
@@ -67,38 +72,7 @@ function setPicker2(){
 }
 
 
-
-
-function favouriteOdd(selectedRow) {
-	//db query
-	
-	$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
-	
-	var runner = favouriteInfo[0].runner;
-	var run = runner.split("$");
-	
-	var win_odd = favouriteInfo[0].win_odd;
-	var win = win_odd.split("$");
-	
-	var pla_odd = favouriteInfo[0].pla_odd;
-	var pla = pla_odd.split("$");
-	
-	$.a1.text = run[0];
-	$.a2.text = run[1];
-	$.a3.text = run[2];
-	$.a4.text = run[3];
-	
-	$.b1.text = win[0];
-	$.b2.text = win[1];
-	$.b3.text = win[2];
-	$.b4.text = win[3];
-	
-	$.c1.text = pla[0];
-	$.c2.text = pla[1];
-	$.c3.text = pla[2];
-	$.c4.text = pla[3];
-}
-
+ 
 if(Ti.Platform.osname == "android"){
 	$.bet.addEventListener('focus', function f(e){
 	    $.bet.blur();
@@ -113,9 +87,11 @@ if(Ti.Platform.osname == "android"){
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-	$.picker1.setSelectedRow(0,(infoValue.length-1),false);
-	//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
-	$.picker3.setSelectedRow(0,8,false);
+	// $.picker1.setSelectedRow(0,(infoValue.length-1),false);
+	// //$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	// $.picker3.setSelectedRow(0,8,false);
+	$.picker1.setSelectedRow(0,0,false);
+	$.picker3.setSelectedRow(0,0,false);
 }
 
 if(Ti.Platform.osname == "android"){
@@ -235,7 +211,7 @@ function raceNo(e){
 	}
 	$.venue.text = "Venue: " + venue;
 	$.race.text = "Race: " + raceNo;
-	favouriteOdd(parseInt(raceNo));
+	favouriteOdd(raceNo);
 }
 
 function pool(e){
@@ -250,7 +226,67 @@ function pool(e){
 		$.poolLabel.text = pool;
 	}
 }
+ 
+function favouriteOdd(selectedRow)
+{
+	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
+	console.log("favouriteInfo");
+	console.log(favouriteInfo);
+	if(favouriteInfo == "")
+	{
+		$.mtr.text = "Min to Race:-";
+		
+		$.a1.text = "-";
+		$.a2.text = "-";
+		$.a3.text = "-";
+		$.a4.text = "-";
+		
+		$.b1.text = "-";
+		$.b2.text = "-";
+		$.b3.text = "-";
+		$.b4.text = "-";
+		
+		$.c1.text = "-";
+		$.c2.text = "-";
+		$.c3.text = "-";
+		$.c4.text = "-";
+	}
+	else
+	{
+		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
+		
+		var runner = favouriteInfo[0].runner;
+		var run = runner.split("$");
+		
+		var win_odd = favouriteInfo[0].win_odd;
+		var win = win_odd.split("$");
+		
+		var pla_odd = favouriteInfo[0].pla_odd;
+		var pla = pla_odd.split("$");
+		
+		$.a1.text = run[0];
+		$.a2.text = run[1];
+		$.a3.text = run[2];
+		$.a4.text = run[3];
+		
+		$.b1.text = win[0];
+		$.b2.text = win[1];
+		$.b3.text = win[2];
+		$.b4.text = win[3];
+		
+		$.c1.text = pla[0];
+		$.c2.text = pla[1];
+		$.c3.text = pla[2];
+		$.c4.text = pla[3];
+	}
+}
 
+if(Ti.Platform.osname == "android"){
+	$.bet.addEventListener('focus', function f(e){
+	    $.bet.blur();
+	    $.bet.removeEventListener('focus', f);
+	});
+} 
 
 function confirm(){
 	bet.resetInfo();

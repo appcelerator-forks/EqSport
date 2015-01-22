@@ -1,6 +1,6 @@
 ".title":{
 	font: {
-		fontSize: '20',
+		fontSize: '18',
 	},
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 },

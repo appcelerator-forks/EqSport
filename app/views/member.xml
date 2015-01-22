@@ -80,7 +80,7 @@
 		    <!--2nd ROW -->
 		    <View layout="horizontal" width="100%" height="130" top="10">
 				<View width="50%" height="100%"> 
-					<ImageView onClick="play"  image="/images/Acc_Button03.png" width="100%"></ImageView>
+					<ImageView onClick="raceOdd"  image="/images/Acc_Button03.png" width="100%"></ImageView>
 				</View>
 				<View width="49.9%" height="100%"> 
 					<ImageView onClick="racing" image="/images/Acc_Button04.png" width="100%"></ImageView>	
