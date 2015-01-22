@@ -7,7 +7,7 @@
 				<View layout="composite" width="40%">
 					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
 						<Label class="label2" color="white" left="10">ACCOUNT NO.: </Label>
-						<Label class="label3" color="white" left="10" id="accountNo">12345678</Label>
+						<Label class="label3" color="white" left="10" id="accountNo"></Label>
 					</View>
 				</View>
 				<View layout="composite" width="60%">

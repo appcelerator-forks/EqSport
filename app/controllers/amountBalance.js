@@ -3,15 +3,6 @@ var library = Alloy.createCollection('balance');
 var info = Alloy.createCollection('info'); 
 var infoDetails = info.getInfo(); 
 
-var res = API.checkBalance({
-	account: infoDetails[0].account,
-	pin: infoDetails[0].pin
-});
-
-if(res == "1"){
-	getBln();
-}
-
 function getBln(){
 	var details = library.getBalance(); 
 	console.log(details);

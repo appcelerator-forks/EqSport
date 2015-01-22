@@ -86,14 +86,14 @@ exports.login = function (ex){
 };
 
 //check user balance
-exports.checkBalance = function (ex){ 
-	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin;
+exports.checkBalance = function (ex){  
+	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var respcode = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'RESPCODE');
-	       	
+	       
 	       	if(respcode == "1"){
 	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
 	     		alert(errdesc);
@@ -118,10 +118,10 @@ exports.checkBalance = function (ex){
 				chkBalance.save(); 
 				
 	     	}
-	     	return "1";
+	     	result = "1";
 	     },
 	     // function called when an error occurs, including a timeout
-	     onerror : function(e) {
+	     onerror : function(e) { 
 	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
@@ -130,6 +130,7 @@ exports.checkBalance = function (ex){
 	 client.open("GET", url);
 	 // Send the request.
 	 client.send(); 
+	   
 };
 
 
@@ -191,7 +192,7 @@ exports.getRTOResults = function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -228,7 +229,7 @@ exports.submitRaceBet= function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -258,7 +259,7 @@ exports.confirmRaceBet= function(ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -295,7 +296,7 @@ exports.favourite = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs : Favourite");
+	     	//alert("An error occurs : Favourite");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -338,19 +339,16 @@ exports.raceCard = function (ex){
 				raceCardDetails.save(); 
 			}
 			
-			if(ex.title == "play")
-			{
+			if(ex.title == "play") {
 				API.favourite();
-			}
-			else
-			{
+			} else {
 	     		DRAWER.navigation(ex.title,1);
 	     	}
 	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	alert("An error occurs");
+	     	//alert("An error occurs");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });

@@ -8,6 +8,19 @@ var clickTime = null;
 var pHeight = Ti.Platform.displayCaps.platformHeight;
 $.scrollView.height = pHeight - 50; 
 
+var blnDetails = balance.getBalance(); 
+$.accountNo.text = infoDetails[0].account;
+if(blnDetails != ""){
+		$.credit.text = blnDetails.amount.substring(2);
+		$.update.text = "(Last updated on "+blnDetails.date+" "+ blnDetails.time+")"; 
+} 
+ 
+console.log(infoDetails);
+API.checkBalance({
+	account: infoDetails[0].account,
+	pin: infoDetails[0].pin
+});
+
 if(Ti.Platform.osname == "android"){
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
 } 
@@ -19,10 +32,10 @@ function menuToggle(e){
 
 function play(){
 	//API.favourite();
-	balance.resetBalance();
-	favourite.resetInfo();
-	raceCardInfo.resetInfo();
-	raceCardDetails.resetDetails();
+	// balance.resetBalance();
+	// favourite.resetInfo();
+	// raceCardInfo.resetInfo();
+	// raceCardDetails.resetDetails();
 	API.raceCard({
 		title: "play"
 	});
