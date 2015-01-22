@@ -50,7 +50,7 @@ function venue(e){
 
 function refresh(race_id){
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
-	var count = 0;
+	
 	$.date.text = detailsValue[0].runner_date;
 	for(var i=0; i < detailsValue.length; i++)
 	{

@@ -31,11 +31,6 @@ function menuToggle(e){
 }
 
 function play(){
-	//API.favourite();
-	// balance.resetBalance();
-	// favourite.resetInfo();
-	// raceCardInfo.resetInfo();
-	// raceCardDetails.resetDetails();
 	API.raceCard({
 		title: "play"
 	});

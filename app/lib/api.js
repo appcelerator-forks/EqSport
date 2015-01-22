@@ -247,7 +247,7 @@ exports.confirmRaceBet= function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	        
+	       	console.log("response geo" + this.responseXML);
 	       //console.log(res);
 	       
 	       if(res.response =="Success")
@@ -282,6 +282,9 @@ exports.favourite = function (ex){
 	     	console.log("favourite"); 
 	       	var res = getValueForFavOdd(this.responseXML);
 	       	//console.log(res);
+	     	
+	     	var library = Alloy.createCollection('favourite'); 
+	     		library.resetInfo();
 	     	
 	     	var favouriteInfo = Alloy.createModel('favourite', { 
 				min_to_race: res[0].min_to_race,
@@ -319,6 +322,11 @@ exports.raceCard = function (ex){
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);
 	     	//console.log(res);
+	     	
+	     	var library = Alloy.createCollection('raceCardInfo'); 
+	     		library.resetInfo();
+     		var library2 = Alloy.createCollection('raceCardDetails'); 
+     			library2.resetDetails();
 			//Insert to local DB
 			var raceCardInfo = Alloy.createModel('raceCardInfo', { 
 				id: res.id,

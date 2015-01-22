@@ -235,6 +235,7 @@ function pool(e){
  
 function favouriteOdd(selectedRow)
 {
+	console.log("favourite function");
 	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
 	console.log("favouriteInfo");
 	console.log(favouriteInfo);
