@@ -246,7 +246,7 @@ exports.confirmRaceBet= function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);
-	       	console.log("response geo" + this.responseXML);
+	        
 	       //console.log(res);
 	       
 	       /*if(res.response =="Success")

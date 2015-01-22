@@ -25,7 +25,7 @@ function play(){
 	API.raceCard({
 		title: "play"
 	});
-	//DRAWER.navigation("play",1);
+	DRAWER.navigation("play",1);
 }
 
 function withdrawal(){
@@ -126,7 +126,7 @@ function account(){
 	 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
-	pop.open(); 
+	pop.open({fullscreen: true}); 
 }
 
 function racing(){
@@ -208,7 +208,7 @@ function racing(){
 	 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
-	pop.open(); 
+	pop.open({fullscreen: true}); 
 }
 
 function addClickEvent(myView, popView){

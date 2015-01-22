@@ -90,9 +90,7 @@
 							<Label left="5" color="black">Venue</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								
-							</Picker>
+							<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
 						</View>
 					</View>
 					<View layout="horizontal" height="50" width="90%">
@@ -100,9 +98,7 @@
 							<Label left="5" color="black">Race No.</Label>
 						</View>
 						<View width="60%">
-							<Picker id="picker2" onChange="raceNo" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								
-							</Picker>
+							<Picker id="picker2" onChange="raceNo" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
 						</View>
 					</View>
 					<View layout="horizontal" height="50" width="90%">
@@ -114,7 +110,7 @@
 								<PickerRow title="WIN / PLA"></PickerRow>
 								<PickerRow title="WIN"></PickerRow>
 								<PickerRow title="PLA"></PickerRow>
-								<PickerRow title="QIN"></PickerRow>
+								<PickerRow title="QIN"></PickerRow>	
 								<PickerRow title="EXA"></PickerRow>
 								<PickerRow title="QPS"></PickerRow>
 								<PickerRow title="TRI"></PickerRow>
@@ -123,27 +119,31 @@
 							</Picker>
 						</View>
 					</View>
+					
 					<View layout="horizontal" height="50" width="90%">
 						<View width="40%">
 							<Label left="5" color="black">Runner*</Label>
 						</View>
 						<View width="60%">
-							<TextField id="runner" width="100%" height="40" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="runner" width="100%" height="40" hintText="Runner" backgroundColor="#EFEFEF" color="black" keyboardType="Ti.UI.KEYBOARD_NUMBER_PAD"></TextField>
 						</View>
 					</View>
+					
+					
 					<View layout="horizontal" height="50" width="90%">
 						<View width="40%">
 							<Label left="5" color="black">Bet (RM)</Label>
 						</View>
 						<View width="60%">
-							<TextField id="bet" width="100%" height="40" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							<TextField id="bet" width="100%" height="40" hintText="Bet Amount" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
 						</View>
 					</View>
+					
 					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
 						<Label color="white" onClick="confirm">Confirm</Label>
 					</View>
 				</View>
-		</View>
+			</View>
 		<View platform="ios" layout="vertical" height="Ti.UI.SIZE">
 				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
 				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
