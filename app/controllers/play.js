@@ -355,3 +355,15 @@ function confirm(){
 		pool: pool
 	});
 }
+
+Ti.API.addEventListener('confirmSuccess', function(e){
+	submit();
+});
+
+Ti.API.addEventListener('submitSuccess', function(e){
+	success();
+});
+
+Ti.API.addEventListener('submitFailed', function(e){
+	fail();
+});
