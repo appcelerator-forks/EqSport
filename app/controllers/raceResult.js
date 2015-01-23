@@ -1,6 +1,8 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
 
+//var isKeyboardFocus = 0;
+
 var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
 
 if(Ti.Platform.osname == "android"){
@@ -27,7 +29,8 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 // $.date.text = toDisplay;
 
 function back(){	
-	$.raceNo.removeEventListener('return', done);
+	$.raceNo.removeEventListener('blur', submitText);
+	$.mainView.removeEventListener('click', hideKeyboard);
 	DRAWER.navigation("member",1);
 }
 
@@ -43,6 +46,7 @@ function displayDate(day,month,year){
 }
 
 function done(){
+	//isKeyboardFocus = 1;
 	console.log("done");
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
@@ -62,6 +66,38 @@ function done(){
 	if($.raceNo.value != "")
 	{
 		console.log("api");
+		//hideKeyboard();
+		API.getRTOResults({
+			raceNumber : $.raceNo.value,
+			raceDate: date
+		});
+	}
+	else
+	{
+		//$.raceNo.focus();
+		//triggerRace();
+	}
+}
+
+function submitText()
+{
+	$.raceNo.removeEventListener('blur', submitText);
+	console.log("submitText");
+	
+	if($.raceNo.value != "")
+	{
+		value = $.picker.value;
+		dayInt = ("0"+value.getDate()).slice(-2);
+		monthInt = ("0"+(value.getMonth()+1)).slice(-2);
+		yearInt = value.getFullYear() ;
+		
+		var day = dayInt.toString();
+		var month = monthInt.toString();
+		var year = yearInt.toString();
+		var date = day + month + year;
+		
+		
+		console.log("sending api");
 		API.getRTOResults({
 			raceNumber : $.raceNo.value,
 			raceDate: date
@@ -69,8 +105,41 @@ function done(){
 	}
 }
 
-$.raceNo.addEventListener('return', done);
 
+//$.raceNo.addEventListener('focus', done);
+
+function triggerRace()
+{
+	$.pickerView.hide();
+	$.dateContainer.height = 50;
+	$.dateView.height = 50;
+	$.raceNo.focus();
+	//isKeyboardFocus = 1;
+	$.raceNo.addEventListener('blur', submitText);
+	//alert("trigger");
+}
+
+function hideKeyboard(e) {
+	// if(isKeyboardFocus == 1)
+	// {
+// 		
+		// isKeyboardFocus = 0;
+		// return;
+	// }
+	// else{
+		// $.raceNo.blur();
+		// isKeyboardFocus = 0;
+		// //done();
+		// submitText();
+	// }
+	console.log(e.source);
+	if (e.source != '[object raceNo]') {
+		$.raceNo.blur();
+		//isKeyboardFocus = 0;
+	}
+}
+
+$.mainView.addEventListener('click', hideKeyboard);
 /*
 for(var i=0, i < arr.length, i++)
 {
@@ -131,3 +200,38 @@ for(var i=0, i < arr.length, i++)
 	$.scrollView.add(centerLineView);
 }
 */
+
+function done2()
+{
+	$.venueView.height = 50;
+	$.venueContentView.height = 50;
+	$.pickerView2.height = 50;
+	$.pickerView2.setVisible(false);
+	$.done2.setVisible(false);
+	$.picker2.setVisible(false);
+}
+
+function showVenue() {
+	$.venueView.height = 250;
+	$.venueContentView.height = 250;
+	$.pickerView2.height = 250;
+	$.pickerView2.setVisible(true);
+	$.done2.setVisible(true);
+	$.picker2.setVisible(true);
+	//return false;
+}
+
+function venue(e){
+	venue = e.row.title;
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+		$.pickerView1.height = 50;
+		$.pickerView1.setVisible(false);
+		$.done1.setVisible(false);
+		$.picker1.setVisible(false);
+		$.venueLabel.text = venue;
+	}
+	//reload result view
+	//refresh(e.row.race_id);
+}

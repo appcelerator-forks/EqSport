@@ -117,6 +117,21 @@ function refresh(race_id){
 	}
 }
 
+function venue(e){
+	venue = e.row.title;
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+		$.pickerView1.height = 50;
+		$.pickerView1.setVisible(false);
+		$.done1.setVisible(false);
+		$.picker1.setVisible(false);
+		$.venueLabel.text = venue;
+	}
+	//reload result view
+	refresh(e.row.race_id);
+}
+
 function done1()
 {
 	$.venueView.height = 50;

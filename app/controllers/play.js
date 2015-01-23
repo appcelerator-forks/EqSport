@@ -183,6 +183,7 @@ function showPool() {
 }
  
 function back(){	
+	$.mainView.removeEventListener('click', hideKeyboard);
 	DRAWER.navigation("member",1);
 }
 
@@ -694,14 +695,22 @@ function cancel(){
 	pop.close(); 
 }
 
-Ti.API.addEventListener('confirmSuccess', function(e){
+function hideKeyboard() {
+    $.runner.blur();
+    $.bet.blur();
+}
+
+$.mainView.addEventListener('click', hideKeyboard);
+
+
+Ti.App.addEventListener('confirmSuccess', function(e){
 	submit();
 });
 
-Ti.API.addEventListener('submitSuccess', function(e){
+Ti.App.addEventListener('submitSuccess', function(e){
 	success();
 });
 
-Ti.API.addEventListener('submitFailed', function(e){
+Ti.App.addEventListener('submitFailed', function(e){
 	fail();
 });

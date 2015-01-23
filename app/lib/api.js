@@ -145,12 +145,13 @@ exports.getRTOResults = function(ex){
 	       	
 	       	if(respcode == "1")
 	       	{
+	       		console.log("res 1");
 	     		var errdesc = getValueFromXml(this.responseXML, 'RTORESULTS' , 'ERRDESC');
 	     		alert(errdesc);
 	     	}
 	     	else
 	     	{
-	     	
+	     		console.log("res 0");
 		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 		       	
 		       	var ary = [];
@@ -226,7 +227,7 @@ exports.submitRaceBet= function(ex){
 					unitAmount: (res.UnitAmount).trim()
 				}); 
 				transactionInfo.save(); 
-	       		Ti.API.fireEvent('submitSuccess');
+	       		Ti.App.fireEvent('submitSuccess');
 	       }
 	       else
 	       {
@@ -235,7 +236,7 @@ exports.submitRaceBet= function(ex){
 				    message: res.ErrorNumber + '\n' + res.ErrorDescription
 				});
 				a.show();
-				Ti.API.fireEvent('submitFailed');
+				Ti.App.fireEvent('submitFailed');
 	       }
 	      
 	      //Ti.API.fireEvent('submitSuccess');
@@ -265,14 +266,14 @@ exports.confirmRaceBet= function(ex){
 	       
 	       if(res.response =="Success")
 	       {
-	       		Ti.API.fireEvent('confirmSuccess');
+	       		Ti.App.fireEvent('confirmSuccess');
 	       }
 	       else
 	       {
 	       		
 	       }
 	      
-	      Ti.API.fireEvent('confirmSuccess');
+	      Ti.App.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {

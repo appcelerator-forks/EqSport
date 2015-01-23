@@ -14,7 +14,8 @@
 			</View>
 			<View id="dateView" width="74.9%" height="50">
 				<View width="100%" height="30" backgroundColor="white" onClick="showDate" top="10">
-					<Label id="date" onClick="showDate" color="black"></Label>
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Label id="date" onClick="showDate" backgroundColor="transparent" color="black"></Label>
 				</View>
 				<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="black" visible="false" top="50">
 					<Button height="50" width="100%" color="white" right="0" onClick="done">Done</Button>
@@ -43,7 +44,36 @@
 					<PickerRow title="2"></PickerRow>
 					<PickerRow title="3"></PickerRow>
 				</Picker>-->
-				<TextField id="raceNo" width="90%" height="40" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+				<TextField id="raceNo" width="90%" height="40" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center" onClick="triggerRace"></TextField>
+			</View>
+		</View>
+		<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+			<View width="30%">
+				<Label class="boldTitle" color="black" left="10">Venue</Label>
+			</View>
+			<View width="70%">
+				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+				<Picker id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
+					<!--<PickerRow title="JAP (GOOD)"></PickerRow>
+					<PickerRow title="1"></PickerRow>
+					<PickerRow title="2"></PickerRow>
+					<PickerRow title="3"></PickerRow>-->
+				</Picker>
+				
+			</View>
+		</View>
+		<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+			<View width="30%">
+				<Label class="boldTitle" color="black" left="10">Venue</Label>
+			</View>
+			<View id="venueContentView" width="70%" height="50" backgroundColor="white">
+				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+				<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+				<View id="pickerView2" height="50" width="100%" visible="false">
+					<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
+					<Picker id="picker2" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+					</Picker>
+				</View>
 			</View>
 		</View>
 		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white" top="10">
