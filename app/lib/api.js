@@ -176,7 +176,7 @@ exports.getRTOResults = function(ex){
 		       		}
 		       	
 		       	}
-		       	console.log(ary);
+		    
 		        Ti.App.fireEvent('raceResult', {raceResult: ary});
 		       	 
 			}
