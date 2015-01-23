@@ -76,7 +76,7 @@
 				</View>
 			</View>
 		</View>
-		<ScrollView id="scrollView" layout="vertical" height="Ti.UI.SIZE" width="90%" backgroundColor="white" top="10">
+		<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="10" bottom="10">
 			<View layout="horizontal" height="60" backgroundColor="#EA431A" width="100%">
 				<View width="25%" backgroundColor="gray">
 					<View layout="vertical">
@@ -91,36 +91,7 @@
 					</View>
 				</View>
 			</View>
-			<!--Sample of the result view 1-->
-			<View id="contentView1" layout="horizontal" height="60" width="100%">
-				<View id="leftView1" width="25%">
-					<Label id="leftLabel1" color="black">WIN</Label>
-				</View>
-				<View id="centerView1" width="44.9%">
-					<Label id="centerLabel1" color="black">7</Label>
-				</View>
-				<View id="rightView1" width="30%">
-					<Label id="rightLabel1" color="black">RM15</Label>
-				</View>
-			</View>
-			<View id="centerLineView1" width="100%" height="1" bottom="2">
-				<View id="lineView1" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>
-			<!--Sample of the result view 2-->
-			<View id="contentView2" layout="horizontal" height="60" width="100%">
-				<View id="leftView2" width="25%">
-					<Label id="leftLabel2" color="black">QIN</Label>
-				</View>
-				<View id="centerView2" width="44.9%">
-					<Label id="centerLabel2" color="black">7</Label>
-				</View>
-				<View id="rightView2" width="30%">
-					<Label id="rightLabel2" color="black">RM8</Label>
-				</View>
-			</View>
-			<View id="centerLineView2" width="100%" height="1" bottom="2">
-				<View id="lineView2" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>
+			
 		</ScrollView>
 	</View>
 </Alloy>

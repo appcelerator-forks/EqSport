@@ -1,7 +1,99 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
 
-//var isKeyboardFocus = 0;
+API.getRTOResults();
+ 
+
+var apiResult = function(e){  
+	var arr =e.raceResult;
+	var locations = [];
+	for(var i=0; i < arr.length; i++){
+		locations.push(arr[i].location); 
+		
+		var contentView = Titanium.UI.createView({
+			layout: "horizontal",
+			width:"100%",
+			height:60
+		});
+		
+		var leftView = Titanium.UI.createView({
+			width:"25%"
+		});
+		
+		var leftLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow1
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"44.9%"
+		});
+		
+		var centerLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow2
+		});
+		
+		var rightView = Titanium.UI.createView({
+			width:"30%"
+		});
+		
+		var rightLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow3
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		leftView.add(leftLabel);
+		centerView.add(centerLabel);
+		rightView.add(rightLabel);
+		contentView.add(leftView);
+		contentView.add(centerView);
+		contentView.add(rightView);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+		
+	}
+	
+	if($.picker2.columns[0]) {
+	    var _col = $.picker2.columns[0];
+	        var len = _col.rowCount; 
+	        for(var x = len-1; x >= 0; x-- ){
+	                var _row = _col.rows[x];
+	                _col.removeRow(_row);
+	        }
+	}
+	setPicker2(locations);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
+		$.picker2.setSelectedRow(0,0,false);
+	}
+	console.log(locations);
+};
+Ti.App.addEventListener('raceResult', apiResult);
+
+function setPicker2(location){ 
+	//console.log("infoValue.length: "+infoValue.length);
+	console.log("picker2");
+	for(var i = 0 ; i < location.length; i++){
+		var data = Ti.UI.createPickerRow({title:location[i]});
+		//$.pickerColumn1.addRow(data);
+		$.picker2.add(data);
+	}
+	 
+}
 
 var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
 
@@ -226,10 +318,10 @@ function venue(e){
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;
 		$.venueContentView.height = 50;
-		$.pickerView1.height = 50;
-		$.pickerView1.setVisible(false);
-		$.done1.setVisible(false);
-		$.picker1.setVisible(false);
+		$.pickerView2.height = 50;
+		$.pickerView2.setVisible(false);
+		$.done2.setVisible(false);
+		$.picker2.setVisible(false);
 		$.venueLabel.text = venue;
 	}
 	//reload result view

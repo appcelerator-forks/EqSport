@@ -14,8 +14,7 @@ if(blnDetails != ""){
 		$.credit.text = blnDetails.amount.substring(2);
 		$.update.text = "(Last updated on "+blnDetails.date+" "+ blnDetails.time+")"; 
 } 
- 
-console.log(infoDetails);
+  
 API.checkBalance({
 	account: infoDetails[0].account,
 	pin: infoDetails[0].pin
@@ -253,7 +252,7 @@ function raceCard(){
 }
 
 function raceOdd(){  
-	console.log("raceOdd");
+ 
 	// API.raceCard({
 			// title : "raceOdd"
 		// });

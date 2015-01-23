@@ -136,22 +136,17 @@ exports.checkBalance = function (ex){
 
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
-	//var url = "http://54.169.180.5/eqsport/test_xml.php";
-	var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
+	var url = "http://175.143.114.122/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD";
+	//var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var respcode = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESPCODE');
 	       	
-	       	if(respcode == "1")
-	       	{
-	       		console.log("res 1");
+	       	if(respcode == "1") {
 	     		var errdesc = getValueFromXml(this.responseXML, 'RTORESULTS' , 'ERRDESC');
 	     		alert(errdesc);
-	     	}
-	     	else
-	     	{
-	     		console.log("res 0");
+	     	} else { 
 		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 		       	
 		       	var ary = [];
@@ -160,32 +155,30 @@ exports.getRTOResults = function(ex){
 		       		for(var i=1; i <= no_race_result; i++){
 		       			var obj = {};
 		       			
-		       			obj["resultno"]  = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
+		       			//obj["resultno"]  = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
 		       			obj["raceDate"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
 		       			obj["raceDay"] 	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
 		       			obj["raceNo"]  	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			 
-		       			ary.push(obj);
-		       			 
+		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
+		       			var dataByRow   = resultData.split("\n");
+		       			var dataByRace  = dataByRow[0].split(":");
+		       			var dataByDetail= dataByRow[2].split(" ");
+		       			obj["raceNo"]  	 = dataByRace[1]; 
+		       			obj["raceRow1"]  = dataByDetail[0];  
+		       			obj["raceRow2"]  = dataByDetail[1];  
+		       			obj["raceRow3"]  = dataByDetail[2];  
+		       			
+		       			ary.push(obj); 
 		       			//var arr[i] = [resultno, raceDate, raceDay, raceNo, location, result] ;
 		       		}
 		       	
 		       	}
-		       	Ti.API.info(ary);
-		       	//Insert to local DB
-		       	// var getRTOResults = Alloy.createModel('rtoResults', { 
-					// no_race_result: no_race_result, 
-					// // resultno: resultno,
-					// // raceDate: raceDate,
-					// // raceDay: raceDay,
-					// // raceNo: raceNo,
-					// // location: location,
-					// // result: result
-					// arr: arr
-				// }); 
-				// getRTOResults.save(); 
+		       	
+		        Ti.App.fireEvent('raceResult', {raceResult: ary});
+		       	 
 			}
 	       	
 	       	
@@ -227,7 +220,7 @@ exports.submitRaceBet= function(ex){
 					unitAmount: (res.UnitAmount).trim()
 				}); 
 				transactionInfo.save(); 
-	       		Ti.App.fireEvent('submitSuccess');
+	       		Ti.API.fireEvent('submitSuccess');
 	       }
 	       else
 	       {
@@ -236,7 +229,7 @@ exports.submitRaceBet= function(ex){
 				    message: res.ErrorNumber + '\n' + res.ErrorDescription
 				});
 				a.show();
-				Ti.App.fireEvent('submitFailed');
+				Ti.API.fireEvent('submitFailed');
 	       }
 	      
 	      //Ti.API.fireEvent('submitSuccess');
@@ -266,14 +259,14 @@ exports.confirmRaceBet= function(ex){
 	       
 	       if(res.response =="Success")
 	       {
-	       		Ti.App.fireEvent('confirmSuccess');
+	       		Ti.API.fireEvent('confirmSuccess');
 	       }
 	       else
 	       {
 	       		
 	       }
 	      
-	      Ti.App.fireEvent('confirmSuccess');
+	      Ti.API.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
