@@ -1,11 +1,10 @@
-// $.picker1.setSelectedRow(0,false);
-// $.picker2.setSelectedRow(0,false);
 var arr = [];
 API.getRTOResults({
 	raceNumber : "",
 	raceDate: ""
 });
  
+ var result = [];
 
 var apiResult = function(e){  
 	removeAllChildren($.scrollView);
@@ -14,65 +13,8 @@ var apiResult = function(e){
 	var locations = [];
 	for(var i=0; i < arr.length; i++){
 		locations.push(arr[i].location); 
-		
-		var contentView = Titanium.UI.createView({
-			layout: "horizontal",
-			width:"100%",
-			height:60
-		});
-		
-		var leftView = Titanium.UI.createView({
-			width:"25%"
-		});
-		
-		var leftLabel = Ti.UI.createLabel({
-			color: "black",
-			text: arr[i].raceRow1
-		});
-		
-		var centerView = Titanium.UI.createView({
-			width:"44.9%"
-		});
-		
-		var centerLabel = Ti.UI.createLabel({
-			color: "black",
-			text: arr[i].raceRow2
-		});
-		
-		var rightView = Titanium.UI.createView({
-			width:"30%"
-		});
-		
-		var rightLabel = Ti.UI.createLabel({
-			color: "black",
-			text: arr[i].raceRow3
-		});
-		
-		var lineView = Titanium.UI.createView({
-			backgroundColor: "#A5A5A5",
-			width:"90%",
-			height:1
-		});
-		
-		var centerLineView = Titanium.UI.createView({
-			layout: "composite",
-			width:"100%",
-			height: 1,
-			bottom: 2
-		});
-		
-		leftView.add(leftLabel);
-		centerView.add(centerLabel);
-		rightView.add(rightLabel);
-		contentView.add(leftView);
-		contentView.add(centerView);
-		contentView.add(rightView);
-		centerLineView.add(lineView);
-		$.scrollView.add(contentView);
-		$.scrollView.add(centerLineView);
-		
+		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo];
 	}
-	
 	if($.picker2.columns[0]) {
 	    var _col = $.picker2.columns[0];
 	        var len = _col.rowCount; 
@@ -141,8 +83,9 @@ function displayDate(day,month,year){
 	var string = day + "/" + month + "/" + year;
 	$.date.text = string;
 }
-
+ 
 function done(){ 
+ 
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
@@ -164,9 +107,8 @@ function done(){
 			raceNumber : $.raceNo.value,
 			raceDate: date
 		});
-	} else {
-		//$.raceNo.focus();
-		//triggerRace();
+ 
+	} else { 
 	}
 }
 
@@ -194,101 +136,23 @@ function submitText()
 	}
 }
 
-
-//$.raceNo.addEventListener('focus', done);
-
 function triggerRace()
 {
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
 	$.raceNo.focus();
-	//isKeyboardFocus = 1;
 	$.raceNo.addEventListener('blur', submitText);
-	//alert("trigger");
 }
 
 function hideKeyboard(e) {
-	// if(isKeyboardFocus == 1)
-	// {
-// 		
-		// isKeyboardFocus = 0;
-		// return;
-	// }
-	// else{
-		// $.raceNo.blur();
-		// isKeyboardFocus = 0;
-		// //done();
-		// submitText();
-	// }
 	console.log(e.source);
 	if (e.source != '[object raceNo]') {
 		$.raceNo.blur();
-		//isKeyboardFocus = 0;
 	}
 }
 
 $.mainView.addEventListener('click', hideKeyboard);
-/*
-for(var i=0, i < arr.length, i++)
-{
-	var contentView+i = Titanium.UI.createView({
-		layout: "horizontal",
-		width:"100%",
-		height:60
-	});
-	
-	var leftView+i = Titanium.UI.createView({
-		width:"25%"
-	});
-	
-	var leftLabel+i = Ti.UI.createLabel({
-		color: "black",
-		text: arr[i].value
-	});
-	
-	var centerView+i = Titanium.UI.createView({
-		width:"44.9%"
-	});
-	
-	var centerLabel+i = Ti.UI.createLabel({
-		color: "black",
-		text: arr[i].value
-	});
-	
-	var rightView+i = Titanium.UI.createView({
-		width:"30%"
-	});
-	
-	var rightLabel+i = Ti.UI.createLabel({
-		color: "black",
-		text: arr[i].value
-	});
-	
-	var lineView = Titanium.UI.createView({
-		backgroundColor: "#A5A5A5",
-		width:"90%",
-		height:1
-	});
-	
-	var centerLineView = Titanium.UI.createView({
-		layout: "composite",
-		width:"100%",
-		height: 1,
-		bottom: 2
-	});
-	
-	leftView+i.add(leftLabel+i);
-	centerView+i.add(centerLabel+i);
-	rightView+i.add(rightLabel+i);
-	contentView+i.add(leftView+i);
-	contentView+i.add(centerView+i);
-	contentView+i.add(rightView+i);
-	centerLineView.add(lineView);
-	$.scrollView.add(contentView+i);
-	$.scrollView.add(centerLineView);
-}
-*/
 
 function done2()
 {
@@ -325,5 +189,141 @@ function venue(e){
 	alert(venue);
 	console.log(arr);
 	//reload result view
-	//refresh(e.row.race_id);
+	refresh(venue);
+}
+
+function refresh(venue){
+	removeAllChildren($.scrollView);
+	var index = null;
+	
+	//find index
+	for(var i = 0; i<result.length; i++)
+	{
+		if(result[i][0] == venue)
+		{
+			index = i;
+		}
+	}
+	
+	if(index != null)
+	{
+		var contentView = Titanium.UI.createView({
+			layout: "horizontal",
+			width:"100%",
+			height:60
+		});
+		
+		var leftView = Titanium.UI.createView({
+			width:"25%"
+		});
+		
+		var leftLabel = Ti.UI.createLabel({
+			color: "black",
+			text: result[index][1]
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"44.9%"
+		});
+		
+		var centerLabel = Ti.UI.createLabel({
+			color: "black",
+			text: result[index][2]
+		});
+		
+		var rightView = Titanium.UI.createView({
+			width:"30%"
+		});
+		
+		var rightLabel = Ti.UI.createLabel({
+			color: "black",
+			text: result[index][3]
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		leftView.add(leftLabel);
+		centerView.add(centerLabel);
+		rightView.add(rightLabel);
+		contentView.add(leftView);
+		contentView.add(centerView);
+		contentView.add(rightView);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+		$.raceTitle.text = result[index][4];
+		$.resultTitle.text = (result[index][2]).replace("-", ",");
+	}
+	else
+	{
+		var contentView = Titanium.UI.createView({
+			layout: "horizontal",
+			width:"100%",
+			height:60
+		});
+		
+		var leftView = Titanium.UI.createView({
+			width:"25%"
+		});
+		
+		var leftLabel = Ti.UI.createLabel({
+			color: "black",
+			text: "-"
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"44.9%"
+		});
+		
+		var centerLabel = Ti.UI.createLabel({
+			color: "black",
+			text: "-"
+		});
+		
+		var rightView = Titanium.UI.createView({
+			width:"30%"
+		});
+		
+		var rightLabel = Ti.UI.createLabel({
+			color: "black",
+			text: "-"
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		leftView.add(leftLabel);
+		centerView.add(centerLabel);
+		rightView.add(rightLabel);
+		contentView.add(leftView);
+		contentView.add(centerView);
+		contentView.add(rightView);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+		$.raceTitle.text = "-";
+		$.resultTitle.text = "-";
+	}
+	
 }
