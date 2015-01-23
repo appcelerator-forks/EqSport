@@ -333,5 +333,9 @@ function venue(e){
 	alert(venue);
 	console.log(arr);
 	//reload result view
-	//refresh(e.row.race_id);
+	refresh();
+}
+
+function refresh(){
+	removeAllChildren($.scrollView);
 }
