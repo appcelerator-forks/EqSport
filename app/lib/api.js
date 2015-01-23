@@ -136,8 +136,13 @@ exports.checkBalance = function (ex){
 
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
-	var url = "http://175.143.114.122/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD";
-	//var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
+	if(ex.raceNumber == "" && ex.raceDate == ""){
+		var url = requestRaceResultWithDate;
+	}else{
+		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
+	}
+	
+	//
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -156,13 +161,18 @@ exports.getRTOResults = function(ex){
 		       			var obj = {};
 		       			
 		       			//obj["resultno"]  = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
-		       			obj["raceDate"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
+		       			raceDate = obj["raceDate"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
 		       			obj["raceDay"] 	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
 		       			obj["raceNo"]  	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
+		       			
+		       			var dateDetail  = raceDate.split("/");
+		       			obj["raceDay"]  	 = dateDetail[0]; 
+		       			obj["raceMonth"]  	 = dateDetail[1]; 
+		       			obj["raceYear"]  	 = dateDetail[2]; 
+		       			
 		       			var dataByRow   = resultData.split("\n");
 		       			var dataByRace  = dataByRow[0].split(":");
 		       			var dataByDetail= dataByRow[2].split(" ");
@@ -176,7 +186,7 @@ exports.getRTOResults = function(ex){
 		       		}
 		       	
 		       	}
-		    
+		       	console.log(ary);
 		        Ti.App.fireEvent('raceResult', {raceResult: ary});
 		       	 
 			}

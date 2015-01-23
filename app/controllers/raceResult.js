@@ -1,11 +1,16 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
-
-API.getRTOResults();
+var arr = [];
+API.getRTOResults({
+	raceNumber : "",
+	raceDate: ""
+});
  
 
 var apiResult = function(e){  
-	var arr =e.raceResult;
+	removeAllChildren($.scrollView);
+	arr = e.raceResult;
+	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var locations = [];
 	for(var i=0; i < arr.length; i++){
 		locations.push(arr[i].location); 
@@ -324,6 +329,9 @@ function venue(e){
 		$.picker2.setVisible(false);
 		$.venueLabel.text = venue;
 	}
+	//if ( $.inArray( '06/04/2012', bank_holidays ) > -1 )
+	alert(venue);
+	console.log(arr);
 	//reload result view
 	//refresh(e.row.race_id);
 }
