@@ -30,16 +30,13 @@ var containerView = Ti.UI.createView({
 	backgroundColor: "black"
 }); 
 //var column1 = Ti.UI.createPickerColumn();
-$.balance.text = "Your available balance is " + balanceInfo.amount;
-
+$.balance.text = "Your available balance is " + balanceInfo.amount; 
 setPicker1(); 
 
-function refresh(index){
-	console.log("refresh");
+function refresh(index){ 
 	if($.picker2.columns[0]) {
 	    var _col = $.picker2.columns[0];
-	        var len = _col.rowCount;
-	        console.log("len: "+len);
+	        var len = _col.rowCount; 
 	        for(var x = len-1; x >= 0; x-- ){
 	                var _row = _col.rows[x];
 	                _col.removeRow(_row);
@@ -47,9 +44,7 @@ function refresh(index){
 	}
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
 	setPicker2();
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
-	{
-		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
 		$.picker2.setSelectedRow(0,0,false);
 	}
 }
@@ -75,20 +70,21 @@ function setPicker2(){
 	}
 	 
 }
-
-
  
-if(Ti.Platform.osname == "android"){
-	$.bet.addEventListener('focus', function f(e){
-	    $.bet.blur();
-	    $.bet.removeEventListener('focus', f);
-	});
-}
-
+ 
 if(Ti.Platform.osname == "android"){
 	$.picker1.setSelectedRow(0,false);
 	$.picker2.setSelectedRow(0,false);
 	$.picker3.setSelectedRow(0,false);
+	 
+	$.scrollView2.scrollType = "horizontal";
+	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	$.bet.addEventListener('focus', function f(e){
+	    $.bet.blur();
+	    $.bet.removeEventListener('focus', f);
+	});
+	 
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
@@ -99,11 +95,6 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 	$.picker3.setSelectedRow(0,0,false);
 }
 
-if(Ti.Platform.osname == "android"){
-	$.scrollView2.scrollType = "horizontal";
-	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-}
 
 function done1() {
 	$.venueView.height = 50;
@@ -233,14 +224,10 @@ function pool(e){
 	}
 }
  
-function favouriteOdd(selectedRow)
-{
-	console.log("favourite function");
+function favouriteOdd(selectedRow){ 
 	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
-	console.log("favouriteInfo");
-	console.log(favouriteInfo);
-	if(favouriteInfo == "")
-	{
+ 
+	if(favouriteInfo == "") {
 		$.mtr.text = "Min to Race:-";
 		
 		$.a1.text = "-";
@@ -257,9 +244,7 @@ function favouriteOdd(selectedRow)
 		$.c2.text = "-";
 		$.c3.text = "-";
 		$.c4.text = "-";
-	}
-	else
-	{
+	} else {
 		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
 		
 		var runner = favouriteInfo[0].runner;
@@ -288,15 +273,8 @@ function favouriteOdd(selectedRow)
 	}
 }
 
-if(Ti.Platform.osname == "android"){
-	$.bet.addEventListener('focus', function f(e){
-	    $.bet.blur();
-	    $.bet.removeEventListener('focus', f);
-	});
-} 
 
-function process()
-{
+function process(){
 	var dialog = Ti.UI.createAlertDialog({
 	    title: 'Enter Pin No.',
 	    style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
@@ -309,9 +287,7 @@ function process()
 		var bet = betInfo.getBetInfo();
 		Ti.API.info('e.index: ' + e.index);
 	    Ti.API.info('e.text: ' + e.text);
-		if(e.index == 0)
-		{
-			console.log("indexing");
+		if(e.index == 0) { 
 			dialog.hide();
 			if(e.text == bet[0].pin)
 			{
@@ -419,54 +395,11 @@ function confirm(){
 	});
 }
 
-function submit(){
-	console.log("submit");
-	/*if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
-		alert("Fields cannot be empty");
-		return;
-	}
-	
-	if($.bet.value <= 1) {
-		alert("Minimum bet: 2");
-		return;
-	}
-	
-	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA")
-	{
-		if($.bet.value % 5 == 0)
-		{
-			
-		}
-		else
-		{
-			alert("Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
-			return;
-		}
-	}
-	else
-	{
-		if($.bet.value % 2 == 0)
-		{
-			
-		}
-		else
-		{
-			alert("Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
-			return;
-		}
-	}
-	console.log("transaction valid");
-	console.log(venue);
-	console.log(raceNo);
-	console.log(pool);
-	console.log($.runner.value);
-	console.log($.bet.value);*/
-	
+function submit(){ 
 	var betInfo = Alloy.createCollection('betInfo'); 
 	var bet = betInfo.getBetInfo();
 
-	var oriTime = bet[0].time;
-	console.log(oriTime);
+	var oriTime = bet[0].time; 
 	var temp = oriTime.split(" ");
 	var res = temp[0].split(":");
 	var hourInt = parseInt(res[0]);
@@ -479,10 +412,7 @@ function submit(){
 	var minute = ("0"+res[1]).slice(-2);
 	var second = ("0"+res[2]).slice(-2);
 	
-	timeFormatted24 = hour + minute + second;
-	
-	console.log("time24"+timeFormatted24);
-	
+	timeFormatted24 = hour + minute + second; 
 	var confirmView = Ti.UI.createView({
 		layout: "vertical",
 		height:"100%",
@@ -515,11 +445,7 @@ function submit(){
 		showVerticalScrollIndicator: false,
   		showHorizontalScrollIndicator: false,
 	});
-	
-	if(Ti.Platform.osname == "android") {
-		contentView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	}
-	
+	 
 	var horizontalView1 = Ti.UI.createView({
 		layout:"horizontal",
 		height:"35",
@@ -694,14 +620,14 @@ function cancel(){
 	pop.close(); 
 }
 
-Ti.API.addEventListener('confirmSuccess', function(e){
+Ti.App.addEventListener('confirmSuccess', function(e){
 	submit();
-});
+}); 
 
-Ti.API.addEventListener('submitSuccess', function(e){
+Ti.App.addEventListener('submitSuccess', function(e){
 	success();
 });
 
-Ti.API.addEventListener('submitFailed', function(e){
+Ti.App.addEventListener('submitFailed', function(e){
 	fail();
 });

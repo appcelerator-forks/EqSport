@@ -1,5 +1,75 @@
 // $.picker1.setSelectedRow(0,false);
 // $.picker2.setSelectedRow(0,false);
+API.getRTOResults();
+ 
+
+var apiResult = function(e){  
+	var arr =e.raceResult;
+	var locations = [];
+	for(var i=0; i < arr.length; i++){
+		locations.push(arr[i].location); 
+		
+		var contentView = Titanium.UI.createView({
+			layout: "horizontal",
+			width:"100%",
+			height:60
+		});
+		
+		var leftView = Titanium.UI.createView({
+			width:"25%"
+		});
+		
+		var leftLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow1
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"44.9%"
+		});
+		
+		var centerLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow2
+		});
+		
+		var rightView = Titanium.UI.createView({
+			width:"30%"
+		});
+		
+		var rightLabel = Ti.UI.createLabel({
+			color: "black",
+			text: arr[i].raceRow3
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		leftView.add(leftLabel);
+		centerView.add(centerLabel);
+		rightView.add(rightLabel);
+		contentView.add(leftView);
+		contentView.add(centerView);
+		contentView.add(rightView);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+		
+	}
+	console.log(locations);
+};
+Ti.App.addEventListener('raceResult', apiResult);
+
 
 var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
 
@@ -42,8 +112,7 @@ function displayDate(day,month,year){
 	$.date.text = string;
 }
 
-function done(){
-	console.log("done");
+function done(){ 
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
@@ -59,9 +128,7 @@ function done(){
 	
 	displayDate(day,month,year);
 	
-	if($.raceNo.value != "")
-	{
-		console.log("api");
+	if($.raceNo.value != "") { 
 		API.getRTOResults({
 			raceNumber : $.raceNo.value,
 			raceDate: date
