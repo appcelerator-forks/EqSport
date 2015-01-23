@@ -181,12 +181,10 @@ exports.getRTOResults = function(ex){
 		       			obj["raceRow2"]  = dataByDetail[1];  
 		       			obj["raceRow3"]  = dataByDetail[2];  
 		       			
-		       			ary.push(obj); 
-		       			//var arr[i] = [resultno, raceDate, raceDay, raceNo, location, result] ;
-		       		}
-		       	
+		       			ary.push(obj);  
+		       		} 
 		       	}
-		       	console.log(ary);
+		      
 		        Ti.App.fireEvent('raceResult', {raceResult: ary});
 		       	 
 			}
@@ -298,22 +296,25 @@ exports.favourite = function (ex){
 	     onload : function(e) {
 	     	console.log("favourite"); 
 	       	var res = getValueForFavOdd(this.responseXML);
-	       	//console.log(res);
+	       	console.log(res);
 	     	
-	     	var library = Alloy.createCollection('favourite'); 
-	     		library.resetInfo();
+	     	if(res != ""){
+	     		var library = Alloy.createCollection('favourite'); 
+		     		library.resetInfo();
+		     	
+		     	var favouriteInfo = Alloy.createModel('favourite', { 
+					min_to_race: res[0].min_to_race,
+					pla_odd: res[0].pla_odd, 
+					race_date: res[0].race_date,
+					race_no: res[0].race_no,
+					runner: res[0].runner, 
+					time: res[0].time,
+					venue: res[0].venue,
+					win_odd: res[0].win_odd
+				}); 
+				favouriteInfo.save(); 
+	     	}
 	     	
-	     	var favouriteInfo = Alloy.createModel('favourite', { 
-				min_to_race: res[0].min_to_race,
-				pla_odd: res[0].pla_odd, 
-				race_date: res[0].race_date,
-				race_no: res[0].race_no,
-				runner: res[0].runner, 
-				time: res[0].time,
-				venue: res[0].venue,
-				win_odd: res[0].win_odd
-			}); 
-			favouriteInfo.save(); 
 	     	
 	     	console.log("favourite api");
 	     	DRAWER.navigation("play",1);

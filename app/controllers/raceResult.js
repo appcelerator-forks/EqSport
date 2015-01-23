@@ -85,7 +85,7 @@ var apiResult = function(e){
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
 		$.picker2.setSelectedRow(0,0,false);
 	}
-	console.log(locations);
+	 
 };
 Ti.App.addEventListener('raceResult', apiResult);
 
@@ -142,9 +142,7 @@ function displayDate(day,month,year){
 	$.date.text = string;
 }
 
-function done(){
-	//isKeyboardFocus = 1;
-	console.log("done");
+function done(){ 
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
@@ -160,17 +158,13 @@ function done(){
 	
 	displayDate(day,month,year);
 	
-	if($.raceNo.value != "")
-	{
-		console.log("api");
-		//hideKeyboard();
+	if($.raceNo.value != "") {
+	 
 		API.getRTOResults({
 			raceNumber : $.raceNo.value,
 			raceDate: date
 		});
-	}
-	else
-	{
+	} else {
 		//$.raceNo.focus();
 		//triggerRace();
 	}
@@ -178,8 +172,7 @@ function done(){
 
 function submitText()
 {
-	$.raceNo.removeEventListener('blur', submitText);
-	console.log("submitText");
+	$.raceNo.removeEventListener('blur', submitText); 
 	
 	if($.raceNo.value != "")
 	{
@@ -193,8 +186,7 @@ function submitText()
 		var year = yearInt.toString();
 		var date = day + month + year;
 		
-		
-		console.log("sending api");
+		 
 		API.getRTOResults({
 			raceNumber : $.raceNo.value,
 			raceDate: date
