@@ -217,8 +217,10 @@
 							<TextField id="bet" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
 						</View>
 					</View>
-					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
-						<Label color="white">Confirm</Label>
+					<View layout="horizontal" height="50" width="100%">
+						<Label backgroundColor="black" width="45%" color="white" onClick="reset">Reset</Label>
+						<View width="10%"></View>
+						<Label backgroundColor="black" width="45%" color="white" onClick="confirm">Confirm</Label>
 					</View>
 				</View>
 			</View>

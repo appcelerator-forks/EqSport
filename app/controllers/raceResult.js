@@ -186,7 +186,7 @@ function venue(e){
 		$.venueLabel.text = venue;
 	}
 	//if ( $.inArray( '06/04/2012', bank_holidays ) > -1 )
-	alert(venue);
+	//alert(venue);
 	console.log(arr);
 	//reload result view
 	refresh(venue);

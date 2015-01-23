@@ -143,6 +143,12 @@ function fail()
 	pop.close();
 }
 
+function reset()
+{
+	$.runner.value = "";
+	$.bet.value = "";
+}
+
 function showVenue() {
 	$.venueView.height = 160;
 	$.venueContentView.height = 160;
