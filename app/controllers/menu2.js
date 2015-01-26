@@ -23,11 +23,7 @@ function navMenu(e){
 		case 6:  
 			DRAWER.navigation("play",2);
 			break;
-		case 7: 
-		// balance.resetBalance();
-		// info.resetInfo();
-		// rtoResults.resetResults(); 
-		// navigation("amountBalance");
+		case 7:  
 			DRAWER.logout();
 			break;
 	} 

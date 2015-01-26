@@ -5,39 +5,11 @@ var yearInt = value.getFullYear();
 $.picker.value = value;
 
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
-
-// var toDisplay = todayDate.toString() + "/" + todayMonth.toString() + "/" + todayYear.toString();
-// 
-// $.date.text = toDisplay;
-
-// $.picker.minDate = new Date(2009,0,1);
-// $.picker.maxDate = new Date();
-// $.picker.value = new Date();
-
-function back()
-{
-	// $.picker1.removeEventListener('change',venue);
-	// $.picker2.removeEventListener('change',raceNo);
-	// $.picker3.removeEventListener('change',pool);
-	// $.picker4.removeEventListener('change',runner);
-	//$.picker.removeEventListener('change',transaction);
-	
+ 
+function back() {
 	DRAWER.navigation("member",1);
 }
-
-//$.picker.addEventListener('change',transaction);
-
-// function transaction(e)
-// {
-	// value = e.value;
-	// console.log(value);
-// 	
-	// /*	for(var i=0, i<array[index].length, i++)
-		// {
-// 			
-		// }
-	// */
-// }
+ 
 
 function showDate(){
 	if(Ti.Platform.osname == "android")

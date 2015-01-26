@@ -31,9 +31,7 @@ var apiResult = function(e){
 };
 Ti.App.addEventListener('raceResult', apiResult);
 
-function setPicker2(location){ 
-	//console.log("infoValue.length: "+infoValue.length);
-	console.log("picker2");
+function setPicker2(location){  
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
@@ -145,8 +143,7 @@ function triggerRace()
 	$.raceNo.addEventListener('blur', submitText);
 }
 
-function hideKeyboard(e) {
-	console.log(e.source);
+function hideKeyboard(e) { 
 	if (e.source != '[object raceNo]') {
 		$.raceNo.blur();
 	}
@@ -184,11 +181,7 @@ function venue(e){
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
 		$.venueLabel.text = venue;
-	}
-	//if ( $.inArray( '06/04/2012', bank_holidays ) > -1 )
-	//alert(venue);
-	console.log(arr);
-	//reload result view
+	} 
 	refresh(venue);
 }
 

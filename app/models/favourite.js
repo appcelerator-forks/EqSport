@@ -57,7 +57,7 @@ exports.definition = {
 			getFavouriteInfoByRaceNo: function(race_no){
 				var collection = this;
                 var sql = "SELECT * FROM " + collection.config.adapter.collection_name + " WHERE race_no='" + race_no + "' ";
-                console.log(sql);
+   
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 var res = db.execute(sql);
                 var listArr = []; 
@@ -85,7 +85,7 @@ exports.definition = {
 			getFavouriteInfoByVenueAndRaceNo: function(venue,race_no){
 				var collection = this;
                 var sql = "SELECT * FROM " + collection.config.adapter.collection_name + " WHERE venue='" + venue + "' AND race_no='" + race_no + "' ";
-                console.log(sql);
+        
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 var res = db.execute(sql);
                 var listArr = []; 

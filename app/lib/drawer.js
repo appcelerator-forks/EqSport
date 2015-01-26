@@ -3,8 +3,7 @@ var NappDrawerModule = require('dk.napp.drawer');
 
 /**Include System Model**/
 var balance    = Alloy.createCollection('balance');
-var info       = Alloy.createCollection('info');
-//var rtoResults = Alloy.createCollection('rtoResults');
+var info       = Alloy.createCollection('info'); 
  
 var users = info.getInfo(); 
 if(users.length == 0){

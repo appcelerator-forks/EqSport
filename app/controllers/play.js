@@ -11,8 +11,7 @@ var favourite = Alloy.createCollection('favourite');
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
- 
-console.log(infoValue);
+  
 var infoDetails = info.getInfo(); 
 
 var cancelBtn;

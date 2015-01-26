@@ -34,6 +34,7 @@ function menuToggle(e){
 }
 
 function play(){
+	 
 	API.raceCard({
 		title: "play"
 	});

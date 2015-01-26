@@ -6,12 +6,10 @@ var favourite = Alloy.createCollection('favourite');
 
 setPicker1(); 
 
-function refresh(index){
-	console.log("refresh");
+function refresh(index){ 
 	if($.picker2.columns[0]) {
 	    var _col = $.picker2.columns[0];
-	        var len = _col.rowCount;
-	        console.log("len: "+len);
+	        var len = _col.rowCount; 
 	        for(var x = len-1; x >= 0; x-- ){
 	                var _row = _col.rows[x];
 	                _col.removeRow(_row);
@@ -26,8 +24,7 @@ function refresh(index){
 	}
 }
 
-function setPicker1(){ 
-	console.log("infoValue.length: "+infoValue.length);
+function setPicker1(){  
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
@@ -96,8 +93,7 @@ function raceOdd(venue,raceNo)
 {
 	removeAllChildren($.scrollView);
 	
-	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);
-	console.log(favouriteInfo);
+	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo); 
 	if(favouriteInfo == "")
 	{
 		$.mtr.text = "Min to Race: -";
@@ -114,14 +110,10 @@ function raceOdd(venue,raceNo)
 		var runner = favouriteInfo[0].runner;
 		var run = runner.split("$");
 		var pla_odd = favouriteInfo[0].pla_odd;
-		var pla = pla_odd.split("$");
-		console.log(win);
-		console.log(win.length);
+		var pla = pla_odd.split("$"); 
 	}
 	
-	for(var i=0; i < win.length; i++)
-	{
-		console.log("win: "+win[i]);
+	for(var i=0; i < win.length; i++) { 
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
 			width:"100%",

@@ -1,7 +1,7 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.143.114.122";
+var API_DOMAIN = "175.143.5.179";//175.143.114.122
 var XHR = require("xhr");
 var xhr = new XHR();
 
@@ -25,8 +25,7 @@ var submitRaceBet = "http://"+API_DOMAIN+"/J2me/v3/SubmitRaceBet.asp";
 //login to app
 exports.login = function (ex){
 	
-	var url = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin;
-	console.log(url);
+	var url = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -99,13 +98,11 @@ exports.checkBalance = function (ex){
 	     		alert(errdesc);
 	     	}else{
 	     		//success	
-	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG');
-	     		//console.log(message);
+	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG'); 
 	     		var arr = message.split(" ");
 	     		var amount = arr[5];
 	     		var date = arr[3];
-	     		var time = arr[4];
-	     		//console.log(time);
+	     		var time = arr[4]; 
 	     		
 				var library = Alloy.createCollection('balance'); 
 	     		library.resetBalance();
@@ -210,8 +207,7 @@ exports.submitRaceBet= function(ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	       	var res = getValueFromPipe(this.responseXML);
-	       	console.log(res);
+	       	var res = getValueFromPipe(this.responseXML); 
 	      
 	      if(res.Status =="Good")
 	       {
@@ -257,21 +253,14 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
-	//console.log(url);
+ 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	       	var res = getValueFromPipe(this.responseXML);
-	       	console.log("response geo" + this.responseXML);
-	       //console.log(res);
-	       
-	       if(res.response =="Success")
-	       {
+	       	var res = getValueFromPipe(this.responseXML);  
+	       if(res.response =="Success") {
 	       		Ti.API.fireEvent('confirmSuccess');
-	       }
-	       else
-	       {
-	       		
+	       } else { 
 	       }
 	      
 	      Ti.API.fireEvent('confirmSuccess');
@@ -293,10 +282,8 @@ exports.favourite = function (ex){
 	var url = requestRaceFavouriteOdds;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
-	     onload : function(e) {
-	     	console.log("favourite"); 
-	       	var res = getValueForFavOdd(this.responseXML);
-	       	console.log(res);
+	     onload : function(e) { 
+	       	var res = getValueForFavOdd(this.responseXML); 
 	     	
 	     	if(res != ""){
 	     		var library = Alloy.createCollection('favourite'); 
@@ -313,10 +300,8 @@ exports.favourite = function (ex){
 					win_odd: res[0].win_odd
 				}); 
 				favouriteInfo.save(); 
-	     	}
-	     	
-	     	
-	     	console.log("favourite api");
+	     	} 
+	     	 
 	     	DRAWER.navigation("play",1);
 	     },
 	     // function called when an error occurs, including a timeout
@@ -333,13 +318,11 @@ exports.favourite = function (ex){
 
 //raceCard
 exports.raceCard = function (ex){
-	var url =  requestRaceCard; 
- 
+	var url =  requestRaceCard;  
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	var res = getValueFromDollarAndPipe(this.responseXML);
-	     	//console.log(res);
+	     	var res = getValueFromDollarAndPipe(this.responseXML); 
 	     	if(res != ""){
 		     	var library = Alloy.createCollection('raceCardInfo'); 
 		     		library.resetInfo();
@@ -356,8 +339,7 @@ exports.raceCard = function (ex){
 				for(var i = 1; i <= res['totalRunner']; i++){
 					var runner_id = res['runner'+i][0];
 					var runner_date = res['runner'+i][1];
-					var runner_time = res['runner'+i][2];
-					//console.log(runner_id+'=='+runner_date+"=="+runner_time);
+					var runner_time = res['runner'+i][2]; 
 					
 					//Insert to local DB
 					var raceCardDetails = Alloy.createModel('raceCardDetails', { 
