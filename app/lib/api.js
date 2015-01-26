@@ -340,35 +340,35 @@ exports.raceCard = function (ex){
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);
 	     	//console.log(res);
-	     	
-	     	var library = Alloy.createCollection('raceCardInfo'); 
-	     		library.resetInfo();
-     		var library2 = Alloy.createCollection('raceCardDetails'); 
-     			library2.resetDetails();
-			//Insert to local DB
-			var raceCardInfo = Alloy.createModel('raceCardInfo', { 
-				id: res.id,
-				venue: res.venue, 
-				totalRunner: res.totalRunner
-			}); 
-			raceCardInfo.save(); 
-
-			for(var i = 1; i <= res['totalRunner']; i++){
-				var runner_id = res['runner'+i][0];
-				var runner_date = res['runner'+i][1];
-				var runner_time = res['runner'+i][2];
-				//console.log(runner_id+'=='+runner_date+"=="+runner_time);
-				
+	     	if(res != ""){
+		     	var library = Alloy.createCollection('raceCardInfo'); 
+		     		library.resetInfo();
+	     		var library2 = Alloy.createCollection('raceCardDetails'); 
+	     			library2.resetDetails();
 				//Insert to local DB
-				var raceCardDetails = Alloy.createModel('raceCardDetails', { 
-					race_id:res.id,
-					runner_id: runner_id, 
-					runner_date: runner_date,
-					runner_time: runner_time
+				var raceCardInfo = Alloy.createModel('raceCardInfo', { 
+					id: res.id,
+					venue: res.venue, 
+					totalRunner: res.totalRunner
 				}); 
-				raceCardDetails.save(); 
+				raceCardInfo.save(); 
+	
+				for(var i = 1; i <= res['totalRunner']; i++){
+					var runner_id = res['runner'+i][0];
+					var runner_date = res['runner'+i][1];
+					var runner_time = res['runner'+i][2];
+					//console.log(runner_id+'=='+runner_date+"=="+runner_time);
+					
+					//Insert to local DB
+					var raceCardDetails = Alloy.createModel('raceCardDetails', { 
+						race_id:res.id,
+						runner_id: runner_id, 
+						runner_date: runner_date,
+						runner_time: runner_time
+					}); 
+					raceCardDetails.save(); 
+				}
 			}
-			
 			if(ex.title == "play") {
 				API.favourite();
 			} else{

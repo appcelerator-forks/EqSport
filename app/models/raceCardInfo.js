@@ -20,28 +20,7 @@ exports.definition = {
 	extendCollection: function(Collection) {
 		_.extend(Collection.prototype, {
 			// extended functions and properties go here
-			/*getRaceCardInfo: function(){
-				var collection = this;
-                //var sql = "SELECT * FROM " + collection.config.adapter.collection_name + "ORDER BY id LIMIT 1";
-                var sql = "SELECT * FROM " + collection.config.adapter.collection_name;
-                
-                db = Ti.Database.open(collection.config.adapter.db_name);
-                var res = db.execute(sql);
-                var result = []; 
-                
-                if (res.isValidRow()){
-					result = {
-					    id: res.fieldByName('id'),
-					    venue: res.fieldByName('venue'),
-					    totalRunner: res.fieldByName('totalRunner')
-					};
-					
-				} 
-				res.close();
-                db.close();
-                collection.trigger('sync');
-                return result;
-			},	*/	
+			
 			getRaceCardInfo: function(){
 				var collection = this;
                 //var sql = "SELECT * FROM " + collection.config.adapter.collection_name + "ORDER BY id LIMIT 1";
@@ -52,16 +31,20 @@ exports.definition = {
                 
                 var listArr = []; 
                 var count = 0;
+               
                 while (res.isValidRow()){
-					listArr[count] = {
-					    id: res.fieldByName('id'),
-					    venue: res.fieldByName('venue'),
-					    totalRunner: res.fieldByName('totalRunner')
-					};
-					res.next();
-					count++;
+                	if(res.fieldByName('id') !== null){
+                		listArr[count] = {
+						    id: res.fieldByName('id'),
+						    venue: res.fieldByName('venue'),
+						    totalRunner: res.fieldByName('totalRunner')
+						};
+						res.next();
+						count++;
+                	}
+					
 				} 
-                
+               
 				res.close();
                 db.close();
                 collection.trigger('sync');

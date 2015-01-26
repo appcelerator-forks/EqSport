@@ -12,7 +12,7 @@ var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
  
-
+console.log(infoValue);
 var infoDetails = info.getInfo(); 
 
 var cancelBtn;
@@ -291,9 +291,7 @@ function process(){
 	
 	dialog.addEventListener('click', function(e){
 		var betInfo = Alloy.createCollection('betInfo'); 
-		var bet = betInfo.getBetInfo();
-		Ti.API.info('e.index: ' + e.index);
-	    Ti.API.info('e.text: ' + e.text);
+		var bet = betInfo.getBetInfo(); 
 		if(e.index == 0) { 
 			dialog.hide();
 			if(e.text == bet[0].pin)
