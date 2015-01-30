@@ -30,6 +30,23 @@ var timeFormatted;
 var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
 
+function successCallBack(){
+	alert("success IN");
+	// API.checkBalance({
+		// account: infoDetails[0].account,
+		// pin: infoDetails[0].pin
+	// });
+// 	
+	// setTimeout(function(){
+		// balanceInfo = balance.getBalance();
+		// $.balance.text = "Your available balance is " + balanceInfo.amount; 
+	// }, 1000);
+	 
+	hideLoading();
+	alert("success END");
+}
+ 
+
 //update balnce from server
 API.checkBalance({
 	account: infoDetails[0].account,
@@ -181,35 +198,6 @@ function done3(){
 }
 
 
-var success = function(){
-	API.checkBalance({
-		account: infoDetails[0].account,
-		pin: infoDetails[0].pin
-	});
-	showLoading();
-	setTimeout(function(){
-		balanceInfo = balance.getBalance();
-		$.balance.text = "Your available balance is " + balanceInfo.amount; 
-	}, 1000);
-	 
-	
-};
- 
-var fail = function(){
-	 
-	cancelBtn.removeEventListener('click',cancel);
-	confirmBtn.removeEventListener('click',process);
-	$.mainView.remove(containerView);
-	$.runner.value = "";
-	$.bet.value = "";
-	popWindow = 0;
-	pop.close();
-	
-	$.mainView.removeEventListener('submitFailed',fail);
-	$.mainView.removeEventListener('confirmSuccess',submit); 
-	$.mainView.removeEventListener('submitSuccess', success);
-};
-
 function reset(){
 	$.runner.value = "";
 	$.bet.value = "";
@@ -248,9 +236,9 @@ function showPool() {
 function backPlay(){	 
 	var mod = Ti.App.Properties.getString('module');
 	$.mainView.removeEventListener('click', hideKeyboard);
-	$.mainView.removeEventListener('confirmSuccess', submit); 
-	$.mainView.removeEventListener('submitSuccess', success);
-	$.mainView.removeEventListener('submitFailed',fail);
+	// $.mainView.removeEventListener('confirmSuccess', submit); 
+	// $.mainView.removeEventListener('submitSuccess', successCallBack);
+	// $.mainView.removeEventListener('submitFailed',fail);
 
 	if(mod == ""){
 		DRAWER.navigation("member",1);
@@ -392,15 +380,10 @@ function process(){
 			if(betPin == bets[0].pin) {
 				cancelBtn.removeEventListener('click',cancel);
 				confirmBtn.removeEventListener('click',process); 
-				$.mainView.removeEventListener('submitFailed',fail);
-				$.mainView.removeEventListener('confirmSuccess',submit); 
-				$.mainView.removeEventListener('submitSuccess', success);
-				popWindow = 0;
-				pop.close();
-				$.runner.value = "";
-				$.bet.value = "";
-				Ti.App.Properties.setString('presetRunner', "");
-				Ti.App.Properties.setString('presetBet', "");
+				// $.mainView.removeEventListener('submitFailed',fail);
+				// $.mainView.removeEventListener('confirmSuccess',submit); 
+				// $.mainView.removeEventListener('submitSuccess', successCallBack);
+				
 				
 				//Submit API Calling
 				API.submitRaceBet({
@@ -428,9 +411,9 @@ function process(){
 function confirm(){
 	showLoading();
 	bet.resetInfo(); 
-	$.mainView.addEventListener('submitFailed',fail);
-	$.mainView.addEventListener('confirmSuccess',submit); 
-	$.mainView.addEventListener('submitSuccess', success);
+	// $.mainView.addEventListener('submitFailed',fail);
+	// $.mainView.addEventListener('confirmSuccess',submit); 
+	// $.mainView.addEventListener('submitSuccess', successCallBack);
 	//Check balance and bet amount
 	// var blnDet = balance.getBalance(); 
 	// var blnAmt = 0;
@@ -509,8 +492,79 @@ function confirm(){
 		pool: pool
 	});
 }
+ 
 
-var submit = function(){  
+function addClickEvent(myView, popView){
+	myView.addEventListener('click', function(e){
+		if(e.source.btnAction == "cancel"){
+			hideLoading();
+			cancel();
+		}else{ 
+			process(); 
+		}
+	});
+}
+
+function cancel(){
+	 
+	cancelBtn.removeEventListener('click',cancel);
+	confirmBtn.removeEventListener('click',process);
+	popWindow = 0;
+	pop.close(); 
+}
+
+function hideKeyboard(e) {  
+    if (e.source != '[object TextField]') {
+		$.runner.blur();
+		$.bet.blur();
+	}
+	/*
+	if (e.source != '[object bet]') {
+		$.bet.blur();
+	}
+	 */
+	if($.bet.value != "" || $.runner.value != ""){ 
+		var d = new Date(); 
+		timeStop = d.getTime() + (15* 60 * 1000); // 1 minute
+		Ti.App.Properties.setString('timeStop', timeStop);
+		Ti.App.Properties.setString('presetRunner', $.runner.value);
+		Ti.App.Properties.setString('presetBet', $.bet.value);
+		timeCounter(); 
+	}
+	
+}
+
+$.mainView.addEventListener('click', hideKeyboard);
+
+
+
+function hideLoading(){
+	$.activityIndicator.hide();
+	$.loadingBar.opacity = "0";
+	$.loadingBar.height = "0";
+	$.loadingBar.top = "0"; 
+}
+
+function showLoading(){
+	 
+	$.activityIndicator.show();
+	$.loadingBar.opacity = "1";
+	$.loadingBar.zIndex = "100";
+	$.loadingBar.height = "120";
+	 
+	if(Ti.Platform.osname == "android"){
+		 
+		$.loadingBar.top =  (DPUnitsToPixels(Ti.Platform.displayCaps.platformHeight) / 2) -50; 
+		$.activityIndicator.style = Ti.UI.ActivityIndicatorStyle.BIG;
+		$.activityIndicator.top = 0; 
+	}else if (Ti.Platform.name === 'iPhone OS'){
+		$.loadingBar.top = (Ti.Platform.displayCaps.platformHeight / 2) -50; 
+		$.activityIndicator.style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+	}  
+ 
+}
+
+$.mainView.addEventListener('confirmSuccess',function(){
 	 if(popWindow == "1"){
 		 return false;
 	 }
@@ -541,11 +595,11 @@ var submit = function(){
 		layout: "composite",
 		height:"15%",
 		width:"100%",
-		backgroundColor:"white"
+		backgroundColor:"#EA431A"
 	});
 	
 	var titleLabel = Ti.UI.createLabel({
-		color: 'black',
+		color: '#ffffff',
 		font: { fontSize:16 },
 		text: 'Bet Confirmation',
 		textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
@@ -722,73 +776,33 @@ var submit = function(){
 	
 	addClickEvent(cancelBtn,pop); 
 	addClickEvent(confirmBtn,pop);  
-};
-
-function addClickEvent(myView, popView){
-	myView.addEventListener('click', function(e){
-		if(e.source.btnAction == "cancel"){
-			cancel();
-		}else{ 
-			process(); 
-		}
+}); 
+$.mainView.addEventListener('submitSuccess', function(){
+ 	API.checkBalance({
+		account: infoDetails[0].account,
+		pin: infoDetails[0].pin
 	});
-}
-
-function cancel(){
-	 
+	
+	setTimeout(function(){
+		balanceInfo2 = balance.getBalance();
+		console.log("new balance : "+ balanceInfo2.amount);
+		$.balance.text = "Your available balance is " + balanceInfo2.amount; 
+	}, 5000);
+	popWindow = 0;
+	pop.close();
+	$.runner.value = "";
+	$.bet.value = "";
+	Ti.App.Properties.setString('presetRunner', "");
+	Ti.App.Properties.setString('presetBet', ""); 
+	hideLoading();
+ });
+$.mainView.addEventListener('submitFailed',function(){
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
-	popWindow = 0;
-	pop.close(); 
-}
-
-function hideKeyboard(e) {  
-    if (e.source != '[object TextField]') {
-		$.runner.blur();
-		$.bet.blur();
-	}
-	/*
-	if (e.source != '[object bet]') {
-		$.bet.blur();
-	}
-	 */
-	if($.bet.value != "" || $.runner.value != ""){ 
-		var d = new Date(); 
-		timeStop = d.getTime() + (15* 60 * 1000); // 1 minute
-		Ti.App.Properties.setString('timeStop', timeStop);
-		Ti.App.Properties.setString('presetRunner', $.runner.value);
-		Ti.App.Properties.setString('presetBet', $.bet.value);
-		timeCounter(); 
-	}
-	
-}
-
-$.mainView.addEventListener('click', hideKeyboard);
-
-
-
-function hideLoading(){
-	$.activityIndicator.hide();
-	$.loadingBar.opacity = "0";
-	$.loadingBar.height = "0";
-	$.loadingBar.top = "0"; 
-}
-
-function showLoading(){
-	 
-	$.activityIndicator.show();
-	$.loadingBar.opacity = "1";
-	$.loadingBar.height = "120";
-	if(Ti.Platform.osname == "android"){
-		$.loadingBar.top =  (DPUnitsToPixels(Ti.Platform.displayCaps.platformHeight) / 2) -50; 
-		$.activityIndicator.style = Ti.UI.ActivityIndicatorStyle.BIG;
-		$.activityIndicator.top = 0; 
-	}else if (Ti.Platform.name === 'iPhone OS'){
-		$.loadingBar.top = (Ti.Platform.displayCaps.platformHeight / 2) -50; 
-		$.activityIndicator.style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
-	}  
  
-}
-// Ti.App.addEventListener('confirmSuccess',submit); 
-// Ti.App.addEventListener('submitSuccess', success);
-// Ti.App.addEventListener('submitFailed',fail);
+	$.runner.value = "";
+	$.bet.value = "";
+	popWindow = 0;
+	pop.close();
+	hideLoading();
+});

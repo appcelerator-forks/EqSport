@@ -38,48 +38,13 @@
 				<Label class="boldTitle" color="black" left="10">Date</Label>
 			</View>
 			<View width="70%">
-				<Label id="date" width="Ti.UI.SIZE" color="black">31/12/2014</Label>
-				<!--<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Picker id="picker2" onChange="date" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<PickerRow title="30/11/2014"></PickerRow>
-					<PickerRow title="1"></PickerRow>
-					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>
-				</Picker>-->
+				<Label id="date" width="Ti.UI.SIZE" color="black"></Label>
+				 
 			</View>
-			<!--<View width="20%">
-				<ImageView image="/images/others_10.png" width="40" height="40"></ImageView>
-		</View>-->
+			 
 		</View>
 		<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="10" bottom="10">
-			<!--Sample of the result view 1-->
-			<!--<View id="contentView1" layout="horizontal" height="60" width="100%">
-				<View id="leftView1" width="30%">
-					<Label id="leftLabel1" color="black">9</Label>
-				</View>
-				<View id="centerView1" width="50%">
-					<Label id="centerLabel1" color="black">1:35:00PM</Label>
-				</View>
-				<View id="rightView1" width="20%">
-				</View>
-			</View>
-			<View id="centerLineView1" width="100%" height="1" bottom="2">
-				<View id="lineView1" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>-->
-			<!--Sample of the result view 2-->
-			<!--<View id="contentView2" layout="horizontal" height="60" width="100%">
-				<View id="leftView2" width="30%">
-					<Label id="leftLabel2" color="black">10</Label>
-				</View>
-				<View id="centerView2" width="50%">
-					<Label id="centerLabel2" color="black">1:35:00PM</Label>
-				</View>
-				<View id="rightView2" width="20%">
-				</View>
-			</View>
-			<View id="centerLineView2" width="100%" height="1" bottom="2">
-				<View id="lineView2" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>-->
+			 
 		</ScrollView>
 	</View>
 </Alloy>

@@ -36,7 +36,7 @@ function setPicker1(){
 }
 
 function setPicker2(){  
-	//console.log(detailsValue);
+	
 	for(var i=0; i < detailsValue.length; i++){
 		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
 	 

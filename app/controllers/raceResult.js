@@ -2,13 +2,14 @@ var arr = [];
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 API.getRTOResults({
+	myView: $.mainView,
 	raceNumber : "",
 	raceDate: ""
 });
  
  var result = [];
 
-var apiResult = function(e){  
+var apiResult = function(e){   
 	removeAllChildren($.scrollView);
 	arr = e.raceResult;
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
@@ -17,26 +18,26 @@ var apiResult = function(e){
 		locations.push(arr[i].location); 
 		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo];
 	}
-	if($.picker2.columns[0]) {
-	    var _col = $.picker2.columns[0];
-	        var len = _col.rowCount; 
-	        for(var x = len-1; x >= 0; x-- ){
-	                var _row = _col.rows[x];
-	                _col.removeRow(_row);
-	        }
-	}
+	// if($.picker2.columns[0]) {
+	    // var _col = $.picker2.columns[0];
+	        // var len = _col.rowCount; 
+	        // for(var x = len-1; x >= 0; x-- ){
+	                // var _row = _col.rows[x];
+	                // _col.removeRow(_row);
+	        // }
+	// }
 	setPicker2(locations);
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
-		$.picker2.setSelectedRow(0,0,false);
-	}
-	 
+	$.picker2.setSelectedRow(0,0,false);
+	$.mainView.removeEventListener('raceResult', apiResult);
 };
-Ti.App.addEventListener('raceResult', apiResult);
+$.mainView.addEventListener('raceResult', apiResult);
 
 function setPicker2(location){  
+	 console.log(location);
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
+		$.venueLabel.text = location[0];
 		$.picker2.add(data);
 	}
 	 
@@ -103,19 +104,18 @@ function done(){
 	displayDate(day,month,year);
 	
 	if($.raceNo.value != "") {
-	 
+	 	$.mainView.addEventListener('raceResult', apiResult);
 		API.getRTOResults({
+			myView: $.mainView,
 			raceNumber : $.raceNo.value,
 			raceDate: date
 		});
  
-	} else { 
-	}
+	}  
 }
 
-function submitText()
-{
-	$.raceNo.removeEventListener('blur', submitText); 
+function submitText(){
+	//$.raceNo.removeEventListener('blur', submitText); 
 	
 	if($.raceNo.value != "")
 	{
@@ -129,35 +129,46 @@ function submitText()
 		var year = yearInt.toString();
 		var date = day + month + year;
 		
-		 
+		$.mainView.addEventListener('raceResult', apiResult); 
 		API.getRTOResults({
+			myView: $.mainView,
 			raceNumber : $.raceNo.value,
 			raceDate: date
 		});
 	}
 }
 
-function triggerRace()
-{
+function triggerRace(){
+	$.mainView.removeEventListener('raceResult', apiResult);
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
 	$.raceNo.focus();
-	$.raceNo.addEventListener('blur', submitText);
+	
 }
-
-function hideKeyboard(e) { 
-	if (e.source != '[object raceNo]') {
-		$.raceNo.blur();
+$.raceNo.addEventListener('blur', submitText);
+function hideKeyboard(e) {  
+	
+	// if (e.source != '[object raceNo]') {
+		// //$.raceNo.blur(); 
+	// }
+	if (e.source.id != 'raceNo') {
+		$.raceNo.blur(); 
+		$.raceNo.removeEventListener('blur', submitText);
 	}
+	
 }
-
+$.raceNo.addEventListener('return', function(e){
+	submitText();
+});
 $.mainView.addEventListener('click', hideKeyboard);
 
 function done2()
 {
-	$.venueView.height = 50;
-	$.venueContentView.height = 50;
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+	}
 	$.pickerView2.height = 50;
 	$.pickerView2.setVisible(false);
 	$.done2.setVisible(false);
@@ -165,17 +176,19 @@ function done2()
 }
 
 function showVenue() {
-	$.venueView.height = 250;
-	$.venueContentView.height = 250;
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 250;
+		$.venueContentView.height = 250;
+	}
 	$.pickerView2.height = 250;
 	$.pickerView2.setVisible(true);
 	$.done2.setVisible(true);
 	$.picker2.setVisible(true);
-	//return false;
+	return false;
 }
 
 function venue(e){
-	venue = e.row.title;
+	venue = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;
 		$.venueContentView.height = 50;
@@ -183,8 +196,9 @@ function venue(e){
 		$.pickerView2.setVisible(false);
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
-		$.venueLabel.text = venue;
+		
 	} 
+	$.venueLabel.text = venue;
 	refresh(venue);
 }
 
@@ -193,16 +207,13 @@ function refresh(venue){
 	var index = null;
 	
 	//find index
-	for(var i = 0; i<result.length; i++)
-	{
-		if(result[i][0] == venue)
-		{
+	for(var i = 0; i<result.length; i++) {
+		if(result[i][0] == venue) {
 			index = i;
 		}
 	}
 	
-	if(index != null)
-	{
+	if(index != null) {
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
 			width:"100%",

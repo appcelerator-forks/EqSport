@@ -155,14 +155,14 @@ exports.checkBalance = function (ex){
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
 	var requestRaceResultWithDate = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
-
+	var myView = ex.myView;
 	if(ex.raceNumber == "" && ex.raceDate == ""){
 		var url = requestRaceResultWithDate;
 	}else{
 		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	}
 	
-	//
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -205,7 +205,7 @@ exports.getRTOResults = function(ex){
 		       		} 
 		       	}
 		      
-		        Ti.App.fireEvent('raceResult', {raceResult: ary});
+		        myView.fireEvent('raceResult', {raceResult: ary});
 		       	 
 			}
 	       	
@@ -228,7 +228,7 @@ exports.submitRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/submitRaceBet.php"; 
 	var submitRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/J2me/v3/SubmitRaceBet.asp";
 	var url = submitRaceBet + "?UID=" +ex.msisdn+ "||" + ex.account + "||" +ex.pin+ "||" +ex.date+ "||" +ex.time+ "||" +ex.venue+ "||" +ex.raceNo+ "||" +ex.pool+ "||" +ex.bet+ "||0||" +ex.runner; 
-	console.log(url);
+	
 	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
@@ -250,7 +250,7 @@ exports.submitRaceBet= function(ex){
 					transactionID: (res.TransactionID).toString(),
 					unitAmount: (res.UnitAmount).trim().toString()
 				}); 
- 				 
+ 				 console.log(myView);
 	       		myView.fireEvent('submitSuccess');
 	       		COMMON.createAlert("Bet Success","Transaction Successful");
 	       		return false;

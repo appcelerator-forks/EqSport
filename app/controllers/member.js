@@ -242,6 +242,7 @@ function racing(){
 }
 
 function addClickEvent(myView, popView){
+	
 	myView.addEventListener('click', function(e){
 		if(e.source.destination != null){
 			DRAWER.navigation(e.source.destination,1); 
