@@ -1,7 +1,7 @@
 exports.definition = {
 	config: {
 		columns: {
-		    //"id": "string"
+		    "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
 		    "balance": "TEXT", 
 			"date": "TEXT",
 			"location": "TEXT",
@@ -15,7 +15,7 @@ exports.definition = {
 		},
 		adapter: {
 			type: "sql",
-			collection_name: "transaction"
+			collection_name: "transactions"
 		}
 	},
 	extendModel: function(Model) {
@@ -57,6 +57,16 @@ exports.definition = {
                 collection.trigger('sync');
                 return listArr;
 			}, 
+			addTransaction : function(e){
+				var collection = this; 
+                db = Ti.Database.open(collection.config.adapter.db_name);
+                
+                sql_query = "INSERT INTO " + collection.config.adapter.collection_name + " (balance,date,location,poolType,race,raceTime,runner,status,transactionID,unitAmount) VALUES ('"+e.balance+"','"+e.date+"','"+e.location+"','"+e.poolType+"','"+e.race+"',   '"+e.raceTime+"','"+e.runner+"' ,'"+e.status+"','"+e.transactionID+"','"+e.unitAmount+"')" ;
+           		console.log(sql_query);
+	            db.execute(sql_query);
+	            db.close();
+	            collection.trigger('sync');
+			},
 			resetInfo : function(){
  
 				var collection = this;

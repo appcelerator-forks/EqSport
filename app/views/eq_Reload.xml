@@ -3,7 +3,7 @@
 		<Require src="_header"></Require>
 		<View layout="vertical">
 			<View width="90%" height="40" top="2"><Label height="35" class="description_header" top="10" bottom="10" textAlign="center">Topup With EQLINK</Label></View>
-			<ScrollView layout="vertical" height=Ti.UI.SIZE> 
+			<ScrollView layout="vertical" id="topupView" > 
             	<Label class="description_text" width="90%" top="8">The following Top-Up Channels are offered to EQ Link members:-</Label>
             	
             	<View top="15" layout="horizontal" height="20" width="90%">
@@ -46,7 +46,7 @@
             		<View width="95%"><Label class="description_text">Selected Counters at Selangor Turf Club, Perak Turf Club and Penang Turf Club</Label></View>
             	</View>
             	
-            	<View top="25" layout="horizontal"  width="90%">
+            	<View top="25" layout="horizontal"  width="90%" bottom="5" height="Ti.UI.SIZE">
             		<ImageView width="30%" height="30" right="5" image="/images/payment/maybank.png" /> 
             		<ImageView width="30%" height="30" right="5" image="/images/payment/hlb.png" /> 
             		<ImageView width="30%" height="30" right="5" image="/images/payment/fpx.png" /> 

@@ -53,4 +53,11 @@
 },
 ".container" : {
 	backgroundColor: "#ffffff"
-}
+},
+"#activityIndicator" : {
+	// style: Ti.UI.iPhone.ActivityIndicatorStyle.BIG,
+	 top:30,
+	 left:30,
+	 width:60,
+},
+

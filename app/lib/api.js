@@ -1,31 +1,51 @@
 /*********************
 *** SETTING / API ***
 **********************/
-var API_DOMAIN = "175.143.5.179";//175.143.114.122
+var API_DOMAIN = Ti.App.Properties.getString('eqUrl');//175.143.114.122
 var XHR = require("xhr");
 var xhr = new XHR();
-
+ 
 // APP authenticate user and key
 var USER  = 'TESTWEBSEUID';
 var KEY   = 'TESTWEBSEPWD';
-var loginUrl	  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
-var checkBalance  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 //var resultNdividend  = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY+"&TLACC=60938004&TLPIN=7337"; 
 //var resultNdividend = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
-var requestRaceFavouriteOdds = "http://"+API_DOMAIN+"/j2me/v3/FavOdds_Track.asp";
-var requestRaceCard = "http://"+API_DOMAIN+"/j2me/v3/Racelist_Track.asp";
-var requestRaceResultWithDate = "http://"+API_DOMAIN+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
-var confirmRaceBet = "http://"+API_DOMAIN+"/j2me/v3/ConfirmRaceBet.asp";
-var submitRaceBet = "http://"+API_DOMAIN+"/J2me/v3/SubmitRaceBet.asp";
+
 
  //http://175.143.113.177/webse/mytelelink.asp?REQTYPE=31&USERNAME=TESTWEBSEUID&PWD=TESTWEBSEPWD
 /*********************
 **** API FUNCTION*****
 **********************/
+//Get App URL
+exports.getDomainUrl = function (ex){
+	
+	var url = "http://54.169.180.5/eqsport/api/getDomain?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc"; 
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) { 
+	     	var res = JSON.parse(this.responseText); 
+	        if(res.status == "success"){
+	        	Ti.App.Properties.setString('eqUrl',res.data); 
+	        } 
+	       
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) { 
+	     	alert("Cannot connect to the server");
+	     	
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
 //login to app
 exports.login = function (ex){
-	
-	var url = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin; 
+	var loginUrl = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
+	var url		 = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -86,6 +106,7 @@ exports.login = function (ex){
 
 //check user balance
 exports.checkBalance = function (ex){  
+	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
 	var client = Ti.Network.createHTTPClient({
@@ -133,6 +154,8 @@ exports.checkBalance = function (ex){
 
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
+	var requestRaceResultWithDate = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
+
 	if(ex.raceNumber == "" && ex.raceDate == ""){
 		var url = requestRaceResultWithDate;
 	}else{
@@ -203,37 +226,43 @@ exports.getRTOResults = function(ex){
 
 exports.submitRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/submitRaceBet.php"; 
+	var submitRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/J2me/v3/SubmitRaceBet.asp";
 	var url = submitRaceBet + "?UID=" +ex.msisdn+ "||" + ex.account + "||" +ex.pin+ "||" +ex.date+ "||" +ex.time+ "||" +ex.venue+ "||" +ex.raceNo+ "||" +ex.pool+ "||" +ex.bet+ "||0||" +ex.runner; 
+	console.log(url);
+	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	       	var res = getValueFromPipe(this.responseXML); 
-	      
-	      if(res.Status =="Good")
-	       {
-	       		var transactionInfo = Alloy.createModel('transaction', { 
-					balance: (res.Balance).trim(), 
-					date: res.Date,
-					location: res.Location,
-					poolType: res.PoolType,
-					race: res.Race,
-					raceTime: res.RaceTime,
-					runner: res.Runner,
-					status: res.Status,
-					transactionID: res.TransactionID,
-					unitAmount: (res.UnitAmount).trim()
+	     	var res = getValueFromPipe(this.responseXML); 
+	     	
+	     	if(res.Status =="Good") {
+	     	//if(res.response =="Status:Good") {
+	     		var transactionInfo = Alloy.createCollection('transactions');    
+	       		transactionInfo.addTransaction({
+					balance: (res.Balance).trim().toString(), 
+					date: (res.Date).toString(),
+					location: (res.Location).toString(),
+					poolType: (res.PoolType).toString(),
+					race: (res.Race).toString(),
+					raceTime: (res.RaceTime).toString(),
+					runner: (res.Runner).toString(),
+					status: (res.Status).toString(),
+					transactionID: (res.TransactionID).toString(),
+					unitAmount: (res.UnitAmount).trim().toString()
 				}); 
-				transactionInfo.save(); 
-	       		Ti.API.fireEvent('submitSuccess');
-	       }
-	       else
-	       {
-	       		var a = Titanium.UI.createAlertDialog({
-				    title: "Error Code: "+res.Status,
-				    message: res.ErrorNumber + '\n' + res.ErrorDescription
+ 				 
+	       		myView.fireEvent('submitSuccess');
+	       		COMMON.createAlert("Bet Success","Transaction Successful");
+	       		return false;
+	       } else   {
+ 				var a = Titanium.UI.createAlertDialog({
+					title: "Error Code: "+res.Status +" - "+res.ErrorNumber,
+					 message:  res.ErrorDescription
 				});
 				a.show();
-				Ti.API.fireEvent('submitFailed');
+				myView.fireEvent('submitFailed' );
+				 
+				return false;
 	       }
 	      
 	      //Ti.API.fireEvent('submitSuccess');
@@ -252,18 +281,22 @@ exports.submitRaceBet= function(ex){
 
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
+	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
+
 	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
- 
+ 	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	       	var res = getValueFromPipe(this.responseXML);  
-	       if(res.response =="Success") {
-	       		Ti.API.fireEvent('confirmSuccess');
+	       	var res = getValueFromPipe(this.responseXML);   
+	       if(res.response =="Success") { 
+	       	
+	       		myView.fireEvent('confirmSuccess');
+	       		return false;
 	       } else { 
 	       }
 	      
-	      Ti.API.fireEvent('confirmSuccess');
+	      //Ti.App.fireEvent('confirmSuccess');
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -278,8 +311,8 @@ exports.confirmRaceBet= function(ex){
 };
 
 //favourite odds
-exports.favourite = function (ex){
-	var url = requestRaceFavouriteOdds;
+exports.favourite = function (ex){  
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -301,8 +334,13 @@ exports.favourite = function (ex){
 				}); 
 				favouriteInfo.save(); 
 	     	} 
-	     	 
-	     	DRAWER.navigation("play",1);
+	     	
+	     	if(ex.skip == ""){
+	     		DRAWER.navigation("play",1);
+	     	} else if(ex.skip == "2"){
+	     		DRAWER.navigation("play",2);
+	     	}
+	     	
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -315,15 +353,17 @@ exports.favourite = function (ex){
 	 // Send the request.
 	 client.send(); 
 };
-
+ 
 //raceCard
 exports.raceCard = function (ex){
-	var url =  requestRaceCard;  
+	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
+	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
+
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	var res = getValueFromDollarAndPipe(this.responseXML); 
-	     	if(res != ""){
+	     	var res = getValueFromDollarAndPipe(this.responseXML);   
+	     	if( res.id > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
 		     		library.resetInfo();
 	     		var library2 = Alloy.createCollection('raceCardDetails'); 
@@ -335,7 +375,7 @@ exports.raceCard = function (ex){
 					totalRunner: res.totalRunner
 				}); 
 				raceCardInfo.save(); 
-	
+				 
 				for(var i = 1; i <= res['totalRunner']; i++){
 					var runner_id = res['runner'+i][0];
 					var runner_date = res['runner'+i][1];
@@ -350,9 +390,24 @@ exports.raceCard = function (ex){
 					}); 
 					raceCardDetails.save(); 
 				}
+			}else{
+			 
+				if(ex.from == "menu"){ 
+	     			Ti.App.fireEvent("alertDisable");
+	     		}else{
+	     			Ti.App.fireEvent("disablePlay");
+	     		}
+	     		
+	     		return false;
 			}
+			
 			if(ex.title == "play") {
-				API.favourite();
+				if(ex.from == "menu"){ 
+					API.favourite({skip: "2"});
+				}else{
+					API.favourite({skip: ""});
+				}
+				
 			} else{
 	     		//DRAWER.navigation(ex.title,1); 
 	     	}
@@ -360,7 +415,13 @@ exports.raceCard = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
-	     	//alert("An error occurs");
+	     	if(ex.from == "menu"){ 
+	     		Ti.App.fireEvent("alertDisable");
+	     	}else{
+	     		Ti.App.fireEvent("disablePlay");
+	     	}
+	     		
+	     	return false;
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -395,7 +456,12 @@ exports.popup = function(subView,config){
 	//Event to close the popup window
 	popupWin.addEventListener("click", function(e){
 		if(e.source.id != null){
-			popupWin.close();
+			if(config.tabFrameToClose === false){
+				
+			}else{
+				popupWin.close();
+			}
+			
 		}
 	});
 		

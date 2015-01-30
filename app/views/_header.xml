@@ -1,6 +1,6 @@
 <Alloy>
 	<View layout="composite" id="header" height="50">
-		<ImageView zIndex="11" image="/images/menu_button.png" left="10" onClick="menuToggle" height="30" width="30" />
+		<ImageView zIndex="11" id="leftButton" image="/images/menu_button.png" left="10" onClick="menuToggle" height="30"  />
 		<ImageView zIndex="10" height="30" image="/images/logo.png"></ImageView>
 		<View bottom='0' class="hr"></View>
 	</View>

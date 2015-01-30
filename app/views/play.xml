@@ -1,197 +1,122 @@
 <Alloy>
-	<View layout="vertical" id="mainView" width="100%" height="100%" backgroundImage="/images/BG_Large.jpg">
-		<View layout="composite" height="50" backgroundColor="#EA431A" >
-			<View width="100%">
-				<Label class="title" color="white" minimumFontSize="12">PLAY</Label>
-			</View>
-			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
-			</View>
-		</View>
-		<ScrollView id="scrollView" layout="vertical">
-			<View layout="vertical" height="170" backgroundColor="white">
-				<View height="40" top="10" width="90%">
-					<View layout="horizontal" width="100%" >
-						<View width="32%">
-							<Label id="venue" class="topLabel"  color="black">Venue:JAP (Good)</Label>
-						</View>
-						<View width="1.9%">
-							<Label class="topLabel" class="topLabel" color="black"> | </Label>
-						</View>
-						<View width="32%">
-							<Label id="race" class="topLabel"  color="black">Race:10</Label>
-						</View>
-						<View width="1.9%">
-							<Label class="topLabel" color="black"> | </Label>
-						</View>
-						<View width="32%">
-							<Label id="mtr" class="topLabel"  color="black">Min to Race:34</Label>
-						</View>
-					</View>
+	<View height="100%" layout="composite">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+        	<ActivityIndicator  id="activityIndicator" />
+        	<Label top="5" text="Loading" color="#ffffff" />
+        </View>
+		<View zIndex="10" layout="vertical" id="mainView" width="100%" height="100%" backgroundImage="/images/BG_Large.jpg">
+			<View layout="composite" height="50" backgroundColor="#EA431A" >
+				<View width="100%">
+					<Label class="title" color="white" minimumFontSize="12">PLAY</Label>
 				</View>
-				<ScrollView id="scrollView2" layout="vertical" height="90" width="90%" top="10" backgroundColor="#EFEFEF" bottom="10">
-					<View layout="horizontal" height="30" width="100%">
-						<View width="19%">
-						</View>
-						<View width="20%">
-							<Label id="a1" color="orange">13</Label>
-						</View>
-						<View width="20%">
-							<Label id="a2" color="orange">11</Label>
-						</View>
-						<View width="20%">
-							<Label id="a3" color="orange">10</Label>
-						</View>
-						<View width="20%">
-							<Label id="a4" color="orange">9</Label>
-						</View>
-					</View>
-					<View layout="horizontal" height="30" width="100%">
-						<View width="19%">
-							<Label color="orange">W</Label>
-						</View>
-						<View width="20%">
-							<Label id="b1" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="b2" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="b3" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="b4" color="black">9999</Label>
-						</View>
-					</View>
-					<View layout="horizontal" height="30" width="100%">
-						<View width="19%">
-							<Label color="orange">P</Label>
-						</View>
-						<View width="20%">
-							<Label id="c1" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="c2" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="c3" color="black">9999</Label>
-						</View>
-						<View width="20%">
-							<Label id="c4" color="black">9999</Label>
-						</View>
-					</View>
-				</ScrollView>
-			</View>
-			<View platform="android" layout="vertical" height="Ti.UI.SIZE">
-				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
-				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
-					<View layout="horizontal" height="50" width="90%">
-						<View width="40%">
-							<Label left="5" color="black">Venue</Label>
-						</View>
-						<View width="60%">
-							<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
-						</View>
-					</View>
-					<View layout="horizontal" height="50" width="90%">
-						<View width="40%">
-							<Label left="5" color="black">Race No.</Label>
-						</View>
-						<View width="60%">
-							<Picker id="picker2" onChange="raceNo" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
-						</View>
-					</View>
-					<View layout="horizontal" height="50" width="90%">
-						<View width="40%">
-							<Label left="5" color="black">Pool</Label>
-						</View>
-						<View width="60%">
-							<Picker id="picker3" onChange="pool" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-								<PickerRow title="WIN / PLA"></PickerRow>
-								<PickerRow title="WIN"></PickerRow>
-								<PickerRow title="PLA"></PickerRow>
-								<PickerRow title="QIN"></PickerRow>	
-								<PickerRow title="EXA"></PickerRow>
-								<PickerRow title="QPS"></PickerRow>
-								<PickerRow title="TRI"></PickerRow>
-								<PickerRow title="FC4"></PickerRow>
-								<PickerRow title="TRO"></PickerRow>
-							</Picker>
-						</View>
-					</View>
-					
-					<View layout="horizontal" height="50" width="90%">
-						<View width="40%">
-							<Label left="5" color="black">Runner*</Label>
-						</View>
-						<View width="60%">
-							<TextField id="runner" width="100%" height="40" hintText="Runner" backgroundColor="#EFEFEF" color="black" keyboardType="Ti.UI.KEYBOARD_NUMBER_PAD"></TextField>
-						</View>
-					</View>
-					
-					
-					<View layout="horizontal" height="50" width="90%">
-						<View width="40%">
-							<Label left="5" color="black">Bet (RM)</Label>
-						</View>
-						<View width="60%">
-							<TextField id="bet" width="100%" height="40" hintText="Bet Amount" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
-						</View>
-					</View>
-					
-					<View height="50" backgroundColor="black" width="100%" onClick="confirm">
-						<Label color="white" onClick="confirm">Confirm</Label>
-					</View>
+				<View width="15%" left="0" onClick="backPlay">
+					<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
 				</View>
 			</View>
-			<View platform="ios" layout="vertical" height="Ti.UI.SIZE">
-				<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
-				<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
-					<View id="venueView" layout="horizontal" height="50" width="90%" backgroundColor="white">
-						<View width="40%" height="50">
-							<Label left="5" height="30" color="black">Venue</Label>
-						</View>
-						<View id="venueContentView" width="60%" height="50" backgroundColor="white">
-							<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<View id="pickerView1" height="50" width="100%" visible="false" >
-								<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
-								<Picker id="picker1" onChange="venue" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								</Picker>
+			
+			<ScrollView id="scrollView" layout="vertical">
+				<View layout="vertical" height="170" backgroundColor="white">
+					<View height="40" top="10" width="90%">
+						<View layout="horizontal" width="100%" >
+							<View width="32%">
+								<Label id="venue" class="topLabel"  color="black">Venue: </Label>
 							</View>
-						</View>
-						<!--<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-							<PickerRow title="JAP (GOOD)"></PickerRow>
-							<PickerRow title="1"></PickerRow>
-							<PickerRow title="2"></PickerRow>
-							<PickerRow title="3"></PickerRow>
-					</Picker>-->
-					</View>
-					<View id="raceNoView" layout="horizontal" height="50" width="90%" backgroundColor="white">
-						<View width="40%" height="50">
-							<Label left="5" height="30" color="black">Race No.</Label>
-						</View>
-						<View id="raceNoContentView" width="60%" height="50" backgroundColor="white">
-							<Label id="raceNoLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<View id="pickerView2" height="50" width="100%" visible="false" >
-								<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
-								<Picker id="picker2" onChange="raceNo" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-								</Picker>
+							<View width="1.9%">
+								<Label class="topLabel" class="topLabel" color="black"> | </Label>
+							</View>
+							<View width="32%">
+								<Label id="race" class="topLabel"  color="black">Race:</Label>
+							</View>
+							<View width="1.9%">
+								<Label class="topLabel" color="black"> | </Label>
+							</View>
+							<View width="32%">
+								<Label id="mtr" class="topLabel"  color="black">Min to Race:</Label>
 							</View>
 						</View>
 					</View>
-					<View id="poolView" layout="horizontal" height="50" width="90%" backgroundColor="white">
-						<View width="40%" height="50">
-							<Label left="5" color="black">Pool</Label>
+					<ScrollView id="scrollView2" layout="vertical" height="90" width="90%" top="10" backgroundColor="#EFEFEF" bottom="10">
+						<View layout="horizontal" height="30" width="100%">
+							<View width="19%">
+							</View>
+							<View width="20%">
+								<Label id="a1" color="orange">13</Label>
+							</View>
+							<View width="20%">
+								<Label id="a2" color="orange">11</Label>
+							</View>
+							<View width="20%">
+								<Label id="a3" color="orange">10</Label>
+							</View>
+							<View width="20%">
+								<Label id="a4" color="orange">9</Label>
+							</View>
 						</View>
-						<View id="poolContentView" width="60%" height="50" backgroundColor="white">
-							<Label id="poolLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showPool" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-							<View id="pickerView3" height="50" width="100%" visible="false" >
-								<Button id="done3" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done3" visible="false">Done</Button>
-								<Picker id="picker3" onChange="pool" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+						<View layout="horizontal" height="30" width="100%">
+							<View width="19%">
+								<Label color="orange">W</Label>
+							</View>
+							<View width="20%">
+								<Label id="b1" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="b2" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="b3" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="b4" color="black">9999</Label>
+							</View>
+						</View>
+						<View layout="horizontal" height="30" width="100%">
+							<View width="19%">
+								<Label color="orange">P</Label>
+							</View>
+							<View width="20%">
+								<Label id="c1" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="c2" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="c3" color="black">9999</Label>
+							</View>
+							<View width="20%">
+								<Label id="c4" color="black">9999</Label>
+							</View>
+						</View>
+					</ScrollView>
+				</View>
+				<View platform="android" layout="vertical" height="Ti.UI.SIZE">
+					<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
+					<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
+						<View layout="horizontal" height="50" width="90%">
+							<View width="40%">
+								<Label left="5" color="black">Venue</Label>
+							</View>
+							<View width="60%">
+								<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
+							</View>
+						</View>
+						<View layout="horizontal" height="50" width="90%">
+							<View width="40%">
+								<Label left="5" color="black">Race No.</Label>
+							</View>
+							<View width="60%">
+								<Picker id="picker2" onChange="raceNo" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
+							</View>
+						</View>
+						<View layout="horizontal" height="50" width="90%">
+							<View width="40%">
+								<Label left="5" color="black">Pool</Label>
+							</View>
+							<View width="60%">
+								<Picker id="picker3" onChange="pool" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
 									<PickerRow title="WIN / PLA"></PickerRow>
 									<PickerRow title="WIN"></PickerRow>
 									<PickerRow title="PLA"></PickerRow>
-									<PickerRow title="QIN"></PickerRow>
+									<PickerRow title="QIN"></PickerRow>	
 									<PickerRow title="EXA"></PickerRow>
 									<PickerRow title="QPS"></PickerRow>
 									<PickerRow title="TRI"></PickerRow>
@@ -200,30 +125,119 @@
 								</Picker>
 							</View>
 						</View>
-					</View>
-					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
-						<View width="40%">
-							<Label left="5" color="black">Runner*</Label>
+						
+						<View layout="horizontal" height="50" width="90%">
+							<View width="40%">
+								<Label left="5" color="black">Runner*</Label>
+							</View>
+							<View width="60%">
+								<TextField id="runner" width="100%" height="40" hintText="Runner" backgroundColor="#EFEFEF" color="black" keyboardType="Ti.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							</View>
 						</View>
-						<View width="60%" backgroundColor="white">
-							<TextField id="runner" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+						
+						
+						<View layout="horizontal" height="50" width="90%">
+							<View width="40%">
+								<Label left="5" color="black">Bet (RM)</Label>
+							</View>
+							<View width="60%">
+								<TextField id="bet" width="100%" height="40" hintText="Bet Amount" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD"></TextField>
+							</View>
 						</View>
-					</View>
-					<View layout="horizontal" height="50" width="90%" backgroundColor="white">
-						<View width="40%">
-							<Label left="5" color="black">Bet (RM)</Label>
+						
+						<View layout="horizontal" height="50" width="90%" >
+							<Label backgroundColor="black" height="40" width="35%" color="white" textAlign="center" onClick="reset">Reset</Label>
+							<View width="29.5%"></View>
+							<Label backgroundColor="black" height="40" right="0" width="35%" textAlign="center" color="white" onClick="confirm">Confirm</Label>
 						</View>
-						<View width="60%" backgroundColor="white">
-							<TextField id="bet" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
-						</View>
-					</View>
-					<View layout="horizontal"  height="50" width="90%">
-						<Label backgroundColor="black" height="40" width="35%" color="white" textAlign="center" onClick="reset">Reset</Label>
-						<View width="29.5%"></View>
-						<Label backgroundColor="black" height="40" right="0" width="35%" textAlign="center" color="white" onClick="confirm">Confirm</Label>
+						 
+						
 					</View>
 				</View>
-			</View>
-		</ScrollView>
+				<View platform="ios" layout="vertical" height="Ti.UI.SIZE">
+					<Label id="balance" class="balanceLabel" color="black" top="10">Your available balance is RM0.00</Label>
+					<View layout="vertical" width="90%" height="Ti.UI.SIZE" backgroundColor="white" top="10" bottom="20">
+						<View id="venueView" layout="horizontal" height="50" width="90%" backgroundColor="white">
+							<View width="40%" height="50">
+								<Label left="5" height="30" color="black">Venue</Label>
+							</View>
+							<View id="venueContentView" width="60%" height="50" backgroundColor="white">
+								<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+								<View id="pickerView1" height="50" width="100%" visible="false" >
+									<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
+									<Picker id="picker1" onChange="venue" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+									</Picker>
+								</View>
+							</View>
+							<!--<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+								<PickerRow title="JAP (GOOD)"></PickerRow>
+								<PickerRow title="1"></PickerRow>
+								<PickerRow title="2"></PickerRow>
+								<PickerRow title="3"></PickerRow>
+						</Picker>-->
+						</View>
+						<View id="raceNoView" layout="horizontal" height="50" width="90%" backgroundColor="white">
+							<View width="40%" height="50">
+								<Label left="5" height="30" color="black">Race No.</Label>
+							</View>
+							<View id="raceNoContentView" width="60%" height="50" backgroundColor="white">
+								<Label id="raceNoLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+								<View id="pickerView2" height="50" width="100%" visible="false" >
+									<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
+									<Picker id="picker2" onChange="raceNo" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+									</Picker>
+								</View>
+							</View>
+						</View>
+						<View id="poolView" layout="horizontal" height="50" width="90%" backgroundColor="white">
+							<View width="40%" height="50">
+								<Label left="5" color="black">Pool</Label>
+							</View>
+							<View id="poolContentView" width="60%" height="50" backgroundColor="white">
+								<Label id="poolLabel" color="black" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showPool" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+								<View id="pickerView3" height="50" width="100%" visible="false" >
+									<Button id="done3" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done3" visible="false">Done</Button>
+									<Picker id="picker3" onChange="pool" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+										<PickerRow title="WIN / PLA"></PickerRow>
+										<PickerRow title="WIN"></PickerRow>
+										<PickerRow title="PLA"></PickerRow>
+										<PickerRow title="QIN"></PickerRow>
+										<PickerRow title="EXA"></PickerRow>
+										<PickerRow title="QPS"></PickerRow>
+										<PickerRow title="TRI"></PickerRow>
+										<PickerRow title="FC4"></PickerRow>
+										<PickerRow title="TRO"></PickerRow>
+									</Picker>
+								</View>
+							</View>
+						</View>
+						<View layout="horizontal" height="50" width="90%" backgroundColor="white">
+							<View width="40%">
+								<Label left="5" color="black">Runner*</Label>
+							</View>
+							<View width="60%" backgroundColor="white">
+								<TextField id="runner" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+							</View>
+						</View>
+						<View layout="horizontal" height="50" width="90%" backgroundColor="white">
+							<View width="40%">
+								<Label left="5" color="black">Bet (RM)</Label>
+							</View>
+							<View width="60%" backgroundColor="white">
+								<TextField id="bet" height="30" width="100%" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+							</View>
+						</View>
+						<View layout="horizontal"  height="50" width="90%">
+							<Label backgroundColor="black" height="40" width="35%" color="white" textAlign="center" onClick="reset">Reset</Label>
+							<View width="29.5%"></View>
+							<Label backgroundColor="black" height="40" right="0" width="35%" textAlign="center" color="white" onClick="confirm">Confirm</Label>
+						</View>
+					</View>
+				</View>
+			</ScrollView>
+		</View>
+		
+		
 	</View>
+	
 </Alloy>

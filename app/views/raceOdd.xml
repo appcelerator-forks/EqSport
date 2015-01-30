@@ -15,10 +15,7 @@
 			<View width="70%">
 				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<PickerRow backgroundColor="yellow" color="red" title="JAP (GOOD)"></PickerRow>
-					<PickerRow title="1"></PickerRow>
-					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>
+					
 				</Picker>
 			</View>
 		</View>
@@ -28,11 +25,8 @@
 			</View>
 			<View width="70%">
 				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Picker id="picker2" onChange="raceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<PickerRow title="12"></PickerRow>
-					<PickerRow title="1"></PickerRow>
-					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>
+				<Picker id="picker2" onChange="changeRaceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
+					 
 				</Picker>
 			</View>
 		</View>
@@ -59,12 +53,12 @@
 				<Label id="raceNoLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 				<View id="pickerView2" height="50" width="100%" visible="false">
 					<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
-					<Picker id="picker2" onChange="raceNo" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
+					<Picker id="picker2" onChange="changeRaceNo" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
 					</Picker>
 				</View>
 			</View>
 		</View>
-		<Label id="mtr" color="black" top="20" bottom="20" height="30">Min to Race: 34</Label>
+		<Label id="mtr" color="black" top="20" bottom="20" height="30">Min to Race: -</Label>
 		<View layout="horizontal" height="50" width="90%" backgroundColor="#EA431A">
 			<View width="33%">
 				<Label color="white">WIN</Label>

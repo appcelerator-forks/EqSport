@@ -3,9 +3,10 @@ var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var favourite = Alloy.createCollection('favourite');
-
+Ti.App.Properties.setString('module',"member");
+Ti.App.Properties.setString('root',"0");
 setPicker1(); 
-
+ 
 function refresh(index){ 
 	if($.picker2.columns[0]) {
 	    var _col = $.picker2.columns[0];
@@ -32,16 +33,21 @@ function setPicker1(){
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
-	 
 }
 
-function setPicker2(){ 
+function setPicker2(){  
+	//console.log(detailsValue);
 	for(var i=0; i < detailsValue.length; i++){
-	  var rec = detailsValue[i].runner_id;
-	  var row = Ti.UI.createPickerRow({
-	    title: rec.toString()
-	  }); 
-	  $.picker2.add(row);
+		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
+	 
+		if(favouriteInfo.length > 0){
+			var rec = detailsValue[i].runner_id;
+		  	var row = Ti.UI.createPickerRow({
+		   	 title: rec.toString()
+		  	}); 
+		  	$.picker2.add(row);
+		}
+	  	
 	}
 }
 
@@ -58,6 +64,7 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 }
 
 function back(){	
+	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
 
@@ -75,7 +82,7 @@ function venue(e){
 	refresh(e.row.race_id);
 }
 
-function raceNo(e){
+function changeRaceNo(e){
 	raceNo = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.raceNoView.height = 50;
@@ -89,20 +96,16 @@ function raceNo(e){
 	raceOdd(venue,raceNo);
 }
 
-function raceOdd(venue,raceNo)
-{
+function raceOdd(venue,raceNo){
 	removeAllChildren($.scrollView);
 	
-	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo); 
-	if(favouriteInfo == "")
-	{
+	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
+	if(favouriteInfo == "") {
 		$.mtr.text = "Min to Race: -";
 		var win = "-";
 		var run = "-";
 		var pla = "-";
-	}
-	else
-	{
+	} else {
 		$.mtr.text = "Min to Race: " + favouriteInfo[0].min_to_race;
 		
 		var win_odd = favouriteInfo[0].win_odd;
@@ -112,7 +115,7 @@ function raceOdd(venue,raceNo)
 		var pla_odd = favouriteInfo[0].pla_odd;
 		var pla = pla_odd.split("$"); 
 	}
-	
+ 
 	for(var i=0; i < win.length; i++) { 
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
@@ -160,6 +163,7 @@ function raceOdd(venue,raceNo)
 			bottom: 2
 		});
 		
+		
 		leftView.add(leftLabel);
 		centerView.add(centerLabel);
 		rightView.add(rightLabel);
@@ -167,9 +171,19 @@ function raceOdd(venue,raceNo)
 		contentView.add(centerView);
 		contentView.add(rightView);
 		centerLineView.add(lineView);
+		tableBetEvent(contentView,run[i], raceNo);
 		$.scrollView.add(contentView);
 		$.scrollView.add(centerLineView);
 	}
+}
+
+function tableBetEvent(contentView,runner,race_id){
+	contentView.addEventListener('click', function(e){ 
+		if(runner != "" && runner != '-'){
+			Ti.App.Properties.setString('module','raceOdd');
+			DRAWER.navigation("play",1,{runner: runner, race_id: race_id});
+		}
+	});
 }
 /*
 for(var i=0, i < arr.length, i++)
@@ -233,12 +247,16 @@ for(var i=0, i < arr.length, i++)
 */
 
 function showVenue() {
-	$.venueView.height = 250;
-	$.venueContentView.height = 250;
-	$.pickerView1.height = 250;
-	$.pickerView1.setVisible(true);
-	$.done1.setVisible(true);
-	$.picker1.setVisible(true);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 50;
+		$.venueContentView.height = 50;
+		$.pickerView1.height = 50;
+		$.pickerView1.setVisible(false);
+		$.done1.setVisible(false);
+		$.picker1.setVisible(false);
+		$.venueLabel.text = venue;
+	}
+	
 	return false;
 }
 

@@ -1,3 +1,5 @@
+Ti.App.Properties.setString('module',"");
+Ti.App.Properties.setString('root',"1");
 var balance = Alloy.createCollection('balance'); 
 var info = Alloy.createCollection('info');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
@@ -11,8 +13,8 @@ $.scrollView.height = pHeight - 50;
 var blnDetails = balance.getBalance(); 
 $.accountNo.text = infoDetails[0].account;
 if(blnDetails != ""){
-		$.credit.text = blnDetails.amount.substring(2);
-		$.update.text = "(Last updated on "+blnDetails.date+" "+ blnDetails.time+")"; 
+	$.credit.text = blnDetails.amount.substring(2);
+	$.update.text = "(Last updated on "+blnDetails.date+" "+ blnDetails.time+")"; 
 } 
   
 API.checkBalance({
@@ -23,6 +25,7 @@ API.checkBalance({
 API.raceCard({
 	title: ""
 });
+API.favourite({skip: "1"});
 
 if(Ti.Platform.osname == "android"){
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
@@ -36,6 +39,7 @@ function menuToggle(e){
 function play(){
 	 
 	API.raceCard({
+		from : "member",
 		title: "play"
 	});
 	//DRAWER.navigation("play",1);
@@ -43,6 +47,14 @@ function play(){
 
 function withdrawal(){
 	
+}
+
+function disablePlay(){
+	$.playView.image = "/images/Acc_Button01_gray.png";
+	$.raceOddView.image = "/images/Acc_Button03_gray.png";
+	$.racingView.image = "/images/Acc_Button04_gray.png";
+	$.raceOddView.disable = "1";
+	$.racingView.disable = "1";
 }
 
 function account(){ 
@@ -143,6 +155,11 @@ function account(){
 }
 
 function racing(){
+	
+	if($.racingView.disable == "1"){
+		return false;
+	} 
+	
 	var config = [];
 	// double click prevention
 	var currentTime = new Date();
@@ -252,14 +269,14 @@ function raceCard(){
 	DRAWER.navigation("raceCard",1);
 }
 
-function raceOdd(){  
- 
-	// API.raceCard({
-			// title : "raceOdd"
-		// });
-	DRAWER.navigation("raceOdd",1);
+function raceOdd(){   
+	if($.raceOddView.disable == "0"){
+		DRAWER.navigation("raceOdd",1);
+	} 
 }
 
 function raceResult(){  
 	DRAWER.navigation("raceResult",1);
 }
+
+Ti.App.addEventListener("disablePlay", disablePlay);

@@ -1,4 +1,6 @@
 var value = new Date();
+Ti.App.Properties.setString('root',"0");
+Ti.App.Properties.setString('module',"member");
 var dayInt = value.getDate();
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
@@ -7,6 +9,7 @@ $.picker.value = value;
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
  
 function back() {
+	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
  

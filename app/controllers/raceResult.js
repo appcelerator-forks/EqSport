@@ -1,4 +1,6 @@
 var arr = [];
+Ti.App.Properties.setString('module',"member");
+Ti.App.Properties.setString('root',"0");
 API.getRTOResults({
 	raceNumber : "",
 	raceDate: ""
@@ -66,6 +68,7 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 // $.date.text = toDisplay;
 
 function back(){	
+	Ti.App.Properties.setString('module',"");
 	$.raceNo.removeEventListener('blur', submitText);
 	$.mainView.removeEventListener('click', hideKeyboard);
 	DRAWER.navigation("member",1);

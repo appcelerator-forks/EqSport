@@ -1,5 +1,5 @@
 var args = arguments[0] || {};
-
+Ti.App.Properties.setString('root',"0");
 var menu = [{id: 0, title: "Info", controller: 'eq_Card1'}, {id: 1, title: "T&C", controller: 'eq_Card3'}];
 
 function goSlide(event){

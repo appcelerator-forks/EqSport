@@ -21,7 +21,11 @@ function navMenu(e){
 			DRAWER.navigation("member",2);
 			break;
 		case 6:  
-			DRAWER.navigation("play",2);
+			API.raceCard({
+				from : "menu",
+				title: "play"
+			});
+			//DRAWER.navigation("play",2);
 			break;
 		case 7:  
 			DRAWER.logout();
@@ -29,4 +33,7 @@ function navMenu(e){
 	} 
 }
  
-	
+var alertDisable = function(){ 
+	COMMON.createAlert("Play unavailable", "No game available now!");
+};	
+Ti.App.addEventListener("alertDisable", alertDisable);

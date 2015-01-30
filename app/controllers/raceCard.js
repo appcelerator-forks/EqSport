@@ -1,14 +1,11 @@
-// var res = API.raceCard({
-	// title: ""
-// });
-
+Ti.App.Properties.setString('root',"0");
+Ti.App.Properties.setString('module',"member");
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
-
-setPicker1(); 
-
+$.picker1.setSelectedRow(0,0,false);
+setPicker1();  
 function setPicker1(){  
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
@@ -20,16 +17,11 @@ function setPicker1(){
 	 
 }
 
-if(Ti.Platform.osname == "android"){
-	$.picker1.setSelectedRow(0,false);
-}
-if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-	//$.picker1.setSelectedRow(0,3,false);
-	$.picker1.setSelectedRow(0,0,false);
-}
+ 
 //$.picker2.setSelectedRow(0,false);
 
 function back(){	
+	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
 
@@ -42,8 +34,9 @@ function venue(e){
 		$.pickerView1.setVisible(false);
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
-		$.venueLabel.text = venue;
+		 
 	}
+	$.venueLabel.text = venue;
 	//reload result view
 	refresh(e.row.race_id);
 }
@@ -54,8 +47,7 @@ function refresh(race_id){
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
 	
 	$.date.text = detailsValue[0].runner_date;
-	for(var i=0; i < detailsValue.length; i++)
-	{
+	for(var i=0; i < detailsValue.length; i++) {
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
 			width:"100%",
@@ -108,23 +100,7 @@ function refresh(race_id){
 	}
 }
 
-function venue(e){
-	venue = e.row.title;
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-		$.venueView.height = 50;
-		$.venueContentView.height = 50;
-		$.pickerView1.height = 50;
-		$.pickerView1.setVisible(false);
-		$.done1.setVisible(false);
-		$.picker1.setVisible(false);
-		$.venueLabel.text = venue;
-	}
-	//reload result view
-	refresh(e.row.race_id);
-}
-
-function done1()
-{
+function done1(){
 	$.venueView.height = 50;
 	$.venueContentView.height = 50;
 	$.pickerView1.height = 50;
@@ -134,11 +110,14 @@ function done1()
 }
 
 function showVenue() {
-	$.venueView.height = 250;
-	$.venueContentView.height = 250;
-	$.pickerView1.height = 250;
-	$.pickerView1.setVisible(true);
-	$.done1.setVisible(true);
-	$.picker1.setVisible(true);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+		$.venueView.height = 250;
+		$.venueContentView.height = 250;
+		$.pickerView1.height = 250;
+		$.pickerView1.setVisible(true);
+		$.done1.setVisible(true);
+		$.picker1.setVisible(true);
+		
+	}
 	//return false;
 }

@@ -14,6 +14,7 @@ Alloy.Globals.menuType = "1";//public
 
 var API = require('api');
 var DRAWER = require('drawer');
+var COMMON = require('common');
 var getValueFromXml = function(xml, parent,child){
 	var parentNode =  xml.getElementsByTagName(parent).item(0); 
 	var childNode = parentNode.getElementsByTagName(child).item(0).textContent;
@@ -26,6 +27,7 @@ var getValueFromPipe = function(xml){
  	var obj = {};
  	
 	if(data[1] == "S:" || data[1] == "R:"){
+		obj['response'] = data[2];
 		for(var i=2; i <= data.length; i++){
 			if(i != data.length){
 				var inner = data[i].split(":"); 
@@ -136,5 +138,14 @@ function removeAllChildren(viewObject){
         viewObject.remove(children[i]);
     }
 }
+
+function PixelsToDPUnits(ThePixels){
+  return (ThePixels / (Titanium.Platform.displayCaps.dpi / 160));
+}
+
+function DPUnitsToPixels(TheDPUnits){
+  return (TheDPUnits * (Titanium.Platform.displayCaps.dpi / 160));
+}
+
 
 //API.getRTOResults();

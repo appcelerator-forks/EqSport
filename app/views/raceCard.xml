@@ -12,15 +12,11 @@
 			<View width="30%">
 				<Label class="boldTitle" color="black" left="10">Venue</Label>
 			</View>
-			<View width="70%">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					<!--<PickerRow title="JAP (GOOD)"></PickerRow>
-					<PickerRow title="1"></PickerRow>
-					<PickerRow title="2"></PickerRow>
-					<PickerRow title="3"></PickerRow>-->
-				</Picker>
-				
+			<View width="60%">
+				<Label  id="venueLabel" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
+				<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
+				<Picker zIndex="12"	id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" />
+				 
 			</View>
 		</View>
 		<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
