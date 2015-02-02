@@ -1,44 +1,35 @@
 <Alloy>
- 
-	<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
-		
-		<!--<View layout="vertical" backgroundImage="/images/top_bg.png" height="150">
-			<View layout="vertical" height="50"  width="90%">
-				<Label class="welcomeText">Welcome</Label>
-				<Label class="descText">Enjoy privilege at everywhere and everytime</Label>
-			</View>	
-			<View layout="horizontal" height="100" width="90%" top="40">
-				<View layout="horizontal"  height="30" width="45%">
-					<ImageView image="/images/btn_login.png" />
-				</View>
-				<View layout="horizontal"  height="30" width="45%" left="10">
-					<ImageView image="/images/btn_signup.png" />
-				</View>
-			</View>	
-	</View>-->
-		<View layout="composite" height="50" backgroundColor="white" >
-			<!--<Label color="gray">Member Sign In</Label>-->
-			<!--<ImageView width="40" height="40" right="5" backgroundColor="blue" onClick="close"></ImageView>-->
-			<ImageView image="/images/logo.png"></ImageView>
-		</View>
-		<View layout="composite" height="280">
-			<View>
-				<ImageView image="/images/signin_bg.png" height="280" width="100%" top="0"></ImageView>
+ <View height="Ti.UI.SIZE">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+        	<ActivityIndicator  id="activityIndicator" />
+        	<Label top="5" text="Loading" color="#ffffff" />
+        </View>
+		<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
+			 
+			<View layout="composite" height="50" backgroundColor="white" >
+				<!--<Label color="gray">Member Sign In</Label>-->
+				<!--<ImageView width="40" height="40" right="5" backgroundColor="blue" onClick="close"></ImageView>-->
+				<ImageView image="/images/logo.png"></ImageView>
 			</View>
-			<View layout="vertical" height="250">
-				<Label height="30" color="white">Account No.:</Label>
-				<TextField id="account" value="60938004" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="false" hintText="123****" color="black" keyboardType="Titanium.UI.KEYBOARD_DEFAULT" returnKeyType="Titanium.UI.RETURNKEY_NEXT"></TextField>
-				<Label top="10" height="30" color="white">Pin No.</Label>
-				<TextField id="pin" value="7337" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="true" hintText="***********" color="black"></TextField>
-				<ImageView top="20" height="40" image="/images/btn_submit.png" onClick="submit"></ImageView>
+			<View layout="composite" height="280">
+				<View>
+					<ImageView image="/images/signin_bg.png" height="280" width="100%" top="0"></ImageView>
+				</View>
+				<View layout="vertical" height="250">
+					<Label height="30" color="white">Account No.:</Label>
+					<TextField id="account" value="60938004" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="false" hintText="123****" color="black" keyboardType="Titanium.UI.KEYBOARD_DEFAULT" returnKeyType="Titanium.UI.RETURNKEY_NEXT"></TextField>
+					<Label top="10" height="30" color="white">Pin No.</Label>
+					<TextField id="pin" value="7337" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="true" hintText="***********" color="black"></TextField>
+					<ImageView top="20" height="40" image="/images/btn_submit.png" onClick="submit"></ImageView>
+				</View>
 			</View>
-		</View>
-		<View layout="vertical">
-			<Label top="20" color="black">Need a EQLink Account?</Label>
-			<ImageView top="10" height="40" image="/images/btn_getone.png" onClick="newAccount"></ImageView>
-			<View top="10" layout="vertical" height="Ti.UI.SIZE">
-				<Label color="#00BFFF" width="30" onClick="skip">Skip</Label>
-				<View top="0" backgroundColor="#00BFFF" width="30" height="1" onClick="skip"></View> 
+			<View layout="vertical">
+				<Label top="20" color="black">Need a EQLink Account?</Label>
+				<ImageView top="10" height="40" image="/images/btn_getone.png" onClick="newAccount"></ImageView>
+				<View top="10" layout="vertical" height="Ti.UI.SIZE">
+					<Label color="#00BFFF" width="30" onClick="skip">Skip</Label>
+					<View top="0" backgroundColor="#00BFFF" width="30" height="1" onClick="skip"></View> 
+				</View>
 			</View>
 		</View>
 	</View>

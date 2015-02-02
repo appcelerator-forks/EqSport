@@ -25,9 +25,11 @@ function reloadHeaderMenu(){
 function menuToggle(e){  
 	var module = Ti.App.Properties.getString('module');
 	var isRoot = Ti.App.Properties.getString('root');
+	console.log(module);
 	if(module !== null && module != ""){
 		Ti.App.Properties.setString('module',"");
-		DRAWER.navigation(module, 1);
+		DRAWER.navigation(module, 1 );
+		
 	}else{
 		DRAWER.closeToggle();
 	}

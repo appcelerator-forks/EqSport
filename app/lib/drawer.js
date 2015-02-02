@@ -148,6 +148,10 @@ exports.initMenu = function(){
 	navigation("member",1);   
 };
 
+exports.isDrawerOpen = function(){
+	return drawerFlag;
+};
+
 exports.logout = function(){
 	Alloy.Globals.menuType = "1";
 	info.resetInfo();  
