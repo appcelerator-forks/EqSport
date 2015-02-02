@@ -62,6 +62,7 @@ function createMyDrawer(leftMenuWindow){
 			      //Do nothing
 			    }
 			    if (e.index === 1){
+			    	Ti.App.Properties.removeProperty('oddEnabled');
 			    	var activity = Titanium.Android.currentActivity;
 					activity.finish();
 			    }
