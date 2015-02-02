@@ -61,7 +61,7 @@
 			<!--1ST ROW-->
 			<View layout="horizontal" width="100%" height="130" top="10">
 				<View width="50%" height="100%"> 
-					<ImageView onClick="play" id="playView" image="/images/Acc_Button01.png" width="100%"></ImageView>
+					<ImageView onClick="play" id="playView" disable="1" image="/images/Acc_Button01_gray.png" width="100%"></ImageView>
 				</View>
 				<View width="49.9%" height="100%"> 
 					<ImageView onClick="account" image="/images/Acc_Button02.png" width="100%"></ImageView>	
@@ -69,29 +69,29 @@
 			</View>
 			<View layout="horizontal" width="100%" height="30" top="10">
 				<View width="50%" height="100%"> 
-					<Label class="boldText" width="100%" onClick="play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play</Label>
+					<Label class="boldText" width="100%" disable="1" onClick="play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play</Label>
 				</View>
 				<View width="49.9%" height="100%"> 
 					<Label class="boldText" width="100%" onClick="account" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Account</Label>
 				</View>
 			</View>
-		    
+		     
 		    
 		    <!--2nd ROW -->
 		    <View layout="horizontal" width="100%" height="130" top="10">
 				<View width="50%" height="100%"> 
-					<ImageView onClick="raceOdd" id="raceOddView" disable="0"  image="/images/Acc_Button03.png" width="100%"></ImageView>
+					<ImageView onClick="raceOdd" id="raceOddView" disable="1"  image="/images/Acc_Button03_gray.png" width="100%"></ImageView>
 				</View>
 				<View width="49.9%" height="100%"> 
-					<ImageView onClick="racing" id="racingView" disable="0" image="/images/Acc_Button04.png" width="100%"></ImageView>	
+					<ImageView onClick="racing" id="racingView" disable="1" image="/images/Acc_Button04_gray.png" width="100%"></ImageView>	
 				</View>
 			</View>
 			<View layout="horizontal" width="100%" height="30" top="10">
 				<View width="50%" height="100%"> 
-					<Label class="boldText" width="100%"  disable="0" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odd</Label>
+					<Label class="boldText" width="100%"  disable="1" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odd</Label>
 				</View>
 				<View width="49.9%" height="100%"> 
-					<Label class="boldText" width="100%" disable="0" onClick="racing" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Racing</Label>
+					<Label class="boldText" width="100%" disable="1" onClick="racing" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Racing</Label>
 				</View>
 			</View>
 	    </ScrollView>

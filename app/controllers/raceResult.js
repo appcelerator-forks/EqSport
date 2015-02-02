@@ -18,14 +18,14 @@ var apiResult = function(e){
 		locations.push(arr[i].location); 
 		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo];
 	}
-	// if($.picker2.columns[0]) {
-	    // var _col = $.picker2.columns[0];
-	        // var len = _col.rowCount; 
-	        // for(var x = len-1; x >= 0; x-- ){
-	                // var _row = _col.rows[x];
-	                // _col.removeRow(_row);
-	        // }
-	// }
+	if($.picker2.columns[0]) {
+	    var _col = $.picker2.columns[0];
+	        var len = _col.rowCount; 
+	        for(var x = len-1; x >= 0; x-- ){
+	                var _row = _col.rows[x];
+	                _col.removeRow(_row);
+	        }
+	}
 	setPicker2(locations);
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);

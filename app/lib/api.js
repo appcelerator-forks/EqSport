@@ -20,10 +20,12 @@ var KEY   = 'TESTWEBSEPWD';
 exports.getDomainUrl = function (ex){
 	
 	var url = "http://54.169.180.5/eqsport/api/getDomain?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc"; 
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	     	var res = JSON.parse(this.responseText); 
+	     	console.log(res);
 	        if(res.status == "success"){
 	        	Ti.App.Properties.setString('eqUrl',res.data); 
 	        } 
@@ -358,7 +360,7 @@ exports.favourite = function (ex){
 exports.raceCard = function (ex){
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
-
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -390,6 +392,14 @@ exports.raceCard = function (ex){
 					}); 
 					raceCardDetails.save(); 
 				}
+				
+	     		if(ex.from == "menu"){ 
+	     			DRAWER.navigation("play",1);
+	     			DRAWER.closeToggle();
+	     		}else{
+	     			Ti.App.fireEvent("enabledPlay");
+	     		}
+	     		return false;
 			}else{
 			 
 				if(ex.from == "menu"){ 

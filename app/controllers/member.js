@@ -25,24 +25,25 @@ API.checkBalance({
 API.raceCard({
 	title: ""
 });
+
 API.favourite({skip: "1"});
 
 if(Ti.Platform.osname == "android"){
 	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
 } 
-function menuToggle(e){
-	// var fn = 'toggleLeftWindow';
-    // $.drawer[fn]();
+function menuToggle(e){ 
     DRAWER.closeToggle();
 }
 
-function play(){
-	 
+function play(){ 
+	if($.playView.disable == "1"){
+		return false;
+	} 
 	API.raceCard({
 		from : "member",
 		title: "play"
 	});
-	//DRAWER.navigation("play",1);
+	DRAWER.navigation("play",1);
 }
 
 function withdrawal(){
@@ -55,7 +56,18 @@ function disablePlay(){
 	$.racingView.image = "/images/Acc_Button04_gray.png";
 	$.raceOddView.disable = "1";
 	$.racingView.disable = "1";
+	$.playView.disable = "1";
 }
+
+function enabledPlay(){
+	$.playView.image = "/images/Acc_Button01.png";
+	$.raceOddView.image = "/images/Acc_Button03.png";
+	$.racingView.image = "/images/Acc_Button04.png";
+	$.raceOddView.disable = "0";
+	$.racingView.disable = "0";
+	$.playView.disable = "0";
+}
+
 
 function account(){ 
 	var config = [];
@@ -281,3 +293,4 @@ function raceResult(){
 }
 
 Ti.App.addEventListener("disablePlay", disablePlay);
+Ti.App.addEventListener("enabledPlay", enabledPlay);

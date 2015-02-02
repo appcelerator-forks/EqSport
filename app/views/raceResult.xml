@@ -40,7 +40,7 @@
 			</View>
 			<View width="70%">
 				 
-				<Label  id="venueLabel" text="GEO" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
+				<Label  id="venueLabel" text="" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
 				<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
 				<Picker zIndex="12"	id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
 					 
