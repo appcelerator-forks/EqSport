@@ -358,9 +358,32 @@ exports.favourite = function (ex){
  
 //raceCard
 exports.raceCard = function (ex){
+	
+	var oddEnabled = Ti.App.Properties.getString('oddEnabled');
+	
+	if(oddEnabled !== null && oddEnabled != "" ){
+		setTimeout(function(){
+			if(oddEnabled == "1"){
+				if(ex.from == "menu"){ 
+		     		DRAWER.navigation("play",1);
+		     		DRAWER.closeToggle();
+		     	}else{
+		     		Ti.App.fireEvent("enabledPlay");
+		     	}
+			}else{
+				if(ex.from == "menu"){ 
+		     		Ti.App.fireEvent("alertDisable");
+		     	}else{
+		     		Ti.App.fireEvent("disablePlay");
+		     	}
+			}
+			return false;
+	    }, 500);
+		 
+	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
-	console.log(url);
+ 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -392,13 +415,14 @@ exports.raceCard = function (ex){
 					}); 
 					raceCardDetails.save(); 
 				}
-				
+				Ti.App.Properties.setString('oddEnabled',"1");
 	     		if(ex.from == "menu"){ 
 	     			DRAWER.navigation("play",1);
 	     			DRAWER.closeToggle();
 	     		}else{
 	     			Ti.App.fireEvent("enabledPlay");
 	     		}
+	     		
 	     		return false;
 			}else{
 			 
@@ -407,7 +431,7 @@ exports.raceCard = function (ex){
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
 	     		}
-	     		
+	     		Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;
 			}
 			
@@ -418,10 +442,7 @@ exports.raceCard = function (ex){
 					API.favourite({skip: ""});
 				}
 				
-			} else{
-	     		//DRAWER.navigation(ex.title,1); 
-	     	}
-	     
+			}  
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -430,7 +451,7 @@ exports.raceCard = function (ex){
 	     	}else{
 	     		Ti.App.fireEvent("disablePlay");
 	     	}
-	     		
+	     	Ti.App.Properties.setString('oddEnabled',"0");	
 	     	return false;
 	     },
 	     timeout : 10000  // in milliseconds

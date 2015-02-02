@@ -57,15 +57,20 @@ function disablePlay(){
 	$.raceOddView.disable = "1";
 	$.racingView.disable = "1";
 	$.playView.disable = "1";
+	Ti.App.removeEventListener("disablePlay", disablePlay);
+	Ti.App.removeEventListener("enabledPlay", enabledPlay);
 }
 
 function enabledPlay(){
+	
 	$.playView.image = "/images/Acc_Button01.png";
 	$.raceOddView.image = "/images/Acc_Button03.png";
 	$.racingView.image = "/images/Acc_Button04.png";
 	$.raceOddView.disable = "0";
 	$.racingView.disable = "0";
 	$.playView.disable = "0";
+	Ti.App.removeEventListener("disablePlay", disablePlay);
+	Ti.App.removeEventListener("enabledPlay", enabledPlay); 
 }
 
 
