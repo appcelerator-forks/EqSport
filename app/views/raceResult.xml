@@ -31,7 +31,17 @@
 			</View>
 			<View width="74.9%">
 			 
-				<TextField id="raceNo" tintColor="#EA431A" width="90%" height="40" backgroundColor="#EFEFEF" color="black" enableReturnKey="true" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center" onClick="triggerRace"></TextField>
+				<TextField id="raceNo" tintColor="#EA431A" width="90%" height="40" backgroundColor="#EFEFEF" color="black" enableReturnKey="true" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center" onClick="triggerRace">
+					<KeyboardToolbar platform="ios">
+			            <Toolbar>
+			                <Items>
+			                	<Button onClick="keyboardCancel">Cancel</Button>
+			                    <FlexSpace/>
+			                    <Button onClick="keyboardDone">Done</Button>
+			                </Items>
+			            </Toolbar>
+			        </KeyboardToolbar>
+				</TextField>
 			</View>
 		</View>
 		<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">

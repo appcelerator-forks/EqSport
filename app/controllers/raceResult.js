@@ -1,4 +1,5 @@
 var arr = [];
+var firstLoad = true;
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 API.getRTOResults({
@@ -10,9 +11,13 @@ API.getRTOResults({
  var result = [];
 
 var apiResult = function(e){   
+	console.log("apiResult");
 	removeAllChildren($.scrollView);
 	arr = e.raceResult;
+	//console.log(arr);
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
+	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
+	$.picker.value = api_date;
 	var locations = [];
 	for(var i=0; i < arr.length; i++){
 		locations.push(arr[i].location); 
@@ -70,8 +75,6 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 
 function back(){	
 	Ti.App.Properties.setString('module',"");
-	$.raceNo.removeEventListener('blur', submitText);
-	$.mainView.removeEventListener('click', hideKeyboard);
 	DRAWER.navigation("member",1);
 }
 
@@ -104,6 +107,7 @@ function done(){
 	displayDate(day,month,year);
 	
 	if($.raceNo.value != "") {
+		firstLoad = false;
 	 	$.mainView.addEventListener('raceResult', apiResult);
 		API.getRTOResults({
 			myView: $.mainView,
@@ -115,7 +119,7 @@ function done(){
 }
 
 function submitText(){
-	//$.raceNo.removeEventListener('blur', submitText); 
+	console.log("submitText"); 
 	
 	if($.raceNo.value != "")
 	{
@@ -129,6 +133,7 @@ function submitText(){
 		var year = yearInt.toString();
 		var date = day + month + year;
 		
+		firstLoad = false;
 		$.mainView.addEventListener('raceResult', apiResult); 
 		API.getRTOResults({
 			myView: $.mainView,
@@ -139,29 +144,25 @@ function submitText(){
 }
 
 function triggerRace(){
-	$.mainView.removeEventListener('raceResult', apiResult);
+	//$.mainView.removeEventListener('raceResult', apiResult);
 	$.pickerView.hide();
 	$.dateContainer.height = 50;
 	$.dateView.height = 50;
 	$.raceNo.focus();
-	
 }
-$.raceNo.addEventListener('blur', submitText);
-function hideKeyboard(e) {  
-	
-	// if (e.source != '[object raceNo]') {
-		// //$.raceNo.blur(); 
-	// }
-	if (e.source.id != 'raceNo') {
-		$.raceNo.blur(); 
-		$.raceNo.removeEventListener('blur', submitText);
-	}
-	
+
+function keyboardCancel(){
+	$.raceNo.blur();
 }
+
+function keyboardDone(){
+	$.raceNo.blur();
+	submitText();
+}
+
 $.raceNo.addEventListener('return', function(e){
 	submitText();
 });
-$.mainView.addEventListener('click', hideKeyboard);
 
 function done2()
 {
@@ -211,6 +212,12 @@ function refresh(venue){
 		if(result[i][0] == venue) {
 			index = i;
 		}
+	}
+	
+	console.log("firstLoad: "+firstLoad);
+	if(firstLoad)
+	{
+		index = null;
 	}
 	
 	if(index != null) {
