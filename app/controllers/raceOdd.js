@@ -5,6 +5,7 @@ var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var favourite = Alloy.createCollection('favourite');
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
+var raceNo;
 setPicker1(); 
  
 function refresh(index){ 
@@ -17,6 +18,7 @@ function refresh(index){
 	        }
 	}
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
+	console.log(detailsValue);
 	setPicker2();
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
@@ -38,7 +40,12 @@ function setPicker1(){
 function setPicker2(){  
 	
 	for(var i=0; i < detailsValue.length; i++){
-		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
+		var rec = detailsValue[i].runner_id;
+	  	var row = Ti.UI.createPickerRow({
+	   		title: rec.toString()
+	  	}); 
+	  	$.picker2.add(row);
+		/*var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
 	 
 		if(favouriteInfo.length > 0){
 			var rec = detailsValue[i].runner_id;
@@ -46,7 +53,7 @@ function setPicker2(){
 		   	 title: rec.toString()
 		  	}); 
 		  	$.picker2.add(row);
-		}
+		}*/
 	  	
 	}
 }
@@ -93,26 +100,29 @@ function changeRaceNo(e){
 		$.picker2.setVisible(false);
 		$.raceNoLabel.text = raceNo;
 	}
-	raceOdd(venue,raceNo);
+	//raceOdd(venue,raceNo);
+	API.futureRace({
+		raceNo: raceNo,
+		venue: venue
+	});
 }
 
-function raceOdd(venue,raceNo){
+function raceOdd(data){
 	removeAllChildren($.scrollView);
 	
-	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
-	if(favouriteInfo == "") {
+	if(data == "") {
 		$.mtr.text = "Min to Race: -";
 		var win = "-";
 		var run = "-";
 		var pla = "-";
 	} else {
-		$.mtr.text = "Min to Race: " + favouriteInfo[0].min_to_race;
+		$.mtr.text = "Min to Race: " + data[0].min_to_race;
 		
-		var win_odd = favouriteInfo[0].win_odd;
+		var win_odd = data[0].win_odd;
 		var win = win_odd.split("$");
-		var runner = favouriteInfo[0].runner;
+		var runner = data[0].runner;
 		var run = runner.split("$");
-		var pla_odd = favouriteInfo[0].pla_odd;
+		var pla_odd = data[0].pla_odd;
 		var pla = pla_odd.split("$"); 
 	}
  
@@ -247,16 +257,14 @@ for(var i=0, i < arr.length, i++)
 */
 
 function showVenue() {
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
-		$.venueView.height = 50;
-		$.venueContentView.height = 50;
-		$.pickerView1.height = 50;
-		$.pickerView1.setVisible(false);
-		$.done1.setVisible(false);
-		$.picker1.setVisible(false);
-		$.venueLabel.text = venue;
-	}
-	
+	console.log("showVenue");
+	$.venueView.height = 250;
+	$.venueContentView.height = 250;
+	$.pickerView1.height = 250;
+	$.pickerView1.setVisible(true);
+	$.done1.setVisible(true);
+	$.picker1.setVisible(true);
+	$.venueLabel.text = venue;
 	return false;
 }
 
@@ -289,3 +297,7 @@ function done2()
 	$.done2.setVisible(false);
 	$.picker2.setVisible(false);
 }
+
+Ti.App.addEventListener("futureRace", function(e) {
+	raceOdd(e.returnData);
+});

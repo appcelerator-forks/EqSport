@@ -130,7 +130,12 @@ function setPicker2(){
 
 	//param_race_id
 	for(var i=0; i < detailsValue.length; i++){
-		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
+		var rec = detailsValue[i].runner_id;
+		var row = Ti.UI.createPickerRow({
+	    	title: rec.toString()
+	  	}); 
+	  	$.picker2.add(row);
+		/*var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
 	 
 		if(favouriteInfo.length > 0){
 			var rec = detailsValue[i].runner_id;
@@ -138,7 +143,7 @@ function setPicker2(){
 		    	title: rec.toString()
 		  	}); 
 		  	$.picker2.add(row);
-		 }
+		 }*/
 	}
 	 
 	if(param_race_id != ""){  
@@ -296,6 +301,7 @@ function pool(e){
 }
  
 function favouriteOdd(selectedRow){ 
+	console.log(selectedRow);
 	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
  
 	if(favouriteInfo == "") {

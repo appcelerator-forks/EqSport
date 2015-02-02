@@ -319,7 +319,7 @@ exports.favourite = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
-	     	
+	     	console.log(res);
 	     	if(res != ""){
 	     		var library = Alloy.createCollection('favourite'); 
 		     		library.resetInfo();
@@ -343,6 +343,29 @@ exports.favourite = function (ex){
 	     		DRAWER.navigation("play",2);
 	     	}
 	     	
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	//alert("An error occurs : Favourite");
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
+
+//futureRace odds
+exports.futureRace = function (ex){  
+	//var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
+	var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
+	console.log(url);
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) { 
+	       	var res = getValueForFavOdd(this.responseXML); 
+	     	Ti.App.fireEvent("futureRace",{returnData: res});
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
