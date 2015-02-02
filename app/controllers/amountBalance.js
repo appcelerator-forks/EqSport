@@ -4,6 +4,8 @@ var info = Alloy.createCollection('info');
 var infoDetails = info.getInfo(); 
 Ti.App.Properties.setString('module',"member");
 
+COMMON.construct($);
+COMMON.showLoading();
 //update balnce from server
 API.checkBalance({
 	account: infoDetails[0].account,
@@ -18,7 +20,7 @@ function getBln(){
 		$.date.text = details.date;
 		$.time.text = details.time;
 	}
-	
+	COMMON.hideLoading();
 }
 
 setTimeout(function(){

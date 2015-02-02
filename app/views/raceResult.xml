@@ -1,106 +1,112 @@
 <Alloy>
-	<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
-		<View layout="composite" height="50" backgroundColor="#EA431A">
-			<View width="100%">
-				<Label class="title" color="white" minimumFontSize="12">RACE RESULT</Label>
-			</View>
-			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
-			</View>
+	<View height="Ti.UI.SIZE">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+			<ActivityIndicator  id="activityIndicator" />
+			<Label top="5" text="Loading" color="#ffffff" />
 		</View>
-		<View id="dateContainer" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="25%">
-				<Label class="boldTitle" color="black" left="10">Date</Label>
-			</View>
-			<View id="dateView" width="74.9%" height="50">
-				<View width="100%" height="30" backgroundColor="white" onClick="showDate" top="10">
-					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-					<Label id="date" onClick="showDate" backgroundColor="transparent" color="black"></Label>
+		<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
+			<View layout="composite" height="50" backgroundColor="#EA431A">
+				<View width="100%">
+					<Label class="title" color="white" minimumFontSize="12">RACE RESULT</Label>
 				</View>
-				<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="#EA431A" visible="false" top="50">
-					<Button height="50" width="100%" color="white" right="0" onClick="done">Done</Button>
-					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="#EA431A">
-					</Picker>
-				</View> 
-				
-			</View>
-		</View>
-		<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="25%">
-				<Label class="boldTitle" color="black" left="10">Race No.</Label>
-			</View>
-			<View width="74.9%">
-			 
-				<TextField id="raceNo" tintColor="#EA431A" width="90%" height="40" backgroundColor="#EFEFEF" color="black" enableReturnKey="true" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center" onClick="triggerRace">
-					<KeyboardToolbar platform="ios">
-			            <Toolbar>
-			                <Items>
-			                	<Button onClick="keyboardCancel">Cancel</Button>
-			                    <FlexSpace/>
-			                    <Button style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="keyboardDone">Done</Button>
-			                </Items>
-			            </Toolbar>
-			        </KeyboardToolbar>
-				</TextField>
-			</View>
-		</View>
-		<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Venue</Label>
-			</View>
-			<View width="70%">
-				 
-				<Label  id="venueLabel" text="" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
-				<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
-				<Picker zIndex="12"	id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
-					 
-				</Picker>
-				 
-			</View>
-		</View>
-		<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Venue</Label>
-			</View>
-			<View id="venueContentView" width="70%" height="50" backgroundColor="white">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-				<View id="pickerView2" height="50" width="100%" visible="false">
-					<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
-					<Picker id="picker2" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-					</Picker>
+				<View width="15%" left="0" onClick="back">
+					<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
 				</View>
 			</View>
-		</View>
-		<View layout="horizontal" height="60" backgroundColor="#EA431A" width="90%" top="10">
-				<View width="25%" backgroundColor="gray">
-					<View layout="vertical">
-						<Label class="smallTitle" color="white">RACE</Label>
-						<Label id="raceTitle" class="largeTitle" color="white">-</Label>
+			<View id="dateContainer" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="25%">
+					<Label class="boldTitle" color="black" left="10">Date</Label>
+				</View>
+				<View id="dateView" width="74.9%" height="50">
+					<View width="100%" height="30" backgroundColor="white" onClick="showDate" top="10">
+						<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+						<Label id="date" onClick="showDate" backgroundColor="transparent" color="black"></Label>
 					</View>
+					<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="#EA431A" visible="false" top="50">
+						<Button height="50" width="100%" color="white" right="0" onClick="done">Done</Button>
+						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="#EA431A">
+						</Picker>
+					</View> 
+					
+				</View>
+			</View>
+			<View layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="25%">
+					<Label class="boldTitle" color="black" left="10">Race No.</Label>
 				</View>
 				<View width="74.9%">
-					<View layout="vertical" width="Ti.UI.SIZE" left="0">
-						<Label class="smallTitle" color="white" left="10">RESULT</Label>
-						<Label id="resultTitle" class="largeTitle" color="white" left="10">-</Label>
+				 
+					<TextField id="raceNo" tintColor="#EA431A" width="90%" height="40" backgroundColor="#EFEFEF" color="black" enableReturnKey="true" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center" onClick="triggerRace">
+						<KeyboardToolbar platform="ios">
+				            <Toolbar>
+				                <Items>
+				                	<Button onClick="keyboardCancel">Cancel</Button>
+				                    <FlexSpace/>
+				                    <Button style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="keyboardDone">Done</Button>
+				                </Items>
+				            </Toolbar>
+				        </KeyboardToolbar>
+					</TextField>
+				</View>
+			</View>
+			<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Venue</Label>
+				</View>
+				<View width="70%">
+					 
+					<Label  id="venueLabel" text="" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
+					<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
+					<Picker zIndex="12"	id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
+						 
+					</Picker>
+					 
+				</View>
+			</View>
+			<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Venue</Label>
+				</View>
+				<View id="venueContentView" width="70%" height="50" backgroundColor="white">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+					<View id="pickerView2" height="50" width="100%" visible="false">
+						<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
+						<Picker id="picker2" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+						</Picker>
 					</View>
 				</View>
 			</View>
-		<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="0" bottom="10">
-			<View layout="horizontal" width="100%" height="60">
-				<View width="25%">
-					<Label color="black">-</Label>
+			<View layout="horizontal" height="60" backgroundColor="#EA431A" width="90%" top="10">
+					<View width="25%" backgroundColor="gray">
+						<View layout="vertical">
+							<Label class="smallTitle" color="white">RACE</Label>
+							<Label id="raceTitle" class="largeTitle" color="white">-</Label>
+						</View>
+					</View>
+					<View width="74.9%">
+						<View layout="vertical" width="Ti.UI.SIZE" left="0">
+							<Label class="smallTitle" color="white" left="10">RESULT</Label>
+							<Label id="resultTitle" class="largeTitle" color="white" left="10">-</Label>
+						</View>
+					</View>
 				</View>
-				<View width="44.9%">
-					<Label color="black">-</Label>
+			<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="0" bottom="10">
+				<View layout="horizontal" width="100%" height="60">
+					<View width="25%">
+						<Label color="black">-</Label>
+					</View>
+					<View width="44.9%">
+						<Label color="black">-</Label>
+					</View>
+					<View width="30%">
+						<Label color="black">-</Label>
+					</View>
 				</View>
-				<View width="30%">
-					<Label color="black">-</Label>
+				<View layout="composite" width="100%" height="1" bottom="2">
+					<View width="90%" height="1" backgroundColor="#A5A5A5"></View>
 				</View>
-			</View>
-			<View layout="composite" width="100%" height="1" bottom="2">
-				<View width="90%" height="1" backgroundColor="#A5A5A5"></View>
-			</View>
-		</ScrollView>
+			</ScrollView>
+		</View>
 	</View>
 </Alloy>

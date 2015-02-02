@@ -31,19 +31,7 @@ var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
 
 function successCallBack(){
-	alert("success IN");
-	// API.checkBalance({
-		// account: infoDetails[0].account,
-		// pin: infoDetails[0].pin
-	// });
-// 	
-	// setTimeout(function(){
-		// balanceInfo = balance.getBalance();
-		// $.balance.text = "Your available balance is " + balanceInfo.amount; 
-	// }, 1000);
-	 
 	hideLoading();
-	alert("success END");
 }
  
 
@@ -539,6 +527,13 @@ function hideKeyboard(e) {
 	}
 	
 }
+$.runner.addEventListener('change',function(e){ 
+	Ti.App.Properties.setString('presetRunner', $.runner.value); 
+});
+
+$.bet.addEventListener('change',function(e){ 
+	Ti.App.Properties.setString('presetBet', $.bet.value); 
+});
 
 $.mainView.addEventListener('click', hideKeyboard);
 

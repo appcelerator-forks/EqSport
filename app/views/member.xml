@@ -1,99 +1,105 @@
 <Alloy>
-	<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg" top="0">
-		<Require src="_header"></Require>
-		<ScrollView id="scrollView" layout="vertical" disableBounce="true" scrollType="vertical">
-	        
-			<View layout="horizontal" backgroundColor="#F3431B" height="60">
-				<View layout="composite" width="40%">
-					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-						<Label class="label2" color="white" left="10">ACCOUNT NO.: </Label>
-						<Label class="label3" color="white" left="10" id="accountNo"></Label>
-					</View>
-				</View>
-				<View layout="composite" width="60%">
-					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-						<Label class="label2" color="white" left="10">ACCOUNT CREDIT</Label>
-						<Label class="label3" color="white" left="10" id="credit">RM0.00</Label>
-						<Label class="label1" color="white" left="10" id="update">(Last updated on 31/12/2014)</Label>
-					</View>
-				</View>
-			</View>
-			<!--
-			<View layout="horizontal" backgroundColor="#ECECEC" height="50" >
-				<View layout="composite" width="32%">
-					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label2" color="black" left="1">LAST LOGIN:</Label>
+	<View height="Ti.UI.SIZE">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+        	<ActivityIndicator  id="activityIndicator" />
+        	<Label top="5" text="Loading" color="#ffffff" />
+        </View>
+		<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg" top="0">
+			<Require src="_header"></Require>
+			<ScrollView id="scrollView" layout="vertical" top="0" disableBounce="true" scrollType="vertical">
+		        
+				<View layout="horizontal" backgroundColor="#F3431B" height="60">
+					<View layout="composite" width="40%">
+						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
+							<Label class="label2" color="white" left="10">ACCOUNT NO.: </Label>
+							<Label class="label3" color="white" left="10" id="accountNo"></Label>
 						</View>
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label1" color="black" left="1" id="login">31/12/2014</Label>
+					</View>
+					<View layout="composite" width="60%">
+						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
+							<Label class="label2" color="white" left="10">ACCOUNT CREDIT</Label>
+							<Label class="label3" color="white" left="10" id="credit">RM0.00</Label>
+							<Label class="label1" color="white" left="10" id="update">(Last updated on 31/12/2014)</Label>
 						</View>
 					</View>
 				</View>
-				<View width="1%">
-					<View backgroundColor="#E1E1E1" width="1" height="30"></View>
-				</View>
-				<View layout="composite" width="33%">
-					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label2" color="black" left="1">LAST TRANSACTION:</Label>
+				<!--
+				<View layout="horizontal" backgroundColor="#ECECEC" height="50" >
+					<View layout="composite" width="32%">
+						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label2" color="black" left="1">LAST LOGIN:</Label>
+							</View>
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label1" color="black" left="1" id="login">31/12/2014</Label>
+							</View>
 						</View>
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label1" color="black" left="1" id="transaction">31/12/2014</Label>
+					</View>
+					<View width="1%">
+						<View backgroundColor="#E1E1E1" width="1" height="30"></View>
+					</View>
+					<View layout="composite" width="33%">
+						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label2" color="black" left="1">LAST TRANSACTION:</Label>
+							</View>
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label1" color="black" left="1" id="transaction">31/12/2014</Label>
+							</View>
+						</View>
+					</View>
+					<View width="1%">
+						<View backgroundColor="#E1E1E1" width="1" height="30"></View>
+					</View>
+					<View layout="composite" width="32%">
+						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label2" color="black" left="1">LAST TOP UP:</Label>
+							</View>
+							<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
+								<Label class="label1" color="black" left="1" id="topUp">31/12/2014</Label>
+							</View>
 						</View>
 					</View>
 				</View>
-				<View width="1%">
-					<View backgroundColor="#E1E1E1" width="1" height="30"></View>
-				</View>
-				<View layout="composite" width="32%">
-					<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label2" color="black" left="1">LAST TOP UP:</Label>
-						</View>
-						<View height="Ti.UI.SIZE" width="Ti.UI.SIZE">
-							<Label class="label1" color="black" left="1" id="topUp">31/12/2014</Label>
-						</View>
+				-->
+				<!--1ST ROW-->
+				<View layout="horizontal" width="100%" height="130" top="10">
+					<View width="50%" height="100%"> 
+						<ImageView onClick="play" id="playView" disable="1" image="/images/Acc_Button01_gray.png" width="100%"></ImageView>
+					</View>
+					<View width="49.9%" height="100%"> 
+						<ImageView onClick="account" image="/images/Acc_Button02.png" width="100%"></ImageView>	
 					</View>
 				</View>
-			</View>
-			-->
-			<!--1ST ROW-->
-			<View layout="horizontal" width="100%" height="130" top="10">
-				<View width="50%" height="100%"> 
-					<ImageView onClick="play" id="playView" disable="1" image="/images/Acc_Button01_gray.png" width="100%"></ImageView>
+				<View layout="horizontal" width="100%" height="30" top="10">
+					<View width="50%" height="100%"> 
+						<Label class="boldText" width="100%" disable="1" onClick="play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play</Label>
+					</View>
+					<View width="49.9%" height="100%"> 
+						<Label class="boldText" width="100%" onClick="account" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Account</Label>
+					</View>
 				</View>
-				<View width="49.9%" height="100%"> 
-					<ImageView onClick="account" image="/images/Acc_Button02.png" width="100%"></ImageView>	
+			     
+			    
+			    <!--2nd ROW -->
+			    <View layout="horizontal" width="100%" height="130" top="10">
+					<View width="50%" height="100%"> 
+						<ImageView onClick="raceOdd" id="raceOddView" disable="1"  image="/images/Acc_Button03_gray.png" width="100%"></ImageView>
+					</View>
+					<View width="49.9%" height="100%"> 
+						<ImageView onClick="racing" id="racingView" disable="1" image="/images/Acc_Button04_gray.png" width="100%"></ImageView>	
+					</View>
 				</View>
-			</View>
-			<View layout="horizontal" width="100%" height="30" top="10">
-				<View width="50%" height="100%"> 
-					<Label class="boldText" width="100%" disable="1" onClick="play" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Play</Label>
+				<View layout="horizontal" width="100%" height="30" top="10">
+					<View width="50%" height="100%"> 
+						<Label class="boldText" width="100%"  disable="1" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odd</Label>
+					</View>
+					<View width="49.9%" height="100%"> 
+						<Label class="boldText" width="100%" disable="1" onClick="racing" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Racing</Label>
+					</View>
 				</View>
-				<View width="49.9%" height="100%"> 
-					<Label class="boldText" width="100%" onClick="account" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Account</Label>
-				</View>
-			</View>
-		     
-		    
-		    <!--2nd ROW -->
-		    <View layout="horizontal" width="100%" height="130" top="10">
-				<View width="50%" height="100%"> 
-					<ImageView onClick="raceOdd" id="raceOddView" disable="1"  image="/images/Acc_Button03_gray.png" width="100%"></ImageView>
-				</View>
-				<View width="49.9%" height="100%"> 
-					<ImageView onClick="racing" id="racingView" disable="1" image="/images/Acc_Button04_gray.png" width="100%"></ImageView>	
-				</View>
-			</View>
-			<View layout="horizontal" width="100%" height="30" top="10">
-				<View width="50%" height="100%"> 
-					<Label class="boldText" width="100%"  disable="1" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odd</Label>
-				</View>
-				<View width="49.9%" height="100%"> 
-					<Label class="boldText" width="100%" disable="1" onClick="racing" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Racing</Label>
-				</View>
-			</View>
-	    </ScrollView>
-    </View>
+		    </ScrollView>
+	    </View>
+	 </View>
 </Alloy>

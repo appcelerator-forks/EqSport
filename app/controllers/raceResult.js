@@ -2,6 +2,8 @@ var arr = [];
 var firstLoad = true;
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
+COMMON.construct($);
+COMMON.showLoading();
 API.getRTOResults({
 	myView: $.mainView,
 	raceNumber : "",
@@ -34,6 +36,7 @@ var apiResult = function(e){
 	setPicker2(locations);
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
+	COMMON.hideLoading();
 };
 $.mainView.addEventListener('raceResult', apiResult);
 

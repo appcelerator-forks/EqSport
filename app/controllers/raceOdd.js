@@ -6,6 +6,7 @@ var favourite = Alloy.createCollection('favourite');
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
+COMMON.construct($);
 setPicker1(); 
  
 function refresh(index){ 
@@ -108,6 +109,7 @@ function changeRaceNo(e){
 }
 
 function raceOdd(data){
+	//showLoading();
 	removeAllChildren($.scrollView);
 	
 	if(data == "") {
@@ -185,6 +187,7 @@ function raceOdd(data){
 		$.scrollView.add(contentView);
 		$.scrollView.add(centerLineView);
 	}
+	COMMON.hideLoading();
 }
 
 function tableBetEvent(contentView,runner,race_id){

@@ -381,9 +381,32 @@ exports.futureRace = function (ex){
  
 //raceCard
 exports.raceCard = function (ex){
+	
+	var oddEnabled = Ti.App.Properties.getString('oddEnabled');
+	
+	if(oddEnabled !== null && oddEnabled != "" ){
+		setTimeout(function(){
+			if(oddEnabled == "1"){
+				if(ex.from == "menu"){ 
+		     		DRAWER.navigation("play",1);
+		     		DRAWER.closeToggle();
+		     	}else{
+		     		Ti.App.fireEvent("enabledPlay");
+		     	}
+			}else{
+				if(ex.from == "menu"){ 
+		     		Ti.App.fireEvent("alertDisable");
+		     	}else{
+		     		Ti.App.fireEvent("disablePlay");
+		     	}
+			}
+			return false;
+	    }, 500);
+		 
+	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
-	console.log(url);
+ 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -415,13 +438,14 @@ exports.raceCard = function (ex){
 					}); 
 					raceCardDetails.save(); 
 				}
-				
+				Ti.App.Properties.setString('oddEnabled',"1");
 	     		if(ex.from == "menu"){ 
 	     			DRAWER.navigation("play",1);
 	     			DRAWER.closeToggle();
 	     		}else{
 	     			Ti.App.fireEvent("enabledPlay");
 	     		}
+	     		
 	     		return false;
 			}else{
 			 
@@ -430,7 +454,7 @@ exports.raceCard = function (ex){
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
 	     		}
-	     		
+	     		Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;
 			}
 			
@@ -441,10 +465,7 @@ exports.raceCard = function (ex){
 					API.favourite({skip: ""});
 				}
 				
-			} else{
-	     		//DRAWER.navigation(ex.title,1); 
-	     	}
-	     
+			}  
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -453,7 +474,7 @@ exports.raceCard = function (ex){
 	     	}else{
 	     		Ti.App.fireEvent("disablePlay");
 	     	}
-	     		
+	     	Ti.App.Properties.setString('oddEnabled',"0");	
 	     	return false;
 	     },
 	     timeout : 10000  // in milliseconds
@@ -515,6 +536,47 @@ exports.popup = function(subView,config){
 	}); 
 	 
 	return popupWin;
+};
+
+//Today Transaction History
+exports.todayTransactionHistory = function (ex){
+	var client = Ti.Network.createHTTPClient();
+	client.onload = function() { 
+		var doc = this.responseXML.documentElement;
+		var code = doc.getElementsByTagName('soap:Code').item(0).textContent;
+		var reason = doc.getElementsByTagName('soap:Reason').item(0).textContent;
+		console.log(code);
+		console.log(reason);  
+	};
+	var soapRequest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
+	"<soap12:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" \n" +
+	"xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" \n" +
+	"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
+	"xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" \n" +
+	"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" \n" +
+	"xmlns:wsse=\"http://schemas.xmlsoap.org/ws/2002/12/secext\"> \n" +
+	"<soap12:Body id=\"_0\"> \n" +
+	"<accCurrentDayTransactions xmlns=\"http://tempuri.org/\"> \n" +
+	"<sLogin>mitcrm</sLogin> \n" +
+	"<sPassword>m1tcrm</sPassword> \n" +
+	"<sTranid>1234567904</sTranid> \n" +
+	"<sTellerId>9999</sTellerId> \n" +
+	"<sTellerPin>9999</sTellerPin> \n" +
+	"<sAccId>60938004</sAccId> \n" +
+	"<sRto>1</sRto> \n" +
+	"<sNfo>0</sNfo> \n" +
+	"<sDeposits>0</sDeposits> \n" +
+	"<sWithdrawal>0</sWithdrawal> \n" +
+	"<sAccountAccess>0</sAccountAccess> \n" +
+	"<sAccountRelease>0</sAccountRelease> \n" +
+	"<sDXP>0</sDXP> \n" +
+	"<sCurrentDayTransactions>1</sCurrentDayTransactions> \n" +
+	"</accCurrentDayTransactions> \n" +
+	"</soap12:Body> \n" +
+	"</soap12:Envelope>";
+	client.open('POST', 'http://'+Ti.App.Properties.getString('eqUrl')+'/pmpcrm/service.asmx');//?op=accCurrentDayTransactions
+	//client.open('POST','http://175.143.5.179//pmpcrm/service.asmx');
+	client.send({xml: soapRequest});
 };
 
 //private function
