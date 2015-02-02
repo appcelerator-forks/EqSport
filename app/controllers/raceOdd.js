@@ -5,6 +5,7 @@ var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var favourite = Alloy.createCollection('favourite');
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
+COMMON.construct($);
 setPicker1(); 
  
 function refresh(index){ 
@@ -97,6 +98,7 @@ function changeRaceNo(e){
 }
 
 function raceOdd(venue,raceNo){
+	showLoading();
 	removeAllChildren($.scrollView);
 	
 	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
@@ -175,6 +177,7 @@ function raceOdd(venue,raceNo){
 		$.scrollView.add(contentView);
 		$.scrollView.add(centerLineView);
 	}
+	COMMON.hideLoading();
 }
 
 function tableBetEvent(contentView,runner,race_id){

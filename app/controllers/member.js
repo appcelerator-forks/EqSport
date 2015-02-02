@@ -8,6 +8,8 @@ var favourite = Alloy.createCollection('favourite');
 var infoDetails = info.getInfo(); 
 var clickTime = null; 
 var pHeight = Ti.Platform.displayCaps.platformHeight;
+COMMON.construct($);
+COMMON.showLoading();
 $.scrollView.height = pHeight - 50; 
 
 var blnDetails = balance.getBalance(); 
@@ -59,6 +61,7 @@ function disablePlay(){
 	$.playView.disable = "1";
 	Ti.App.removeEventListener("disablePlay", disablePlay);
 	Ti.App.removeEventListener("enabledPlay", enabledPlay);
+	COMMON.hideLoading();
 }
 
 function enabledPlay(){
@@ -71,6 +74,7 @@ function enabledPlay(){
 	$.playView.disable = "0";
 	Ti.App.removeEventListener("disablePlay", disablePlay);
 	Ti.App.removeEventListener("enabledPlay", enabledPlay); 
+	COMMON.hideLoading();
 }
 
 

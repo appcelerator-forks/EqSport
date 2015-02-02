@@ -1,77 +1,71 @@
 <Alloy>
-	<View id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
-		<View layout="composite" height="50" backgroundColor="#EA431A" >
-			<View width="100%">
-				<Label class="title" color="white" minimumFontSize="12">RACE ODD</Label>
+	<View height="Ti.UI.SIZE">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+        	<ActivityIndicator  id="activityIndicator" />
+        	<Label top="5" text="Loading" color="#ffffff" />
+        </View>
+        <View  zIndex="10" id="mainView" layout="vertical" backgroundImage="/images/BG_Large.jpg">
+			<View layout="composite" height="50" backgroundColor="#EA431A" >
+				<View width="100%">
+					<Label class="title" color="white" minimumFontSize="12">RACE ODD</Label>
+				</View>
+				<View width="15%" left="0" onClick="back">
+					<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
+				</View>
 			</View>
-			<View width="15%" left="0" onClick="back">
-				<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
-			</View>
-		</View>
-		<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Venue</Label>
-			</View>
-			<View width="70%">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					
-				</Picker>
-			</View>
-		</View>
-		<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Race No.</Label>
-			</View>
-			<View width="70%">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Picker id="picker2" onChange="changeRaceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
-					 
-				</Picker>
-			</View>
-		</View>
-		<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Venue</Label>
-			</View>
-			<View id="venueContentView" width="70%" height="50" backgroundColor="white">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-				<View id="pickerView1" height="50" width="100%" visible="false">
-					<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
-					<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
+			<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Venue</Label>
+				</View>
+				<View width="70%">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
+						
 					</Picker>
 				</View>
 			</View>
-		</View>
-		<View id="raceNoView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-			<View width="30%">
-				<Label class="boldTitle" color="black" left="10">Race No.</Label>
-			</View>
-			<View id="raceNoContentView" width="70%" height="50" backgroundColor="white">
-				<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-				<Label id="raceNoLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-				<View id="pickerView2" height="50" width="100%" visible="false">
-					<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
-					<Picker id="picker2" onChange="changeRaceNo" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
+			
+			<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Race No.</Label>
+				</View>
+				<View width="70%">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Picker id="picker2" onChange="changeRaceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
+						 
 					</Picker>
 				</View>
 			</View>
-		</View>
-		<Label id="mtr" color="black" top="20" bottom="20" height="30">Min to Race: -</Label>
-		<View layout="horizontal" height="50" width="90%" backgroundColor="#EA431A">
-			<View width="33%">
-				<Label color="white">WIN</Label>
+			<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Venue</Label>
+				</View>
+				<View id="venueContentView" width="70%" height="50" backgroundColor="white">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+					<View id="pickerView1" height="50" width="100%" visible="false">
+						<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
+						<Picker id="picker1" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
+						</Picker>
+					</View>
+				</View>
 			</View>
-			<View width="33%">
-				<Label color="white">RUNNER</Label>
+			<View id="raceNoView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
+				<View width="30%">
+					<Label class="boldTitle" color="black" left="10">Race No.</Label>
+				</View>
+				<View id="raceNoContentView" width="70%" height="50" backgroundColor="white">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Label id="raceNoLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
+					<View id="pickerView2" height="50" width="100%" visible="false">
+						<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
+						<Picker id="picker2" onChange="changeRaceNo" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="transparent" visible="false">
+						</Picker>
+					</View>
+				</View>
 			</View>
-			<View width="33%">
-				<Label color="white">PLACE</Label>
-			</View>
-		</View>
-		<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="0" bottom="10">
-			<!--<View layout="horizontal" height="50" backgroundColor="#EA431A" width="100%">
+			<Label id="mtr" color="black" top="20" bottom="20" height="30">Min to Race: -</Label>
+			<View layout="horizontal" height="50" width="90%" backgroundColor="#EA431A">
 				<View width="33%">
 					<Label color="white">WIN</Label>
 				</View>
@@ -81,37 +75,10 @@
 				<View width="33%">
 					<Label color="white">PLACE</Label>
 				</View>
-			</View>-->
-			<!--Sample of the result view 1-->
-			<!--<View id="contentView1" layout="horizontal" height="60" width="100%">
-				<View id="leftView1" width="33%">
-					<Label id="leftLabel1" color="black">999</Label>
-				</View>
-				<View id="centerView1" width="33%">
-					<Label id="centerLabel1" color="black">01</Label>
-				</View>
-				<View id="rightView1" width="33%">
-					<Label id="rightLabel1" color="black">999</Label>
-				</View>
 			</View>
-			<View id="centerLineView1" width="100%" height="1" bottom="2">
-				<View id="lineView1" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>-->
-			<!--Sample of the result view 2-->
-			<!--<View id="contentView2" layout="horizontal" height="60" width="100%">
-				<View id="leftView2" width="33%">
-					<Label id="leftLabel2" color="black">999</Label>
-				</View>
-				<View id="centerView2" width="33%">
-					<Label id="centerLabel2" color="black">01</Label>
-				</View>
-				<View id="rightView2" width="33%">
-					<Label id="rightLabel2" color="black">999</Label>
-				</View>
-			</View>
-			<View id="centerLineView2" width="100%" height="1" bottom="2">
-				<View id="lineView2" backgroundColor="#A5A5A5" width="90%" height="1"></View>
-			</View>-->
-		</ScrollView>
+			<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="0" bottom="10" />
+			 
+		</View>
 	</View>
+	
 </Alloy>

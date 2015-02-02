@@ -1,3 +1,34 @@
+var mainView = null;
+
+exports.construct = function(mv){
+	mainView = mv;
+};
+
+exports.hideLoading = function(){
+	mainView.activityIndicator.hide();
+	mainView.loadingBar.opacity = "0";
+	mainView.loadingBar.height = "0";
+	mainView.loadingBar.top = "0"; 
+};
+
+exports.showLoading = function(){
+	 
+	mainView.activityIndicator.show();
+	mainView.loadingBar.opacity = "1";
+	mainView.loadingBar.zIndex = "100";
+	mainView.loadingBar.height = "120";
+	 
+	if(Ti.Platform.osname == "android"){
+		 
+		mainView.loadingBar.top =  (DPUnitsToPixels(Ti.Platform.displayCaps.platformHeight) / 2) -50; 
+		mainView.activityIndicator.style = Ti.UI.ActivityIndicatorStyle.BIG;
+		mainView.activityIndicator.top = 0; 
+	}else if (Ti.Platform.name === 'iPhone OS'){
+		mainView.loadingBar.top = (Ti.Platform.displayCaps.platformHeight / 2) -50; 
+		mainView.activityIndicator.style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
+	}  
+};
+
 exports.createAlert = function(tt,msg){
 	var box = Titanium.UI.createAlertDialog({
 		title: tt,
@@ -5,7 +36,6 @@ exports.createAlert = function(tt,msg){
 	});
 	box.show();
 };
-
 
 exports.popup = function(subView,config){
     //Popup win
