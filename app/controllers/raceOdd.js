@@ -21,6 +21,10 @@ function refresh(index){
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
 	console.log(detailsValue);
 	setPicker2();
+	if(Ti.Platform.osname == "android")
+	{
+		$.picker2.setSelectedRow(0,false);
+	}
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
 		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
@@ -85,8 +89,9 @@ function venue(e){
 		$.pickerView1.setVisible(false);
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
-		$.venueLabel.text = venue;
+		
 	}
+	$.venueLabel.text = venue;
 	refresh(e.row.race_id);
 }
 
@@ -99,8 +104,9 @@ function changeRaceNo(e){
 		$.pickerView2.setVisible(false);
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
-		$.raceNoLabel.text = raceNo;
+		
 	}
+	$.raceNoLabel.text = raceNo;
 	//raceOdd(venue,raceNo);
 	API.futureRace({
 		raceNo: raceNo,
@@ -269,6 +275,7 @@ function showVenue() {
 	$.pickerView1.setVisible(true);
 	$.done1.setVisible(true);
 	$.picker1.setVisible(true);
+	console.log("console: "+venue);
 	$.venueLabel.text = venue;
 	return false;
 }

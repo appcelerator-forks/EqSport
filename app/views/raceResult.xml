@@ -22,9 +22,9 @@
 						<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 						<Label id="date" onClick="showDate" backgroundColor="transparent" color="black"></Label>
 					</View>
-					<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="#EA431A" visible="false" top="50">
+					<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="black" visible="false" top="50">
 						<Button height="50" width="100%" color="white" right="0" onClick="done">Done</Button>
-						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="#EA431A">
+						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="black">
 						</Picker>
 					</View> 
 					

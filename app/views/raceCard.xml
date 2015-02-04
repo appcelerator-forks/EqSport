@@ -12,7 +12,7 @@
 			<View width="30%">
 				<Label class="boldTitle" color="black" left="10">Venue</Label>
 			</View>
-			<View width="60%">
+			<View width="70%">
 				<Label  id="venueLabel" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
 				<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
 				<Picker zIndex="12"	id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" />
