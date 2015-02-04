@@ -47,6 +47,9 @@ var getValueFromPipe = function(xml){
 	    	}
 		}
 			
+	}else{
+		obj['response'] = data[2];
+	
 	} 
 	return obj;
 };

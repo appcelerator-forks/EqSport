@@ -3,6 +3,7 @@ var param_runner_id = args.runner || "";
 var param_race_id = args.race_id || "";
 Ti.App.Properties.setString('root',"0");
 var cur_mod = Ti.App.Properties.getString('module'); 
+COMMON.construct($);
 if(cur_mod == "" || cur_mod == "member"){
 	Ti.App.Properties.setString('module',"member");
 }
@@ -31,7 +32,7 @@ var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
 
 function successCallBack(){
-	hideLoading();
+	COMMON.hideLoading();
 }
  
 
@@ -362,7 +363,8 @@ function process(){
 	dialog.addEventListener('click', function(e){ 
 		
 		if(e.index == 0) { 
-			
+			popWindow = 0;
+			pop.close();
 			dialog.hide();
 			var betPin;
 			if(Ti.Platform.osname == "android"){
@@ -395,6 +397,7 @@ function process(){
 				});
 			} else {
 				COMMON.createAlert("Validation Error","Wrong Pin No.");
+				COMMON.hideLoading();
 			}
 		}
 	});
@@ -403,7 +406,7 @@ function process(){
 }
 
 function confirm(){
-	showLoading();
+	COMMON.showLoading();
 	bet.resetInfo(); 
 	// $.mainView.addEventListener('submitFailed',fail);
 	// $.mainView.addEventListener('confirmSuccess',submit); 
@@ -422,11 +425,13 @@ function confirm(){
 	
 	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
 		COMMON.createAlert("Bet Error","Fields cannot be empty");
+		COMMON.hideLoading();
 		return;
 	}
 	
 	if($.bet.value <= 1) {
 		COMMON.createAlert("Bet Error","Minimum bet: 2");
+		COMMON.hideLoading();
 		return;
 	}
 	
@@ -435,6 +440,7 @@ function confirm(){
 			
 		} else {
 			COMMON.createAlert("Bet Error","Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			COMMON.hideLoading();
 			return;
 		}
 	} else {
@@ -442,6 +448,7 @@ function confirm(){
 			
 		} else {
 			COMMON.createAlert("Bet Error","Bet value must be multiple of 2 for QIN, EXA, QPS, TRI, FC4 or TRO");
+			COMMON.hideLoading();
 			return;
 		}
 	}
@@ -472,9 +479,7 @@ function confirm(){
 		runner: $.runner.value
 	}); 
 	betInfo.save(); 
-	
-	
-				
+	 
 	API.confirmRaceBet({
 		myView : $.mainView,
 		msisdn: infoDetails[0].msisdn,
@@ -491,7 +496,7 @@ function confirm(){
 function addClickEvent(myView, popView){
 	myView.addEventListener('click', function(e){
 		if(e.source.btnAction == "cancel"){
-			hideLoading();
+			COMMON.hideLoading();
 			cancel();
 		}else{ 
 			process(); 
@@ -536,36 +541,10 @@ $.bet.addEventListener('change',function(e){
 });
 
 $.mainView.addEventListener('click', hideKeyboard);
-
-
-
-function hideLoading(){
-	$.activityIndicator.hide();
-	$.loadingBar.opacity = "0";
-	$.loadingBar.height = "0";
-	$.loadingBar.top = "0"; 
-}
-
-function showLoading(){
-	 
-	$.activityIndicator.show();
-	$.loadingBar.opacity = "1";
-	$.loadingBar.zIndex = "100";
-	$.loadingBar.height = "120";
-	 
-	if(Ti.Platform.osname == "android"){
-		 
-		$.loadingBar.top =  (DPUnitsToPixels(Ti.Platform.displayCaps.platformHeight) / 2) -50; 
-		$.activityIndicator.style = Ti.UI.ActivityIndicatorStyle.BIG;
-		$.activityIndicator.top = 0; 
-	}else if (Ti.Platform.name === 'iPhone OS'){
-		$.loadingBar.top = (Ti.Platform.displayCaps.platformHeight / 2) -50; 
-		$.activityIndicator.style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
-	}  
  
-}
 
 $.mainView.addEventListener('confirmSuccess',function(){
+ 
 	 if(popWindow == "1"){
 		 return false;
 	 }
@@ -789,13 +768,13 @@ $.mainView.addEventListener('submitSuccess', function(){
 		console.log("new balance : "+ balanceInfo2.amount);
 		$.balance.text = "Your available balance is " + balanceInfo2.amount; 
 	}, 5000);
-	popWindow = 0;
-	pop.close();
+	// popWindow = 0;
+	// pop.close();
 	$.runner.value = "";
 	$.bet.value = "";
 	Ti.App.Properties.setString('presetRunner', "");
 	Ti.App.Properties.setString('presetBet', ""); 
-	hideLoading();
+	COMMON.hideLoading();
  });
 $.mainView.addEventListener('submitFailed',function(){
 	cancelBtn.removeEventListener('click',cancel);
@@ -805,5 +784,5 @@ $.mainView.addEventListener('submitFailed',function(){
 	$.bet.value = "";
 	popWindow = 0;
 	pop.close();
-	hideLoading();
+	COMMON.hideLoading();
 });

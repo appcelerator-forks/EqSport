@@ -96,7 +96,7 @@ exports.login = function (ex){
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) { 
 	     	alert("Unable to login");
-	     	
+	     	COMMON.hideLoading();
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -287,15 +287,20 @@ exports.confirmRaceBet= function(ex){
 
 	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
  	var myView = ex.myView;
+ 	
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var res = getValueFromPipe(this.responseXML);   
+	       
 	       if(res.response =="Success") { 
-	       	
 	       		myView.fireEvent('confirmSuccess');
 	       		return false;
-	       } else { 
+	       } else {  
+	       		COMMON.createAlert("Confirm Failed", res.response);
+	       		COMMON.hideLoading();
+	       		return false;
+	       	
 	       }
 	      
 	      //Ti.App.fireEvent('confirmSuccess');

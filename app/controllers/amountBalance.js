@@ -26,10 +26,7 @@ function getBln(){
 setTimeout(function(){
 	getBln();
 }, 800);	
-
-//alert('a');
-
-
+  
 function menuToggle(e){
 	DRAWER.closeToggle();
 }

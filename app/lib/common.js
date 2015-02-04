@@ -5,6 +5,7 @@ exports.construct = function(mv){
 };
 
 exports.hideLoading = function(){
+	 
 	mainView.activityIndicator.hide();
 	mainView.loadingBar.opacity = "0";
 	mainView.loadingBar.height = "0";
