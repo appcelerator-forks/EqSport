@@ -1,6 +1,6 @@
 var args = arguments[0] || {}; 
 
-setTimeout(function(){ reloadHeaderMenu(); }, 300);
+setTimeout(function(){ reloadHeaderMenu(); }, 100);
 
 function reloadHeaderMenu(){
 	var module = Ti.App.Properties.getString('module');
@@ -8,6 +8,7 @@ function reloadHeaderMenu(){
 	 
 	if(module !== null && module != "" && isRoot != "1"){
 		$.leftButton.width = "20";
+		$.leftButton.mod   = "back";
 		if(module == "home"){
 			$.leftButton.image = "/images/others_08_oren.png";
 		}else{
@@ -17,6 +18,7 @@ function reloadHeaderMenu(){
 	}else{
 		$.leftButton.width = "35";
 		$.leftButton.image = "/images/menu_button.png";
+		$.leftButton.mod   = "menu";
 	} 
 
 }
@@ -25,13 +27,16 @@ function reloadHeaderMenu(){
 function menuToggle(e){  
 	var module = Ti.App.Properties.getString('module');
 	var isRoot = Ti.App.Properties.getString('root');
-	console.log(module);
+	
 	if(module !== null && module != ""){
 		Ti.App.Properties.setString('module',"");
 		DRAWER.navigation(module, 1 );
 		
-	}else{
-		DRAWER.closeToggle();
+	}else{ 
+		if($.leftButton.mod == "menu"){
+			DRAWER.closeToggle();
+		}
+		
 	}
 	
 }

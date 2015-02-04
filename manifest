@@ -1,8 +1,8 @@
-#appname: EqSport
-#publisher: geomilano
-#url: http://
-#image: appicon.png
-#appid: com.mnc.eqsport
-#desc: undefined
-#type: ipad
-#guid: d384351e-54f3-4bc6-a05e-110a8447ae72
+#appname:EqSport
+#publisher:EQSport
+#url:http://
+#image:appicon.png
+#appid:com.mnc.eqsport
+#desc:EQSport - a platform to bet horse racing
+#type:ipad
+#guid:d384351e-54f3-4bc6-a05e-110a8447ae72
