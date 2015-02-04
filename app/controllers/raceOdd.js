@@ -194,6 +194,8 @@ function tableBetEvent(contentView,runner,race_id){
 	contentView.addEventListener('click', function(e){ 
 		if(runner != "" && runner != '-'){
 			Ti.App.Properties.setString('module','raceOdd');
+			Ti.App.Properties.setString('presetRunner', runner);
+			Ti.App.Properties.setString('presetBet', race_id);
 			DRAWER.navigation("play",1,{runner: runner, race_id: race_id});
 		}
 	});
