@@ -57,7 +57,7 @@ var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
 
 if(Ti.Platform.osname == "android"){
 	$.picker.width = "100%";
-	$.picker.top = 50;
+	$.picker.top = 0;
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
@@ -205,8 +205,8 @@ function venue(e){
 	$.venueLabel.text = venue;
 	refresh(venue);
 }
-
-function refresh(venue){ 
+ 
+function refresh(venue){  
 	removeAllChildren($.scrollView);
 	var index = null;
 	

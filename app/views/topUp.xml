@@ -1,6 +1,6 @@
 <Alloy>
 	<View id="mainView" layout="vertical" backgroundColor="#A5A5A5">
-		<View layout="composite" height="50" backgroundColor="#EA431A" >
+		<View layout="composite" height="50" top="0" backgroundColor="#EA431A" >
 			<View width="100%">
 				<Label class="title" color="white" minimumFontSize="12">TOP UP</Label>
 			</View>
