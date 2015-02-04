@@ -6,6 +6,7 @@ Ti.App.Properties.setString('module',"member");
 
 COMMON.construct($);
 COMMON.showLoading();
+alert(Ti.Platform.displayCaps.platformHeight);
 //update balnce from server
 API.checkBalance({
 	account: infoDetails[0].account,

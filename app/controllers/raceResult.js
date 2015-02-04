@@ -13,10 +13,10 @@ API.getRTOResults({
  var result = [];
 
 var apiResult = function(e){   
-	console.log("apiResult");
+	 
 	removeAllChildren($.scrollView);
 	arr = e.raceResult;
-	//console.log(arr);
+	
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
 	$.picker.value = api_date;
@@ -33,6 +33,8 @@ var apiResult = function(e){
 	                _col.removeRow(_row);
 	        }
 	}
+ 
+	refresh($.venueLabel.text);
 	setPicker2(locations);
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
@@ -122,10 +124,8 @@ function done(){
 }
 
 function submitText(){
-	console.log("submitText"); 
-	
-	if($.raceNo.value != "")
-	{
+ 
+	if($.raceNo.value != "") {
 		value = $.picker.value;
 		dayInt = ("0"+value.getDate()).slice(-2);
 		monthInt = ("0"+(value.getMonth()+1)).slice(-2);
@@ -163,7 +163,7 @@ function keyboardDone(){
 	submitText();
 }
 
-$.raceNo.addEventListener('return', function(e){
+$.raceNo.addEventListener('return', function(e){ 
 	submitText();
 });
 
@@ -206,7 +206,7 @@ function venue(e){
 	refresh(venue);
 }
 
-function refresh(venue){
+function refresh(venue){ 
 	removeAllChildren($.scrollView);
 	var index = null;
 	
@@ -216,13 +216,7 @@ function refresh(venue){
 			index = i;
 		}
 	}
-	
-	console.log("firstLoad: "+firstLoad);
-	if(firstLoad)
-	{
-		index = null;
-	}
-	
+  
 	if(index != null) {
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
