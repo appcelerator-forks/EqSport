@@ -195,6 +195,8 @@ function done3(){
 function reset(){
 	$.runner.value = "";
 	$.bet.value = "";
+	Ti.App.Properties.setString('presetRunner', "");
+	Ti.App.Properties.setString('presetBet', "");
 }
 
 function showVenue() {
@@ -513,7 +515,7 @@ function cancel(){
 }
 
 function hideKeyboard(e) {  
-	if (e.source != '[object runner]') {
+	/*if (e.source != '[object runner]') {
     	//console.log(e.source);
 		$.runner.blur();
 		//$.bet.blur();
@@ -523,12 +525,25 @@ function hideKeyboard(e) {
     	//console.log(e.source);
 		//$.runner.blur();
 		$.bet.blur();
+	}*/
+    if (e.source.id != 'TextField' || e.source.id != 'bet' || e.source.id != 'runner') {
+    	 
+    	if(e.source.id == 'runner'){
+			return false;
+		}
+		if(e.source.id == 'bet'){
+			return false;
+		}
+		
+		$.runner.blur();
+		$.bet.blur();
+		if(Ti.Platform.osname == "android"){
+			$.hidden.focus();
+		}
 	}
-    // if (e.source != '[object TextField]') {
-    	// console.log(e.source);
-		// $.runner.blur();
-		// $.bet.blur();
-	// }
+	
+	
+	
 	if($.bet.value != "" || $.runner.value != ""){ 
 		var d = new Date(); 
 		timeStop = d.getTime() + (15* 60 * 1000); // 1 minute
