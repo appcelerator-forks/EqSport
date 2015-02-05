@@ -20,6 +20,36 @@ var getValueFromXml = function(xml, parent,child){
 	var childNode = parentNode.getElementsByTagName(child).item(0).textContent;
 	return childNode;
 };
+ 
+
+var extractHistoryValue = function(data){
+	/**extract from raw data***/	
+	var res = data.split("||");   
+ 	var ary = []; 
+	for(var i=0; i < res.length; i++){
+		var obj = {};
+	 	
+	 	//if return success
+		if(res[1] == "S:" || res[1] == "R:"){
+			//start grab data and locate to array
+			var dateRow = i-2;
+			if(dateRow % 4 == 0 ){
+				if(res[i] != ""){
+					var position = parseInt(dateRow) / 4;
+					obj['position'] = position;
+					obj['date'] = res[i];
+					obj['pool'] = res[i+1];
+					obj['race'] = res[i+2];
+					obj['runner'] = res[i+3]; 
+					ary.push(obj);
+				}
+			} 
+		}else{
+		 
+		} 
+	}
+	return ary;	
+};
 
 var getValueFromPipe = function(xml){
 	var res = getValueFromXml(xml, 'HTML' , 'BODY');
@@ -43,7 +73,6 @@ var getValueFromPipe = function(xml){
 		       		
 		       		obj[inner_key] = val_inner;
 		       	}
-	      
 	    	}
 		}
 			
@@ -150,5 +179,19 @@ function DPUnitsToPixels(TheDPUnits){
   return (TheDPUnits * (Titanium.Platform.displayCaps.dpi / 160));
 }
 
+function timeFormat(datetime){
+	var timeStamp = datetime.split(" ");  
+	var newFormat;
+	var ampm = "am";
+	var date = timeStamp[0].split("/");  
+	var time = timeStamp[1].split(":");  
+	if(time[0] > 12){
+		ampm = "pm";
+		time[0] = time[0] - 12;
+	}
+	
+	newFormat = date[0]+"/"+date[1]+"/"+date[2] + " "+ time[0]+":"+time[1]+ " "+ ampm;
+	return newFormat;
+}
 
 //API.getRTOResults();

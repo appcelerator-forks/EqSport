@@ -8,4 +8,4 @@ Ti.App.addEventListener("app:refreshMenu", function(e) {
 	DRAWER.initMenu();
 });
 
-API.todayTransactionHistory();
+

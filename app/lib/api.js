@@ -20,12 +20,12 @@ var KEY   = 'TESTWEBSEPWD';
 exports.getDomainUrl = function (ex){
 	
 	var url = "http://54.169.180.5/eqsport/api/getDomain?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc"; 
-	console.log(url);
+ 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	     	var res = JSON.parse(this.responseText); 
-	     	console.log(res);
+ 
 	        if(res.status == "success"){
 	        	Ti.App.Properties.setString('eqUrl',res.data); 
 	        } 
@@ -153,6 +153,31 @@ exports.checkBalance = function (ex){
 	   
 };
 
+//get RTO History
+exports.getRTOHistory = function(ex){
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/rto_history.asp";
+	var myView = ex.myView;
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	     onload : function(e) {
+	     	 
+	     	var result = extractHistoryValue(this.responseText); 
+	     	console.log(result.length);
+	       	if(result.length > 0) {
+	     		myView.fireEvent('historyResult', {historyResult: result});
+	     	}  
+	     },
+	     // function called when an error occurs, including a timeout
+	     onerror : function(e) {
+	     	//alert("An error occurs");
+	     },
+	     timeout : 10000  // in milliseconds
+	 });
+	 // Prepare the connection.
+	 client.open("GET", url);
+	 // Send the request.
+	 client.send(); 
+};
 
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
@@ -163,8 +188,7 @@ exports.getRTOResults = function(ex){
 	}else{
 		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	}
-	
-	console.log(url);
+	 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -208,11 +232,7 @@ exports.getRTOResults = function(ex){
 		       	}
 		      
 		        myView.fireEvent('raceResult', {raceResult: ary});
-		       	 
 			}
-	       	
-	       	
-	     
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -252,7 +272,7 @@ exports.submitRaceBet= function(ex){
 					transactionID: (res.TransactionID).toString(),
 					unitAmount: (res.UnitAmount).trim().toString()
 				}); 
- 				 console.log(myView);
+ 		 
 	       		myView.fireEvent('submitSuccess');
 	       		COMMON.createAlert("Bet Success","Transaction Successful");
 	       		return false;
@@ -300,7 +320,6 @@ exports.confirmRaceBet= function(ex){
 	       		COMMON.createAlert("Confirm Failed", res.response);
 	       		COMMON.hideLoading();
 	       		return false;
-	       	
 	       }
 	      
 	      //Ti.App.fireEvent('confirmSuccess');
@@ -324,7 +343,7 @@ exports.favourite = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
-	     	console.log(res);
+ 
 	     	if(res != ""){
 	     		var library = Alloy.createCollection('favourite'); 
 		     		library.resetInfo();
@@ -365,7 +384,7 @@ exports.favourite = function (ex){
 exports.futureRace = function (ex){  
 	//var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
 	var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
-	console.log(url);
+	 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 

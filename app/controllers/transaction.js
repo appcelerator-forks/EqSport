@@ -15,13 +15,11 @@ function back() {
  
 
 function showDate(){
-	if(Ti.Platform.osname == "android")
-	{
+	if(Ti.Platform.osname == "android") {
 		$.dateView.height = 285;
 	}
 	
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
-	{
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") {
 		$.dateView.height = 335;
 	}
 	$.pickerView.show();
@@ -49,3 +47,76 @@ function done(){
 	
 	//transaction api
 }
+
+function populateData(e){
+	var detailsValue = e.result;
+	for(var i=0; i < detailsValue.length; i++) {
+		var contentView = Titanium.UI.createView({
+			layout: "vertical",
+			width:"100%",
+			height:"80"
+		});
+		
+		var leftLabel = $.UI.create('Label',{
+			left :15,
+			classes : ['description_text'], 
+			text: "Date : " +timeFormat(detailsValue[i].date)
+		});
+		
+		var centerView = Titanium.UI.createView({
+			width:"100%",
+			layout: "vertical"
+		});
+		
+		var centerLabel = $.UI.create('Label',{
+			classes : ['description_text'], 
+			left :15,
+			text: "Pool : " +detailsValue[i].pool
+		});
+		
+		var raceLabel = $.UI.create('Label',{
+			classes : ['description_text'], 
+			left :15,
+			text: "Race : " +detailsValue[i].race
+		});
+		
+		var runnerLabel = $.UI.create('Label',{
+			classes : ['description_text'], 
+			left :15,
+			text: "Runner : " +detailsValue[i].runner
+		});
+		
+		var lineView = Titanium.UI.createView({
+			backgroundColor: "#A5A5A5",
+			width:"90%",
+			height:1
+		});
+		
+		var centerLineView = Titanium.UI.createView({
+			layout: "composite",
+			width:"100%",
+			height: 1,
+			bottom: 2
+		});
+		
+		
+		centerView.add(centerLabel);
+		centerView.add(raceLabel);
+		centerView.add(runnerLabel); 
+		centerView.add(leftLabel);
+		contentView.add(centerView);
+		//contentView+i.add(rightView+i);
+		centerLineView.add(lineView);
+		$.scrollView.add(contentView);
+		$.scrollView.add(centerLineView);
+	}
+}
+
+API.getRTOHistory({
+	myView : $.transactionView
+});
+
+$.transactionView.addEventListener('historyResult',function(e){ 
+	console.log(e.historyResult);
+	populateData({result : e.historyResult});
+});
