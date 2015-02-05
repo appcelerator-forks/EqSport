@@ -33,6 +33,7 @@ exports.definition = {
                 var sql = "SELECT * FROM " + collection.config.adapter.collection_name;
                 
                 db = Ti.Database.open(collection.config.adapter.db_name);
+                db.file.setRemoteBackup(false);
                 var res = db.execute(sql);
                 var listArr = []; 
                 var count = 0;
@@ -60,7 +61,7 @@ exports.definition = {
 			addTransaction : function(e){
 				var collection = this; 
                 db = Ti.Database.open(collection.config.adapter.db_name);
-                
+                db.file.setRemoteBackup(false);
                 sql_query = "INSERT INTO " + collection.config.adapter.collection_name + " (balance,date,location,poolType,race,raceTime,runner,status,transactionID,unitAmount) VALUES ('"+e.balance+"','"+e.date+"','"+e.location+"','"+e.poolType+"','"+e.race+"',   '"+e.raceTime+"','"+e.runner+"' ,'"+e.status+"','"+e.transactionID+"','"+e.unitAmount+"')" ;
            		console.log(sql_query);
 	            db.execute(sql_query);
@@ -72,6 +73,7 @@ exports.definition = {
 				var collection = this;
                 var sql = "DELETE FROM " + collection.config.adapter.collection_name;
                 db = Ti.Database.open(collection.config.adapter.db_name);
+                db.file.setRemoteBackup(false);
                 db.execute(sql);
                 db.close();
                 collection.trigger('sync');

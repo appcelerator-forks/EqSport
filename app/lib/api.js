@@ -161,8 +161,7 @@ exports.getRTOHistory = function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	     	 
-	     	var result = extractHistoryValue(this.responseText); 
-	     	console.log(result.length);
+	     	var result = extractHistoryValue(this.responseText);  
 	       	if(result.length > 0) {
 	     		myView.fireEvent('historyResult', {historyResult: result});
 	     	}  

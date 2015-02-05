@@ -41,11 +41,14 @@ function done(){
 	var day = dayInt.toString();
 	var month = monthInt.toString();
 	var year = yearInt.toString();
-	var date = day + month + year;
+	var date = year+"-"+day+"-" + month;
 	
 	displayDate(day,month,year);
 	
 	//transaction api
+	API.getRTOHistory({
+		myView : $.transactionView
+	});
 }
 
 function populateData(e){
@@ -117,6 +120,6 @@ API.getRTOHistory({
 });
 
 $.transactionView.addEventListener('historyResult',function(e){ 
-	console.log(e.historyResult);
+ 
 	populateData({result : e.historyResult});
 });

@@ -17,9 +17,9 @@
 				</View>
 				<View layout="vertical" height="250">
 					<Label height="30" color="white">Account No.:</Label>
-					<TextField id="account" value="60938004" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="false" hintText="123****" color="black" keyboardType="Titanium.UI.KEYBOARD_DEFAULT" returnKeyType="Titanium.UI.RETURNKEY_NEXT"></TextField>
+					<TextField id="account" value="" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="false" hintText="123****" color="black" keyboardType="Titanium.UI.KEYBOARD_DEFAULT" returnKeyType="Titanium.UI.RETURNKEY_NEXT"></TextField>
 					<Label top="10" height="30" color="white">Pin No.</Label>
-					<TextField id="pin" value="7337" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="true" hintText="***********" color="black"></TextField>
+					<TextField id="pin" value="" width="80%" borderStyle="Titanium.UI.INPUT_BORDERSTYLE_NONE" height="35" top="5" backgroundColor="white" passwordMask="true" hintText="***********" color="black"></TextField>
 					<ImageView top="20" height="40" image="/images/btn_submit.png" onClick="submit"></ImageView> 
 				</View>
 			</View>

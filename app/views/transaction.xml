@@ -19,7 +19,7 @@
 					</Picker>
 				</View>
 			</View>
-			<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" /> 
+			<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 
 		</View>
 		
 	</View>
