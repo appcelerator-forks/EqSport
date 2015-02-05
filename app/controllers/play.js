@@ -513,15 +513,22 @@ function cancel(){
 }
 
 function hideKeyboard(e) {  
-    if (e.source != '[object TextField]') {
+	if (e.source != '[object runner]') {
+    	//console.log(e.source);
 		$.runner.blur();
-		$.bet.blur();
+		//$.bet.blur();
 	}
-	/*
+	
 	if (e.source != '[object bet]') {
+    	//console.log(e.source);
+		//$.runner.blur();
 		$.bet.blur();
 	}
-	 */
+    // if (e.source != '[object TextField]') {
+    	// console.log(e.source);
+		// $.runner.blur();
+		// $.bet.blur();
+	// }
 	if($.bet.value != "" || $.runner.value != ""){ 
 		var d = new Date(); 
 		timeStop = d.getTime() + (15* 60 * 1000); // 1 minute

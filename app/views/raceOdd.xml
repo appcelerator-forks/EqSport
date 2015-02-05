@@ -18,9 +18,8 @@
 					<Label class="boldTitle" color="black" left="10">Venue</Label>
 				</View>
 				<View width="70%">
-					<Label id="venueLabel" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-					<ImageView zIndex="15" image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-					<Picker zIndex="12" id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Picker id="picker1" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent">
 						
 					</Picker>
 				</View>
@@ -31,9 +30,8 @@
 					<Label class="boldTitle" color="black" left="10">Race No.</Label>
 				</View>
 				<View width="70%">
-					<Label id="raceNoLabel" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showRaceNo" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
-					<ImageView zIndex="15" image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-					<Picker zIndex="12" id="picker2" onChange="changeRaceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Picker id="picker2" onChange="changeRaceNo" width="100%" selectionIndicator="true" backgroundColor="transparent">
 						 
 					</Picker>
 				</View>

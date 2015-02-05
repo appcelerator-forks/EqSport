@@ -20,11 +20,11 @@
 				<View id="dateView" width="74.9%" height="50">
 					<View width="100%" height="30" backgroundColor="white" onClick="showDate" top="10">
 						<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
-						<Label id="date" onClick="showDate" backgroundColor="transparent" color="black"></Label>
+						<Label id="date" onClick="showDate" backgroundColor="transparent" color="black" textAlign="Ti.UI.TEXT_ALIGNMENT_LEFT"></Label>
 					</View>
 					<View layout="vertical" id="pickerView" width="100%" height="215" backgroundColor="black" visible="false" top="50">
 						<Button height="50" width="100%" color="white" right="0" onClick="done">Done</Button>
-						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="black">
+						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="125%" selectionIndicator="true" backgroundColor="white">
 						</Picker>
 					</View> 
 					
@@ -50,24 +50,22 @@
 				</View>
 			</View>
 			<View platform="android" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-				<View width="30%">
+				<View width="25%">
 					<Label class="boldTitle" color="black" left="10">Venue</Label>
 				</View>
-				<View width="70%">
-					 
-					<Label  id="venueLabel" text="" height="30" width="100%" backgroundColor="#ffffff" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
-					<ImageView zIndex="15" image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
-					<Picker zIndex="12"	id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
+				<View width="74.9%">
+					<ImageView image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
+					<Picker id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
 						 
 					</Picker>
 					 
 				</View>
 			</View>
 			<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
-				<View width="30%">
+				<View width="25%">
 					<Label class="boldTitle" color="black" left="10">Venue</Label>
 				</View>
-				<View id="venueContentView" width="70%" height="50" backgroundColor="white">
+				<View id="venueContentView" width="74.9%" height="50" backgroundColor="white">
 					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
 					<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 					<View id="pickerView2" height="50" width="100%" visible="false">

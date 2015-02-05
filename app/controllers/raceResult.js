@@ -1,5 +1,11 @@
 var arr = [];
 var firstLoad = true;
+var androidLocation;
+if(Ti.Platform.osname == "android"){
+	$.date.width = "90%";
+	console.log("android");
+	$.raceNo.textAlign = "left";
+}
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 COMMON.construct($);
@@ -36,6 +42,11 @@ var apiResult = function(e){
  
 	refresh($.venueLabel.text);
 	setPicker2(locations);
+	if(Ti.Platform.osname == "android")
+	{
+		refresh(androidLocation);
+		console.log(androidLocation);
+	}
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
 	COMMON.hideLoading();
@@ -47,7 +58,10 @@ function setPicker2(location){
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
-		$.venueLabel.text = location[0];
+		if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+			$.venueLabel.text = location[0];
+		}
+		androidLocation = location[0];
 		$.picker2.add(data);
 	}
 	 
@@ -200,9 +214,8 @@ function venue(e){
 		$.pickerView2.setVisible(false);
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
-		
+		$.venueLabel.text = venue;
 	} 
-	$.venueLabel.text = venue;
 	refresh(venue);
 }
  

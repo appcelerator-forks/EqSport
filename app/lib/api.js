@@ -493,6 +493,7 @@ exports.raceCard = function (ex){
 exports.popup = function(subView,config){
     //Popup win
 	var popupWin = Ti.UI.createWindow({
+		theme: "Theme.AppCompat.Light",
 		backgroundImage : "/images/Transparent.png",
 		opacity            : 0, 
 		id                : "popupWin"

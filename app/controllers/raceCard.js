@@ -4,6 +4,9 @@ var raceCardInfo = Alloy.createCollection('raceCardInfo');
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
+if(Ti.Platform.osname == "android"){
+	$.date.width = "90%";
+}
 $.picker1.setSelectedRow(0,0,false);
 setPicker1();  
 function setPicker1(){  
@@ -34,9 +37,8 @@ function venue(e){
 		$.pickerView1.setVisible(false);
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
-		 
+		$.venueLabel.text = venue;
 	}
-	$.venueLabel.text = venue;
 	//reload result view
 	refresh(e.row.race_id);
 }

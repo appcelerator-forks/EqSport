@@ -41,6 +41,7 @@ exports.createAlert = function(tt,msg){
 exports.popup = function(subView,config){
     //Popup win
 	var popupWin = Ti.UI.createWindow({
+		theme: "Theme.AppCompat.Translucent.NoTitleBar.Fullscreen",
 		backgroundImage : "/images/Transparent.png",
 		opacity            : 0, 
 		id                : "popupWin"

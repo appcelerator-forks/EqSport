@@ -7,6 +7,7 @@ Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
 COMMON.construct($);
+COMMON.showLoading();
 setPicker1(); 
  
 function refresh(index){ 
@@ -89,9 +90,8 @@ function venue(e){
 		$.pickerView1.setVisible(false);
 		$.done1.setVisible(false);
 		$.picker1.setVisible(false);
-		
+		$.venueLabel.text = venue;
 	}
-	$.venueLabel.text = venue;
 	refresh(e.row.race_id);
 }
 
@@ -104,9 +104,8 @@ function changeRaceNo(e){
 		$.pickerView2.setVisible(false);
 		$.done2.setVisible(false);
 		$.picker2.setVisible(false);
-		
+		$.raceNoLabel.text = raceNo;
 	}
-	$.raceNoLabel.text = raceNo;
 	//raceOdd(venue,raceNo);
 	API.futureRace({
 		raceNo: raceNo,
