@@ -437,11 +437,11 @@ function confirm(){
 		return;
 	}
 	
-	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA") {
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN/PLA") {
 		if($.bet.value % 5 == 0) {
 			
 		} else {
-			COMMON.createAlert("Bet Error","Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			COMMON.createAlert("Bet Error","Bet value must be multiple of 5 for WIN, PLA or WIN/PLA");
 			COMMON.hideLoading();
 			return;
 		}

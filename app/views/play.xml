@@ -114,7 +114,7 @@
 							</View>
 							<View width="60%">
 								<Picker id="picker3" onChange="pool" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF">
-									<PickerRow title="WIN / PLA"></PickerRow>
+									<PickerRow title="WIN/PLA"></PickerRow>
 									<PickerRow title="WIN"></PickerRow>
 									<PickerRow title="PLA"></PickerRow>
 									<PickerRow title="QIN"></PickerRow>	
@@ -196,7 +196,7 @@
 								<View id="pickerView3" height="50" width="100%" visible="false" >
 									<Button id="done3" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done3" visible="false">Done</Button>
 									<Picker id="picker3" onChange="pool" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
-										<PickerRow title="WIN / PLA"></PickerRow>
+										<PickerRow title="WIN/PLA"></PickerRow>
 										<PickerRow title="WIN"></PickerRow>
 										<PickerRow title="PLA"></PickerRow>
 										<PickerRow title="QIN"></PickerRow>

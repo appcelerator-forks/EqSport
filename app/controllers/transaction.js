@@ -115,6 +115,8 @@ function populateData(e){
 	}
 }
 
+API.todayTransactionHistory();
+
 API.getRTOHistory({
 	myView : $.transactionView
 });
