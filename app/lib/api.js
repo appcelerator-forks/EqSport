@@ -54,7 +54,9 @@ exports.login = function (ex){
 	     	var respcode = getValueFromXml(this.responseXML, 'LOGIN' , 'RESPCODE');
 	     	if(respcode == "1"){
 	     		var errdesc  = getValueFromXml(this.responseXML, 'LOGIN' , 'ERRDESC');
-	     		alert(errdesc);
+	     		 
+	     		COMMON.createAlert("Login Fail",errdesc);
+	     		COMMON.hideLoading();
 	     	}else{
 	     		var username = getValueFromXml(this.responseXML, 'LOGIN' , 'USERNAME');
 		       	var sex 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'SEX');
@@ -95,8 +97,8 @@ exports.login = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) { 
-	     	alert("Unable to login");
-	     	COMMON.hideLoading();
+	     	COMMON.hideLoading(); 
+	     	COMMON.createAlert("Login Fail","Unable to login");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -182,6 +184,7 @@ exports.getRTOHistory = function(ex){
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
 	var requestRaceResultWithDate = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
+	//console.log(requestRaceResultWithDate);
 	var myView = ex.myView;
 	if(ex.raceNumber == "" && ex.raceDate == ""){
 		var url = requestRaceResultWithDate;
@@ -339,6 +342,7 @@ exports.confirmRaceBet= function(ex){
 //favourite odds
 exports.favourite = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
+	console.log("fav : "+url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -382,9 +386,9 @@ exports.favourite = function (ex){
 
 //futureRace odds
 exports.futureRace = function (ex){  
-	//var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
-	var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
-	 
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
+	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
+	// console.log(url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -430,7 +434,7 @@ exports.raceCard = function (ex){
 	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
- 
+	//console.log("raceCard : "+ url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -477,6 +481,7 @@ exports.raceCard = function (ex){
 	     			Ti.App.fireEvent("alertDisable");
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
+	     			//Ti.App.fireEvent("enabledPlay");
 	     		}
 	     		Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;

@@ -1,8 +1,10 @@
+var args = arguments[0] || {}; 
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var favourite = Alloy.createCollection('favourite');
+var param_runner_id = args.runner || "";
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
@@ -29,7 +31,11 @@ function refresh(index){
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
 		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
-		$.picker2.setSelectedRow(0,0,false);
+		var selectedRunner = 0;
+		if(param_runner_id != ""){
+			selectedRunner = param_runner_id;	
+		}
+		$.picker2.setSelectedRow(0,selectedRunner,false);
 	}
 }
 
@@ -65,8 +71,13 @@ function setPicker2(){
 }
 
 if(Ti.Platform.osname == "android"){
+	 
+	var selectedRunner = 0;
+	if(param_runner_id != ""){
+		selectedRunner = param_runner_id;	
+	}
 	$.picker1.setSelectedRow(0,false);
-	$.picker2.setSelectedRow(0,false);
+	$.picker2.setSelectedRow(selectedRunner,false);
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
@@ -197,7 +208,7 @@ function tableBetEvent(contentView,runner,race_id){
 	contentView.addEventListener('click', function(e){ 
 		if(runner != "" && runner != '-'){
 			Ti.App.Properties.setString('module','raceOdd');
-			Ti.App.Properties.setString('presetRunner', runner);
+			Ti.App.Properties.setString('presetRunner', parseInt(runner));
 			Ti.App.Properties.setString('presetBet', race_id);
 			DRAWER.navigation("play",1,{runner: runner, race_id: race_id});
 		}
