@@ -54,7 +54,9 @@ exports.login = function (ex){
 	     	var respcode = getValueFromXml(this.responseXML, 'LOGIN' , 'RESPCODE');
 	     	if(respcode == "1"){
 	     		var errdesc  = getValueFromXml(this.responseXML, 'LOGIN' , 'ERRDESC');
-	     		alert(errdesc);
+	     		 
+	     		COMMON.createAlert("Login Fail",errdesc);
+	     		COMMON.hideLoading();
 	     	}else{
 	     		var username = getValueFromXml(this.responseXML, 'LOGIN' , 'USERNAME');
 		       	var sex 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'SEX');
@@ -95,8 +97,8 @@ exports.login = function (ex){
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) { 
-	     	alert("Unable to login");
-	     	COMMON.hideLoading();
+	     	COMMON.hideLoading(); 
+	     	COMMON.createAlert("Login Fail","Unable to login");
 	     },
 	     timeout : 10000  // in milliseconds
 	 });
@@ -110,6 +112,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){  
 	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
+	//console.log(url);
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
@@ -118,7 +121,7 @@ exports.checkBalance = function (ex){
 	       
 	       	if(respcode == "1"){
 	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
-	     		alert(errdesc);
+	     		//alert(errdesc);
 	     	}else{
 	     		//success	
 	     		var message = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'MSG'); 
@@ -161,8 +164,7 @@ exports.getRTOHistory = function(ex){
 	     // function called when the response data is available
 	     onload : function(e) {
 	     	 
-	     	var result = extractHistoryValue(this.responseText); 
-	     	console.log(result.length);
+	     	var result = extractHistoryValue(this.responseText);  
 	       	if(result.length > 0) {
 	     		myView.fireEvent('historyResult', {historyResult: result});
 	     	}  
@@ -182,6 +184,7 @@ exports.getRTOHistory = function(ex){
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
 	var requestRaceResultWithDate = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
+	//console.log(requestRaceResultWithDate);
 	var myView = ex.myView;
 	if(ex.raceNumber == "" && ex.raceDate == ""){
 		var url = requestRaceResultWithDate;
@@ -340,11 +343,12 @@ exports.confirmRaceBet= function(ex){
 //favourite odds
 exports.favourite = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
+	console.log("fav : "+url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
- 
+ 			console.log(res);
 	     	if(res != ""){
 	     		var library = Alloy.createCollection('favourite'); 
 		     		library.resetInfo();
@@ -383,9 +387,9 @@ exports.favourite = function (ex){
 
 //futureRace odds
 exports.futureRace = function (ex){  
-	//var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
-	var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
-	 
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
+	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
+	// console.log(url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -431,7 +435,7 @@ exports.raceCard = function (ex){
 	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
- 
+	//console.log("raceCard : "+ url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -478,6 +482,7 @@ exports.raceCard = function (ex){
 	     			Ti.App.fireEvent("alertDisable");
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
+	     			//Ti.App.fireEvent("enabledPlay");
 	     		}
 	     		Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;
@@ -574,21 +579,19 @@ exports.todayTransactionHistory = function (ex){
 		console.log(code);
 		console.log(reason);  
 	};
-	var soapRequest = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" +
-	"<soap12:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\" \n" +
-	"xmlns:SOAP-ENC=\"http://schemas.xmlsoap.org/soap/encoding/\" \n" +
+	var soapRequest = "<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" +
+	"<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" \n" + 
 	"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
-	"xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" \n" +
-	"xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" \n" +
-	"xmlns:wsse=\"http://schemas.xmlsoap.org/ws/2002/12/secext\"> \n" +
-	"<soap12:Body id=\"_0\"> \n" +
+	"xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"> \n" +
+	  
+	"<soap:Body> \n" +
 	"<accCurrentDayTransactions xmlns=\"http://tempuri.org/\"> \n" +
 	"<sLogin>mitcrm</sLogin> \n" +
 	"<sPassword>m1tcrm</sPassword> \n" +
 	"<sTranid>1234567904</sTranid> \n" +
 	"<sTellerId>9999</sTellerId> \n" +
 	"<sTellerPin>9999</sTellerPin> \n" +
-	"<sAccId>60938004</sAccId> \n" +
+	"<sAccId>18558705</sAccId> \n" +
 	"<sRto>1</sRto> \n" +
 	"<sNfo>0</sNfo> \n" +
 	"<sDeposits>0</sDeposits> \n" +
@@ -598,16 +601,16 @@ exports.todayTransactionHistory = function (ex){
 	"<sDXP>0</sDXP> \n" +
 	"<sCurrentDayTransactions>1</sCurrentDayTransactions> \n" +
 	"</accCurrentDayTransactions> \n" +
-	"</soap12:Body> \n" +
-	"</soap12:Envelope>";
-	client.open('POST', 'http://'+Ti.App.Properties.getString('eqUrl')+'/pmpcrm/service.asmx');//?op=accCurrentDayTransactions
+	"</soap:Body> \n" +
+	"</soap:Envelope>";
+	//console.log(soapRequest);
+	client.open('POST', 'http://'+Ti.App.Properties.getString('eqUrl')+'/pmpcrm/service.asmx?op=accCurrentDayTransactions');//?op=accCurrentDayTransactions
 	//client.open('POST','http://175.143.5.179//pmpcrm/service.asmx');
 	client.send({xml: soapRequest});
 };
 
 //private function
-function onErrorCallback(e) {
-	var common = require('common');
+function onErrorCallback(e) { 
 	// Handle your errors in here
-	common.createAlert("Error", e);
+	COMMON.createAlert("Error", e);
 };

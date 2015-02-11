@@ -5,7 +5,6 @@
         	<Label top="5" text="Loading" color="#ffffff" />
         </View>
 		<View class="container" layout="vertical" backgroundImage="/images/BG_Large.jpg">
-			 
 			<View layout="composite" height="50" backgroundColor="white" >
 				<!--<Label color="gray">Member Sign In</Label>-->
 				<!--<ImageView width="40" height="40" right="5" backgroundColor="blue" onClick="close"></ImageView>-->

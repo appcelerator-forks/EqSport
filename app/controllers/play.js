@@ -124,8 +124,9 @@ function setPicker2(){
 	    	title: rec.toString()
 	  	}); 
 	  	$.picker2.add(row);
-		/*var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
-	 
+		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
+	 	console.log(favouriteInfo);
+	 	/*
 		if(favouriteInfo.length > 0){
 			var rec = detailsValue[i].runner_id;
 			var row = Ti.UI.createPickerRow({
@@ -275,7 +276,7 @@ function raceNo(e){
 	}
 	$.venue.text = "Venue: " + venue;
 	$.race.text = "Race: " + raceNo;
-	favouriteOdd(raceNo);
+	favouriteOdd(venue, raceNo);
 }
 
 function pool(e){
@@ -291,10 +292,10 @@ function pool(e){
 	}
 }
  
-function favouriteOdd(selectedRow){ 
-	console.log(selectedRow);
-	var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
- 
+function favouriteOdd(venue, raceNo){ 
+	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo); 
+	//var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
+ 	console.log(favouriteInfo);
 	if(favouriteInfo == "") {
 		$.mtr.text = "Min to Race:-";
 		
@@ -345,7 +346,7 @@ function favouriteOdd(selectedRow){
 function process(){
 	var bets = bet.getBetInfo(); 
 	if(Ti.Platform.osname == "android"){
-		var textfield = Ti.UI.createTextField();
+		var textfield = Ti.UI.createTextField({passwordMask: true});
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	androidView: textfield,
@@ -437,11 +438,11 @@ function confirm(){
 		return;
 	}
 	
-	if(pool == "WIN" || pool == "PLA" || pool == "WIN / PLA") {
+	if(pool == "WIN" || pool == "PLA" || pool == "WIN/PLA") {
 		if($.bet.value % 5 == 0) {
 			
 		} else {
-			COMMON.createAlert("Bet Error","Bet value must be multiple of 5 for WIN, PLA or WIN / PLA");
+			COMMON.createAlert("Bet Error","Bet value must be multiple of 5 for WIN, PLA or WIN/PLA");
 			COMMON.hideLoading();
 			return;
 		}
@@ -811,8 +812,7 @@ $.mainView.addEventListener('submitSuccess', function(){
 	});
 	
 	setTimeout(function(){
-		balanceInfo2 = balance.getBalance();
-		console.log("new balance : "+ balanceInfo2.amount);
+		balanceInfo2 = balance.getBalance(); 
 		$.balance.text = "Your available balance is " + balanceInfo2.amount; 
 	}, 5000);
 	// popWindow = 0;

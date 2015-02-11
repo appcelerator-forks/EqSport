@@ -36,6 +36,9 @@ exports.definition = {
                 var sql = "SELECT * FROM " + collection.config.adapter.collection_name;
                 
                 db = Ti.Database.open(collection.config.adapter.db_name);
+                if(Ti.Platform.osname != "android") {
+                	db.file.setRemoteBackup(false);
+                }
                 var res = db.execute(sql);
                 var listArr = []; 
                 var count = 0;
@@ -69,6 +72,9 @@ exports.definition = {
 				var collection = this;
                 var sql = "DELETE FROM " + collection.config.adapter.collection_name;
                 db = Ti.Database.open(collection.config.adapter.db_name);
+                if(Ti.Platform.osname != "android") {
+                	db.file.setRemoteBackup(false);
+                }
                 db.execute(sql);
                 db.close();
                 collection.trigger('sync');

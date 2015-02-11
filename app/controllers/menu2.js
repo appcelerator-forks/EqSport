@@ -28,6 +28,8 @@ function navMenu(e){
 			//DRAWER.navigation("play",2);
 			break;
 		case 7:  
+			Ti.App.Properties.setString('presetRunner', "");
+			Ti.App.Properties.setString('presetBet', "");
 			DRAWER.logout();
 			break;
 	} 
