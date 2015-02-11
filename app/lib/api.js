@@ -184,14 +184,14 @@ exports.getRTOHistory = function(ex){
 //get RTO Results / race result with date
 exports.getRTOResults = function(ex){
 	var requestRaceResultWithDate = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=31&USERNAME="+USER+"&PWD="+KEY;
-	//console.log(requestRaceResultWithDate);
+	//
 	var myView = ex.myView;
 	if(ex.raceNumber == "" && ex.raceDate == ""){
 		var url = requestRaceResultWithDate;
 	}else{
 		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	}
-	 
+	 console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
