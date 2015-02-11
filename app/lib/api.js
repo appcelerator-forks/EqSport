@@ -188,7 +188,7 @@ exports.getRTOResults = function(ex){
 	}else{
 		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	}
-	 
+	
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -197,6 +197,7 @@ exports.getRTOResults = function(ex){
 	       	if(respcode == "1") {
 	     		var errdesc = getValueFromXml(this.responseXML, 'RTORESULTS' , 'ERRDESC');
 	     		alert(errdesc);
+	     		myView.fireEvent('noResult');
 	     	} else { 
 		       	var no_race_result = getValueFromXml(this.responseXML, 'RTORESULTS' , 'NOOFRACESRESULTS');
 		       	

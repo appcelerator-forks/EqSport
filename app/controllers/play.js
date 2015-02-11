@@ -514,6 +514,31 @@ function cancel(){
 	pop.close(); 
 }
 
+function dash(){
+	var currentValue = $.runner.value;
+	$.runner.value = currentValue + "-";
+}
+
+function hash(){
+	var currentValue = $.runner.value;
+	$.runner.value = currentValue + "#";
+}
+
+function slash(){
+	var currentValue = $.runner.value;
+	$.runner.value = currentValue + "/";
+}
+
+function asterisk(){
+	var currentValue = $.runner.value;
+	$.runner.value = currentValue + "*";
+}
+
+function questionMark(){
+	var currentValue = $.runner.value;
+	$.runner.value = currentValue + "?";
+}
+
 function hideKeyboard(e) {  
 	/*if (e.source != '[object runner]') {
     	//console.log(e.source);

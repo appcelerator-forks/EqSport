@@ -40,9 +40,9 @@
 						<KeyboardToolbar platform="ios">
 				            <Toolbar>
 				                <Items>
-				                	<Button onClick="keyboardCancel">Cancel</Button>
+				                	<Button onClick="keyboardCancel" color="#EA431A">Cancel</Button>
 				                    <FlexSpace/>
-				                    <Button style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="keyboardDone">Done</Button>
+				                    <Button style="Ti.UI.iPhone.SystemButtonStyle.DONE" onClick="keyboardDone" color="#EA431A">Done</Button>
 				                </Items>
 				            </Toolbar>
 				        </KeyboardToolbar>

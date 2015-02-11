@@ -214,7 +214,23 @@
 								<Label left="5" color="black">Runner*</Label>
 							</View>
 							<View width="60%" backgroundColor="white">
-								<TextField id="runner" height="30" width="100%" hintText="Runner" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+								<TextField id="runner" height="30" width="100%" hintText="Runner" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center">
+									<KeyboardToolbar>
+							            <Toolbar>
+							                <Items>
+							                	<Button onClick="dash" width="20%">-</Button>
+							                    <FlexSpace/>
+							                    <Button onClick="hash" width="20%">#</Button>
+							                    <FlexSpace/>
+							                    <Button onClick="slash" width="20%">/</Button>
+							                    <FlexSpace/>
+							                    <Button onClick="asterisk" width="20%">*</Button>
+							                    <FlexSpace/>
+							                    <Button onClick="questionMark" width="20%">?</Button>
+							                </Items>
+							            </Toolbar>
+							        </KeyboardToolbar>
+								</TextField>
 							</View>
 						</View>
 						<View layout="horizontal" height="50" width="90%" backgroundColor="white">
@@ -222,7 +238,7 @@
 								<Label left="5" color="black">Bet (RM)</Label>
 							</View>
 							<View width="60%" backgroundColor="white">
-								<TextField id="bet" height="30" width="100%" hintText="Bet Amount" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_NUMBER_PAD" textAlign="center"></TextField>
+								<TextField id="bet" height="30" width="100%" hintText="Bet Amount" backgroundColor="#EFEFEF" color="black" keyboardType="Titanium.UI.KEYBOARD_DECIMAL_PAD" textAlign="center"></TextField>
 							</View>
 						</View>
 						<View layout="horizontal"  height="50" width="90%">
