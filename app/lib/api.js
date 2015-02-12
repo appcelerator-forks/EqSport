@@ -436,7 +436,7 @@ exports.raceCard = function (ex){
 	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
-	//console.log("raceCard : "+ url); 
+	 console.log("raceCard : "+ url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
