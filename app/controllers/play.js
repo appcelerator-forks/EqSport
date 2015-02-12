@@ -52,7 +52,7 @@ var containerView = Ti.UI.createView({
 var presetBet = Ti.App.Properties.getString('presetBet') || "";
 $.bet.value = presetBet;
 if(param_runner_id != "" && param_runner_id != "-"){
-	$.runner.value = param_runner_id;
+	$.runner.value = parseInt(param_runner_id);
 }else{
 	var presetRunner = Ti.App.Properties.getString('presetRunner') || "";
 	$.runner.value = presetRunner;

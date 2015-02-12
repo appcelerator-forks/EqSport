@@ -429,8 +429,7 @@ exports.raceCard = function (ex){
 				if(ex.from == "menu"){ 
 		     		Ti.App.fireEvent("alertDisable");
 		     	}else{
-		     		//Ti.App.fireEvent("disablePlay");
-		     		Ti.App.fireEvent("enabledPlay");
+		     		Ti.App.fireEvent("disablePlay");
 		     	}
 			}
 			return false;
