@@ -90,8 +90,8 @@ exports.definition = {
 			}, 
 			getFavouriteInfoByVenueAndRaceNo: function(venue,race_no){
 				var collection = this;
-                var sql = "SELECT * FROM " + collection.config.adapter.collection_name + " WHERE venue='" + venue + "' AND race_no='" + race_no + "' ";
-        
+                var sql = "SELECT * FROM " + collection.config.adapter.collection_name + " WHERE venue='" + venue + "' AND race_no='" + race_no + "' ";	
+        		
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 if(Ti.Platform.osname != "android") {
                 	db.file.setRemoteBackup(false);

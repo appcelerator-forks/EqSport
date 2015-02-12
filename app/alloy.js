@@ -86,41 +86,40 @@ var getValueFromPipe = function(xml){
 var getValueFromDollarAndPipe = function(xml){
 	var res = getValueFromXml(xml, 'HTML' , 'BODY');
 	var data = res.split("||");  
- 	var obj = {};
  	
-	if(data[1] == "S:" || data[1] == "R:"){
-		for(var i=2; i <= data.length; i++){
-			if(i != data.length){
+ 	var ary = [];
+ 	var loop = data.length-4;
+ 	
+	if(data[1] == "S:" || data[1] == "R:"){ 
+		var totalRec = (parseInt(loop)+2);
+		for(var i=2; i < totalRec; i++){
 				var inner = data[i].split("$");  
+				var obj = {};
 		       	if(inner[0] !== ""){
+		       		
 		       		//console.log(inner);
 		       		obj['id'] = inner[0];
 		       		obj['venue'] = inner[1];
 		       		obj['totalRunner'] = inner[2];
 		       		var count =1;
-		       		for(var i=3; i < 3 + parseInt(inner[2]); i++){
-		       			var runner = inner[i].split("*"); 
+		       		for(var j=3; j < 3 + parseInt(inner[2]); j++){
+		       			var runner = inner[j].split("*"); 
 		       			obj['runner'+count] = runner;
 		       			count++;
 		       		}
-		       		 
+		       		ary.push(obj); 
 		       	}
 	      
-	    	}
 		}
 			
 	}  
-	return obj;
+	return ary;
 };
 
 var getValueForFavOdd = function(xml){
 	var res = getValueFromXml(xml, 'HTML' , 'BODY');
 	var data = res.split("||");  
-	//console.log(data);
- 	console.log("data length: "+data.length);
  	var loop = (data.length-4)/8;
- 	
- 	console.log("loop:"+loop);
  	
  	var ary = [];
  	
@@ -152,7 +151,6 @@ var getValueForFavOdd = function(xml){
 			ary.push(obj);
 		} 
 	}
-	console.log(ary);
 	return ary;
 };
 

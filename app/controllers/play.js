@@ -124,8 +124,8 @@ function setPicker2(){
 	    	title: rec.toString()
 	  	}); 
 	  	$.picker2.add(row);
-		var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
-	 	console.log(favouriteInfo);
+		// var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
+	 	// console.log(favouriteInfo);
 	 	/*
 		if(favouriteInfo.length > 0){
 			var rec = detailsValue[i].runner_id;
@@ -295,7 +295,6 @@ function pool(e){
 function favouriteOdd(venue, raceNo){ 
 	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo); 
 	//var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
- 	console.log(favouriteInfo);
 	if(favouriteInfo == "") {
 		$.mtr.text = "Min to Race:-";
 		

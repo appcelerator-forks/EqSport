@@ -344,27 +344,29 @@ exports.confirmRaceBet= function(ex){
 //favourite odds
 exports.favourite = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
-	console.log("fav : "+url);
+	//var url = "http://54.169.180.5/eqsport/favOdds.php";
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
- 			console.log(res);
 	     	if(res != ""){
 	     		var library = Alloy.createCollection('favourite'); 
 		     		library.resetInfo();
 		     	
-		     	var favouriteInfo = Alloy.createModel('favourite', { 
-					min_to_race: res[0].min_to_race,
-					pla_odd: res[0].pla_odd, 
-					race_date: res[0].race_date,
-					race_no: res[0].race_no,
-					runner: res[0].runner, 
-					time: res[0].time,
-					venue: res[0].venue,
-					win_odd: res[0].win_odd
-				}); 
-				favouriteInfo.save(); 
+		     	for(var i = 0; i<res.length ; i++)
+		     	{
+			     	var favouriteInfo = Alloy.createModel('favourite', { 
+						min_to_race: res[i].min_to_race,
+						pla_odd: res[i].pla_odd, 
+						race_date: res[i].race_date,
+						race_no: res[i].race_no,
+						runner: res[i].runner, 
+						time: res[i].time,
+						venue: res[i].venue,
+						win_odd: res[i].win_odd
+					}); 
+					favouriteInfo.save(); 
+				}
 	     	} 
 	     	
 	     	if(ex.skip == ""){
@@ -427,7 +429,8 @@ exports.raceCard = function (ex){
 				if(ex.from == "menu"){ 
 		     		Ti.App.fireEvent("alertDisable");
 		     	}else{
-		     		Ti.App.fireEvent("disablePlay");
+		     		//Ti.App.fireEvent("disablePlay");
+		     		Ti.App.fireEvent("enabledPlay");
 		     	}
 			}
 			return false;
@@ -440,33 +443,40 @@ exports.raceCard = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	var res = getValueFromDollarAndPipe(this.responseXML);   
-	     	if( res.id > 0 ) { 
+	     	var res = getValueFromDollarAndPipe(this.responseXML);  
+	     	// console.log("res"); 
+	     	// console.log(res); 
+	     	console.log("res length: "+res.length);
+	     	//if( res.id > 0 ) { 
+	     	if( res.length > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
 		     		library.resetInfo();
 	     		var library2 = Alloy.createCollection('raceCardDetails'); 
 	     			library2.resetDetails();
 				//Insert to local DB
-				var raceCardInfo = Alloy.createModel('raceCardInfo', { 
-					id: res.id,
-					venue: res.venue, 
-					totalRunner: res.totalRunner
-				}); 
-				raceCardInfo.save(); 
-				 
-				for(var i = 1; i <= res['totalRunner']; i++){
-					var runner_id = res['runner'+i][0];
-					var runner_date = res['runner'+i][1];
-					var runner_time = res['runner'+i][2]; 
-					
-					//Insert to local DB
-					var raceCardDetails = Alloy.createModel('raceCardDetails', { 
-						race_id:res.id,
-						runner_id: runner_id, 
-						runner_date: runner_date,
-						runner_time: runner_time
+				
+				for(var j = 0; j<res.length; j++){
+					var raceCardInfo = Alloy.createModel('raceCardInfo', { 
+						id: res[j].id,
+						venue: res[j].venue, 
+						totalRunner: res[j].totalRunner
 					}); 
-					raceCardDetails.save(); 
+					raceCardInfo.save(); 
+					 
+					for(var i = 1; i <= res[j]['totalRunner']; i++){
+						var runner_id = res[j]['runner'+i][0];
+						var runner_date = res[j]['runner'+i][1];
+						var runner_time = res[j]['runner'+i][2]; 
+						
+						//Insert to local DB
+						var raceCardDetails = Alloy.createModel('raceCardDetails', { 
+							race_id:res[j].id,
+							runner_id: runner_id, 
+							runner_date: runner_date,
+							runner_time: runner_time
+						}); 
+						raceCardDetails.save(); 
+					}
 				}
 				Ti.App.Properties.setString('oddEnabled',"1");
 	     		if(ex.from == "menu"){ 
