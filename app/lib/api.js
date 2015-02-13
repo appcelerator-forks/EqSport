@@ -282,11 +282,8 @@ exports.submitRaceBet= function(ex){
 	       		COMMON.createAlert("Bet Success","Transaction Successful");
 	       		return false;
 	       } else   {
- 				var a = Titanium.UI.createAlertDialog({
-					title: "Error Code: "+res.Status +" - "+res.ErrorNumber,
-					 message:  res.ErrorDescription
-				});
-				a.show();
+ 			 
+				COMMON.createAlert("Error Code: "+res.Status +" - "+res.ErrorNumber,res.ErrorDescription);
 				myView.fireEvent('submitFailed' );
 				 
 				return false;
@@ -309,10 +306,12 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
-
-	var url = confirmRaceBet+"?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+ex.runner+"||"+ex.pool; 
+	var rn = encodeURIComponent(ex.runner);
+	var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+	
+	var url = confirmRaceBet + params; 
  	var myView = ex.myView;
- 	
+ 	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
