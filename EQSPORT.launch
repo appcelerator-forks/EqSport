@@ -2,7 +2,7 @@
 <launchConfiguration type="com.appcelerator.titanium.mobile.ui.ios.simulator.launchConfigurationType">
 <booleanAttribute key="ATTR_CLEAN_BEFORE_LAUNCH" value="true"/>
 <stringAttribute key="ATTR_PROJECT_NAME" value="EqSport"/>
-<stringAttribute key="device_id" value="11C28DE7-3A55-44D5-AD7D-098274AC16FF"/>
+<stringAttribute key="device_id" value="987AD55A-EF5E-4EC4-91FC-86EF1F8018F7"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/EqSport"/>
 </listAttribute>
