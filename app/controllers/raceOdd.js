@@ -26,13 +26,25 @@ function refresh(index){
 	setPicker2();
 	if(Ti.Platform.osname == "android")
 	{
-		$.picker2.setSelectedRow(0,false);
+		var selectedRunner = 0;
+		if(param_runner_id != ""){
+			selectedRunner = param_runner_id;	
+		}
+		else
+		{
+			API.futureRace({
+				raceNo: $.picker2.getSelectedRow(0).title,
+				venue: venue
+			});
+		}
+		$.picker2.setSelectedRow(0,selectedRunner,false);
 	}
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
 		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 		var selectedRunner = 0;
 		if(param_runner_id != ""){
+			console.log("param_runner_id: " +param_runner_id);
 			selectedRunner = param_runner_id;	
 		}
 		$.picker2.setSelectedRow(0,selectedRunner,false);
@@ -50,7 +62,6 @@ function setPicker1(){
 }
 
 function setPicker2(){  
-	
 	for(var i=0; i < detailsValue.length; i++){
 		var rec = detailsValue[i].runner_id;
 	  	var row = Ti.UI.createPickerRow({
@@ -71,13 +82,13 @@ function setPicker2(){
 }
 
 if(Ti.Platform.osname == "android"){
-	 
+	/* console.log("outer setter");
 	var selectedRunner = 0;
 	if(param_runner_id != ""){
 		selectedRunner = param_runner_id;	
-	}
-	$.picker1.setSelectedRow(0,false);
-	$.picker2.setSelectedRow(selectedRunner,false);
+	}*/
+	$.picker1.setSelectedRow(0,0,false);
+	//$.picker2.setSelectedRow(selectedRunner,false);
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
@@ -216,14 +227,12 @@ function tableBetEvent(contentView,runner,race_id){
 } 
 
 function showVenue() {
-	console.log("showVenue");
 	$.venueView.height = 250;
 	$.venueContentView.height = 250;
 	$.pickerView1.height = 250;
 	$.pickerView1.setVisible(true);
 	$.done1.setVisible(true);
 	$.picker1.setVisible(true);
-	console.log("console: "+venue);
 	$.venueLabel.text = venue;
 	return false;
 }
