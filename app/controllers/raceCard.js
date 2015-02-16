@@ -4,10 +4,7 @@ var raceCardInfo = Alloy.createCollection('raceCardInfo');
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
-
-
-console.log(infoValue);
-console.log(detailsValue);
+ 
 if(Ti.Platform.osname == "android"){
 	$.date.width = "90%";
 }
@@ -23,7 +20,6 @@ function setPicker1(){
 	}
 	 
 }
-
  
 //$.picker2.setSelectedRow(0,false);
 
@@ -112,11 +108,12 @@ function refresh(race_id){
 }
 
 function tableCardEvent(contentView,runner_position){
+	//$.picker1.getSelectedRow(0).title;
 	contentView.addEventListener('click', function(e){ 
 		if(runner_position != '-'){
 			Ti.App.Properties.setString('module','raceCard');
 			//Ti.App.Properties.setString('presetRunner', runner); 
-			DRAWER.navigation("raceOdd",1,{runner: runner_position });
+			DRAWER.navigation("raceOdd",1,{runner: runner_position, venue: $.picker1.getSelectedRow(0).title});
 		}
 	});
 } 

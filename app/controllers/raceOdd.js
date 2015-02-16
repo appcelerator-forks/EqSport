@@ -5,6 +5,7 @@ var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
 var favourite = Alloy.createCollection('favourite');
 var param_runner_id = args.runner || "";
+var param_venue = args.venue || "";
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
@@ -22,7 +23,7 @@ function refresh(index){
 	        }
 	}
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
-	console.log(detailsValue);
+ 
 	setPicker2();
 	if(Ti.Platform.osname == "android")
 	{
@@ -30,23 +31,41 @@ function refresh(index){
 	}
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
+		
 		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 		var selectedRunner = 0;
 		if(param_runner_id != ""){
-			selectedRunner = param_runner_id;	
+			selectedRunner = parseInt(param_runner_id);	
 		}
-		$.picker2.setSelectedRow(0,selectedRunner,false);
+		$.picker2.setSelectedRow(0,parseInt(selectedRunner),false);
 	}
 }
 
 function setPicker1(){  
+ 
+	var position = 0; 
+	var counter = 0;
 	for(var i = 0 ; i < infoValue.length; i++){
+		if(param_venue != ""){
+			if(param_venue == infoValue[i].venue){
+				position = counter; 
+			}
+		}
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
 		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
+		counter++;
 	}
+	if(Ti.Platform.osname == "android"){
+		 
+		$.picker1.setSelectedRow(position,false);
+	}else{
+		$.picker1.setSelectedRow(0,position,false);
+	}
+	
+	//alert(param_venue);
 }
 
 function setPicker2(){  
@@ -74,16 +93,16 @@ if(Ti.Platform.osname == "android"){
 	 
 	var selectedRunner = 0;
 	if(param_runner_id != ""){
-		selectedRunner = param_runner_id;	
+		selectedRunner = parseInt(param_runner_id);	
 	}
-	$.picker1.setSelectedRow(0,false);
+//	$.picker1.setSelectedRow(0,false);
 	$.picker2.setSelectedRow(selectedRunner,false);
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
 	// $.picker1.setSelectedRow(0,3,false);
 	// $.picker2.setSelectedRow(0,3,false);
-	$.picker1.setSelectedRow(0,0,false);
+	//$.picker1.setSelectedRow(0,0,false);
 	//$.picker2.setSelectedRow(0,0,false);
 }
 
