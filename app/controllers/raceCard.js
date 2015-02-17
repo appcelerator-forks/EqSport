@@ -53,7 +53,7 @@ function refresh(race_id){
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
 	
 	$.date.text = detailsValue[0].runner_date;
-	var position = 0;
+	var position = 1;
 	for(var i=0; i < detailsValue.length; i++) {
 		var contentView = Titanium.UI.createView({
 			layout: "horizontal",
@@ -103,7 +103,7 @@ function refresh(race_id){
 		//contentView+i.add(rightView+i);
 		centerLineView.add(lineView);
 		
-		tableCardEvent(contentView,position);
+		tableCardEvent(contentView,position,race_id,detailsValue[i].runner_id);
 		
 		$.scrollView.add(contentView);
 		$.scrollView.add(centerLineView);
@@ -111,12 +111,12 @@ function refresh(race_id){
 	}
 }
 
-function tableCardEvent(contentView,runner_position){
+function tableCardEvent(contentView,runner_position,race_id,runner_id){
 	contentView.addEventListener('click', function(e){ 
 		if(runner_position != '-'){
 			Ti.App.Properties.setString('module','raceCard');
 			//Ti.App.Properties.setString('presetRunner', runner); 
-			DRAWER.navigation("raceOdd",1,{runner: runner_position });
+			DRAWER.navigation("raceOdd",1,{runner: runner_position, venue: $.picker1.getSelectedRow(0).title, race_id: race_id, runner_id:runner_id});
 		}
 	});
 } 

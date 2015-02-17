@@ -1,16 +1,47 @@
 var args = arguments[0] || {}; 
+var param_runner_position = args.runner || "";
+var param_runner_id = args.runner_id || "";
+var param_venue = args.venue || "";
+var param_race_id = args.race_id || "1";
+//var param_race_id = 2;
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1");
+console.log("param_race_id: "+param_race_id);
+var detailsValue = raceCardDetails.getRaceCardDetails(param_race_id);
+console.log("***detailsValue***");
+console.log(detailsValue);
 var favourite = Alloy.createCollection('favourite');
-var param_runner_id = args.runner || "";
+
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
+var venue;
 COMMON.construct($);
 COMMON.showLoading();
+
+if(param_runner_position == ""){
+	if(Ti.Platform.osname == "android"){
+		/* console.log("outer setter");
+		var selectedRunner = 0;
+		if(param_runner_position != ""){
+			selectedRunner = param_runner_position;	
+		}*/
+		//$.picker1.setSelectedRow(0,0,false);
+		//$.picker2.setSelectedRow(0,0,false);
+	}
+}
+
+
 setPicker1(); 
+console.log("splitter");
+if(Ti.Platform.osname == "android")
+{
+	if(param_race_id == "1")
+	{
+		setPicker2();
+	}
+}
  
 function refresh(index){ 
 	if($.picker2.columns[0]) {
@@ -22,50 +53,122 @@ function refresh(index){
 	        }
 	}
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
+	console.log("detailsValue refresh");
 	console.log(detailsValue);
 	setPicker2();
 	if(Ti.Platform.osname == "android")
 	{
+		console.log("hello");
 		var selectedRunner = 0;
-		if(param_runner_id != ""){
-			selectedRunner = param_runner_id;	
+		if(param_runner_position != ""){
+			selectedRunner = parseInt(param_runner_position) - 1;
+			if(selectedRunner == "0")
+			{
+				if(param_race_id == "1")
+				{
+					console.log("API 1");
+					API.futureRace({
+						raceNo: param_runner_id,
+						venue: param_venue
+					});
+				}
+			}
+			else
+			{
+				$.picker2.setSelectedRow(0,selectedRunner,false);
+			}
 		}
 		else
 		{
-			API.futureRace({
-				raceNo: $.picker2.getSelectedRow(0).title,
-				venue: venue
-			});
+			
+			if(param_runner_id != ""){
+				console.log("API 2");
+				API.futureRace({
+					raceNo: param_runner_id,
+					venue: param_venue
+				});
+			}else{
+				console.log("$.picker2");
+				console.log($.picker2.getSelectedRow(0));
+				console.log(raceNo);
+				console.log(venue);
+				//console.log($.picker2.getSelectedRow(0).titleData);
+				// API.futureRace({
+					// raceNo: $.picker2.getSelectedRow(0).title,
+					// venue: venue
+				// });
+				if(raceNo == null)
+				{
+					console.log("raceNo null");
+					console.log($.picker2.getSelectedRow(0).title);
+					console.log("API 3");
+					API.futureRace({
+						raceNo: $.picker2.getSelectedRow(0).title,
+						venue: venue
+					});
+				}
+				else
+				{
+					console.log("raceNo NOT null");
+					console.log("API 4");
+					API.futureRace({
+						raceNo: raceNo,
+						venue: venue
+					});
+				}
+			}
+			
 		}
-		$.picker2.setSelectedRow(0,selectedRunner,false);
 	}
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad")
 	{
 		//$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 		var selectedRunner = 0;
-		if(param_runner_id != ""){
-			console.log("param_runner_id: " +param_runner_id);
-			selectedRunner = param_runner_id;	
+		if(param_runner_position != ""){
+			console.log("param_runner_position: " +param_runner_position);
+			selectedRunner = parseInt(param_runner_position) - 1;	
 		}
 		$.picker2.setSelectedRow(0,selectedRunner,false);
 	}
 }
 
 function setPicker1(){  
+	var venueIndex = 0;
 	for(var i = 0 ; i < infoValue.length; i++){
-		var venue = infoValue[i].venue;
+		var venue1 = infoValue[i].venue;
+		if(param_venue == venue1)
+		{
+			venueIndex = i;
+			
+		}
 		var race_id = infoValue[i].id;
-		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		var data = Ti.UI.createPickerRow({title:venue1.toString(),race_id:race_id.toString()});
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
+	console.log("venueIndex: "+venueIndex);
+	$.picker1.setSelectedRow(0,venueIndex,false);
+	console.log("start mytest");
+	if(Ti.Platform.osname == "android")
+	{
+		console.log(param_runner_position);
+		if(param_race_id != "1")
+		{
+			var raceIndex = infoValue[venueIndex].id;
+			refresh(raceIndex.toString());
+		}
+	}
+	console.log("end mytest");
 }
 
 function setPicker2(){  
 	for(var i=0; i < detailsValue.length; i++){
 		var rec = detailsValue[i].runner_id;
+		console.log("rec");
+		console.log(rec);
 	  	var row = Ti.UI.createPickerRow({
-	   		title: rec.toString()
+	   		title: rec.toString(),
+	   		titleData: rec.toString()
 	  	}); 
 	  	$.picker2.add(row);
 		/*var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
@@ -79,22 +182,30 @@ function setPicker2(){
 		}*/
 	  	
 	}
+	console.log("start mytest picker2");
+	if(Ti.Platform.osname == "android")
+	{
+		console.log(param_runner_position);
+		if(param_race_id != "1")
+		{
+			console.log("param_runner_id: "+param_runner_id);
+			console.log("param_venue: "+param_venue);
+			console.log("API 5");
+			API.futureRace({
+				raceNo: param_runner_id,
+				venue: param_venue
+			});
+		}
+	}
+	console.log("end mytest picker2");
 }
 
-if(Ti.Platform.osname == "android"){
-	/* console.log("outer setter");
-	var selectedRunner = 0;
-	if(param_runner_id != ""){
-		selectedRunner = param_runner_id;	
-	}*/
-	$.picker1.setSelectedRow(0,0,false);
-	//$.picker2.setSelectedRow(selectedRunner,false);
-}
+
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
 	// $.picker1.setSelectedRow(0,3,false);
 	// $.picker2.setSelectedRow(0,3,false);
-	$.picker1.setSelectedRow(0,0,false);
+	//$.picker1.setSelectedRow(0,0,false);
 	//$.picker2.setSelectedRow(0,0,false);
 }
 
@@ -129,10 +240,25 @@ function changeRaceNo(e){
 		$.raceNoLabel.text = raceNo;
 	}
 	//raceOdd(venue,raceNo);
-	API.futureRace({
-		raceNo: raceNo,
-		venue: venue
-	});
+	console.log("API 6");
+	console.log("raceNo: "+raceNo);
+	console.log("venue: "+venue);
+	if(param_race_id != "1")
+	{
+		console.log("if");
+		API.futureRace({
+			raceNo: raceNo,
+			venue: param_venue
+		});
+	}
+	else
+	{
+		console.log("else");
+		API.futureRace({
+			raceNo: raceNo,
+			venue: venue
+		});
+	}
 }
 
 function raceOdd(data){
