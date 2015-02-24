@@ -391,7 +391,7 @@ exports.favourite = function (ex){
 exports.futureRace = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
-	// console.log(url); 
+	console.log(url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 

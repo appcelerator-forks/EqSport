@@ -13,6 +13,7 @@ console.log("***detailsValue***");
 console.log(detailsValue);
 var favourite = Alloy.createCollection('favourite');
 
+var apiFlag = false;
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
@@ -111,8 +112,9 @@ function refresh(index){
 				{
 					console.log("raceNo NOT null");
 					console.log("API 4");
+					apiFlag = true;
 					API.futureRace({
-						raceNo: raceNo,
+						raceNo: detailsValue[0].runner_id,
 						venue: venue
 					});
 				}
@@ -254,10 +256,13 @@ function changeRaceNo(e){
 	else
 	{
 		console.log("else");
-		API.futureRace({
-			raceNo: raceNo,
-			venue: venue
-		});
+		if(apiFlag == false)
+		{
+			API.futureRace({
+				raceNo: raceNo,
+				venue: venue
+			});
+		}
 	}
 }
 
@@ -339,6 +344,7 @@ function raceOdd(data){
 		$.scrollView.add(centerLineView);
 	}
 	COMMON.hideLoading();
+	apiFlag = false;
 }
 
 function tableBetEvent(contentView,runner,race_id){
