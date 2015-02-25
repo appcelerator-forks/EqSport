@@ -115,13 +115,25 @@ function populateData(e){
 	}
 }
 
-API.todayTransactionHistory();
+API.todayTransactionHistory({
+	sTranid : "1234567904",
+	sTellerId : "9999",
+	sTellerPin : "9999",
+	sAccId : "18558705",
+	sRto : "1",
+	sNfo : "0",
+	sDeposits : "0",
+	sWithdrawal : "0",
+	sAccountAccess : "0",
+	sAccountRelease : "0",
+	sDXP : "0",
+	sCurrentDayTransactions : "1"
+});
 
 API.getRTOHistory({
 	myView : $.transactionView
 });
 
-$.transactionView.addEventListener('historyResult',function(e){ 
- 
+$.transactionView.addEventListener('historyResult',function(e){  
 	populateData({result : e.historyResult});
 });

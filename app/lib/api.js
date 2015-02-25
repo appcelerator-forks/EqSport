@@ -580,42 +580,21 @@ exports.popup = function(subView,config){
 
 //Today Transaction History
 exports.todayTransactionHistory = function (ex){
+	var url = "http://54.169.180.5/eqsport/main/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
+	var params = "&sTranid="+ex.sTranid+"&sTellerId="+ex.sTellerId+"&sTellerPin="+ex.sTellerPin+"&sAccId="+ex.sAccId+"&sRto="+ex.sRto+"&sNfo="+ex.sNfo+"&sDeposits="+ex.sDeposits+"&sWithdrawal="+ex.sWithdrawal+"&sAccountAccess="+ex.sAccountAccess+"&sAccountRelease="+ex.sAccountRelease+"&sDXP="+ex.sDXP+"&sCurrentDayTransactions="+ex.sCurrentDayTransactions;
+ 
 	var client = Ti.Network.createHTTPClient();
-	client.onload = function() { 
-		var doc = this.responseXML.documentElement;
-		var code = doc.getElementsByTagName('soap:Code').item(0).textContent;
-		var reason = doc.getElementsByTagName('soap:Reason').item(0).textContent;
-		console.log(code);
-		console.log(reason);  
+	client.onload = function(e) { 
+		 var res = JSON.parse(this.responseText);
+	      if(res.status == "success"){
+	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse;
+	       		console.log(currentDayTransactionsResult.accCurrentDayTransactionsResult);
+	       		console.log(currentDayTransactionsResult.sCurrentDayTransactions);
+	      }
 	};
-	var soapRequest = "<?xml version=\"1.0\" encoding=\"utf-8\"?> \n" +
-	"<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" \n" + 
-	"xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \n" +
-	"xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"> \n" +
-	  
-	"<soap:Body> \n" +
-	"<accCurrentDayTransactions xmlns=\"http://tempuri.org/\"> \n" +
-	"<sLogin>mitcrm</sLogin> \n" +
-	"<sPassword>m1tcrm</sPassword> \n" +
-	"<sTranid>1234567904</sTranid> \n" +
-	"<sTellerId>9999</sTellerId> \n" +
-	"<sTellerPin>9999</sTellerPin> \n" +
-	"<sAccId>18558705</sAccId> \n" +
-	"<sRto>1</sRto> \n" +
-	"<sNfo>0</sNfo> \n" +
-	"<sDeposits>0</sDeposits> \n" +
-	"<sWithdrawal>0</sWithdrawal> \n" +
-	"<sAccountAccess>0</sAccountAccess> \n" +
-	"<sAccountRelease>0</sAccountRelease> \n" +
-	"<sDXP>0</sDXP> \n" +
-	"<sCurrentDayTransactions>1</sCurrentDayTransactions> \n" +
-	"</accCurrentDayTransactions> \n" +
-	"</soap:Body> \n" +
-	"</soap:Envelope>";
-	//console.log(soapRequest);
-	client.open('POST', 'http://'+Ti.App.Properties.getString('eqUrl')+'/pmpcrm/service.asmx?op=accCurrentDayTransactions');//?op=accCurrentDayTransactions
-	//client.open('POST','http://175.143.5.179//pmpcrm/service.asmx');
-	client.send({xml: soapRequest});
+	
+	client.open('POST', url+ params);
+	client.send();
 };
 
 //private function
