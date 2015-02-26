@@ -426,14 +426,14 @@ exports.raceCard = function (ex){
 		     	}
 			}else{
 				if(ex.from == "menu"){ 
-		     		Ti.App.fireEvent("alertDisable");
+		     		COMMON.createAlert("Play unavailable", "No game available now!"); 
 		     	}else{
 		     		Ti.App.fireEvent("disablePlay");
 		     	}
 			}
-			return false;
+			
 	    }, 500);
-		 
+		return false;
 	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
@@ -488,7 +488,7 @@ exports.raceCard = function (ex){
 			}else{
 			 
 				if(ex.from == "menu"){ 
-	     			Ti.App.fireEvent("alertDisable");
+	     			COMMON.createAlert("Play unavailable", "No game available now!"); 
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
 	     			//Ti.App.fireEvent("enabledPlay");
@@ -509,7 +509,7 @@ exports.raceCard = function (ex){
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
 	     	if(ex.from == "menu"){ 
-	     		Ti.App.fireEvent("alertDisable");
+	     		COMMON.createAlert("Play unavailable", "No game available now!"); 
 	     	}else{
 	     		Ti.App.fireEvent("disablePlay");
 	     	}
@@ -588,8 +588,8 @@ exports.todayTransactionHistory = function (ex){
 		 var res = JSON.parse(this.responseText);
 	      if(res.status == "success"){
 	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse;
-	       		console.log(currentDayTransactionsResult.accCurrentDayTransactionsResult);
-	       		console.log(currentDayTransactionsResult.sCurrentDayTransactions);
+	     	console.log(currentDayTransactionsResult.accCurrentDayTransactionsResult);
+	      	console.log(currentDayTransactionsResult.sCurrentDayTransactions);
 	      }
 	};
 	

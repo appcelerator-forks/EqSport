@@ -34,8 +34,4 @@ function navMenu(e){
 			break;
 	} 
 }
- 
-var alertDisable = function(){ 
-	COMMON.createAlert("Play unavailable", "No game available now!");
-};	
-Ti.App.addEventListener("alertDisable", alertDisable);
+  

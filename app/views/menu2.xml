@@ -1,5 +1,5 @@
 <Alloy>
-	<View class="container" backgroundColor="#262626">
+	<View id="menu2" class="container" backgroundColor="#262626">
 		<TableView class="menuTable" onClick="navMenu">
 			<TableViewRow height=50>
 				<Label text="HOME" class="menuLabel" color="#ffffff" apiName="Button" />
