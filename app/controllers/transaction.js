@@ -4,8 +4,7 @@ Ti.App.Properties.setString('module',"member");
 var dayInt = value.getDate();
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
-$.picker.value = value;
-
+$.picker.value = value; 
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
  
 function back() {
@@ -116,7 +115,7 @@ function populateData(e){
 }
 
 API.todayTransactionHistory({
-	sTranid : "1234567904",
+	sTranid : "C809382"+value.getTime(),
 	sTellerId : "9999",
 	sTellerPin : "9999",
 	sAccId : "18558705",
