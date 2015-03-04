@@ -39,8 +39,9 @@ var apiResult = function(e){
 	                _col.removeRow(_row);
 	        }
 	}
- 
-	refresh($.venueLabel.text);
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+		refresh($.venueLabel.text);
+	}
 	setPicker2(locations);
 	if(Ti.Platform.osname == "android")
 	{
