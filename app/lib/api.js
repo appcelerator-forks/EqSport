@@ -112,7 +112,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){  
 	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
-	//console.log(url);
+	console.log(url);
 	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
@@ -450,7 +450,7 @@ exports.raceCard = function (ex){
 			}
 			
 	    }, 500);
-		return false;
+		 
 	}
 	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
 	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
@@ -599,7 +599,7 @@ exports.popup = function(subView,config){
 exports.todayTransactionHistory = function (ex){
 	var url = "http://54.169.180.5/eqsport/main/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
 	var params = "&sTranid="+ex.sTranid+"&sTellerId="+ex.sTellerId+"&sTellerPin="+ex.sTellerPin+"&sAccId="+ex.sAccId+"&sRto="+ex.sRto+"&sNfo="+ex.sNfo+"&sDeposits="+ex.sDeposits+"&sWithdrawal="+ex.sWithdrawal+"&sAccountAccess="+ex.sAccountAccess+"&sAccountRelease="+ex.sAccountRelease+"&sDXP="+ex.sDXP+"&sCurrentDayTransactions="+ex.sCurrentDayTransactions;
- 
+ 	console.log(url+ params);
 	var client = Ti.Network.createHTTPClient();
 	client.onload = function(e) { 
 		 var res = JSON.parse(this.responseText);

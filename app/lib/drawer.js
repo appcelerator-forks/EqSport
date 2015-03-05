@@ -89,7 +89,7 @@ var createCenterNavWindow = function(){
 	});
 	  
 	if(Alloy.Globals.menuType == "1"){
-		var navController = openNewNavWindow('home');
+		var navController = openNewNavWindow('login');
 	}else{
 		var navController = openNewNavWindow('member');
 	}

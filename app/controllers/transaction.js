@@ -190,7 +190,7 @@ function populateData(e){
 }
 
 API.todayTransactionHistory({
-	sTranid : "1234567904",
+	sTranid : "C809382"+value.getTime(),
 	sTellerId : "9999",
 	sTellerPin : "9999",
 	sAccId : "18558705",
