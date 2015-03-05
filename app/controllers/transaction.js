@@ -1,3 +1,5 @@
+COMMON.construct($);
+COMMON.showLoading();
 var value = new Date();
 Ti.App.Properties.setString('root',"0");
 Ti.App.Properties.setString('module',"member");
@@ -5,6 +7,8 @@ var dayInt = value.getDate();
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
 $.picker.value = value;
+var transaction = Alloy.createCollection('transactionResult');
+var transactionDetails;
 
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
  
@@ -45,73 +49,143 @@ function done(){
 	
 	displayDate(day,month,year);
 	
+	var strDate = day+"/"+month+"/"+year;
+	transactionDetails = transaction.getTransResInfoByDate(strDate);
+	
+	populateData();
 	//transaction api
-	API.getRTOHistory({
+	/*API.getRTOHistory({
 		myView : $.transactionView
-	});
+	});*/
 }
 
 function populateData(e){
-	var detailsValue = e.result;
-	for(var i=0; i < detailsValue.length; i++) {
+	removeAllChildren($.scrollView);
+	//var detailsValue = e.result;
+	//console.log("detailsValue: "+detailsValue);
+	if(transactionDetails.length == 0)
+	{
 		var contentView = Titanium.UI.createView({
-			layout: "vertical",
-			width:"100%",
-			height:"80"
-		});
-		
-		var leftLabel = $.UI.create('Label',{
-			left :15,
-			classes : ['description_text'], 
-			text: "Date : " +timeFormat(detailsValue[i].date)
-		});
-		
-		var centerView = Titanium.UI.createView({
-			width:"100%",
-			layout: "vertical"
-		});
-		
-		var centerLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Pool : " +detailsValue[i].pool
-		});
-		
-		var raceLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Race : " +detailsValue[i].race
-		});
-		
-		var runnerLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Runner : " +detailsValue[i].runner
-		});
-		
-		var lineView = Titanium.UI.createView({
-			backgroundColor: "#A5A5A5",
-			width:"90%",
-			height:1
-		});
-		
-		var centerLineView = Titanium.UI.createView({
-			layout: "composite",
-			width:"100%",
-			height: 1,
-			bottom: 2
-		});
-		
-		
-		centerView.add(centerLabel);
-		centerView.add(raceLabel);
-		centerView.add(runnerLabel); 
-		centerView.add(leftLabel);
-		contentView.add(centerView);
-		//contentView+i.add(rightView+i);
-		centerLineView.add(lineView);
-		$.scrollView.add(contentView);
-		$.scrollView.add(centerLineView);
+				layout: "vertical",
+				width:"100%",
+				height:"80"
+			});
+			
+			var leftLabel = $.UI.create('Label',{
+				left :15,
+				classes : ['description_text'], 
+				text: "Date : -"
+			});
+			
+			var centerView = Titanium.UI.createView({
+				width:"100%",
+				layout: "vertical"
+			});
+			
+			var centerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Pool : -"
+			});
+			
+			var raceLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Race : -"
+			});
+			
+			var runnerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Runner : -"
+			});
+			
+			var lineView = Titanium.UI.createView({
+				backgroundColor: "#A5A5A5",
+				width:"90%",
+				height:1
+			});
+			
+			var centerLineView = Titanium.UI.createView({
+				layout: "composite",
+				width:"100%",
+				height: 1,
+				bottom: 2
+			});
+			
+			
+			centerView.add(centerLabel);
+			centerView.add(raceLabel);
+			centerView.add(runnerLabel); 
+			centerView.add(leftLabel);
+			contentView.add(centerView);
+			//contentView+i.add(rightView+i);
+			centerLineView.add(lineView);
+			$.scrollView.add(contentView);
+			$.scrollView.add(centerLineView);
+	}
+	else
+	{
+		for(var i=0; i < transactionDetails.length; i++) {
+			var contentView = Titanium.UI.createView({
+				layout: "vertical",
+				width:"100%",
+				height:"80"
+			});
+			
+			var leftLabel = $.UI.create('Label',{
+				left :15,
+				classes : ['description_text'], 
+				text: "Date : " +timeFormat(transactionDetails[i].date)
+			});
+			
+			var centerView = Titanium.UI.createView({
+				width:"100%",
+				layout: "vertical"
+			});
+			
+			var centerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Pool : " +transactionDetails[i].pool
+			});
+			
+			var raceLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Race : " +transactionDetails[i].race
+			});
+			
+			var runnerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Runner : " +transactionDetails[i].runner
+			});
+			
+			var lineView = Titanium.UI.createView({
+				backgroundColor: "#A5A5A5",
+				width:"90%",
+				height:1
+			});
+			
+			var centerLineView = Titanium.UI.createView({
+				layout: "composite",
+				width:"100%",
+				height: 1,
+				bottom: 2
+			});
+			
+			
+			centerView.add(centerLabel);
+			centerView.add(raceLabel);
+			centerView.add(runnerLabel); 
+			centerView.add(leftLabel);
+			contentView.add(centerView);
+			//contentView+i.add(rightView+i);
+			centerLineView.add(lineView);
+			$.scrollView.add(contentView);
+			$.scrollView.add(centerLineView);
+		}
 	}
 }
 
@@ -135,5 +209,6 @@ API.getRTOHistory({
 });
 
 $.transactionView.addEventListener('historyResult',function(e){  
-	populateData({result : e.historyResult});
+	//populateData({result : e.historyResult});
+	COMMON.hideLoading();
 });

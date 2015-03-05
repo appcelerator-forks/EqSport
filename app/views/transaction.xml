@@ -1,26 +1,31 @@
 <Alloy>
-	<View id="transactionView"  backgroundImage="/images/BG_Large.jpg">
-		<View id="headerView" layout="vertical">
-			<View layout="composite" height="50" backgroundColor="#EA431A" >
-				<View width="100%">
-					<Label class="title" color="white" minimumFontSize="12">VIEW TRANSACTION</Label>
+	<View height="Ti.UI.SIZE">
+		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+        	<ActivityIndicator  id="activityIndicator" />
+        	<Label top="5" text="Loading" color="#ffffff" />
+        </View>
+		<View zIndex="10" id="transactionView"  backgroundImage="/images/BG_Large.jpg">
+			<View id="headerView" layout="vertical">
+				<View layout="composite" height="50" backgroundColor="#EA431A" >
+					<View width="100%">
+						<Label class="title" color="white" minimumFontSize="12">VIEW TRANSACTION</Label>
+					</View>
+					<View width="15%" left="0" onClick="back">
+						<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
+					</View>
 				</View>
-				<View width="15%" left="0" onClick="back">
-					<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
+				<View id="dateView" height="70" width="100%">
+					<View width="90%" height="50" backgroundColor="white" onClick="showDate" top="10">
+						<Label id="date" color="black"></Label>
+					</View>
+					<View id="pickerView" zIndex="30" width="90%" height="215" backgroundColor="black" visible="false" top="60">
+						<Button height="50" width="100%" color="white" top="0" right="0" onClick="done">Done</Button>
+						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="100%" selectionIndicator="true" top="50" backgroundColor="white">
+						</Picker>
+					</View>
 				</View>
+				<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 
 			</View>
-			<View id="dateView" height="70" width="100%">
-				<View width="90%" height="50" backgroundColor="white" onClick="showDate" top="10">
-					<Label id="date" onClick="showDate" color="black"></Label>
-				</View>
-				<View id="pickerView" zIndex="30" width="90%" height="215" backgroundColor="black" visible="false" top="60">
-					<Button height="50" width="100%" color="white" top="0" right="0" onClick="done">Done</Button>
-					<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="100%" selectionIndicator="true" top="50" backgroundColor="white">
-					</Picker>
-				</View>
-			</View>
-			<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 
 		</View>
-		
 	</View>
 </Alloy>

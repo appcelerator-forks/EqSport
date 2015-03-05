@@ -165,7 +165,24 @@ exports.getRTOHistory = function(ex){
 	     onload : function(e) {
 	     	 
 	     	var result = extractHistoryValue(this.responseText);  
+	     	//console.log(result);
 	       	if(result.length > 0) {
+	       		
+	       		var library = Alloy.createCollection('transactionResult'); 
+		     		library.resetInfo();
+	       		
+	       		for(var i = 0; i<result.length ; i++)
+		     	{
+			     	var transResInfo = Alloy.createModel('transactionResult', { 
+						pool: result[i].pool, 
+						race: result[i].race,
+						position: result[i].position,
+						runner: result[i].runner,
+						date: result[i].date
+					}); 
+					transResInfo.save(); 
+				}
+	       		
 	     		myView.fireEvent('historyResult', {historyResult: result});
 	     	}  
 	     },
