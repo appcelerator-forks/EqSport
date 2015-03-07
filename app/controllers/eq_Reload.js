@@ -7,3 +7,8 @@ if(Ti.Platform.osname == "android") {
 function closeWindow(){
     DRAWER.navigation("home");
 }
+ 
+$.topupView.addEventListener('scroll', function(sc) { 
+	console.log(sc.x+"="+sc.y ); 
+//	PRODUCT.reloadFromScroll(e);
+});
