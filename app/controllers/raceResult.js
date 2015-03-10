@@ -2,8 +2,7 @@ var arr = [];
 var firstLoad = true;
 var androidLocation;
 if(Ti.Platform.osname == "android"){
-	$.date.width = "90%";
-	console.log("android");
+	$.date.width = "90%"; 
 	$.raceNo.textAlign = "left";
 }
 Ti.App.Properties.setString('module',"member");
@@ -22,7 +21,7 @@ var apiResult = function(e){
 	 
 	removeAllChildren($.scrollView);
 	arr = e.raceResult;
-	
+ 
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
 	$.picker.value = api_date;
@@ -45,8 +44,7 @@ var apiResult = function(e){
 	setPicker2(locations);
 	if(Ti.Platform.osname == "android")
 	{
-		refresh(androidLocation);
-		console.log(androidLocation);
+		refresh(androidLocation); 
 	}
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
@@ -54,8 +52,7 @@ var apiResult = function(e){
 };
 $.mainView.addEventListener('raceResult', apiResult);
 
-function setPicker2(location){  
-	 console.log(location);
+function setPicker2(location){   
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
@@ -230,7 +227,7 @@ function refresh(venue){
 		for(var i = 2; i<data.length;i++){
 			
 			var resultRow = (data[i]).split(" ");
-			
+			 
 			var contentView = Titanium.UI.createView({
 				layout: "horizontal",
 				width:"100%",

@@ -60,13 +60,11 @@ if(param_runner_id != "" && param_runner_id != "-"){
 		timeCounter();
 	}
 }
-
-
+ 
 //var column1 = Ti.UI.createPickerColumn();
 $.balance.text = "Your available balance is " + balanceInfo.amount; 
 setPicker1(); 
-
-		
+ 
 function timeCounter(){ 
 	var d = new Date(); 
 	var curTime = d.getTime();	 
@@ -345,19 +343,23 @@ function favouriteOdd(venue, raceNo){
 function process(){
 	var bets = bet.getBetInfo(); 
 	if(Ti.Platform.osname == "android"){
-		var textfield = Ti.UI.createTextField({passwordMask: true});
+		var textfield = Ti.UI.createTextField({passwordMask: true,keyboardType : Ti.UI.KEYBOARD_PHONE_PAD});
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	androidView: textfield,
-		    buttonNames: ['Confirm', 'Cancel']
+		    buttonNames: ['Confirm', 'Cancel'],
+		    
 		});
 		
 	}else{
+	 
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
-		    buttonNames: ['Confirm', 'Cancel']
+		    buttonNames: ['Confirm', 'Cancel'],
+		    keyboardType : Ti.UI.KEYBOARD_PHONE_PAD
 		});
+		 
 	}
 	
 	dialog.show();

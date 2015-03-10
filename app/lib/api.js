@@ -165,7 +165,8 @@ exports.getRTOHistory = function(ex){
 	     onload : function(e) {
 	     	 
 	     	var result = extractHistoryValue(this.responseText);  
-	     	//console.log(result);
+	     	console.log(result);
+	     	console.log('======');
 	       	if(result.length > 0) {
 	       		
 	       		var library = Alloy.createCollection('transactionResult'); 
@@ -323,10 +324,11 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
-	var rn = encodeURIComponent(ex.runner);
-	var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
-	
-	var url = confirmRaceBet + params; 
+	//var rn = encodeURIComponent(ex.runner); 
+	var rn = ex.runner; 
+	var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+	params =  encodeURIComponent(params); 
+	var url = confirmRaceBet + "?"+params; 
  	var myView = ex.myView;
  	console.log(url);
 	var client = Ti.Network.createHTTPClient({
@@ -349,8 +351,10 @@ exports.confirmRaceBet= function(ex){
 	     onerror : function(e) {
 	     	//alert("An error occurs");
 	     },
-	     timeout : 10000  // in milliseconds
+	     timeout : 10000,  // in milliseconds
+	     autoEncodeUrl : false
 	 });
+ 
 	 // Prepare the connection.
 	 client.open("GET", url);
 	 // Send the request.
@@ -406,7 +410,7 @@ exports.favourite = function (ex){
 
 //futureRace odds
 exports.futureRace = function (ex){  
-	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/odds_track.asp?UID="+ex.raceNo+"||"+ex.venue;//Future_Odds_Track
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
 	console.log(url); 
 	var client = Ti.Network.createHTTPClient({
@@ -600,13 +604,65 @@ exports.todayTransactionHistory = function (ex){
 	var url = "http://54.169.180.5/eqsport/main/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
 	var params = "&sTranid="+ex.sTranid+"&sTellerId="+ex.sTellerId+"&sTellerPin="+ex.sTellerPin+"&sAccId="+ex.sAccId+"&sRto="+ex.sRto+"&sNfo="+ex.sNfo+"&sDeposits="+ex.sDeposits+"&sWithdrawal="+ex.sWithdrawal+"&sAccountAccess="+ex.sAccountAccess+"&sAccountRelease="+ex.sAccountRelease+"&sDXP="+ex.sDXP+"&sCurrentDayTransactions="+ex.sCurrentDayTransactions;
  	console.log(url+ params);
+ 	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient();
 	client.onload = function(e) { 
 		 var res = JSON.parse(this.responseText);
 	      if(res.status == "success"){
-	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse;
-	     	console.log(currentDayTransactionsResult.accCurrentDayTransactionsResult);
-	      	console.log(currentDayTransactionsResult.sCurrentDayTransactions);
+	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
+	      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
+	      	var sdata = curDayTrans.split("$");  
+	       
+	      	var startPoint = 2; 
+	      	var newCounter = 0;
+	      	var position = 1;
+	      	var ary = []; 
+	      	for(var i = 1; i<= sdata.length; i++) {
+	      		var obj = {};
+	      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
+	      			var ext1 = sdata[i].split("^");  
+	      			
+	      			
+	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
+	      			datetime = datetime.replace(/-/g, "/");
+	      			
+	      			obj['position'] = position;
+					obj['date'] = datetime;
+					
+					//+7
+					var inf = sdata[(i+7)].split("~");  
+	      			
+	      			aRaceNo    = inf[0].split("RACENO=");
+	      			aPoolNo    = inf[1].split("POOLNO=");
+	      			aRunnerNo  = inf[2].split("RUNNERS=");
+	      			vRunnerNo  = aRunnerNo[1].split("param#");
+	      			// console.log("RACE : "+ aRaceNo[1]); 
+	      			// console.log( "POOL : "+aPoolNo[1]); 
+	      			// console.log( "POOL : "+vRunnerNo[0]); 
+	      			 
+					obj['pool'] = aPoolNo[1];//getPoolById()
+					obj['race'] = aRaceNo[1];
+					obj['runner'] = vRunnerNo[0]; 
+					
+	      			newCounter += 9;
+	      			position++;	
+	      			ary.push(obj);
+	      		} 
+	      	 	  
+	      		
+	      		// var transResInfo = Alloy.createModel('transactionResult', { 
+						// pool: aPoolNo[1], 
+						// race: aRaceNo[1],
+						// position: i,
+						// runner: vRunnerNo[0],
+						// date: datetime
+				// }); 
+				//transResInfo.save(); 
+	      		 
+	      		
+		 	}
+		 	console.log(ary);
+		 	myView.fireEvent('historyResult', {historyResult: ary});
 	      }
 	};
 	

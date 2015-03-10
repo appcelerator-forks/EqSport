@@ -12,7 +12,7 @@
 				<View height="100%" width="49.9%" >
 					<ImageView height="40" image="/images/btn_login.png" onClick="login" />
 				</View>
-				<View height="100%" width="49.9%" visible="false">
+				<View height="100%" width="49.9%" >
 					<ImageView height="40" image="/images/btn_signup.png" onClick="signUp" />
 				</View>
 			</View>	

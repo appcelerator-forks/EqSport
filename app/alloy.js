@@ -211,4 +211,39 @@ function timeFormat(datetime){
 	return newFormat;
 }
 
+function getPoolById(poolId){
+	switch(poolId){
+		case 1:
+			return "WIN";
+			break;
+		case 2:
+			return "PLA";
+			break;
+		case 3:
+			return "WPL";
+			break;
+		case 4:
+			return "FC2";
+			break;
+		case 5:
+			return "TRI";
+			break;
+		case 6:
+			return "FC4";
+			break;
+		case 7:
+			return "D-T";
+			break;
+		case 8:
+			return "T-T";
+			break;	
+		case 9:
+			return "TRO";
+			break;	
+		case 10:
+			return "QPS";
+			break;	
+	}
+}
+
 //API.getRTOResults();

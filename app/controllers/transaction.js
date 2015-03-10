@@ -7,8 +7,11 @@ var dayInt = value.getDate();
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
 $.picker.value = value;
+var info = Alloy.createCollection('info');
 var transaction = Alloy.createCollection('transactionResult');
 var transactionDetails;
+
+var infoDetails = info.getInfo(); 
 
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
  
@@ -129,7 +132,7 @@ API.todayTransactionHistory({
 	sTranid : "C809382"+value.getTime(),
 	sTellerId : "9999",
 	sTellerPin : "9999",
-	sAccId : "18558705",
+	sAccId : infoDetails[0].account,
 	sRto : "1",
 	sNfo : "0",
 	sDeposits : "0",
@@ -137,7 +140,8 @@ API.todayTransactionHistory({
 	sAccountAccess : "0",
 	sAccountRelease : "0",
 	sDXP : "0",
-	sCurrentDayTransactions : "1"
+	sCurrentDayTransactions : "1",
+	myView : $.transactionView
 });
 
 API.getRTOHistory({

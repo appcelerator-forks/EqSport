@@ -8,6 +8,6 @@
 				<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
 			</View>
 		</View>
-		<WebView id="webview" url="http://www.google.com"></WebView>
+		<WebView id="webview" url="http://www.eqsport.com.my/signup"></WebView>
 	</View>
 </Alloy>
