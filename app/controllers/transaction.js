@@ -32,11 +32,6 @@ function showDate(){
 	$.pickerView.show();
 }
 
-function displayDate(day,month,year){
-	var string = day + "/" + month + "/" + year;
-	$.date.text = string;
-}
-
 function done(){
 	$.pickerView.hide();
 	$.dateView.height = 70;
@@ -51,16 +46,44 @@ function done(){
 	var date = year+"-"+day+"-" + month;
 	
 	displayDate(day,month,year);
-	
-	var strDate = day+"/"+month+"/"+year;
-	transactionDetails = transaction.getTransResInfoByDate(strDate);
-	
+	 
 	populateData();
 	//transaction api
 	/*API.getRTOHistory({
 		myView : $.transactionView
 	});*/
 }
+
+function displayDate(day,month,year){
+	var string = day + "/" + month + "/" + year;
+	$.date.text = string;
+	
+	var datetimenow = currentDateTime();
+	
+	if(datetimenow.substr(0,10) == year+"-"+month+"-"+day){ 
+		var curDate = new Date();
+		API.todayTransactionHistory({
+			sTranid : "C809382"+curDate.getTime(),
+			sTellerId : "9999",
+			sTellerPin : "9999",
+			sAccId : infoDetails[0].account,
+			sRto : "1",
+			sNfo : "0",
+			sDeposits : "0",
+			sWithdrawal : "0",
+			sAccountAccess : "0",
+			sAccountRelease : "0",
+			sDXP : "0",
+			sCurrentDayTransactions : "1",
+			myView : $.transactionView
+		});
+	}else{ 
+		transactionDetails = transaction.getTransResInfoByDate(string);
+	}
+	 
+}
+
+
 
 function populateData(e){
 	removeAllChildren($.scrollView);
@@ -128,25 +151,21 @@ function populateData(e){
 	}
 }
 
-API.todayTransactionHistory({
-	sTranid : "C809382"+value.getTime(),
-	sTellerId : "9999",
-	sTellerPin : "9999",
-	sAccId : infoDetails[0].account,
-	sRto : "1",
-	sNfo : "0",
-	sDeposits : "0",
-	sWithdrawal : "0",
-	sAccountAccess : "0",
-	sAccountRelease : "0",
-	sDXP : "0",
-	sCurrentDayTransactions : "1",
-	myView : $.transactionView
-});
+
 
 API.getRTOHistory({
 	myView : $.transactionView
 });
+
+$.transactionView.addEventListener('todayResult',function(e){  
+	transactionDetails = e.todayResult;
+	populateData();
+	COMMON.hideLoading();
+});
+$.picker.addEventListener('change', function(e){ 
+	var datetimenow = currentDateTime();
+});
+
 
 $.transactionView.addEventListener('historyResult',function(e){  
 	//populateData({result : e.historyResult});
