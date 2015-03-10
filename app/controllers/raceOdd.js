@@ -267,6 +267,7 @@ function changeRaceNo(e){
 }
 
 function raceOdd(data){
+	console.log(data);
 	COMMON.showLoading();
 	removeAllChildren($.scrollView);
 	if(data == "") {
@@ -275,13 +276,13 @@ function raceOdd(data){
 		var run = "-";
 		var pla = "-";
 	} else {
-		$.mtr.text = "Min to Race: " + data[0].min_to_race;
+		$.mtr.text = "Min to Race: " + data.min_to_race;
 		
-		var win_odd = data[0].win_odd;
+		var win_odd = data.win_odd;
 		var win = win_odd.split("$");
-		var runner = data[0].runner;
+		var runner = data.runner;
 		var run = runner.split("$");
-		var pla_odd = data[0].pla_odd;
+		var pla_odd = data.pla_odd;
 		var pla = pla_odd.split("$"); 
 	}
  

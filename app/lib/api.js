@@ -236,7 +236,9 @@ exports.getRTOResults = function(ex){
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			
+		       			console.log(obj["raceNo"]);
+		       			var raceObj = obj["raceNo"].split("(");
+		       			obj["official"] = "("+raceObj[1];
 		       			var dateDetail  = raceDate.split("/");
 		       			obj["raceDay"]  	 = dateDetail[0]; 
 		       			obj["raceMonth"]  	 = dateDetail[1]; 
@@ -248,8 +250,7 @@ exports.getRTOResults = function(ex){
 		       			obj["raceNo"]  	 = dataByRace[1]; 
 		       			obj["raceRow1"]  = dataByDetail[0];  
 		       			obj["raceRow2"]  = dataByDetail[1];  
-		       			obj["raceRow3"]  = dataByDetail[2];  
-		       			
+		       			obj["raceRow3"]  = dataByDetail[2];
 		       			ary.push(obj);  
 		       		} 
 		       	}
@@ -325,10 +326,19 @@ exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
 	//var rn = encodeURIComponent(ex.runner); 
-	var rn = ex.runner; 
-	var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
-	params =  encodeURIComponent(params); 
-	var url = confirmRaceBet + "?"+params; 
+	
+	if(Ti.Platform.osname == "android"){
+		var rn = ex.runner; 
+		var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+		params =  encodeURIComponent(params); 
+		var url = confirmRaceBet + "?"+params; 
+	}else{
+		var rn = encodeURIComponent(ex.runner); 
+		var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+	 
+		var url = confirmRaceBet + params; 
+	}
+	
  	var myView = ex.myView;
  	console.log(url);
 	var client = Ti.Network.createHTTPClient({
@@ -409,15 +419,22 @@ exports.favourite = function (ex){
 };
 
 //futureRace odds
-exports.futureRace = function (ex){  
-	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/odds_track.asp?UID="+ex.raceNo+"||"+ex.venue;//Future_Odds_Track
+exports.futureRace = function (ex){
+	var ve = ex.venue.split("(");
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ve[0];//
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
 	console.log(url); 
+	var result;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
-	     	Ti.App.fireEvent("futureRace",{returnData: res});
+	       	for(var a=0; res.length > a; a++){
+	       		if(res[a]['venue'] == ex.venue){
+	       			Ti.App.fireEvent("futureRace",{returnData: res[a]});
+	       		}
+	       	}
+	     	
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
