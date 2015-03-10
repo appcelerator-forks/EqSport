@@ -165,8 +165,7 @@ exports.getRTOHistory = function(ex){
 	     onload : function(e) {
 	     	 
 	     	var result = extractHistoryValue(this.responseText);  
-	     	console.log(result);
-	     	console.log('======');
+	     	 
 	       	if(result.length > 0) {
 	       		
 	       		var library = Alloy.createCollection('transactionResult'); 
@@ -325,8 +324,7 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
-	//var rn = encodeURIComponent(ex.runner); 
-	
+
 	if(Ti.Platform.osname == "android"){
 		var rn = ex.runner; 
 		var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
@@ -335,10 +333,9 @@ exports.confirmRaceBet= function(ex){
 	}else{
 		var rn = encodeURIComponent(ex.runner); 
 		var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
-	 
 		var url = confirmRaceBet + params; 
 	}
-	
+
  	var myView = ex.myView;
  	console.log(url);
 	var client = Ti.Network.createHTTPClient({
@@ -479,10 +476,7 @@ exports.raceCard = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	var res = getValueFromDollarAndPipe(this.responseXML);  
-	     	// console.log("res"); 
-	     	// console.log(res); 
-	     	console.log("res length: "+res.length);
+	     	var res = getValueFromDollarAndPipe(this.responseXML);   
 	     	//if( res.id > 0 ) { 
 	     	if( res.length > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
@@ -637,49 +631,34 @@ exports.todayTransactionHistory = function (ex){
 	      	for(var i = 1; i<= sdata.length; i++) {
 	      		var obj = {};
 	      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
-	      			var ext1 = sdata[i].split("^");  
-	      			
-	      			
+	      			var ext1 = sdata[i].split("^");   
 	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
 	      			datetime = datetime.replace(/-/g, "/");
 	      			
 	      			obj['position'] = position;
-					obj['date'] = datetime;
-					
-					//+7
+					obj['date'] = datetime; 
 					var inf = sdata[(i+7)].split("~");  
 	      			
 	      			aRaceNo    = inf[0].split("RACENO=");
 	      			aPoolNo    = inf[1].split("POOLNO=");
 	      			aRunnerNo  = inf[2].split("RUNNERS=");
 	      			vRunnerNo  = aRunnerNo[1].split("param#");
-	      			// console.log("RACE : "+ aRaceNo[1]); 
-	      			// console.log( "POOL : "+aPoolNo[1]); 
-	      			// console.log( "POOL : "+vRunnerNo[0]); 
 	      			 
-					obj['pool'] = aPoolNo[1];//getPoolById()
+	      			var poolData =  getPoolById(aPoolNo[1]);
+	      			if (typeof poolData === "undefined") {
+					    poolData = aPoolNo[1];
+					}
+					obj['pool'] = poolData; 
 					obj['race'] = aRaceNo[1];
 					obj['runner'] = vRunnerNo[0]; 
 					
 	      			newCounter += 9;
 	      			position++;	
 	      			ary.push(obj);
-	      		} 
-	      	 	  
-	      		
-	      		// var transResInfo = Alloy.createModel('transactionResult', { 
-						// pool: aPoolNo[1], 
-						// race: aRaceNo[1],
-						// position: i,
-						// runner: vRunnerNo[0],
-						// date: datetime
-				// }); 
-				//transResInfo.save(); 
-	      		 
-	      		
+	      		}  
 		 	}
-		 	console.log(ary);
-		 	myView.fireEvent('historyResult', {historyResult: ary});
+ 
+		 	myView.fireEvent('todayResult', {todayResult: ary});
 	      }
 	};
 	

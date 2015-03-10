@@ -149,9 +149,7 @@ if(Ti.Platform.osname == "android"){
 	 
 	$.scrollView2.scrollType = "horizontal";
 	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	
-
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER; 
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
