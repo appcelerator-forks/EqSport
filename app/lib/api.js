@@ -183,7 +183,7 @@ exports.getRTOHistory = function(ex){
 					transResInfo.save(); 
 				}
 	       		
-	     		myView.fireEvent('historyResult', {historyResult: result});
+	     		COMMON.hideLoading();
 	     	}  
 	     },
 	     // function called when an error occurs, including a timeout
@@ -623,7 +623,7 @@ exports.todayTransactionHistory = function (ex){
 	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
 	      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
 	      	var sdata = curDayTrans.split("$");  
-	       
+	      
 	      	var startPoint = 2; 
 	      	var newCounter = 0;
 	      	var position = 1;
@@ -635,20 +635,17 @@ exports.todayTransactionHistory = function (ex){
 	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
 	      			datetime = datetime.replace(/-/g, "/");
 	      			
+	      			//pool bet detail
+	      			var betDet = ext1[19].split("BETTYPE=");    
 	      			obj['position'] = position;
 					obj['date'] = datetime; 
 					var inf = sdata[(i+7)].split("~");  
 	      			
-	      			aRaceNo    = inf[0].split("RACENO=");
-	      			aPoolNo    = inf[1].split("POOLNO=");
+	      			aRaceNo    = inf[0].split("RACENO="); 
 	      			aRunnerNo  = inf[2].split("RUNNERS=");
 	      			vRunnerNo  = aRunnerNo[1].split("param#");
-	      			 
-	      			var poolData =  getPoolById(aPoolNo[1]);
-	      			if (typeof poolData === "undefined") {
-					    poolData = aPoolNo[1];
-					}
-					obj['pool'] = poolData; 
+	      			  
+					obj['pool'] = betDet[1]; 
 					obj['race'] = aRaceNo[1];
 					obj['runner'] = vRunnerNo[0]; 
 					

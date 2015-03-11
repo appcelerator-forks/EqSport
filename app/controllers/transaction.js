@@ -33,6 +33,7 @@ function showDate(){
 }
 
 function done(){
+	COMMON.showLoading();
 	$.pickerView.hide();
 	$.dateView.height = 70;
 	value = $.picker.value;
@@ -87,68 +88,91 @@ function displayDate(day,month,year){
 
 function populateData(e){
 	removeAllChildren($.scrollView);
-	//var detailsValue = e.result;
-	//console.log("detailsValue: "+detailsValue);
-	for(var i=0; i < transactionDetails.length; i++) {
+	$.summaryLbl.text = "Total transaction(s) found : "+transactionDetails.length;
+	if(transactionDetails.length <= 0){
 		var contentView = Titanium.UI.createView({
-			layout: "vertical",
-			width:"100%",
-			height:"80"
+				layout: "vertical",
+				width:"100%",
+				height:"80"
 		});
-		
-		var leftLabel = $.UI.create('Label',{
-			left :15,
-			classes : ['description_text'], 
-			text: "Date : " +timeFormat(transactionDetails[i].date)
-		});
-		
 		var centerView = Titanium.UI.createView({
-			width:"100%",
-			layout: "vertical"
+				width:"100%",
+				top:20,
+				layout: "vertical"
 		});
-		
-		var centerLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Pool : " +transactionDetails[i].pool
+		var leftLabel = $.UI.create('Label',{
+				left :15,
+				classes : ['description_text'], 
+				text: "No record "
 		});
-		
-		var raceLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Race : " +transactionDetails[i].race
-		});
-		
-		var runnerLabel = $.UI.create('Label',{
-			classes : ['description_text'], 
-			left :15,
-			text: "Runner : " +transactionDetails[i].runner
-		});
-		
-		var lineView = Titanium.UI.createView({
-			backgroundColor: "#A5A5A5",
-			width:"90%",
-			height:1
-		});
-		
-		var centerLineView = Titanium.UI.createView({
-			layout: "composite",
-			width:"100%",
-			height: 1,
-			bottom: 2
-		});
-		
-		
-		centerView.add(centerLabel);
-		centerView.add(raceLabel);
-		centerView.add(runnerLabel); 
+ 
 		centerView.add(leftLabel);
 		contentView.add(centerView);
-		//contentView+i.add(rightView+i);
-		centerLineView.add(lineView);
-		$.scrollView.add(contentView);
-		$.scrollView.add(centerLineView);
+		$.scrollView.add(contentView); 
+	}else{  
+		for(var i=0; i < transactionDetails.length; i++) {
+			var contentView = Titanium.UI.createView({
+				layout: "vertical",
+				width:"100%",
+				height:"80"
+			});
+			
+			var leftLabel = $.UI.create('Label',{
+				left :15,
+				classes : ['description_text'], 
+				text: "Date : " +timeFormat(transactionDetails[i].date)
+			});
+			
+			var centerView = Titanium.UI.createView({
+				width:"100%",
+				layout: "vertical"
+			});
+			
+			var centerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Pool : " +transactionDetails[i].pool
+			});
+			
+			var raceLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Race : " +transactionDetails[i].race
+			});
+			
+			var runnerLabel = $.UI.create('Label',{
+				classes : ['description_text'], 
+				left :15,
+				text: "Runner : " +transactionDetails[i].runner
+			});
+			
+			var lineView = Titanium.UI.createView({
+				backgroundColor: "#A5A5A5",
+				width:"90%",
+				height:1
+			});
+			
+			var centerLineView = Titanium.UI.createView({
+				layout: "composite",
+				width:"100%",
+				height: 1,
+				bottom: 2
+			});
+			
+			
+			centerView.add(centerLabel);
+			centerView.add(raceLabel);
+			centerView.add(runnerLabel); 
+			centerView.add(leftLabel);
+			contentView.add(centerView);
+			//contentView+i.add(rightView+i);
+			centerLineView.add(lineView);
+			$.scrollView.add(contentView);
+			$.scrollView.add(centerLineView);
+		}
 	}
+	
+	COMMON.hideLoading();
 }
 
 
@@ -159,15 +183,9 @@ API.getRTOHistory({
 
 $.transactionView.addEventListener('todayResult',function(e){  
 	transactionDetails = e.todayResult;
-	populateData();
-	COMMON.hideLoading();
+	populateData(); 
 });
 $.picker.addEventListener('change', function(e){ 
 	var datetimenow = currentDateTime();
 });
-
-
-$.transactionView.addEventListener('historyResult',function(e){  
-	//populateData({result : e.historyResult});
-	COMMON.hideLoading();
-});
+ 

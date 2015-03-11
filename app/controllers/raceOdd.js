@@ -21,12 +21,9 @@ var venue;
 COMMON.construct($);
 COMMON.showLoading();
  
-setPicker1(); 
-console.log("splitter");
-if(Ti.Platform.osname == "android")
-{
-	if(param_race_id == "1")
-	{
+setPicker1();  
+if(Ti.Platform.osname == "android") {
+	if(param_race_id == "1") {
 		setPicker2();
 	}
 }
@@ -90,8 +87,7 @@ function refresh(index){
 		}
 	} if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
 		var selectedRunner = 0;
-		if(param_runner_position != ""){
-			console.log("param_runner_position: " +param_runner_position);
+		if(param_runner_position != ""){ 
 			selectedRunner = parseInt(param_runner_position) - 1;	
 		}
 		$.picker2.setSelectedRow(0,selectedRunner,false);
@@ -132,12 +128,8 @@ function setPicker2(){
 	  	$.picker2.add(row);
 		 
 	} 
-	if(Ti.Platform.osname == "android") {
-		console.log(param_runner_position);
-		if(param_race_id != "1") {
-			console.log("param_runner_id: "+param_runner_id);
-			console.log("param_venue: "+param_venue);
-			console.log("API 5");
+	if(Ti.Platform.osname == "android") { 
+		if(param_race_id != "1") { 
 			API.futureRace({
 				raceNo: param_runner_id,
 				venue: param_venue
@@ -148,8 +140,7 @@ function setPicker2(){
 			param_venue =  "";
 			param_race_id =  "1";
 		}
-	}
-	console.log("end mytest picker2");
+	} 
 }
  
 function back(){	
@@ -287,7 +278,7 @@ function tableBetEvent(contentView,runner,race_id){
 		if(runner != "" && runner != '-'){
 			Ti.App.Properties.setString('module','raceOdd');
 			Ti.App.Properties.setString('presetRunner', parseInt(runner));
-			Ti.App.Properties.setString('presetBet', race_id);
+			 
 			DRAWER.navigation("play",1,{runner: runner, race_id: race_id});
 		}
 	});

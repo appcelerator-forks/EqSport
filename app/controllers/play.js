@@ -820,6 +820,8 @@ $.mainView.addEventListener('submitSuccess', function(){
 	}, 5000);
 	// popWindow = 0;
 	// pop.close();
+	API.favourite({skip: "1"});
+	favouriteOdd(venue, raceNo);
 	$.runner.value = "";
 	$.bet.value = "";
 	Ti.App.Properties.setString('presetRunner', "");
