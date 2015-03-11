@@ -30,7 +30,7 @@ var dateFormatted;
 var timeFormatted;
 var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
-
+ 
 function successCallBack(){
 	COMMON.hideLoading();
 }
@@ -99,7 +99,10 @@ function setPicker1(){
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
-		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		var data = Ti.UI.createPickerRow({
+			title:venue.toString(),
+			race_id:race_id.toString() 
+		});
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
@@ -254,6 +257,7 @@ function venue(e){
 		$.venueLabel.text = venue;
 	}
 	$.venue.text = "Venue: " + venue;
+	favouriteOdd(venue, raceNo);
 	refresh(e.row.race_id);
 }
 
