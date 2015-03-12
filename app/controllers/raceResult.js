@@ -11,6 +11,7 @@ Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 COMMON.construct($);
 COMMON.showLoading();
+DRAWER.disableDrawer();
 API.getRTOResults({
 	myView: $.mainView,
 	raceNumber : "",
@@ -94,6 +95,7 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 // $.date.text = toDisplay;
 
 function back(){	
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
@@ -299,7 +301,8 @@ function refresh(venue){
 		resultTitle = resultTitle.slice(0, - 1);
 		var raceTitle = data[0].split(":");
 		$.raceTitle.text = raceTitle[1];
-		$.resultTitle.text = resultTitle+official;
+		$.resultLabel.text = "RESULT "+official;
+		$.resultTitle.text = resultTitle ;
 	}
 	else
 	{

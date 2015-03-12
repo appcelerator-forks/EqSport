@@ -1,6 +1,7 @@
 var args = arguments[0] || {};
 
 function navMenu(e){
+	DRAWER.enableDrawer();	
 	switch(e.index){
 		case 0: 
 			DRAWER.navigation("home",2);   

@@ -417,7 +417,9 @@ exports.favourite = function (ex){
 
 //futureRace odds
 exports.futureRace = function (ex){
-	var ve = ex.venue.split("(");
+	var theVenue = ex.venue;
+	console.log(theVenue);
+	var ve = theVenue.split("(");
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ve[0];//
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
 	console.log(url); 

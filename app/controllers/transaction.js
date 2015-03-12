@@ -1,5 +1,6 @@
 COMMON.construct($);
 COMMON.showLoading();
+DRAWER.disableDrawer();
 var value = new Date();
 Ti.App.Properties.setString('root',"0");
 Ti.App.Properties.setString('module',"member");
@@ -16,6 +17,7 @@ var infoDetails = info.getInfo();
 displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
  
 function back() {
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }

@@ -1,5 +1,6 @@
 var args = arguments[0] || {}; 
 Ti.App.Properties.setString('root',"1");
+ 
 var pHeight = Ti.Platform.displayCaps.platformHeight;
 $.scrollView.height = pHeight - 50;  
 if(Ti.Platform.osname == "android") {
@@ -17,6 +18,7 @@ if(Alloy.Globals.menuType == "1"){
 }
 	
 function goTo(e){ 
+	DRAWER.disableDrawer();
 	Ti.App.Properties.setString('module',"home");
 	DRAWER.navigation("eq_"+e.source.mod,1);
 }

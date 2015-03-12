@@ -28,6 +28,7 @@ function menuToggle(e){
 	var module = Ti.App.Properties.getString('module');
 	var isRoot = Ti.App.Properties.getString('root');
 	
+	DRAWER.enableDrawer();	
 	if(module !== null && module != ""){
 		Ti.App.Properties.setString('module',"");
 		DRAWER.navigation(module, 1 );

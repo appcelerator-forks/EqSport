@@ -6,6 +6,7 @@ Ti.App.Properties.setString('module',"member");
 
 COMMON.construct($);
 COMMON.showLoading(); 
+DRAWER.disableDrawer();
 //update balnce from server
 API.checkBalance({
 	account: infoDetails[0].account,
@@ -32,6 +33,7 @@ function menuToggle(e){
 }
 
 function back(){	
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }

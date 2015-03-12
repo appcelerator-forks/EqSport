@@ -3,6 +3,7 @@ var param_runner_position = args.runner || "";
 var param_runner_id = args.runner_id || "";
 var param_venue = args.venue || "";
 var param_race_id = args.race_id || "1";
+DRAWER.disableDrawer();
 //var param_race_id = 2;
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
@@ -18,6 +19,10 @@ Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
 var venue;
+
+if(param_venue != ""){
+	venue = param_venue;
+}
 COMMON.construct($);
 COMMON.showLoading();
  
@@ -72,7 +77,7 @@ function refresh(index){
 			}else{ 
 				if(raceNo == null) { 
 					API.futureRace({
-						raceNo: $.picker2.getSelectedRow(0).title,
+						raceNo: 1,//$.picker2.getSelectedRow(0).title
 						venue: venue
 					});
 				} else { 
@@ -144,11 +149,12 @@ function setPicker2(){
 }
  
 function back(){	
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
 
-function venue(e){
+function changeVenue(e){
 	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;

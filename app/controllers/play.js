@@ -1,9 +1,11 @@
 var args = arguments[0] || {}; 
 var param_runner_id = args.runner || "";
 var param_race_id = args.race_id || "";
+
 Ti.App.Properties.setString('root',"0");
 var cur_mod = Ti.App.Properties.getString('module'); 
 COMMON.construct($);
+DRAWER.disableDrawer();
 if(cur_mod == "" || cur_mod == "member"){
 	Ti.App.Properties.setString('module',"member");
 }
@@ -13,9 +15,7 @@ var info = Alloy.createCollection('info');
 var bet = Alloy.createCollection('betInfo');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
-var favourite = Alloy.createCollection('favourite');
- 
-
+var favourite = Alloy.createCollection('favourite'); 
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
@@ -231,12 +231,9 @@ function showPool() {
  
 function backPlay(){	 
 	var mod = Ti.App.Properties.getString('module');
-	$.mainView.removeEventListener('click', hideKeyboard);
-	// $.mainView.removeEventListener('confirmSuccess', submit); 
-	// $.mainView.removeEventListener('submitSuccess', successCallBack);
-	// $.mainView.removeEventListener('submitFailed',fail);
-
-	if(mod == ""){
+	$.mainView.removeEventListener('click', hideKeyboard); 
+	DRAWER.enableDrawer();	
+	if(mod == ""){ 
 		DRAWER.navigation("member",1);
 	}else{
 		Ti.App.Properties.setString('module',"");

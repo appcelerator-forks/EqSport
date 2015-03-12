@@ -10,6 +10,7 @@ var clickTime = null;
 var pHeight = Ti.Platform.displayCaps.platformHeight;
 COMMON.construct($);
 COMMON.showLoading();
+
 $.scrollView.height = pHeight - 50; 
 
 var blnDetails = balance.getBalance(); 
@@ -113,6 +114,7 @@ function account(){
 	var imaView2 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
+		right : 10, 
 		destination : "amountBalance",
 		image : "/images/Button03.png"
 	});
@@ -131,10 +133,11 @@ function account(){
 	  color: '#ffffff',
 	  font: { fontSize:8 },
 	  left : 10, 
+	  right : 10, 
 	  text: 'Check Account Balance',
 	  destination : "amountBalance",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  width: "35%" 
+	  width: "40%" 
 	});
 	var sepView = Ti.UI.createView({ 
 			width : "100%", 
@@ -144,7 +147,7 @@ function account(){
 	var imaView3 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
-	    right : 100,
+	    right : 10,
 	    destination : "transaction",
 		image : "/images/Button04.png"
 	});
@@ -159,16 +162,16 @@ function account(){
 	});
 	
 	subView.add(svTitle);
-	subView.add(imaView1);	
 	subView.add(imaView2);	
-	subView.add(label1);	
-	subView.add(label2);
-	subView.add(sepView);	 
 	subView.add(imaView3);	
+	subView.add(label2);	
 	subView.add(label3);
+	// subView.add(sepView);	 
+	// subView.add(imaView3);	
+	// subView.add(label3);
 	
 	config.width = "70%";
-	config.height = "55%";
+	config.height = "35%";
 	 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
