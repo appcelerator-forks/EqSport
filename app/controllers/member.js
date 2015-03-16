@@ -113,6 +113,7 @@ function account(){
 	var imaView2 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
+		right: 10, //added to hide withdrawal
 		destination : "amountBalance",
 		image : "/images/Button03.png"
 	});
@@ -130,11 +131,13 @@ function account(){
 	var label2 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  left : 10, 
+	  left : 10,
+	  right: 10, //added to hide withdrawal 
 	  text: 'Check Account Balance',
 	  destination : "amountBalance",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  width: "35%" 
+	  //width: "35%"  original before hiding withdrawal
+	  width: "40%" 
 	});
 	var sepView = Ti.UI.createView({ 
 			width : "100%", 
@@ -144,32 +147,51 @@ function account(){
 	var imaView3 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
-	    right : 100,
+	    //right : 100, commented to hide withdrawal
 	    destination : "transaction",
 		image : "/images/Button04.png"
 	});
 	var label3 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
+	  //left : 10, original before hiding withdrawal
 	  left : 10,
+	  right: 10, //added to hide withdrawal
 	  text: 'View Transaction',
 	  destination : "transaction",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  width: "40%" 
+	  width: "40%"
 	});
 	
-	subView.add(svTitle);
+	/*subView.add(svTitle);
 	subView.add(imaView1);	
 	subView.add(imaView2);	
 	subView.add(label1);	
 	subView.add(label2);
 	subView.add(sepView);	 
 	subView.add(imaView3);	
+	subView.add(label3);*/
+	
+	subView.add(svTitle);
+	//subView.add(imaView1);	
+	subView.add(imaView2);	
+	subView.add(imaView3);	
+	//subView.add(label1);	
+	subView.add(label2);
 	subView.add(label3);
+	subView.add(sepView);	 
+	
+	
 	
 	config.width = "70%";
-	config.height = "55%";
-	 
+	//config.height = "55%";
+	if(Ti.Platform.osname == "android"){
+	config.height = "25%"; 
+	}
+	else{
+		config.height = "30%";
+	}//this if else case is created for temporary removal of withdrawal
+	
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
 	pop.open({fullscreen: true}); 

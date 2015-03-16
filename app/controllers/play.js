@@ -1,4 +1,5 @@
 var args = arguments[0] || {}; 
+var param_venue = args.venue || "";
 var param_runner_id = args.runner || "";
 var param_race_id = args.race_id || "";
 Ti.App.Properties.setString('root',"0");
@@ -98,6 +99,18 @@ function refresh(index){
 }
 
 function setPicker1(){ 
+	var index;
+
+	if(param_venue != "")
+	{
+		for (var g = 0;g < infoValue.length; g++) {
+		    if(infoValue[g].venue == param_venue)
+		    {
+		    	index = g;
+		    }
+		}
+	}
+	
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
@@ -106,6 +119,11 @@ function setPicker1(){
 		$.picker1.add(data);
 	}
 	 
+	if(param_venue != ""){  
+		$.picker1.setSelectedRow(0,index,true); 
+	}else{
+		$.picker1.setSelectedRow(0,0,true); 
+	}
 }
 
 function setPicker2(){ 
@@ -160,7 +178,7 @@ if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 	// $.picker1.setSelectedRow(0,(infoValue.length-1),false);
 	// //$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
 	// $.picker3.setSelectedRow(0,8,false);
-	$.picker1.setSelectedRow(0,0,false);
+	//$.picker1.setSelectedRow(0,0,false);
 	$.picker3.setSelectedRow(0,0,false);
 }
 
