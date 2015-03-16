@@ -10,6 +10,7 @@ var clickTime = null;
 var pHeight = Ti.Platform.displayCaps.platformHeight;
 COMMON.construct($);
 COMMON.showLoading();
+
 $.scrollView.height = pHeight - 50; 
 
 var blnDetails = balance.getBalance(); 
@@ -114,6 +115,7 @@ function account(){
 		width    : "40%",  
 		left : 10, 
 		right: 10, //added to hide withdrawal
+		bottom: 10, //added during the hide of withdrawal
 		destination : "amountBalance",
 		image : "/images/Button03.png"
 	});
@@ -179,8 +181,7 @@ function account(){
 	//subView.add(label1);	
 	subView.add(label2);
 	subView.add(label3);
-	subView.add(sepView);	 
-	
+	subView.add(sepView); 
 	
 	
 	config.width = "70%";
@@ -191,7 +192,7 @@ function account(){
 	else{
 		config.height = "30%";
 	}//this if else case is created for temporary removal of withdrawal
-	
+
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
 	pop.open({fullscreen: true}); 

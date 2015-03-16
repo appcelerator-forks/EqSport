@@ -4,7 +4,7 @@ var raceCardInfo = Alloy.createCollection('raceCardInfo');
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
- 
+DRAWER.disableDrawer();
 if(Ti.Platform.osname == "android"){
 	$.date.width = "90%";
 }
@@ -14,7 +14,8 @@ function setPicker1(){
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
-		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		//venue =  venue.split("(");
+		var data = Ti.UI.createPickerRow({title:venue,race_id:race_id.toString()});
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
@@ -24,6 +25,7 @@ function setPicker1(){
 //$.picker2.setSelectedRow(0,false);
 
 function back(){	
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }

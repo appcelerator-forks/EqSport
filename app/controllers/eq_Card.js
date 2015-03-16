@@ -1,7 +1,7 @@
 var args = arguments[0] || {};
 Ti.App.Properties.setString('root',"0");
 var menu = [{id: 0, title: "Info", controller: 'eq_Card1'}, {id: 1, title: "T&C", controller: 'eq_Card3'}];
-
+DRAWER.disableDrawer();	
 function goSlide(event){
 	var index = event.source.mod;
 	var arrViews = $.scrollableView.getViews();
@@ -31,24 +31,9 @@ function goSlide(event){
 			$.lbl3.borderColor = "#FFFFFF";
 			break;
 	}
-	//moveHoverTo(index);
-	//setTitle(index);
-	
+	 
 	$.scrollableView.scrollToView(arrViews[index]);
 }
-
-// function setTitle(index){
-	// $.title.text = menu[index]['title'];
-// }
-
-// function moveHoverTo(index){
-	// var moveTo = Ti.UI.createAnimation({
-	    // left: (index*80)+'dp',
-	    // duration : 100,
-	// });
-// 	
-	// $.hover.animate(moveTo);
-// }
 
 function scrollend(event){
 	//moveHoverTo(event.currentPage);
@@ -59,7 +44,8 @@ function scrollend(event){
 
 $.scrollableView.addEventListener("scrollend", scrollend);
 
-function closeWindow(){
-   DRAWER.navigation("home");
+function closeWindow(){ 	
+	alert('a');
+	DRAWER.navigation("home");
 }
  

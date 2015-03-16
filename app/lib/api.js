@@ -165,7 +165,7 @@ exports.getRTOHistory = function(ex){
 	     onload : function(e) {
 	     	 
 	     	var result = extractHistoryValue(this.responseText);  
-	     	//console.log(result);
+	     	 
 	       	if(result.length > 0) {
 	       		
 	       		var library = Alloy.createCollection('transactionResult'); 
@@ -183,7 +183,7 @@ exports.getRTOHistory = function(ex){
 					transResInfo.save(); 
 				}
 	       		
-	     		myView.fireEvent('historyResult', {historyResult: result});
+	     		COMMON.hideLoading();
 	     	}  
 	     },
 	     // function called when an error occurs, including a timeout
@@ -235,7 +235,9 @@ exports.getRTOResults = function(ex){
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			
+		       			console.log(obj["raceNo"]);
+		       			var raceObj = obj["raceNo"].split("(");
+		       			obj["official"] = "("+raceObj[1];
 		       			var dateDetail  = raceDate.split("/");
 		       			obj["raceDay"]  	 = dateDetail[0]; 
 		       			obj["raceMonth"]  	 = dateDetail[1]; 
@@ -247,8 +249,7 @@ exports.getRTOResults = function(ex){
 		       			obj["raceNo"]  	 = dataByRace[1]; 
 		       			obj["raceRow1"]  = dataByDetail[0];  
 		       			obj["raceRow2"]  = dataByDetail[1];  
-		       			obj["raceRow3"]  = dataByDetail[2];  
-		       			
+		       			obj["raceRow3"]  = dataByDetail[2];
 		       			ary.push(obj);  
 		       		} 
 		       	}
@@ -323,10 +324,18 @@ exports.submitRaceBet= function(ex){
 exports.confirmRaceBet= function(ex){
 	//var url = "http://54.169.180.5/eqsport/confirmRaceBet.php"; 
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
-	var rn = encodeURIComponent(ex.runner);
-	var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
-	
-	var url = confirmRaceBet + params; 
+
+	if(Ti.Platform.osname == "android"){
+		var rn = ex.runner; 
+		var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+		params =  encodeURIComponent(params); 
+		var url = confirmRaceBet + "?"+params; 
+	}else{
+		var rn = encodeURIComponent(ex.runner); 
+		var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+		var url = confirmRaceBet + params; 
+	}
+
  	var myView = ex.myView;
  	console.log(url);
 	var client = Ti.Network.createHTTPClient({
@@ -349,8 +358,10 @@ exports.confirmRaceBet= function(ex){
 	     onerror : function(e) {
 	     	//alert("An error occurs");
 	     },
-	     timeout : 10000  // in milliseconds
+	     timeout : 10000,  // in milliseconds
+	     autoEncodeUrl : false
 	 });
+ 
 	 // Prepare the connection.
 	 client.open("GET", url);
 	 // Send the request.
@@ -405,15 +416,24 @@ exports.favourite = function (ex){
 };
 
 //futureRace odds
-exports.futureRace = function (ex){  
-	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ex.venue;
+exports.futureRace = function (ex){
+	var theVenue = ex.venue;
+	console.log(theVenue);
+	var ve = theVenue.split("(");
+	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ve[0];//
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
 	console.log(url); 
+	var result;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
-	     	Ti.App.fireEvent("futureRace",{returnData: res});
+	       	for(var a=0; res.length > a; a++){
+	       		if(res[a]['venue'] == ex.venue){
+	       			Ti.App.fireEvent("futureRace",{returnData: res[a]});
+	       		}
+	       	}
+	     	
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) {
@@ -458,10 +478,7 @@ exports.raceCard = function (ex){
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
-	     	var res = getValueFromDollarAndPipe(this.responseXML);  
-	     	// console.log("res"); 
-	     	// console.log(res); 
-	     	console.log("res length: "+res.length);
+	     	var res = getValueFromDollarAndPipe(this.responseXML);   
 	     	//if( res.id > 0 ) { 
 	     	if( res.length > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
@@ -600,13 +617,47 @@ exports.todayTransactionHistory = function (ex){
 	var url = "http://54.169.180.5/eqsport/main/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
 	var params = "&sTranid="+ex.sTranid+"&sTellerId="+ex.sTellerId+"&sTellerPin="+ex.sTellerPin+"&sAccId="+ex.sAccId+"&sRto="+ex.sRto+"&sNfo="+ex.sNfo+"&sDeposits="+ex.sDeposits+"&sWithdrawal="+ex.sWithdrawal+"&sAccountAccess="+ex.sAccountAccess+"&sAccountRelease="+ex.sAccountRelease+"&sDXP="+ex.sDXP+"&sCurrentDayTransactions="+ex.sCurrentDayTransactions;
  	console.log(url+ params);
+ 	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient();
 	client.onload = function(e) { 
 		 var res = JSON.parse(this.responseText);
 	      if(res.status == "success"){
-	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse;
-	     	console.log(currentDayTransactionsResult.accCurrentDayTransactionsResult);
-	      	console.log(currentDayTransactionsResult.sCurrentDayTransactions);
+	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
+	      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
+	      	var sdata = curDayTrans.split("$");  
+	      
+	      	var startPoint = 2; 
+	      	var newCounter = 0;
+	      	var position = 1;
+	      	var ary = []; 
+	      	for(var i = 1; i<= sdata.length; i++) {
+	      		var obj = {};
+	      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
+	      			var ext1 = sdata[i].split("^");   
+	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
+	      			datetime = datetime.replace(/-/g, "/");
+	      			
+	      			//pool bet detail
+	      			var betDet = ext1[19].split("BETTYPE=");    
+	      			obj['position'] = position;
+					obj['date'] = datetime; 
+					var inf = sdata[(i+7)].split("~");  
+	      			
+	      			aRaceNo    = inf[0].split("RACENO="); 
+	      			aRunnerNo  = inf[2].split("RUNNERS=");
+	      			vRunnerNo  = aRunnerNo[1].split("param#");
+	      			  
+					obj['pool'] = betDet[1]; 
+					obj['race'] = aRaceNo[1];
+					obj['runner'] = vRunnerNo[0]; 
+					
+	      			newCounter += 9;
+	      			position++;	
+	      			ary.push(obj);
+	      		}  
+		 	}
+ 
+		 	myView.fireEvent('todayResult', {todayResult: ary});
 	      }
 	};
 	

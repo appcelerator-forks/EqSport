@@ -1,15 +1,17 @@
 var arr = [];
 var firstLoad = true;
 var androidLocation;
+var official = "";
+
 if(Ti.Platform.osname == "android"){
-	$.date.width = "90%";
-	console.log("android");
+	$.date.width = "90%"; 
 	$.raceNo.textAlign = "left";
 }
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 COMMON.construct($);
 COMMON.showLoading();
+DRAWER.disableDrawer();
 API.getRTOResults({
 	myView: $.mainView,
 	raceNumber : "",
@@ -22,14 +24,15 @@ var apiResult = function(e){
 	 
 	removeAllChildren($.scrollView);
 	arr = e.raceResult;
-	
+ 	official = arr[0].official;
+ 	
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
 	$.picker.value = api_date;
 	var locations = [];
 	for(var i=0; i < arr.length; i++){
 		locations.push(arr[i].location); 
-		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo];
+		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo, arr[i].official];
 	}
 	if($.picker2.columns[0]) {
 	    var _col = $.picker2.columns[0];
@@ -45,8 +48,7 @@ var apiResult = function(e){
 	setPicker2(locations);
 	if(Ti.Platform.osname == "android")
 	{
-		refresh(androidLocation);
-		console.log(androidLocation);
+		refresh(androidLocation); 
 	}
 	$.picker2.setSelectedRow(0,0,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
@@ -54,8 +56,7 @@ var apiResult = function(e){
 };
 $.mainView.addEventListener('raceResult', apiResult);
 
-function setPicker2(location){  
-	 console.log(location);
+function setPicker2(location){   
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
@@ -94,6 +95,7 @@ displayDate(dayInt.toString(),monthInt.toString(),yearInt.toString());
 // $.date.text = toDisplay;
 
 function back(){	
+	DRAWER.enableDrawer();	
 	Ti.App.Properties.setString('module',"");
 	DRAWER.navigation("member",1);
 }
@@ -227,10 +229,10 @@ function refresh(venue){
   	
   	var resultTitle = "";
 	if(!firstLoad) {
+		
 		for(var i = 2; i<data.length;i++){
 			
 			var resultRow = (data[i]).split(" ");
-			
 			var contentView = Titanium.UI.createView({
 				layout: "horizontal",
 				width:"100%",
@@ -299,7 +301,8 @@ function refresh(venue){
 		resultTitle = resultTitle.slice(0, - 1);
 		var raceTitle = data[0].split(":");
 		$.raceTitle.text = raceTitle[1];
-		$.resultTitle.text = resultTitle;
+		$.resultLabel.text = "RESULT "+official;
+		$.resultTitle.text = resultTitle ;
 	}
 	else
 	{

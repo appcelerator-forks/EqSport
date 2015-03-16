@@ -17,13 +17,17 @@ if(users.length == 0){
 var nappDrawer = null;
 var menu_no = "1";
 
+function openDrawerGesture(){
+	nappDrawer.setOpenDrawerGestureMode(NappDrawerModule.OPEN_MODE_ALL);  
+}
+
 function createMyDrawer(leftMenuWindow){
 	nappDrawer = NappDrawerModule.createDrawer({
 			fullscreen:true,  
 			leftWindow: leftMenuWindow,
 			centerWindow: createCenterNavWindow(), 
 			//closeDrawerGestureMode: NappDrawerModule.CLOSE_MODE_ALL,
-			openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
+			//openDrawerGestureMode: NappDrawerModule.OPEN_MODE_ALL,
 			showShadow: false,  
 			leftDrawerWidth: 200,  
 			animationMode: NappDrawerModule.ANIMATION_NONE,  
@@ -34,6 +38,8 @@ function createMyDrawer(leftMenuWindow){
 	if (Ti.Platform.osname == 'iphone') {
 	    nappDrawer.setCloseDrawerGestureMode(NappDrawerModule.CLOSE_MODE_ALL); 
 	}
+	
+	openDrawerGesture();
 	
 	/***DRAWER EVENT***/
 	nappDrawer.addEventListener('windowDidOpen', function (e) { 
@@ -46,6 +52,7 @@ function createMyDrawer(leftMenuWindow){
 
 	nappDrawer.addEventListener('android:back', function (e) {
 		var mod = Ti.App.Properties.getString('module');
+		DRAWER.enableDrawer();	
 		if(mod != ""){
 			Ti.App.Properties.setString('module',"");
 			navigation(mod, 1);
@@ -150,6 +157,14 @@ exports.initMenu = function(){
 
 exports.isDrawerOpen = function(){
 	return drawerFlag;
+};
+
+exports.disableDrawer = function(){ 
+	nappDrawer.setOpenDrawerGestureMode(NappDrawerModule.OPEN_MODE_NONE); 
+};
+
+exports.enableDrawer = function(){  
+	openDrawerGesture();
 };
 
 exports.logout = function(){

@@ -25,9 +25,9 @@
 					</View>
 				</View>
 				<Label top="30" color="#444444" class="label1">LASTEST UPDATED</Label>
-				<Label id="date" color="#A5A5A5" class="label2">01/01/2015</Label>
-				<Label id="time" color="#A5A5A5" class="label2">11:59:59PM</Label>
-				<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp" visible="false"></ImageView>
+				<Label id="date" color="#A5A5A5" class="label2">00/00/0000</Label>
+				<Label id="time" color="#A5A5A5" class="label2">00:00:00</Label>
+				<!--<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp"></ImageView>-->
 			</View>
 		</View>
 	</View>

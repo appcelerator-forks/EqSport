@@ -4,6 +4,7 @@ var users = info.getInfo();
 function navMenu(e){
 	switch(e.index){
 		case 0: 
+			DRAWER.enableDrawer();	
 			DRAWER.navigation("home",2);   
 			break;
 		case 1:   

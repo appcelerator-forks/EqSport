@@ -84,7 +84,7 @@
 					</View>
 					<View width="74.9%">
 						<View layout="vertical" width="Ti.UI.SIZE" left="0">
-							<Label class="smallTitle" color="white" left="10">RESULT</Label>
+							<Label id="resultLabel" class="smallTitle" color="white" left="10">RESULT</Label>
 							<Label id="resultTitle" class="largeTitle" color="white" left="10">-</Label>
 						</View>
 					</View>

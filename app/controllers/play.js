@@ -2,9 +2,11 @@ var args = arguments[0] || {};
 var param_venue = args.venue || "";
 var param_runner_id = args.runner || "";
 var param_race_id = args.race_id || "";
+
 Ti.App.Properties.setString('root',"0");
 var cur_mod = Ti.App.Properties.getString('module'); 
 COMMON.construct($);
+DRAWER.disableDrawer();
 if(cur_mod == "" || cur_mod == "member"){
 	Ti.App.Properties.setString('module',"member");
 }
@@ -14,9 +16,7 @@ var info = Alloy.createCollection('info');
 var bet = Alloy.createCollection('betInfo');
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
 var raceCardDetails = Alloy.createCollection('raceCardDetails');
-var favourite = Alloy.createCollection('favourite');
- 
-
+var favourite = Alloy.createCollection('favourite'); 
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1");
@@ -31,7 +31,7 @@ var dateFormatted;
 var timeFormatted;
 var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
-
+ 
 function successCallBack(){
 	COMMON.hideLoading();
 }
@@ -61,13 +61,11 @@ if(param_runner_id != "" && param_runner_id != "-"){
 		timeCounter();
 	}
 }
-
-
+ 
 //var column1 = Ti.UI.createPickerColumn();
 $.balance.text = "Your available balance is " + balanceInfo.amount; 
 setPicker1(); 
-
-		
+ 
 function timeCounter(){ 
 	var d = new Date(); 
 	var curTime = d.getTime();	 
@@ -114,7 +112,10 @@ function setPicker1(){
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue = infoValue[i].venue;
 		var race_id = infoValue[i].id;
-		var data = Ti.UI.createPickerRow({title:venue.toString(),race_id:race_id.toString()});
+		var data = Ti.UI.createPickerRow({
+			title:venue.toString(),
+			race_id:race_id.toString() 
+		});
 		//$.pickerColumn1.addRow(data);
 		$.picker1.add(data);
 	}
@@ -169,9 +170,7 @@ if(Ti.Platform.osname == "android"){
 	 
 	$.scrollView2.scrollType = "horizontal";
 	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	
-
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER; 
 }
 
 if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
@@ -250,12 +249,9 @@ function showPool() {
  
 function backPlay(){	 
 	var mod = Ti.App.Properties.getString('module');
-	$.mainView.removeEventListener('click', hideKeyboard);
-	// $.mainView.removeEventListener('confirmSuccess', submit); 
-	// $.mainView.removeEventListener('submitSuccess', successCallBack);
-	// $.mainView.removeEventListener('submitFailed',fail);
-
-	if(mod == ""){
+	$.mainView.removeEventListener('click', hideKeyboard); 
+	DRAWER.enableDrawer();	
+	if(mod == ""){ 
 		DRAWER.navigation("member",1);
 	}else{
 		Ti.App.Properties.setString('module',"");
@@ -276,6 +272,7 @@ function venue(e){
 		$.venueLabel.text = venue;
 	}
 	$.venue.text = "Venue: " + venue;
+	favouriteOdd(venue, raceNo);
 	refresh(e.row.race_id);
 }
 
@@ -363,19 +360,23 @@ function favouriteOdd(venue, raceNo){
 function process(){
 	var bets = bet.getBetInfo(); 
 	if(Ti.Platform.osname == "android"){
-		var textfield = Ti.UI.createTextField({passwordMask: true});
+		var textfield = Ti.UI.createTextField({passwordMask: true,keyboardType : Ti.UI.KEYBOARD_PHONE_PAD});
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	androidView: textfield,
-		    buttonNames: ['Confirm', 'Cancel']
+		    buttonNames: ['Confirm', 'Cancel'],
+		    
 		});
 		
 	}else{
+	 
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
-		    buttonNames: ['Confirm', 'Cancel']
+		    buttonNames: ['Confirm', 'Cancel'],
+		    keyboardType : Ti.UI.KEYBOARD_PHONE_PAD
 		});
+		 
 	}
 	
 	dialog.show();
@@ -834,6 +835,8 @@ $.mainView.addEventListener('submitSuccess', function(){
 	}, 5000);
 	// popWindow = 0;
 	// pop.close();
+	API.favourite({skip: "1"});
+	favouriteOdd(venue, raceNo);
 	$.runner.value = "";
 	$.bet.value = "";
 	Ti.App.Properties.setString('presetRunner', "");
