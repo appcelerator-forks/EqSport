@@ -31,6 +31,7 @@ var dateFormatted;
 var timeFormatted;
 var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
+var androidRaceNo;
  
 function successCallBack(){
 	COMMON.hideLoading();
@@ -98,13 +99,15 @@ function refresh(index){
 
 function setPicker1(){ 
 	var index;
-
+	var race_id;
+	
 	if(param_venue != "")
 	{
 		for (var g = 0;g < infoValue.length; g++) {
 		    if(infoValue[g].venue == param_venue)
 		    {
 		    	index = g;
+		    	race_id = infoValue[g].id;
 		    }
 		}
 	}
@@ -122,6 +125,9 @@ function setPicker1(){
 	 
 	if(param_venue != ""){  
 		$.picker1.setSelectedRow(0,index,true); 
+		if(Ti.Platform.osname == "android"){
+			refresh(race_id);
+		}
 	}else{
 		$.picker1.setSelectedRow(0,0,true); 
 	}
@@ -164,8 +170,8 @@ function setPicker2(){
  
  
 if(Ti.Platform.osname == "android"){
-	$.picker1.setSelectedRow(0,false);
-	$.picker2.setSelectedRow(0,false);
+	// $.picker1.setSelectedRow(0,false);
+	// $.picker2.setSelectedRow(0,false);
 	$.picker3.setSelectedRow(0,false);
 	 
 	$.scrollView2.scrollType = "horizontal";
@@ -260,7 +266,7 @@ function backPlay(){
 }
 
 
-function venue(e){  
+function venue(e){ 
 	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;

@@ -77,7 +77,7 @@ function refresh(index){
 			}else{ 
 				if(raceNo == null) { 
 					API.futureRace({
-						raceNo: 1,//$.picker2.getSelectedRow(0).title
+						raceNo: $.picker2.getSelectedRow(0).title,//1,//$.picker2.getSelectedRow(0).title
 						venue: venue
 					});
 				} else { 
