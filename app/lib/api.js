@@ -457,7 +457,7 @@ exports.raceCard = function (ex){
 			if(oddEnabled == "1"){
 				if(ex.from == "menu"){ 
 		     		DRAWER.navigation("play",1);
-		     		DRAWER.closeToggle();
+		     		//DRAWER.closeToggle();
 		     	}else{
 		     		Ti.App.fireEvent("enabledPlay");
 		     	}
