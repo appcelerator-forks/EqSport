@@ -10,8 +10,6 @@ var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var infoValue = raceCardInfo.getRaceCardInfo();
  
 var detailsValue = raceCardDetails.getRaceCardDetails(param_race_id);
-console.log("***detailsValue***");
-console.log(detailsValue);
 var favourite = Alloy.createCollection('favourite');
 
 var apiFlag = false;
@@ -124,6 +122,7 @@ function setPicker1(){
 }
 
 function setPicker2(){  
+	raceNo = detailsValue[0].runner_id;
 	for(var i=0; i < detailsValue.length; i++){
 		var rec = detailsValue[i].runner_id; 
 	  	var row = Ti.UI.createPickerRow({
@@ -284,7 +283,7 @@ function tableBetEvent(contentView,runner,race_id){
 		if(runner != "" && runner != '-'){
 			Ti.App.Properties.setString('module','raceOdd');
 			Ti.App.Properties.setString('presetRunner', parseInt(runner));
-			Ti.App.Properties.setString('presetBet', race_id);
+			//Ti.App.Properties.setString('presetBet', race_id);
 			DRAWER.navigation("play",1,{venue: venue, runner: runner, race_id: race_id});
 		}
 	});

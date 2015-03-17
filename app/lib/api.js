@@ -372,6 +372,7 @@ exports.confirmRaceBet= function(ex){
 exports.favourite = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
 	//var url = "http://54.169.180.5/eqsport/favOdds.php";
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 

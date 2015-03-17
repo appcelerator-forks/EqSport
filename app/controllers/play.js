@@ -11,6 +11,8 @@ if(cur_mod == "" || cur_mod == "member"){
 	Ti.App.Properties.setString('module',"member");
 }
 var popWindow = 0;
+var venue;
+var raceNo;
 var balance = Alloy.createCollection('balance'); 
 var info = Alloy.createCollection('info');
 var bet = Alloy.createCollection('betInfo');
@@ -54,7 +56,8 @@ var containerView = Ti.UI.createView({
 var presetBet = Ti.App.Properties.getString('presetBet') || "";
 $.bet.value = presetBet;
 if(param_runner_id != "" && param_runner_id != "-"){
-	$.runner.value = parseInt(param_runner_id);
+	//$.runner.value = parseInt(param_runner_id);
+	$.runner.value = param_runner_id;
 }else{
 	var presetRunner = Ti.App.Properties.getString('presetRunner') || "";
 	$.runner.value = presetRunner;
@@ -113,10 +116,10 @@ function setPicker1(){
 	}
 	
 	for(var i = 0 ; i < infoValue.length; i++){
-		var venue = infoValue[i].venue;
+		var venueData = infoValue[i].venue;
 		var race_id = infoValue[i].id;
 		var data = Ti.UI.createPickerRow({
-			title:venue.toString(),
+			title:venueData.toString(),
 			race_id:race_id.toString() 
 		});
 		//$.pickerColumn1.addRow(data);
@@ -126,6 +129,7 @@ function setPicker1(){
 	if(param_venue != ""){  
 		$.picker1.setSelectedRow(0,index,true); 
 		if(Ti.Platform.osname == "android"){
+			//$.venue.text = "Venue: " + $.picker1.getSelectedRow(0).title;
 			refresh(race_id);
 		}
 	}else{
@@ -134,7 +138,6 @@ function setPicker1(){
 }
 
 function setPicker2(){ 
-	
 	var lookup = {};
 	var counter = 0 ;
 	for (var g = 0;g < detailsValue.length; g++) {
@@ -163,8 +166,22 @@ function setPicker2(){
 	 
 	if(param_race_id != ""){  
 		$.picker2.setSelectedRow(0,lookup[param_race_id],true); 
+		if(Ti.Platform.osname == "android"){
+			venue = param_venue;
+			raceNo = param_race_id;
+			$.venue.text = "Venue: " + venue;
+			$.race.text = "Race: " + raceNo;
+			favouriteOdd(venue, raceNo);
+		}
 	}else{
 		$.picker2.setSelectedRow(0,0,true); 
+		if(Ti.Platform.osname == "android"){
+			venue = $.picker1.getSelectedRow(0).title;
+			raceNo = $.picker2.getSelectedRow(0).title;
+			$.venue.text = "Venue: " + venue;
+			$.race.text = "Race: " + raceNo;
+			favouriteOdd(venue, raceNo);
+		}
 	}
 }
  
@@ -284,7 +301,18 @@ function changeVenue(e){
 
 function raceNo(e){
 	runnerIndex = e.rowIndex;
-	raceNo = e.row.title; 
+	if((e.row == null) || (e.row == "null"))
+	{
+		// console.log("raceNo if");
+		// raceNo = e.row.title; 
+		raceNo = $.picker2.getSelectedRow(0).title;
+	}
+	else
+	{
+		// console.log("raceNo else");
+		// raceNo = $.picker2.getSelectedRow(0).title;
+		raceNo = e.row.title; 
+	}
 	 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.raceNoView.height = 50;
