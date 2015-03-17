@@ -224,7 +224,7 @@ function venue(e){
  
 function refresh(venue){  
 	removeAllChildren($.scrollView);
-
+	var resultArr = [];
 	var data = (arr[0].result).split("\n");
   	
   	var resultTitle = "";
@@ -236,36 +236,55 @@ function refresh(venue){
 			var contentView = Titanium.UI.createView({
 				layout: "horizontal",
 				width:"100%",
-				height:60
+				height:Ti.UI.SIZE,
+				top: 10,
+				bottom: 10
 			});
 			
 			var leftView = Titanium.UI.createView({
-				width:"25%"
+				width:"25%",
+				height: Ti.UI.SIZE,
 			});
 			
 			var leftLabel = Ti.UI.createLabel({
 				color: "black",
-				text: resultRow[0]//result[index][1]
+				text: resultRow[0],//result[index][1]
+				height: Ti.UI.SIZE,
 			});
 			
 			var centerView = Titanium.UI.createView({
-				width:"44.9%"
+				width:"44.9%",
+				height: Ti.UI.SIZE,
+				layout: "vertical"
 			});
 			
-			var centerLabel = Ti.UI.createLabel({
-				color: "black",
-				text: resultRow[1]//result[index][2]
-			});
+			var	cv = resultRow[1].split(',');
+			cv.forEach(function(c) {
+				 var centerLabel = Ti.UI.createLabel({
+					color: "black",
+					text: c,
+					height: Ti.UI.SIZE,
+				});
+				centerView.add(centerLabel);
+			}); 
+			 
 			
 			var rightView = Titanium.UI.createView({
-				width:"30%"
+				width:"30%",
+				height: Ti.UI.SIZE,
+				layout: "vertical"
 			});
-			
-			var rightLabel = Ti.UI.createLabel({
-				color: "black",
-				text: resultRow[2]//result[index][3]
-			});
-			
+		 
+			var	rv = resultRow[2].split(',');
+			rv.forEach(function(r) {
+				 var rightLabel = Ti.UI.createLabel({
+					color: "black",
+					text: r,
+					height: Ti.UI.SIZE,
+				});
+				rightView.add(rightLabel);
+			}); 
+			 
 			var lineView = Titanium.UI.createView({
 				backgroundColor: "#A5A5A5",
 				width:"90%",
@@ -278,25 +297,34 @@ function refresh(venue){
 				height: 1,
 				bottom: 2
 			});
+			 
+			var rr = resultRow[1].replace(/,/g,'-');
+			var resSplit = rr.split("-");
+		 	
+			resSplit.forEach(function(idd) {
+				var bool =contains(resultArr, idd);
+				if(bool === false){
+					resultArr.push(idd);
+				}
+			}); 
+			 
 			
-			if(resultTitle == "")
-			{
-				resultTitle = resultRow[1] + ",";
-			}
-			else
-			{
-				resultTitle = resultTitle + resultRow[1] + ",";
-			}
 			
 			leftView.add(leftLabel);
 			centerView.add(centerLabel);
-			rightView.add(rightLabel);
+			
 			contentView.add(leftView);
 			contentView.add(centerView);
 			contentView.add(rightView);
 			centerLineView.add(lineView);
 			$.scrollView.add(contentView);
 			$.scrollView.add(centerLineView);
+		}
+		myres = resultArr.join(',');
+		if(resultTitle == "") {
+			resultTitle = myres + ",";
+		}else {
+			resultTitle = resultTitle + myres + ",";
 		}
 		resultTitle = resultTitle.slice(0, - 1);
 		var raceTitle = data[0].split(":");

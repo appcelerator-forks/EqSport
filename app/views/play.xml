@@ -97,7 +97,7 @@
 								<Label left="5" color="black" >Venue</Label>
 							</View>
 							<View width="60%" >
-								<Picker id="picker1" onChange="venue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
+								<Picker id="picker1" onChange="changeVenue" width="100%" height="40" selectionIndicator="true" backgroundColor="#EFEFEF" />
 							</View>
 						</View>
 						<View layout="horizontal" height="50" width="90%">
@@ -163,7 +163,7 @@
 								<Label id="venueLabel" height="30" width="100%" backgroundColor="#EFEFEF" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 								<View id="pickerView1" height="50" width="100%" visible="false" >
 									<Button id="done1" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done1" visible="false">Done</Button>
-									<Picker id="picker1" onChange="venue" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+									<Picker id="picker1" onChange="changeVenue" width="100%" top="30" height="Ti.UI.SIZE" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
 									</Picker>
 								</View>
 							</View>

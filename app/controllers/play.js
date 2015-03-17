@@ -266,7 +266,7 @@ function backPlay(){
 }
 
 
-function venue(e){ 
+function changeVenue(e){ 
 	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;
