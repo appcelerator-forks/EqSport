@@ -229,7 +229,6 @@ function refresh(venue){
   	
   	var resultTitle = "";
 	if(!firstLoad) {
-		
 		for(var i = 2; i<data.length;i++){
 			
 			var resultRow = (data[i]).split(" ");
@@ -309,9 +308,8 @@ function refresh(venue){
 			}); 
 			 
 			
-			
 			leftView.add(leftLabel);
-			centerView.add(centerLabel);
+			//centerView.add(centerLabel);
 			
 			contentView.add(leftView);
 			contentView.add(centerView);
