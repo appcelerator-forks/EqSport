@@ -452,7 +452,7 @@ exports.futureRace = function (ex){
 exports.raceCard = function (ex){
 	
 	var oddEnabled = Ti.App.Properties.getString('oddEnabled');
-	
+	var isAlert = "0";
 	if(oddEnabled !== null && oddEnabled != "" ){
 		setTimeout(function(){
 			if(oddEnabled == "1"){
@@ -463,8 +463,9 @@ exports.raceCard = function (ex){
 		     		Ti.App.fireEvent("enabledPlay");
 		     	}
 			}else{
-				if(ex.from == "menu"){ 
+				if(ex.from == "menu"&& isAlert == "0"){ 
 		     		COMMON.createAlert("Play unavailable", "No game available now!"); 
+		     		isAlert="1";
 		     	}else{
 		     		Ti.App.fireEvent("disablePlay");
 		     	}
@@ -522,8 +523,9 @@ exports.raceCard = function (ex){
 	     		return false;
 			}else{
 			 
-				if(ex.from == "menu"){ 
+				if(ex.from == "menu" && isAlert == "0"){ 
 	     			COMMON.createAlert("Play unavailable", "No game available now!"); 
+	     			isAlert= "1";
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
 	     			//Ti.App.fireEvent("enabledPlay");

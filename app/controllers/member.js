@@ -187,7 +187,7 @@ function account(){
 	config.width = "70%";
 	//config.height = "55%";
 	if(Ti.Platform.osname == "android"){
-	config.height = "25%"; 
+		config.height = "35%"; 
 	}
 	else{
 		config.height = "30%";
