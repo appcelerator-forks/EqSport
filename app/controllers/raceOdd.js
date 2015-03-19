@@ -328,6 +328,8 @@ function done2() {
 	$.picker2.setVisible(false);
 }
 
-Ti.App.addEventListener("futureRace", function(e) {
+var getRaceOdd = function(e){
 	raceOdd(e.returnData);
-});
+} ;
+
+Ti.App.addEventListener("futureRace", getRaceOdd);

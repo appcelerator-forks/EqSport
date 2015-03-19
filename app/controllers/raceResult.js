@@ -18,7 +18,7 @@ API.getRTOResults({
 	raceDate: ""
 });
  
- var result = [];
+var result = [];
 
 var apiResult = function(e){   
 	 
@@ -392,11 +392,19 @@ function refresh(venue){
 	}
 	
 }
-
-$.mainView.addEventListener('noResult', noResult);
-
-function noResult()
-{
+function noResult(){
 	firstLoad = true;
 	refresh();
 }
+$.mainView.addEventListener('noResult', noResult);
+
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){ 
+	result = null; 
+	arr = null; 
+	Ti.App.removeEventListener("clearObject", clearObject);
+};
+Ti.App.addEventListener("clearObject", clearObject);	

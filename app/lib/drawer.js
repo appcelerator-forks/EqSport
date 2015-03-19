@@ -128,6 +128,9 @@ var openNewNavWindow = function(target, param){
  
 
 var navigation = function(target, skipToggle, param){
+	//clear current window cache
+	Ti.App.fireEvent("clearObject");
+	
 	var newWin = openNewNavWindow(target, param);
 	nappDrawer.setCenterWindow(newWin);
 	

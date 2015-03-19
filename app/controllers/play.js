@@ -21,25 +21,35 @@ var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var favourite = Alloy.createCollection('favourite'); 
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1");
-  
-var infoDetails = info.getInfo(); 
-
+var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
+var infoDetails = info.getInfo();  
 var cancelBtn;
 var confirmBtn;
 var pop;
-var runnerIndex;
+var runnerIndex = 0;
 var dateFormatted;
 var timeFormatted;
 var timeFormatted24;
 var timeStop = Ti.App.Properties.getString('timeStop') || "";
 var androidRaceNo;
- 
+$.balance.text = "Your available balance is " + balanceInfo.amount; 
+setPicker1(); 
+
+if(Ti.Platform.osname == "android"){ 
+	$.picker3.setSelectedRow(0,false); 
+	$.scrollView2.scrollType = "horizontal";
+	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
+	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER; 
+}
+
+if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){  
+	$.picker3.setSelectedRow(0,0,false);
+} 
+
 function successCallBack(){
 	COMMON.hideLoading();
 }
- 
-
+  
 //update balnce from server
 API.checkBalance({
 	account: infoDetails[0].account,
@@ -52,11 +62,10 @@ var containerView = Ti.UI.createView({
 	width:"100%",
 	backgroundColor: "black"
 }); 
-
+ 
 var presetBet = Ti.App.Properties.getString('presetBet') || "";
 $.bet.value = presetBet;
-if(param_runner_id != "" && param_runner_id != "-"){
-	//$.runner.value = parseInt(param_runner_id);
+if(param_runner_id != "" && param_runner_id != "-"){ 
 	$.runner.value = param_runner_id;
 }else{
 	var presetRunner = Ti.App.Properties.getString('presetRunner') || "";
@@ -64,12 +73,7 @@ if(param_runner_id != "" && param_runner_id != "-"){
 	if(presetBet != "" && presetRunner != ""){
 		timeCounter();
 	}
-}
- 
-//var column1 = Ti.UI.createPickerColumn();
-$.balance.text = "Your available balance is " + balanceInfo.amount; 
-setPicker1(); 
- 
+} 
 function timeCounter(){ 
 	var d = new Date(); 
 	var curTime = d.getTime();	 
@@ -94,21 +98,15 @@ function refresh(index){
 	        }
 	}
 	detailsValue = raceCardDetails.getRaceCardDetails(index);
-	setPicker2();
-	// if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
-		// $.picker2.setSelectedRow(0,0,false);
-	// }
+	setPicker2(); 
 }
 
 function setPicker1(){ 
 	var index;
-	var race_id;
-	
-	if(param_venue != "")
-	{
+	var race_id; 
+	if(param_venue != "") {
 		for (var g = 0;g < infoValue.length; g++) {
-		    if(infoValue[g].venue == param_venue)
-		    {
+		    if(infoValue[g].venue == param_venue)  {
 		    	index = g;
 		    	race_id = infoValue[g].id;
 		    }
@@ -121,15 +119,13 @@ function setPicker1(){
 		var data = Ti.UI.createPickerRow({
 			title:venueData.toString(),
 			race_id:race_id.toString() 
-		});
-		//$.pickerColumn1.addRow(data);
+		}); 
 		$.picker1.add(data);
 	}
 	 
 	if(param_venue != ""){  
 		$.picker1.setSelectedRow(0,index,true); 
-		if(Ti.Platform.osname == "android"){
-			//$.venue.text = "Venue: " + $.picker1.getSelectedRow(0).title;
+		if(Ti.Platform.osname == "android"){ 
 			refresh(race_id);
 		}
 	}else{
@@ -144,24 +140,13 @@ function setPicker2(){
 	    lookup[detailsValue[g].runner_id] = counter;
 	    counter++;
 	}
-
-	//param_race_id
+ 
 	for(var i=0; i < detailsValue.length; i++){
 		var rec = detailsValue[i].runner_id;
 		var row = Ti.UI.createPickerRow({
 	    	title: rec.toString()
 	  	}); 
-	  	$.picker2.add(row);
-		// var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,detailsValue[i].runner_id);  
-	 	// console.log(favouriteInfo);
-	 	/*
-		if(favouriteInfo.length > 0){
-			var rec = detailsValue[i].runner_id;
-			var row = Ti.UI.createPickerRow({
-		    	title: rec.toString()
-		  	}); 
-		  	$.picker2.add(row);
-		 }*/
+	  	$.picker2.add(row); 
 	}
 	 
 	if(param_race_id != ""){  
@@ -183,28 +168,7 @@ function setPicker2(){
 			favouriteOdd(venue, raceNo);
 		}
 	}
-}
- 
- 
-if(Ti.Platform.osname == "android"){
-	// $.picker1.setSelectedRow(0,false);
-	// $.picker2.setSelectedRow(0,false);
-	$.picker3.setSelectedRow(0,false);
-	 
-	$.scrollView2.scrollType = "horizontal";
-	$.scrollView2.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER;
-	$.scrollView.overScrollMode = Titanium.UI.Android.OVER_SCROLL_NEVER; 
-}
-
-if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-	// $.picker1.setSelectedRow(0,(infoValue.length-1),false);
-	// //$.picker2.setSelectedRow(0,(detailsValue.length-1),false);
-	// $.picker3.setSelectedRow(0,8,false);
-	//$.picker1.setSelectedRow(0,0,false);
-	$.picker3.setSelectedRow(0,0,false);
-}
-
-
+} 
 function done1() {
 	$.venueView.height = 50;
 	$.venueContentView.height = 50;
@@ -230,9 +194,7 @@ function done3(){
 	$.pickerView3.setVisible(false);
 	$.done3.setVisible(false);
 	$.picker3.setVisible(false);
-}
-
-
+} 
 function reset(){
 	$.runner.value = "";
 	$.bet.value = "";
@@ -281,8 +243,7 @@ function backPlay(){
 		DRAWER.navigation(mod,1);
 	} 
 }
-
-
+ 
 function changeVenue(e){ 
 	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
@@ -301,16 +262,9 @@ function changeVenue(e){
 
 function raceNo(e){
 	runnerIndex = e.rowIndex;
-	if((e.row == null) || (e.row == "null"))
-	{
-		// console.log("raceNo if");
-		// raceNo = e.row.title; 
+	if((e.row == null) || (e.row == "null")) { 
 		raceNo = $.picker2.getSelectedRow(0).title;
-	}
-	else
-	{
-		// console.log("raceNo else");
-		// raceNo = $.picker2.getSelectedRow(0).title;
+	} else { 
 		raceNo = e.row.title; 
 	}
 	 
@@ -342,8 +296,7 @@ function pool(e){
 }
  
 function favouriteOdd(venue, raceNo){ 
-	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo); 
-	//var favouriteInfo = favourite.getFavouriteInfoByRaceNo(selectedRow);
+	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
 	if(favouriteInfo == "") {
 		$.mtr.text = "Min to Race:-";
 		
@@ -362,14 +315,11 @@ function favouriteOdd(venue, raceNo){
 		$.c3.text = "-";
 		$.c4.text = "-";
 	} else {
-		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race;
-		
+		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race; 
 		var runner = favouriteInfo[0].runner;
-		var run = runner.split("$");
-		
+		var run = runner.split("$"); 
 		var win_odd = favouriteInfo[0].win_odd;
-		var win = win_odd.split("$");
-		
+		var win = win_odd.split("$"); 
 		var pla_odd = favouriteInfo[0].pla_odd;
 		var pla = pla_odd.split("$");
 		
@@ -388,8 +338,7 @@ function favouriteOdd(venue, raceNo){
 		$.c3.text = pla[2];
 		$.c4.text = pla[3];
 	}
-}
-
+} 
 
 function process(){
 	var bets = bet.getBetInfo(); 
@@ -398,25 +347,19 @@ function process(){
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	androidView: textfield,
-		    buttonNames: ['Confirm', 'Cancel'],
-		    
-		});
-		
-	}else{
-	 
+		    buttonNames: ['Confirm', 'Cancel'], 
+		}); 
+	}else{ 
 		var dialog = Ti.UI.createAlertDialog({
 		    title: 'Enter Pin No.',
 		   	style: Ti.UI.iPhone.AlertDialogStyle.SECURE_TEXT_INPUT,
 		    buttonNames: ['Confirm', 'Cancel'],
 		    keyboardType : Ti.UI.KEYBOARD_PHONE_PAD
-		});
-		 
+		}); 
 	}
 	
-	dialog.show();
-	
-	dialog.addEventListener('click', function(e){ 
-		
+	dialog.show(); 
+	dialog.addEventListener('click', function(e){  
 		if(e.index == 0) { 
 			popWindow = 0;
 			pop.close();
@@ -430,12 +373,7 @@ function process(){
 			 
 			if(betPin == bets[0].pin) {
 				cancelBtn.removeEventListener('click',cancel);
-				confirmBtn.removeEventListener('click',process); 
-				// $.mainView.removeEventListener('submitFailed',fail);
-				// $.mainView.removeEventListener('confirmSuccess',submit); 
-				// $.mainView.removeEventListener('submitSuccess', successCallBack);
-				
-				
+				confirmBtn.removeEventListener('click',process);  
 				//Submit API Calling
 				API.submitRaceBet({
 					myView : $.mainView,
@@ -455,29 +393,12 @@ function process(){
 				COMMON.hideLoading();
 			}
 		}
-	});
-	 
-	 
+	}); 
 }
 
 function confirm(){
 	COMMON.showLoading();
-	bet.resetInfo(); 
-	// $.mainView.addEventListener('submitFailed',fail);
-	// $.mainView.addEventListener('confirmSuccess',submit); 
-	// $.mainView.addEventListener('submitSuccess', successCallBack);
-	//Check balance and bet amount
-	// var blnDet = balance.getBalance(); 
-	// var blnAmt = 0;
-	// if(blnDet != ""){
-		// blnAmt = blnDet.amount.substring(2);
-	// }
-//  
-	// if(parseInt(blnAmt) < parseInt($.bet.value)){
-		// COMMON.createAlert("Bet Error","Insufficient amount to place bet. Please top up. Thanks.");
-		// return;
-	// }
-	
+	bet.resetInfo();  
 	if(venue == "" || raceNo =="" || pool == "" || $.runner.value == "" || $.bet.value == "") {
 		COMMON.createAlert("Bet Error","Fields cannot be empty");
 		COMMON.hideLoading();
@@ -559,8 +480,7 @@ function addClickEvent(myView, popView){
 	});
 }
 
-function cancel(){
-	 
+function cancel(){ 
 	cancelBtn.removeEventListener('click',cancel);
 	confirmBtn.removeEventListener('click',process);
 	popWindow = 0;
@@ -592,18 +512,7 @@ function questionMark(){
 	$.runner.value = currentValue + "?";
 }
 
-function hideKeyboard(e) {  
-	/*if (e.source != '[object runner]') {
-    	//console.log(e.source);
-		$.runner.blur();
-		//$.bet.blur();
-	}
-	
-	if (e.source != '[object bet]') {
-    	//console.log(e.source);
-		//$.runner.blur();
-		$.bet.blur();
-	}*/
+function hideKeyboard(e) {   
     if (e.source.id != 'TextField' || e.source.id != 'bet' || e.source.id != 'runner') {
     	 
     	if(e.source.id == 'runner'){
@@ -619,9 +528,7 @@ function hideKeyboard(e) {
 			$.hidden.focus();
 		}
 	}
-	
-	
-	
+	 
 	if($.bet.value != "" || $.runner.value != ""){ 
 		var d = new Date(); 
 		timeStop = d.getTime() + (15* 60 * 1000); // 1 minute
@@ -629,8 +536,7 @@ function hideKeyboard(e) {
 		Ti.App.Properties.setString('presetRunner', $.runner.value);
 		Ti.App.Properties.setString('presetBet', $.bet.value);
 		timeCounter(); 
-	}
-	
+	} 
 }
 $.runner.addEventListener('change',function(e){ 
 	Ti.App.Properties.setString('presetRunner', $.runner.value); 
@@ -640,24 +546,20 @@ $.bet.addEventListener('change',function(e){
 	Ti.App.Properties.setString('presetBet', $.bet.value); 
 });
 
-$.mainView.addEventListener('click', hideKeyboard);
- 
-
+$.mainView.addEventListener('click', hideKeyboard); 
 $.mainView.addEventListener('confirmSuccess',function(){
  
 	 if(popWindow == "1"){
 		 return false;
 	 }
 	
-	var bets = bet.getBetInfo();
-
+	var bets = bet.getBetInfo(); 
 	var oriTime = bets[0].time; 
 	var temp = oriTime.split(" ");
 	var res = temp[0].split(":");
 	var hourInt = parseInt(res[0]);
 	if(temp[1]=='PM' && hourInt > 12){
-		hourInt = hourInt + 12;
-		
+		hourInt = hourInt + 12; 
 	}
 	
 	var hour = ("0"+hourInt.toString()).slice(-2);
@@ -849,7 +751,7 @@ $.mainView.addEventListener('confirmSuccess',function(){
 	config.width = "70%";
 	config.height = "70%";
 	config.tabFrameToClose = false;
-	//$.mainView.add(containerView);
+ 
 	popWindow = 1;
 	pop = API.popup(containerView,config);
 	pop.open({fullscreen:true, navBarHidden: true}); 
@@ -867,8 +769,7 @@ $.mainView.addEventListener('submitSuccess', function(){
 		balanceInfo2 = balance.getBalance(); 
 		$.balance.text = "Your available balance is " + balanceInfo2.amount; 
 	}, 5000);
-	// popWindow = 0;
-	// pop.close();
+ 
 	API.favourite({skip: "1"});
 	favouriteOdd(venue, raceNo);
 	$.runner.value = "";
@@ -887,3 +788,18 @@ $.mainView.addEventListener('submitFailed',function(){
 	pop.close();
 	COMMON.hideLoading();
 });
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){ 
+	raceCardInfo = null; 
+	raceCardDetails = null; 
+	bet = null; 
+	favourite = null; 
+	balance = null; 
+	info = null;
+	containerView = null; 
+	Ti.App.removeEventListener("clearObject", clearObject);
+};
+Ti.App.addEventListener("clearObject", clearObject);	

@@ -4,7 +4,7 @@
 		<View layout="vertical">
 			<View width="90%" height="40" top="2"><Label height="35" class="description_header" top="10" bottom="10" textAlign="center">Play With EQLINK</Label></View>
  
-			<ScrollView layout="vertical">
+			<ScrollView layout="vertical" scrollType="vertical">
             	<!--<ImageView top="10" width="300" height="300" image="/images/home02.png" ></ImageView>-->
             	<Label class="description_text" width="90%" top="8">Join EQ Link membership by opening a Tele-betting Account, and you will enjoy these exclusive privileges:-</Label>
             	

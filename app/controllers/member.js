@@ -326,3 +326,20 @@ function raceResult(){
 
 Ti.App.addEventListener("disablePlay", disablePlay);
 Ti.App.addEventListener("enabledPlay", enabledPlay);
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){ 
+	raceCardInfo = null; 
+	raceCardDetails = null; 
+	infoDetails = null; 
+	favourite = null; 
+	balance = null; 
+	info = null;
+	Ti.App.removeEventListener("disablePlay", disablePlay);
+	Ti.App.removeEventListener("enabledPlay", enabledPlay);	
+	Ti.App.removeEventListener("clearObject", clearObject);
+};
+Ti.App.addEventListener("clearObject", clearObject);	
+

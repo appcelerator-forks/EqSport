@@ -9,6 +9,7 @@ if(Ti.Platform.osname == "android"){
 	$.date.width = "90%";
 }
 $.picker1.setSelectedRow(0,0,false);
+
 setPicker1();  
 function setPicker1(){  
 	for(var i = 0 ; i < infoValue.length; i++){
@@ -140,3 +141,15 @@ function showVenue() {
 	}
 	//return false;
 }
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){ 
+	raceCardInfo = null; 
+	raceCardDetails = null; 
+	infoValue = null; 
+	detailsValue = null;  
+	Ti.App.removeEventListener("clearObject", clearObject);
+};
+Ti.App.addEventListener("clearObject", clearObject);	

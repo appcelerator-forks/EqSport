@@ -44,8 +44,16 @@ function scrollend(event){
 
 $.scrollableView.addEventListener("scrollend", scrollend);
 
-function closeWindow(){ 	
-	alert('a');
+function closeWindow(){ 	 
 	DRAWER.navigation("home");
 }
- 
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){  
+	menu = null; 
+	args = null;
+	Ti.App.removeEventListener("clearObject", clearObject);
+};
+Ti.App.addEventListener("clearObject", clearObject);	
