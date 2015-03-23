@@ -11,7 +11,9 @@ function closeWindow(){
 }
 
 function changeBank(e){ 
-	$.bankLabel.text = e.selectedValue[0];
+	if(Ti.Platform.osname != "android"){ 
+		$.bankLabel.text = e.selectedValue[0];
+	}
 	resetBankInfo();  
 	switch(e.rowIndex){
 		case 0: 
@@ -43,6 +45,7 @@ function changeBank(e){
 }
 
 function resetBankInfo(){
+	$.bank0.setVisible(false);
 	$.bank1.setVisible(false);
 	$.bank2.setVisible(false);
 	$.bank3.setVisible(false);
@@ -68,8 +71,4 @@ function donePick() {
 	$.bankView.setVisible(false); 
 	$.bankPicker.setVisible(false);
 }
-	 
-$.topupView.addEventListener('scroll', function(sc) { 
-	console.log(sc.x+"="+sc.y ); 
-//	PRODUCT.reloadFromScroll(e);
-});
+	  
