@@ -158,7 +158,7 @@ function setPicker2(){
 			$.race.text = "Race: " + raceNo;
 			favouriteOdd(venue, raceNo);
 		}
-	}else{
+	}else{ 
 		$.picker2.setSelectedRow(0,0,true); 
 		if(Ti.Platform.osname == "android"){
 			venue = $.picker1.getSelectedRow(0).title;
@@ -233,6 +233,7 @@ function showPool() {
 }
  
 function backPlay(){	 
+	Ti.App.Properties.setString('skipPin',"0");  
 	var mod = Ti.App.Properties.getString('module');
 	$.mainView.removeEventListener('click', hideKeyboard); 
 	DRAWER.enableDrawer();	
@@ -260,7 +261,7 @@ function changeVenue(e){
 	refresh(e.row.race_id);
 }
 
-function raceNo(e){
+function changeRaceNo(e){
 	runnerIndex = e.rowIndex;
 	if((e.row == null) || (e.row == "null")) { 
 		raceNo = $.picker2.getSelectedRow(0).title;
@@ -295,9 +296,25 @@ function pool(e){
 	}
 }
  
-function favouriteOdd(venue, raceNo){ 
-	var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
-	if(favouriteInfo == "") {
+function favouriteOdd(myVenue, myRaceNo){ 
+	//var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
+	 
+	if(typeof myRaceNo == "undefined"   ){
+		return false;
+	}
+	
+	if(typeof myRaceNo != "undefined"){
+		API.futureRace({
+			raceNo: myRaceNo,
+			venue: myVenue,
+			from : "play"
+		}); 
+	} 
+} 
+
+function getRaceOdd(ex){ 
+	apiRaceOdd = ex.returnData;
+	if(apiRaceOdd == "") {
 		$.mtr.text = "Min to Race:-";
 		
 		$.a1.text = "-";
@@ -315,12 +332,12 @@ function favouriteOdd(venue, raceNo){
 		$.c3.text = "-";
 		$.c4.text = "-";
 	} else {
-		$.mtr.text = "Min to Race:" + favouriteInfo[0].min_to_race; 
-		var runner = favouriteInfo[0].runner;
+		$.mtr.text = "Min to Race:" + apiRaceOdd.min_to_race; 
+		var runner = apiRaceOdd.runner;
 		var run = runner.split("$"); 
-		var win_odd = favouriteInfo[0].win_odd;
+		var win_odd = apiRaceOdd.win_odd;
 		var win = win_odd.split("$"); 
-		var pla_odd = favouriteInfo[0].pla_odd;
+		var pla_odd = apiRaceOdd.pla_odd;
 		var pla = pla_odd.split("$");
 		
 		$.a1.text = run[0];
@@ -338,7 +355,7 @@ function favouriteOdd(venue, raceNo){
 		$.c3.text = pla[2];
 		$.c4.text = pla[3];
 	}
-} 
+}
 
 function process(){
 	var bets = bet.getBetInfo(); 
@@ -373,27 +390,33 @@ function process(){
 			 
 			if(betPin == bets[0].pin) {
 				cancelBtn.removeEventListener('click',cancel);
-				confirmBtn.removeEventListener('click',process);  
-				//Submit API Calling
-				API.submitRaceBet({
-					myView : $.mainView,
-					msisdn:bets[0].msisdn,
-					account: bets[0].account, 
-					pin: bets[0].pin,
-					date: bets[0].date,
-					time: timeFormatted24,
-					venue: bets[0].venue,
-					raceNo: bets[0].raceNo,
-					pool: bets[0].pool,
-					bet: bets[0].bet,
-					runner: bets[0].runner
-				});
+				confirmBtn.removeEventListener('click',process);
+				Ti.App.Properties.setString('skipPin',"1");  
+				doBet(); 
 			} else {
 				COMMON.createAlert("Validation Error","Wrong Pin No.");
 				COMMON.hideLoading();
 			}
 		}
 	}); 
+}
+
+function doBet(){ 
+	var bets = bet.getBetInfo(); 
+	//Submit API Calling
+	API.submitRaceBet({
+		myView : $.mainView,
+		msisdn:bets[0].msisdn,
+		account: bets[0].account, 
+		pin: bets[0].pin,
+		date: bets[0].date,
+		time: timeFormatted24,
+		venue: bets[0].venue,
+		raceNo: bets[0].raceNo,
+		pool: bets[0].pool,
+		bet: bets[0].bet,
+		runner: bets[0].runner
+	});
 }
 
 function confirm(){
@@ -429,12 +452,13 @@ function confirm(){
 		}
 	}
 	var oriData = detailsValue[runnerIndex].runner_date;
+	
 	var res = oriData.split("/");
 	var month = ("0"+res[0]).slice(-2);
 	var day = ("0"+res[1]).slice(-2);
 	var year = res[2];
 	dateFormatted = month + day +year; 
-	var oriTime = detailsValue[runnerIndex].runner_time;
+	var oriTime = detailsValue[runnerIndex].runner_time; 
 	var temp = oriTime.split(" ");
 	var res = temp[0].split(":");
 	var hour = ("0"+res[0]).slice(-2);
@@ -475,7 +499,13 @@ function addClickEvent(myView, popView){
 			COMMON.hideLoading();
 			cancel();
 		}else{ 
-			process(); 
+			var skipPin = Ti.App.Properties.getString('skipPin');
+			if(skipPin == "1"){
+				doBet(); 
+			}else{
+				process(); 
+			}
+			
 		}
 	});
 }
@@ -774,6 +804,8 @@ $.mainView.addEventListener('submitSuccess', function(){
 	favouriteOdd(venue, raceNo);
 	$.runner.value = "";
 	$.bet.value = "";
+	popWindow = 0;
+	pop.close();
 	Ti.App.Properties.setString('presetRunner', "");
 	Ti.App.Properties.setString('presetBet', ""); 
 	COMMON.hideLoading();
@@ -789,6 +821,8 @@ $.mainView.addEventListener('submitFailed',function(){
 	COMMON.hideLoading();
 });
 
+Ti.App.addEventListener("futureRace", getRaceOdd);
+
 /**********************
  * Clear object and memory
  **********************/
@@ -796,10 +830,9 @@ var clearObject = function(){
 	raceCardInfo = null; 
 	raceCardDetails = null; 
 	bet = null; 
-	favourite = null; 
-	balance = null; 
-	info = null;
+	favourite = null;   
 	containerView = null; 
+	Ti.App.removeEventListener("futureRace", getRaceOdd);
 	Ti.App.removeEventListener("clearObject", clearObject);
 };
 Ti.App.addEventListener("clearObject", clearObject);	

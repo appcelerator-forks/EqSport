@@ -19,12 +19,7 @@ if(blnDetails != ""){
 	$.credit.text = blnDetails.amount.substring(2);
 	$.update.text = "(Last updated on "+blnDetails.date+" "+ blnDetails.time+")"; 
 } 
-  
-API.checkBalance({
-	account: infoDetails[0].account,
-	pin: infoDetails[0].pin
-});
-
+ 
 API.raceCard({
 	title: ""
 });
@@ -60,8 +55,7 @@ function disablePlay(){
 	$.raceOddView.disable = "1";
 	$.racingView.disable = "1";
 	$.playView.disable = "1";
-	Ti.App.removeEventListener("disablePlay", disablePlay);
-	Ti.App.removeEventListener("enabledPlay", enabledPlay);
+	 
 	COMMON.hideLoading();
 }
 
@@ -73,8 +67,7 @@ function enabledPlay(){
 	$.raceOddView.disable = "0";
 	$.racingView.disable = "0";
 	$.playView.disable = "0";
-	Ti.App.removeEventListener("disablePlay", disablePlay);
-	Ti.App.removeEventListener("enabledPlay", enabledPlay); 
+	 
 	COMMON.hideLoading();
 }
 
@@ -108,16 +101,16 @@ function account(){
 		width    : "40%", 
 		left : 10,
 		right : 10, 
-		destination : "withdrawal",
-		image : "/images/Button02.png"
+		destination : "todayTransaction",
+		image : "/images/Button08.png"
 	});
 	var imaView2 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
 		right: 10, //added to hide withdrawal
 		bottom: 10, //added during the hide of withdrawal
-		destination : "amountBalance",
-		image : "/images/Button03.png"
+		destination : "transaction",
+		image : "/images/Button04.png"
 	});
 	
 	var label1 = Ti.UI.createLabel({
@@ -125,21 +118,20 @@ function account(){
 	  font: { fontSize:8 },
 	  left : 10,
 	  right : 10, 
-	  text: 'Withdrawal',
-	  destination : "withdrawal",
+	  text: 'Today Transaction',//'Withdrawal',
+	  destination : "todayTransaction",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
 	  width: "40%" 
 	});
 	var label2 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  left : 10,
-	  right: 10, //added to hide withdrawal 
-	  text: 'Check Account Balance',
-	  destination : "amountBalance",
+	  left : 10, 
+	  text: 'View Transaction',
+	  destination : "transaction",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
-	  //width: "35%"  original before hiding withdrawal
-	  width: "40%" 
+	  width: "35%"   
+	   
 	});
 	var sepView = Ti.UI.createView({ 
 			width : "100%", 
@@ -149,50 +141,31 @@ function account(){
 	var imaView3 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
-	    //right : 100, commented to hide withdrawal
-	    destination : "transaction",
-		image : "/images/Button04.png"
+	    right : 100 ,
+	    destination : "amountBalance",
+		image : "/images/Button03.png"
 	});
 	var label3 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  //left : 10, original before hiding withdrawal
-	  left : 10,
-	  right: 10, //added to hide withdrawal
-	  text: 'View Transaction',
-	  destination : "transaction",
+	  left : 10,  
+	  text: 'Check Current Balance',
+	  destination : "amountBalance",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 
 	  width: "40%"
 	});
 	
-	/*subView.add(svTitle);
+	subView.add(svTitle);
 	subView.add(imaView1);	
 	subView.add(imaView2);	
 	subView.add(label1);	
 	subView.add(label2);
-	subView.add(sepView);	 
 	subView.add(imaView3);	
-	subView.add(label3);*/
 	
-	subView.add(svTitle);
-	//subView.add(imaView1);	
-	subView.add(imaView2);	
-	subView.add(imaView3);	
-	//subView.add(label1);	
-	subView.add(label2);
 	subView.add(label3);
-	subView.add(sepView); 
-	
-	
+	subView.add(sepView);  
 	config.width = "70%";
-	//config.height = "55%";
-	if(Ti.Platform.osname == "android"){
-		config.height = "35%"; 
-	}
-	else{
-		config.height = "30%";
-	}//this if else case is created for temporary removal of withdrawal
-
+	config.height = "55%"; 
 	var pop = API.popup(subView,config);
 	addClickEvent(subView, pop);
 	pop.open({fullscreen: true}); 
@@ -340,6 +313,7 @@ var clearObject = function(){
 	Ti.App.removeEventListener("disablePlay", disablePlay);
 	Ti.App.removeEventListener("enabledPlay", enabledPlay);	
 	Ti.App.removeEventListener("clearObject", clearObject);
+	console.log("play clear");
 };
 Ti.App.addEventListener("clearObject", clearObject);	
 

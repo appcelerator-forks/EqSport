@@ -88,10 +88,13 @@ exports.login = function (ex){
 					pin: pin
 				}); 
 				userInfo.save();  
-				
+				  
+				API.checkBalance({
+					account: account,
+					pin: pin
+				});
 				Alloy.Globals.menuType = "2";
-    			Ti.App.fireEvent("app:refreshMenu");
- 
+    			Ti.App.fireEvent("app:refreshMenu"); 
 	     	}
 	       
 	     },
@@ -235,7 +238,7 @@ exports.getRTOResults = function(ex){
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			console.log(obj["raceNo"]);
+		       			
 		       			var raceObj = obj["raceNo"].split("(");
 		       			obj["official"] = "("+raceObj[1];
 		       			var dateDetail  = raceDate.split("/");
@@ -253,7 +256,7 @@ exports.getRTOResults = function(ex){
 		       			ary.push(obj);  
 		       		} 
 		       	}
-		      
+		      console.log(ary);
 		        myView.fireEvent('raceResult', {raceResult: ary});
 			}
 	     },
@@ -326,12 +329,15 @@ exports.confirmRaceBet= function(ex){
 	var confirmRaceBet = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/ConfirmRaceBet.asp";
 
 	if(Ti.Platform.osname == "android"){
-		var rn = ex.runner; 
-		var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
-		params =  encodeURIComponent(params); 
-		var url = confirmRaceBet + "?"+params; 
-	}else{
+		// var rn = ex.runner; 
+		// var params = "UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
+		// params =  encodeURIComponent(params); 
+		// var url = confirmRaceBet + "?"+params; 
 		var rn = encodeURIComponent(ex.runner); 
+		var params = "?UID="+ex.msisdn+"%7C%7C"+ex.pin+"%7C%7C"+ex.date+ex.time+"%7C%7C"+ex.raceNo+"%7C%7C"+rn+"%7C%7C"+ex.pool;
+		var url = confirmRaceBet + params; 
+	}else{
+		var rn = ex.runner; 
 		var params = "?UID="+ex.msisdn+"||"+ex.pin+"||"+ex.date+ex.time+"||"+ex.raceNo+"||"+rn+"||"+ex.pool;
 		var url = confirmRaceBet + params; 
 	}
@@ -419,8 +425,9 @@ exports.favourite = function (ex){
 //futureRace odds
 exports.futureRace = function (ex){
 	var theVenue = ex.venue;
-	console.log(theVenue);
+	
 	var ve = theVenue.split("(");
+	
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ve[0];//
 	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
 	console.log(url); 
@@ -429,9 +436,11 @@ exports.futureRace = function (ex){
 	     // function called when the response data is available
 	     onload : function(e) { 
 	       	var res = getValueForFavOdd(this.responseXML); 
+	       	console.log(res);
 	       	for(var a=0; res.length > a; a++){
 	       		if(res[a]['venue'] == ex.venue){
 	       			Ti.App.fireEvent("futureRace",{returnData: res[a]});
+	       			
 	       		}
 	       	}
 	     	
@@ -482,6 +491,8 @@ exports.raceCard = function (ex){
 	     onload : function(e) {
 	     	var res = getValueFromDollarAndPipe(this.responseXML);   
 	     	//if( res.id > 0 ) { 
+	     	//	console.log(res);
+	     	Ti.App.Properties.setString('oddEnabled',"1");
 	     	if( res.length > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
 		     		library.resetInfo();
@@ -496,7 +507,7 @@ exports.raceCard = function (ex){
 						totalRunner: res[j].totalRunner
 					}); 
 					raceCardInfo.save(); 
-					 
+					 console.log(res);
 					for(var i = 1; i <= res[j]['totalRunner']; i++){
 						var runner_id = res[j]['runner'+i][0];
 						var runner_date = res[j]['runner'+i][1];
@@ -530,7 +541,7 @@ exports.raceCard = function (ex){
 	     			Ti.App.fireEvent("disablePlay");
 	     			//Ti.App.fireEvent("enabledPlay");
 	     		}
-	     		Ti.App.Properties.setString('oddEnabled',"0");
+	     		//Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;
 			}
 			
@@ -628,7 +639,7 @@ exports.todayTransactionHistory = function (ex){
 	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
 	      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
 	      	var sdata = curDayTrans.split("$");  
-	      
+	     
 	      	var startPoint = 2; 
 	      	var newCounter = 0;
 	      	var position = 1;
@@ -640,10 +651,16 @@ exports.todayTransactionHistory = function (ex){
 	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
 	      			datetime = datetime.replace(/-/g, "/");
 	      			
+	      			var betLoc = ext1[17].split("LOCATION="); 
+	      			obj['venue'] = betLoc[1];
 	      			//pool bet detail
 	      			var betDet = ext1[19].split("BETTYPE=");    
 	      			obj['position'] = position;
 					obj['date'] = datetime; 
+					
+					var betAmount = sdata[(i+3)].split("BETAMOUNT=");  
+					obj['betAmount'] = betAmount[1]; 
+					
 					var inf = sdata[(i+7)].split("~");  
 	      			
 	      			aRaceNo    = inf[0].split("RACENO="); 

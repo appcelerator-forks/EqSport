@@ -26,7 +26,7 @@ function getBln(){
 
 setTimeout(function(){
 	getBln();
-}, 800);	
+}, 200);	
   
 function menuToggle(e){
 	DRAWER.closeToggle();
@@ -39,5 +39,5 @@ function back(){
 }
 
 function topUp(){	
-	DRAWER.navigation("topUp",1);
+	DRAWER.navigation("eq_Reload",1);
 }

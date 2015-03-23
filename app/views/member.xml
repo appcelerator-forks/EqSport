@@ -17,7 +17,7 @@
 					</View>
 					<View layout="composite" width="60%">
 						<View layout="vertical" height="Ti.UI.SIZE" width="100%">
-							<Label class="label2" color="white" left="10">ACCOUNT CREDIT</Label>
+							<Label class="label2" color="white" left="10">CURRENT BALANCE</Label>
 							<Label class="label3" color="white" left="10" id="credit">RM0.00</Label>
 							<Label class="label1" color="white" left="10" id="update">(Last updated on 31/12/2014)</Label>
 						</View>

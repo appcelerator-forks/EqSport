@@ -9,7 +9,7 @@
 				<!--<ImageView image="/images/menu_toggle.png" left="0" height="40" width="40" />
 				<ImageView image="/images/logo.png"></ImageView>-->
 				<View width="100%">
-					<Label class="title" color="white" minimumFontSize="12">CHECK AMOUNT BALANCE</Label>
+					<Label class="title" color="white" minimumFontSize="12">CHECK CURRENT BALANCE</Label>
 				</View>
 				<View width="15%" left="0" onClick="back">
 					<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
@@ -27,7 +27,7 @@
 				<Label top="30" color="#444444" class="label1">LASTEST UPDATED</Label>
 				<Label id="date" color="#A5A5A5" class="label2">00/00/0000</Label>
 				<Label id="time" color="#A5A5A5" class="label2">00:00:00</Label>
-				<!--<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp"></ImageView>-->
+				<ImageView height="40" top="40" image="/images/Button_topup.png" onClick="topUp"></ImageView> 
 			</View>
 		</View>
 	</View>

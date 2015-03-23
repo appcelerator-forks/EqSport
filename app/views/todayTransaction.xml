@@ -8,7 +8,7 @@
 			<View id="headerView" layout="vertical">
 				<View layout="composite" height="50" backgroundColor="#EA431A" >
 					<View width="100%">
-						<Label class="title" color="white" minimumFontSize="12">VIEW TRANSACTION</Label>
+						<Label class="title" color="white" minimumFontSize="12">TODAY TRANSACTION</Label>
 					</View>
 					<View width="15%" left="0" onClick="back">
 						<ImageView image="/images/others_08.png" width="20" height="30"></ImageView>
@@ -16,20 +16,15 @@
 				</View>
 				<View id="dateView" height="70" width="100%">
 					
-					<View width="90%" height="50" backgroundColor="white" onClick="showDate" top="10">
+					<View width="90%" height="50" backgroundColor="white"   top="10">
 						<Label id="date" color="black"></Label>
-					</View>
-					<View id="pickerView" zIndex="30" width="90%" height="215" backgroundColor="black" visible="false" top="60">
-						<Button height="50" width="100%" color="white" top="0" right="0" onClick="done">Done</Button> 
-						<Picker id="picker" type="Ti.UI.PICKER_TYPE_DATE" width="100%" selectionIndicator="true" top="50" backgroundColor="white" /> 
-					</View> 
-					<ImageView image="/images/others_10.png" width="15" height="30" right="10%" /> 
+					</View>  
 				</View>
 				<View width="100%"   height="30" backgroundColor="#EFEFEF" layout="vertical"><Label id="summaryLbl" left="15"   text="Total transaction(s) found :"  class="description_text" /></View>
 				<View layout="horizontal" height="Ti.UI.SIZE" backgroundColor="#EA431A" >
 					<Label class="medium_text white_text" left="5" width="25%" height="30">Loc.</Label>
-					<Label class="medium_text white_text"  width="25%" height="30">Race</Label>
-					<Label class="medium_text white_text" width="25%" height="30">Pool/ Bet Type</Label>
+					<Label class="medium_text white_text"  width="15%" height="30">Race</Label>
+					<Label class="medium_text white_text" width="35%" height="30">Pool/ Bet Type</Label>
 					<Label class="medium_text white_text" width="auto" height="30">Play(RM)</Label>
 				</View>
 				<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 

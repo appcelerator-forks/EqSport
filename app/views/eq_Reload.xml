@@ -3,9 +3,60 @@
 		<Require src="_header"></Require>
 		<View layout="vertical">
 			<View width="90%" height="40" top="2"><Label height="35" class="description_header" top="10" bottom="10" textAlign="center">Topup With EQLINK</Label></View>
-			<ScrollView layout="vertical" id="topupView" > 
+			<ScrollView layout="vertical" id="topupView" backgroundColor="white"> 
             	<Label class="description_text" width="90%" top="8">The following Top-Up Channels are offered to EQ Link members:-</Label>
             	
+            	<View id="bankContentView" width="90%" height="50" backgroundColor="#EFEFEF">
+					<ImageView image="/images/others_10.png" width="15" height="30" right="10"></ImageView>
+					<Label id="bankLabel" height="30" width="100%"  color="black" onClick="showBankPicker" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER" />
+					<View id="bankView" height="50" width="100%" visible="false" >
+						<Button id="done" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="donePick" >Done</Button>
+						<Picker id="bankPicker" onChange="changeBank" width="100%" height="40" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" >
+			            	<PickerRow value="mbb" title="Maybank"/>
+			                <PickerRow value="pbb" title="Public Bank"/>
+			                <PickerRow value="hlb" title="Hong Leong Bank"/>
+			                <PickerRow value="cimb" title="CIMB Bank"/>
+			                <PickerRow value="rhb" title="RHB Bank"/>
+			                <PickerRow value="fpx" title="FPX (MEPS)"/>
+			                <PickerRow value="epay" title="E-Pay"/>
+		                	<PickerRow value="mtc" title="Malaysian Turf Clubs"/>
+	            		</Picker>
+					</View>
+				</View>
+				
+				<View id="bank0"  top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Top up via Maybank2u.com</Label>
+					<Label class="description_text">Top up via deposit cash / cheque / bank transfer to MBB account no. 5126 6105 5827. </Label>
+				</View>
+				<View id="bank1" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%"  visible="false">
+					<Label class="description_text">Top up via Pbebank.com</Label>
+					<Label class="description_text">Top up via deposit cash / cheque / bank transfer to PBB account no. 3191 4126 00. </Label>
+				</View>
+				<View id="bank2" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Top up via Hong Leong Connect Online</Label>
+					<Label class="description_text">Top up via deposit cash / cheque / bank transfer to HLB account no. 0600 0063 993. </Label>
+				</View>
+				<View id="bank3" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Top up via Cimb Clicks</Label>
+					<Label class="description_text">Top up via deposit cash / cheque / bank transfer to CIMB account no. 8007 1082 98. </Label>
+				</View>
+				<View id="bank4" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Top up via RHB Internet Banking</Label>
+					<Label class="description_text">Top up via deposit cash / cheque / bank transfer to RHB account no. 2122 8200 0373 89. </Label>
+				</View>
+				<View id="bank5" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Inter-bank real time top up from your preferred bank.</Label>
+					<Label class="description_text">Currently not in service. Top up via FPX will be available soon. </Label>
+				</View>
+				<View id="bank6" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Available at over 100 retail outlets nationwide - Esso, Mobil, Caltex, BHP, Giant, KK Mart, and many more.</Label>
+					<Label class="description_text">Currently not in service. Top up via Epay will be available soon.</Label>
+				</View>
+				<View id="bank7" top="5" layout="vertical" height="Ti.UI.SIZE" width="90%" visible="false">
+					<Label class="description_text">Selected Counters at Selangor Turf Club, Perak Turf Club and Penang Turf Club</Label>
+					<Label class="description_text">Top up via deposit cash at selected counters at Selangor Turf Club, Perak Turf Club and Penang Turf Club. </Label>
+				</View>
+            	<!--
             	<View top="15" layout="horizontal" height="20" width="90%">
             		<View width="5%"><Label class="description_text" top="0">-</Label></View>
             		<View width="95%"><Label class="description_text">Maybank2U</Label></View>
@@ -56,6 +107,7 @@
             		<ImageView width="auto" height="40" top="10" right="5" image="/images/payment/e-pay.png" />
             		<ImageView width="30%" height="40" top="10"  image="/images/payment/others.png" /> 
             	</View>
+            	-->
         	</ScrollView>
 		 
 		</View>

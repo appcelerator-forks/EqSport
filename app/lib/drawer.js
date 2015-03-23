@@ -174,5 +174,5 @@ exports.logout = function(){
 	Alloy.Globals.menuType = "1";
 	info.resetInfo();  
 	refreshMenu();
-	navigation("home",1);
+	navigation("login",1);
 };

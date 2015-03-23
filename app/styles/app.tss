@@ -13,6 +13,30 @@
         fontWeight: 'bold'
     }
 },
+".small_text" :{
+	font: {
+        fontSize: '10dp',
+        fontStyle: 'normal' 
+    }
+},
+".medium_text" :{
+	font: {
+        fontSize: '12dp',
+        fontStyle: 'normal' 
+    }
+},
+".big_text" :{
+	font: {
+        fontSize: '20dp',
+        fontStyle: 'normal' 
+    }
+},
+".white_text" :{
+	color: "#FFFFFF"
+},
+".black_text" :{ 
+	color: "#000000"
+},
 ".menuLabel" : {
   width : Ti.UI.FILL,
   left : 20,

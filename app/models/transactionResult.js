@@ -62,12 +62,16 @@ exports.definition = {
                 var listArr = []; 
                 var count = 0;
                 while (res.isValidRow()){
+                	var thePool = res.fieldByName('pool');
+                	vepo = thePool.split('-');
 					listArr[count] = {
-					    pool: res.fieldByName('pool'),
+						venue: vepo[1],
+					    pool: vepo[0],
 						race: res.fieldByName('race'),
 						position: res.fieldByName('position'),
 						runner: res.fieldByName('runner'),
-						date: res.fieldByName('date')
+						date: res.fieldByName('date'),
+						betAmount : ""
 					};
 					res.next();
 					count++;

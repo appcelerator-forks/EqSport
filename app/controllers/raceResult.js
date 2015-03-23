@@ -308,9 +308,7 @@ function refresh(venue){
 			}); 
 			 
 			
-			leftView.add(leftLabel);
-			//centerView.add(centerLabel);
-			
+			leftView.add(leftLabel); 
 			contentView.add(leftView);
 			contentView.add(centerView);
 			contentView.add(rightView);
@@ -329,66 +327,105 @@ function refresh(venue){
 		$.raceTitle.text = raceTitle[1];
 		$.resultLabel.text = "RESULT "+official;
 		$.resultTitle.text = resultTitle ;
-	}
-	else
-	{
-		var contentView = Titanium.UI.createView({
-			layout: "horizontal",
-			width:"100%",
-			height:60
-		});
-		
-		var leftView = Titanium.UI.createView({
-			width:"25%"
-		});
-		
-		var leftLabel = Ti.UI.createLabel({
-			color: "black",
-			text: "-"
-		});
-		
-		var centerView = Titanium.UI.createView({
-			width:"44.9%"
-		});
-		
-		var centerLabel = Ti.UI.createLabel({
-			color: "black",
-			text: "-"
-		});
-		
-		var rightView = Titanium.UI.createView({
-			width:"30%"
-		});
-		
-		var rightLabel = Ti.UI.createLabel({
-			color: "black",
-			text: "-"
-		});
-		
-		var lineView = Titanium.UI.createView({
-			backgroundColor: "#A5A5A5",
-			width:"90%",
-			height:1
-		});
-		
-		var centerLineView = Titanium.UI.createView({
-			layout: "composite",
-			width:"100%",
-			height: 1,
-			bottom: 2
-		});
-		
-		leftView.add(leftLabel);
-		centerView.add(centerLabel);
-		rightView.add(rightLabel);
-		contentView.add(leftView);
-		contentView.add(centerView);
-		contentView.add(rightView);
-		centerLineView.add(lineView);
-		$.scrollView.add(contentView);
-		$.scrollView.add(centerLineView);
-		$.raceTitle.text = "-";
-		$.resultTitle.text = "-";
+	} else { 
+		for(var i = 2; i<data.length;i++){
+			
+			var resultRow = (data[i]).split(" ");
+			var contentView = Titanium.UI.createView({
+				layout: "horizontal",
+				width:"100%",
+				height:Ti.UI.SIZE,
+				top: 10,
+				bottom: 10
+			});
+			
+			var leftView = Titanium.UI.createView({
+				height:Ti.UI.SIZE,
+				width:"25%"
+			});
+			
+			var leftLabel = Ti.UI.createLabel({
+				height:Ti.UI.SIZE,
+				color: "black",
+				text: resultRow[0]
+			});
+			
+			var centerView = Titanium.UI.createView({
+				height:Ti.UI.SIZE,
+				width:"44.9%"
+			});
+			 
+			var	cv = resultRow[1].split(',');
+			cv.forEach(function(c) {
+				 var centerLabel = Ti.UI.createLabel({
+					color: "black",
+					text: c+"-",
+					height: Ti.UI.SIZE,
+				});
+				centerView.add(centerLabel);
+			}); 
+			
+			var rightView = Titanium.UI.createView({
+				height:Ti.UI.SIZE,
+				width:"30%"
+			});
+			
+			var	rv = resultRow[2].split(',');
+			rv.forEach(function(r) {
+				 var rightLabel = Ti.UI.createLabel({
+					color: "black",
+					text: r,
+					height: Ti.UI.SIZE,
+				});
+				rightView.add(rightLabel);
+			}); 
+			 
+			
+			var lineView = Titanium.UI.createView({
+				backgroundColor: "#A5A5A5",
+				width:"90%",
+				height:1
+			});
+			
+			var centerLineView = Titanium.UI.createView({
+				layout: "composite",
+				width:"100%",
+				height: 1,
+				bottom: 2
+			});
+			
+			var rr = resultRow[1].replace(/,/g,'-');
+			var resSplit = rr.split("-");
+		 	
+			resSplit.forEach(function(idd) {
+				var bool =contains(resultArr, idd);
+				if(bool === false){
+					resultArr.push(idd);
+				}
+			}); 
+			
+			leftView.add(leftLabel);
+			//centerView.add(centerLabel);
+			//rightView.add(rightLabel);
+			contentView.add(leftView);
+			//contentView.add(centerView);
+			contentView.add(rightView);
+			centerLineView.add(lineView);
+			$.scrollView.add(contentView);
+			$.scrollView.add(centerLineView);
+			
+			myres = resultArr.join(',');
+			if(resultTitle == "") {
+				resultTitle = myres + ",";
+			}else {
+				resultTitle = resultTitle + myres + ",";
+			}
+			resultTitle = resultTitle.slice(0, - 1);
+			var raceTitle = data[0].split(":");
+			$.raceTitle.text = raceTitle[1];
+			$.resultLabel.text = "RESULT "+official;
+			$.resultTitle.text = resultTitle ;
+		}
 	}
 	
 }

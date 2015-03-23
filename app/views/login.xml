@@ -1,6 +1,6 @@
 <Alloy>
  <View height="Ti.UI.SIZE">
-		<View zIndex="11" layout="vertical" id="loadingBar" height="120" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
+		<View zIndex="11" layout="vertical" id="loadingBar" height="0" opacity="0" width="120" borderRadius="15"  backgroundColor="#2E2E2E" >
         	<ActivityIndicator  id="activityIndicator" />
         	<Label top="5" text="Loading" color="#ffffff" />
         </View>
