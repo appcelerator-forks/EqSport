@@ -48,13 +48,14 @@ exports.getDomainUrl = function (ex){
 exports.login = function (ex){
 	var loginUrl = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
 	var url		 = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin; 
+	
 	var client = Ti.Network.createHTTPClient({
-	     // function called when the response data is available
+	     // function called when the response data is available (3171)
 	     onload : function(e) { 
 	     	var respcode = getValueFromXml(this.responseXML, 'LOGIN' , 'RESPCODE');
+	      
 	     	if(respcode == "1"){
 	     		var errdesc  = getValueFromXml(this.responseXML, 'LOGIN' , 'ERRDESC');
-	     		 
 	     		COMMON.createAlert("Login Fail",errdesc);
 	     		COMMON.hideLoading();
 	     	}else{

@@ -9,12 +9,11 @@ function reloadHeaderMenu(){
 	if(module !== null && module != "" && isRoot != "1"){
 		$.leftButton.width = "20";
 		$.leftButton.mod   = "back";
-		if(module == "home"){
+		if(module == "home" || module == "member"){
 			$.leftButton.image = "/images/others_08_oren.png";
 		}else{
 			$.leftButton.image = "/images/others_08.png";
-		}
-		
+		} 
 	}else{
 		$.leftButton.width = "35";
 		$.leftButton.image = "/images/menu_button.png";

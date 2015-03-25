@@ -141,6 +141,7 @@ function account(){
 	var imaView3 = Ti.UI.createImageView({
 		width    : "40%",  
 		left : 10, 
+		top:20,
 	    right : 100 ,
 	    destination : "amountBalance",
 		image : "/images/Button03.png"
