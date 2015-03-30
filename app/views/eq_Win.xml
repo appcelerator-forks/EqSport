@@ -4,7 +4,7 @@
 		<View layout="vertical"> 
 			<View width="90%" height="40" top="2"><Label height="35" class="description_header" top="10" bottom="10" textAlign="center">Win With EQLINK</Label></View>
  
- 			<ScrollView layout="vertical">
+ 			<ScrollView layout="vertical" height="Ti.UI.SIZE">
             	<!--<ImageView top="10" width="300" height="300" image="/images/home02.png" ></ImageView>-->
             	<Label class="description_text" width="90%" top="8">Many wagering channels offered by EQ Link to its members on racing totalisator and number forecast totalisator :-</Label>
             	
@@ -23,9 +23,9 @@
             		<View width="95%"><Label class="description_text">Electronic tele-betting devices</Label></View>
             	</View>
             	
-            	<View top="15" layout="horizontal" height="20" width="90%">
+            	<View top="15" layout="horizontal" height="60" width="90%">
             		<View width="5%"><Label class="description_text" top="0">-</Label></View>
-            		<View width="95%"><Label class="description_text">Operator Assisted Call Centers at Selangor Turf Club, Perak Turf Club and Penang Turf Club</Label></View>
+            		<View width="95%"><Label class="description_text" height="Ti.UI.SIZE">Operator Assisted Call Centers at Selangor Turf Club, Perak Turf Club and Penang Turf Club</Label></View>
             	</View>
             	 
         	</ScrollView>

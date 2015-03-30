@@ -72,6 +72,9 @@ exports.login = function (ex){
 		       	var email 	 = getValueFromXml(this.responseXML, 'LOGIN' , 'EMAIL'); 
 		       	var account	 = ex.acc_no;
 		       	var pin      = ex.acc_pin; 
+		       	var info       = Alloy.createCollection('info'); 
+		       	info.resetInfo();  
+		       
 		       	//Insert to local DB
 		       	var userInfo = Alloy.createModel('info', { 
 					username: username, 
@@ -92,10 +95,10 @@ exports.login = function (ex){
 				  
 				API.checkBalance({
 					account: account,
-					pin: pin
+					pin: pin,
+					isRefresh : "1"
 				});
-				Alloy.Globals.menuType = "2";
-    			Ti.App.fireEvent("app:refreshMenu"); 
+				
 	     	}
 	       
 	     },
@@ -116,13 +119,13 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){  
 	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
-	console.log(url);
-	//var url = "http://54.169.180.5/eqsport/balanceRequest.php"; 
+	//console.log(url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
 	       	var respcode = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'RESPCODE');
-	       
+	       	var library = Alloy.createCollection('balance'); 
+	     	library.resetBalance();
 	       	if(respcode == "1"){
 	     		var errdesc = getValueFromXml(this.responseXML, 'ACCDETAILS' , 'ERRDESC');
 	     		//alert(errdesc);
@@ -132,10 +135,7 @@ exports.checkBalance = function (ex){
 	     		var arr = message.split(" ");
 	     		var amount = arr[5];
 	     		var date = arr[3];
-	     		var time = arr[4]; 
-	     		
-				var library = Alloy.createCollection('balance'); 
-	     		library.resetBalance();
+	     		var time = arr[4];  
 	     		// Insert to local DB
 		       	var chkBalance = Alloy.createModel('balance', { 
 					amount: amount, 
@@ -146,6 +146,11 @@ exports.checkBalance = function (ex){
 				
 	     	}
 	     	result = "1";
+	     	
+	     	if(ex.isRefresh == "1"){
+	     		Alloy.Globals.menuType = "2";  
+    			Ti.App.fireEvent("app:refreshMenu"); 
+	     	}
 	     },
 	     // function called when an error occurs, including a timeout
 	     onerror : function(e) { 
@@ -163,6 +168,7 @@ exports.checkBalance = function (ex){
 //get RTO History
 exports.getRTOHistory = function(ex){
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/rto_history.asp";
+	//console.log(url);
 	var myView = ex.myView;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
@@ -212,8 +218,8 @@ exports.getRTOResults = function(ex){
 	}else{
 		var url = requestRaceResultWithDate+"&RACENO="+ex.raceNumber+"&RACEDATE="+ex.raceDate;
 	}
-	 console.log(url);
-
+	
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -234,30 +240,36 @@ exports.getRTOResults = function(ex){
 		       			
 		       			//obj["resultno"]  = getValueFromXml(this.responseXML, 'RTORESULTS' , 'RESULTNO'+i);
 		       			raceDate = obj["raceDate"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACEDATE'); 
+		       			
+		       			
 		       			obj["raceDay"] 	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'DAY'); 
 		       			obj["raceNo"]  	 = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RACENO'); 
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			
-		       			var raceObj = obj["raceNo"].split("(");
-		       			obj["official"] = "("+raceObj[1];
-		       			var dateDetail  = raceDate.split("/");
-		       			obj["raceDay"]  	 = dateDetail[0]; 
-		       			obj["raceMonth"]  	 = dateDetail[1]; 
-		       			obj["raceYear"]  	 = dateDetail[2]; 
+		       			if(resultData.trim() != ""){
+		       				var raceObj = obj["raceNo"].split("(");
+			       			obj["official"] = "("+raceObj[1];
+			       			var dateDetail  = raceDate.split("/");
+			       			obj["raceDay"]  	 = dateDetail[0]; 
+			       			obj["raceMonth"]  	 = dateDetail[1]; 
+			       			obj["raceYear"]  	 = dateDetail[2]; 
+			       			
+			       			var dataByRow   = resultData.split("\n");
+			       			
+			       			var dataByRace  = dataByRow[0].split(":");
+			       			var dataByDetail= dataByRow[2].split(" ");
+			       			obj["raceNo"]  	 = dataByRace[1]; 
+			       			obj["raceRow1"]  = dataByDetail[0];  
+			       			obj["raceRow2"]  = dataByDetail[1];  
+			       			obj["raceRow3"]  = dataByDetail[2];
+			       			ary.push(obj);  
+		       			}
 		       			
-		       			var dataByRow   = resultData.split("\n");
-		       			var dataByRace  = dataByRow[0].split(":");
-		       			var dataByDetail= dataByRow[2].split(" ");
-		       			obj["raceNo"]  	 = dataByRace[1]; 
-		       			obj["raceRow1"]  = dataByDetail[0];  
-		       			obj["raceRow2"]  = dataByDetail[1];  
-		       			obj["raceRow3"]  = dataByDetail[2];
-		       			ary.push(obj);  
 		       		} 
 		       	}
-		      console.log(ary);
+				
 		        myView.fireEvent('raceResult', {raceResult: ary});
 			}
 	     },
@@ -344,7 +356,7 @@ exports.confirmRaceBet= function(ex){
 	}
 
  	var myView = ex.myView;
- 	console.log(url);
+ 	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -379,7 +391,7 @@ exports.confirmRaceBet= function(ex){
 exports.favourite = function (ex){  
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/FavOdds_Track.asp";
 	//var url = "http://54.169.180.5/eqsport/favOdds.php";
-	console.log(url);
+	//console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
@@ -425,25 +437,27 @@ exports.favourite = function (ex){
 
 //futureRace odds
 exports.futureRace = function (ex){
-	var theVenue = ex.venue;
-	
-	var ve = theVenue.split("(");
-	
+	var theVenue = ex.venue; 
+	var ve = theVenue.split("("); 
 	var url = "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Future_Odds_Track.asp?UID="+ex.raceNo+"||"+ve[0];//
-	//var url = "http://54.169.180.5/eqsport/futureRaceOdd.php";
-	console.log(url); 
+	console.log(url);
 	var result;
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) { 
-	       	var res = getValueForFavOdd(this.responseXML); 
-	       	console.log(res);
-	       	for(var a=0; res.length > a; a++){
-	       		if(res[a]['venue'] == ex.venue){
-	       			Ti.App.fireEvent("futureRace",{returnData: res[a]});
-	       			
-	       		}
+	       	var res = getValueForFavOdd(this.responseXML);  
+	    
+	       	if(res.length > 0){
+	       		for(var a=0; res.length > a; a++){
+		       		if(res[a]['venue'] == ex.venue){
+		       			Ti.App.fireEvent("futureRace",{returnData: res[a]});
+		       			
+		       		}
+		       	}
+	       	}else{
+	       		Ti.App.fireEvent("futureRace",{returnData: res});
 	       	}
+	       	
 	     	
 	     },
 	     // function called when an error occurs, including a timeout
@@ -484,9 +498,8 @@ exports.raceCard = function (ex){
 	    }, 500);
 		 
 	}
-	//var url =  "http://54.169.180.5/eqsport/raceCard.php";
-	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp"; 
-	 console.log("raceCard : "+ url); 
+	 
+	var url =  "http://"+Ti.App.Properties.getString('eqUrl')+"/j2me/v3/Racelist_Track.asp";  
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -508,7 +521,7 @@ exports.raceCard = function (ex){
 						totalRunner: res[j].totalRunner
 					}); 
 					raceCardInfo.save(); 
-					 console.log(res);
+					 
 					for(var i = 1; i <= res[j]['totalRunner']; i++){
 						var runner_id = res[j]['runner'+i][0];
 						var runner_date = res[j]['runner'+i][1];
@@ -629,60 +642,78 @@ exports.popup = function(subView,config){
 
 //Today Transaction History
 exports.todayTransactionHistory = function (ex){
-	var url = "http://54.169.180.5/eqsport/main/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
+	var url = "http://54.169.180.5/eqsport/api/getSoapRequest?user=eqsport&key=06b53047cf294f7207789ff5293ad2dc";
 	var params = "&sTranid="+ex.sTranid+"&sTellerId="+ex.sTellerId+"&sTellerPin="+ex.sTellerPin+"&sAccId="+ex.sAccId+"&sRto="+ex.sRto+"&sNfo="+ex.sNfo+"&sDeposits="+ex.sDeposits+"&sWithdrawal="+ex.sWithdrawal+"&sAccountAccess="+ex.sAccountAccess+"&sAccountRelease="+ex.sAccountRelease+"&sDXP="+ex.sDXP+"&sCurrentDayTransactions="+ex.sCurrentDayTransactions;
- 	console.log(url+ params);
+ 	  
  	var myView = ex.myView;
-	var client = Ti.Network.createHTTPClient();
-	client.onload = function(e) { 
-		 var res = JSON.parse(this.responseText);
-	      if(res.status == "success"){
-	      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
-	      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
-	      	var sdata = curDayTrans.split("$");  
+	var client = Ti.Network.createHTTPClient({
+	     // function called when the response data is available
+	    onload : function(e) {
 	     
-	      	var startPoint = 2; 
-	      	var newCounter = 0;
-	      	var position = 1;
-	      	var ary = []; 
-	      	for(var i = 1; i<= sdata.length; i++) {
-	      		var obj = {};
-	      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
-	      			var ext1 = sdata[i].split("^");   
-	      			var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
-	      			datetime = datetime.replace(/-/g, "/");
-	      			
-	      			var betLoc = ext1[17].split("LOCATION="); 
-	      			obj['venue'] = betLoc[1];
-	      			//pool bet detail
-	      			var betDet = ext1[19].split("BETTYPE=");    
-	      			obj['position'] = position;
-					obj['date'] = datetime; 
-					
-					var betAmount = sdata[(i+3)].split("BETAMOUNT=");  
-					obj['betAmount'] = betAmount[1]; 
-					
-					var inf = sdata[(i+7)].split("~");  
-	      			
-	      			aRaceNo    = inf[0].split("RACENO="); 
-	      			aRunnerNo  = inf[2].split("RUNNERS=");
-	      			vRunnerNo  = aRunnerNo[1].split("param#");
-	      			  
-					obj['pool'] = betDet[1]; 
-					obj['race'] = aRaceNo[1];
-					obj['runner'] = vRunnerNo[0]; 
-					
-	      			newCounter += 9;
-	      			position++;	
-	      			ary.push(obj);
-	      		}  
-		 	}
- 
-		 	myView.fireEvent('todayResult', {todayResult: ary});
-	      }
-	};
-	
-	client.open('POST', url+ params);
+		 	var res = JSON.parse(this.responseText);
+		      if(res.status == "success"){
+		      	var currentDayTransactionsResult = res.data.accCurrentDayTransactionsResponse; 
+		      	 
+		      	var curDayTrans = currentDayTransactionsResult.sCurrentDayTransactions;
+		      	var sdata = curDayTrans.split("$");  
+		    
+		      	var startPoint = 2; 
+		      	var newCounter = 0;
+		      	var position = 1;
+		      	var ary = []; 
+		      	console.log(sdata);
+		      	for(var i = 1; i<= sdata.length; i++) {
+		      		//console.log(sdata);
+		      		
+		      		var obj = {};
+		      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
+		      			console.log(i);
+		      			console.log(sdata[i]);
+		      			var ext1 = sdata[i].split("^");   
+		      			var chkParam = ext1[0].split("="); 
+		      			if(chkParam[0] == "DATE"){
+		      				var datetime = ext1[13].substr(9) + " "+ ext1[14].substr(9);
+			      			datetime = datetime.replace(/-/g, "/");
+			      			
+			      			var betLoc = ext1[17].split("LOCATION="); 
+			      			obj['venue'] = betLoc[1];
+			      			//pool bet detail
+			      			var betDet = ext1[19].split("BETTYPE=");    
+			      			obj['position'] = position;
+							obj['date'] = datetime; 
+							
+							var betAmount = sdata[(i+3)].split("BETAMOUNT=");  
+							obj['betAmount'] = betAmount[1]; 
+							
+							var inf = sdata[(i+7)].split("~");  
+			      			
+			      			aRaceNo    = inf[0].split("RACENO="); 
+			      			aRunnerNo  = inf[2].split("RUNNERS=");
+			      			vRunnerNo  = aRunnerNo[1].split("param#");
+			      			  
+							obj['pool'] = betDet[1]; 
+							obj['race'] = aRaceNo[1];
+							obj['runner'] = vRunnerNo[0]; 
+							
+			      			newCounter += 9;
+			      			position++;	
+			      			ary.push(obj);
+		      			}
+		      			
+		      		}  
+			 	}
+	 
+			 	myView.fireEvent('todayResult', {todayResult: ary});
+		      }
+	 	},
+	 	// function called when an error occurs, including a timeout
+	    onerror : function(e) { 
+	     	alert("Cannot connect to the server");
+	    },
+	 	timeout : 10000    	
+	 });
+	 
+	client.open('GET', url+ params);//
 	client.send();
 };
 

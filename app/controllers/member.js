@@ -305,8 +305,7 @@ Ti.App.addEventListener("enabledPlay", enabledPlay);
  * Clear object and memory
  **********************/
 var clearObject = function(){ 
-	raceCardInfo = null; 
-	raceCardDetails = null; 
+	raceCardInfo = null;  
 	infoDetails = null; 
 	favourite = null; 
 	balance = null; 

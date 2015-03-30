@@ -208,7 +208,8 @@ function showVenue() {
 	return false;
 }
 
-function venue(e){
+var venueIndex = 0;
+function venue(e){ 
 	venue = e.row.title; 
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;
@@ -219,13 +220,15 @@ function venue(e){
 		$.picker2.setVisible(false);
 		$.venueLabel.text = venue;
 	} 
+	venueIndex = e.rowIndex;
 	refresh(venue);
 }
  
 function refresh(venue){  
+	console.log("venueIndex:"+venueIndex);
 	removeAllChildren($.scrollView);
 	var resultArr = [];
-	var data = (arr[0].result).split("\n");
+	var data = (arr[venueIndex].result).split("\n");
   	
   	var resultTitle = "";
 	if(!firstLoad) {
@@ -245,7 +248,8 @@ function refresh(venue){
 				height: Ti.UI.SIZE,
 			});
 			
-			var leftLabel = Ti.UI.createLabel({
+			var leftLabel = $.UI.create('Label',{
+				classes : ['medium_text'],
 				color: "black",
 				text: resultRow[0],//result[index][1]
 				height: Ti.UI.SIZE,
@@ -259,7 +263,8 @@ function refresh(venue){
 			
 			var	cv = resultRow[1].split(',');
 			cv.forEach(function(c) {
-				 var centerLabel = Ti.UI.createLabel({
+				 var centerLabel = $.UI.create('Label',{
+				 	classes : ['medium_text'],
 					color: "black",
 					text: c,
 					height: Ti.UI.SIZE,
@@ -276,7 +281,8 @@ function refresh(venue){
 		 
 			var	rv = resultRow[2].split(',');
 			rv.forEach(function(r) {
-				 var rightLabel = Ti.UI.createLabel({
+				 var rightLabel = $.UI.create('Label',{
+				 	classes : ['medium_text'],
 					color: "black",
 					text: r,
 					height: Ti.UI.SIZE,
@@ -344,7 +350,8 @@ function refresh(venue){
 				width:"25%"
 			});
 			
-			var leftLabel = Ti.UI.createLabel({
+			var leftLabel = $.UI.create('Label',{
+				classes : ['medium_text'],
 				height:Ti.UI.SIZE,
 				color: "black",
 				text: resultRow[0]
@@ -356,10 +363,11 @@ function refresh(venue){
 			});
 			 
 			var	cv = resultRow[1].split(',');
-			cv.forEach(function(c) {
-				 var centerLabel = Ti.UI.createLabel({
+			cv.forEach(function(c) { 
+				 var centerLabel = $.UI.create('Label',{
 					color: "black",
-					text: c+"-",
+					classes : ['medium_text'],
+					text: c,
 					height: Ti.UI.SIZE,
 				});
 				centerView.add(centerLabel);
@@ -367,20 +375,23 @@ function refresh(venue){
 			
 			var rightView = Titanium.UI.createView({
 				height:Ti.UI.SIZE,
+				layout: "vertical",
 				width:"30%"
 			});
 			
 			var	rv = resultRow[2].split(',');
 			rv.forEach(function(r) {
-				 var rightLabel = Ti.UI.createLabel({
-					color: "black",
-					text: r,
-					height: Ti.UI.SIZE,
-				});
-				rightView.add(rightLabel);
+				if(r.trim() != ""){ 
+					var rightLabel = $.UI.create('Label',{
+						color: "black",
+						classes : ['medium_text'],
+						text: r,
+						height: Ti.UI.SIZE,
+					});
+					rightView.add(rightLabel);
+				} 
 			}); 
-			 
-			
+			  
 			var lineView = Titanium.UI.createView({
 				backgroundColor: "#A5A5A5",
 				width:"90%",
@@ -398,34 +409,32 @@ function refresh(venue){
 			var resSplit = rr.split("-");
 		 	
 			resSplit.forEach(function(idd) {
+				
 				var bool =contains(resultArr, idd);
 				if(bool === false){
 					resultArr.push(idd);
 				}
 			}); 
 			
-			leftView.add(leftLabel);
-			//centerView.add(centerLabel);
-			//rightView.add(rightLabel);
+			leftView.add(leftLabel);  
 			contentView.add(leftView);
-			//contentView.add(centerView);
+			contentView.add(centerView);
 			contentView.add(rightView);
 			centerLineView.add(lineView);
 			$.scrollView.add(contentView);
-			$.scrollView.add(centerLineView);
-			
-			myres = resultArr.join(',');
-			if(resultTitle == "") {
-				resultTitle = myres + ",";
-			}else {
-				resultTitle = resultTitle + myres + ",";
-			}
-			resultTitle = resultTitle.slice(0, - 1);
-			var raceTitle = data[0].split(":");
-			$.raceTitle.text = raceTitle[1];
-			$.resultLabel.text = "RESULT "+official;
-			$.resultTitle.text = resultTitle ;
+			$.scrollView.add(centerLineView); 
+		} 
+		myres = resultArr.join(',');
+		if(resultTitle == "") {
+			resultTitle = myres + ",";
+		}else {
+			resultTitle = resultTitle + myres + ",";
 		}
+		resultTitle = resultTitle.slice(0, - 1);
+		var raceTitle = data[0].split(":");
+		$.raceTitle.text = raceTitle[1];
+		$.resultLabel.text = "RESULT "+official;
+		$.resultTitle.text = resultTitle ;
 	}
 	
 }

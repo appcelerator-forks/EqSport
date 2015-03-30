@@ -93,7 +93,7 @@
 				</View>
 				<View layout="horizontal" width="100%" height="30" top="10">
 					<View width="50%" height="100%"> 
-						<Label class="boldText" width="100%"  disable="1" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odd</Label>
+						<Label class="boldText" width="100%"  disable="1" onClick="raceOdd" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Race Odds</Label>
 					</View>
 					<View width="49.9%" height="100%"> 
 						<Label class="boldText" width="100%" disable="1" onClick="racing" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER">Racing</Label>

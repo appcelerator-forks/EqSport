@@ -22,6 +22,7 @@ var favourite = Alloy.createCollection('favourite');
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
 var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
+ 
 var infoDetails = info.getInfo();  
 var cancelBtn;
 var confirmBtn;
@@ -295,11 +296,28 @@ function pool(e){
 		$.poolLabel.text = pool;
 	}
 }
- 
+
+function defaultOddsValue(){
+	$.a1.text = "-";
+	$.a2.text = "-";
+	$.a3.text = "-";
+	$.a4.text = "-";
+		
+	$.b1.text = "-";
+	$.b2.text = "-";
+	$.b3.text = "-";
+	$.b4.text = "-";
+		
+	$.c1.text = "-";
+	$.c2.text = "-";
+	$.c3.text = "-";
+	$.c4.text = "-";	
+}
+
 function favouriteOdd(myVenue, myRaceNo){ 
 	//var favouriteInfo = favourite.getFavouriteInfoByVenueAndRaceNo(venue,raceNo);  
-	 
-	if(typeof myRaceNo == "undefined"   ){
+	defaultOddsValue();
+	if(typeof myRaceNo == "undefined" ){
 		return false;
 	}
 	
@@ -314,23 +332,10 @@ function favouriteOdd(myVenue, myRaceNo){
 
 function getRaceOdd(ex){ 
 	apiRaceOdd = ex.returnData;
+	console.log(apiRaceOdd);
 	if(apiRaceOdd == "") {
 		$.mtr.text = "Min to Race:-";
-		
-		$.a1.text = "-";
-		$.a2.text = "-";
-		$.a3.text = "-";
-		$.a4.text = "-";
-		
-		$.b1.text = "-";
-		$.b2.text = "-";
-		$.b3.text = "-";
-		$.b4.text = "-";
-		
-		$.c1.text = "-";
-		$.c2.text = "-";
-		$.c3.text = "-";
-		$.c4.text = "-";
+		defaultOddsValue();
 	} else {
 		$.mtr.text = "Min to Race:" + apiRaceOdd.min_to_race; 
 		var runner = apiRaceOdd.runner;
@@ -378,6 +383,7 @@ function process(){
 	dialog.show(); 
 	dialog.addEventListener('click', function(e){  
 		if(e.index == 0) { 
+			
 			popWindow = 0;
 			pop.close();
 			dialog.hide();
@@ -397,6 +403,8 @@ function process(){
 				COMMON.createAlert("Validation Error","Wrong Pin No.");
 				COMMON.hideLoading();
 			}
+		}else{
+			
 		}
 	}); 
 }
@@ -490,22 +498,23 @@ function confirm(){
 		runner: $.runner.value,
 		pool: pool
 	});
-}
- 
+} 
 
-function addClickEvent(myView, popView){
+function addClickEvent(myView){
 	myView.addEventListener('click', function(e){
 		if(e.source.btnAction == "cancel"){
 			COMMON.hideLoading();
 			cancel();
 		}else{ 
-			var skipPin = Ti.App.Properties.getString('skipPin');
+			var skipPin = Ti.App.Properties.getString('skipPin'); 
 			if(skipPin == "1"){
+				 
+				popWindow = 0;
+				pop.close();
 				doBet(); 
-			}else{
+			}else{ 
 				process(); 
-			}
-			
+			} 
 		}
 	});
 }
@@ -754,6 +763,23 @@ $.mainView.addEventListener('confirmSuccess',function(){
 		left: 10
 	});
 	
+	var loadingView = Ti.UI.createView({
+		layout:"horizontal",
+		height:"35",
+		top:10,
+		width:"100%",
+		visible: false
+	});
+	
+	var loadingLabel = $.UI.create('Label',{
+		color: 'black',
+		classes : ['small_text'],
+		text: 'Placing bet...',
+		width: "100%",
+		textAlign: "right",
+		right: 10
+	});
+	loadingView.add(loadingLabel);
 	horizontalView1.add(venueLabel);
 	horizontalView1.add(venueLabelValue);
 	horizontalView2.add(raceNoLabel);
@@ -773,6 +799,7 @@ $.mainView.addEventListener('confirmSuccess',function(){
 	contentView.add(horizontalView4);
 	contentView.add(horizontalView5);
 	contentView.add(centerImageView);
+	contentView.add(loadingView);
 	titleView.add(titleLabel);
 	confirmView.add(titleView);
 	confirmView.add(contentView);
@@ -786,8 +813,8 @@ $.mainView.addEventListener('confirmSuccess',function(){
 	pop = API.popup(containerView,config);
 	pop.open({fullscreen:true, navBarHidden: true}); 
 	
-	addClickEvent(cancelBtn,pop); 
-	addClickEvent(confirmBtn,pop);  
+	addClickEvent(cancelBtn); 
+	addClickEvent(confirmBtn);  
 }); 
 $.mainView.addEventListener('submitSuccess', function(){
  	API.checkBalance({
@@ -827,8 +854,7 @@ Ti.App.addEventListener("futureRace", getRaceOdd);
  * Clear object and memory
  **********************/
 var clearObject = function(){ 
-	raceCardInfo = null; 
-	raceCardDetails = null; 
+	raceCardInfo = null;  
 	bet = null; 
 	favourite = null;   
 	containerView = null; 

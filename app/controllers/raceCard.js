@@ -50,8 +50,11 @@ function refresh(race_id){
 	removeAllChildren($.scrollView);
 	 
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
-	
-	$.date.text = detailsValue[0].runner_date;
+	console.log(detailsValue);
+	var theDate = detailsValue[0].runner_date;
+	var dateConvert = theDate.split('/');
+	 
+	$.date.text = dateConvert[1] + "/"+dateConvert[0]+"/"+dateConvert[2];
 	var position = 1;
 	for(var i=0; i < detailsValue.length; i++) {
 		var contentView = Titanium.UI.createView({

@@ -119,8 +119,8 @@ function populateData(e){
 				layout: "horizontal",
 				width:"100%",
 				height:Ti.UI.SIZE,
-				top:5,
-				bottom:5
+				top:10,
+				bottom:10
 			});
 			
 			var venueLabel = $.UI.create('Label',{

@@ -25,7 +25,7 @@ exports.definition = {
 			getRaceCardDetails: function(race_id){
 				var collection = this;
                 var sql = "SELECT * FROM " + collection.config.adapter.collection_name + " WHERE race_id =" + race_id;
-                
+               
                 db = Ti.Database.open(collection.config.adapter.db_name);
                 if(Ti.Platform.osname != "android") {
                 	db.file.setRemoteBackup(false);
@@ -43,7 +43,7 @@ exports.definition = {
 					};
 					res.next();
 					count++;
-				} 
+				}  console.log(listArr);
 				res.close();
                 db.close();
                 collection.trigger('sync');

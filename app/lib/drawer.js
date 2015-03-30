@@ -51,6 +51,7 @@ function createMyDrawer(leftMenuWindow){
 	});
 
 	nappDrawer.addEventListener('android:back', function (e) {
+		Ti.App.Properties.setString('skipPin',"0");  
 		var mod = Ti.App.Properties.getString('module');
 		DRAWER.enableDrawer();	
 		if(mod != ""){
@@ -171,6 +172,9 @@ exports.enableDrawer = function(){
 };
 
 exports.logout = function(){
+	Ti.App.Properties.setString('skipPin',"0");  
+	Ti.App.Properties.setString('presetRunner', "");
+	Ti.App.Properties.setString('presetBet', "");
 	Alloy.Globals.menuType = "1";
 	info.resetInfo();  
 	refreshMenu();
