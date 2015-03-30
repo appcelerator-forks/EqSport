@@ -40,9 +40,7 @@ function displayDate(day,month,year){
 		sCurrentDayTransactions : "1",
 		myView : $.transactionView
 	});
-}
-
-
+} 
 
 function populateData(e){
 	removeAllChildren($.scrollView);
@@ -75,8 +73,8 @@ function populateData(e){
 				layout: "horizontal",
 				width:"100%",
 				height:Ti.UI.SIZE,
-				top:10,
-				bottom:10
+				top:12,
+				bottom:12
 			});
 			
 			var venueLabel = $.UI.create('Label',{
@@ -97,7 +95,7 @@ function populateData(e){
 			var poolLabel = $.UI.create('Label',{
 				classes : ['description_text'],  
 				height:Ti.UI.SIZE,
-				text:  transactionDetails[i].pool + " "+ transactionDetails[i].runner,
+				text:  transactionDetails[i].pool + "/"+ transactionDetails[i].runner,
 				width: "35%"
 			}); 
 			
@@ -121,7 +119,7 @@ function populateData(e){
 			
 			var lineView = Titanium.UI.createView({
 				backgroundColor: "#A5A5A5",
-				width:"90%",
+				width:"100%",
 				height:1
 			});
 			

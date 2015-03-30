@@ -229,7 +229,7 @@ function refresh(venue){
 	removeAllChildren($.scrollView);
 	var resultArr = [];
 	var data = (arr[venueIndex].result).split("\n");
-  	
+  	var resultCounter =1;
   	var resultTitle = "";
 	if(!firstLoad) {
 		for(var i = 2; i<data.length;i++){
@@ -306,10 +306,16 @@ function refresh(venue){
 			var rr = resultRow[1].replace(/,/g,'-');
 			var resSplit = rr.split("-");
 		 	
+		 	
 			resSplit.forEach(function(idd) {
 				var bool =contains(resultArr, idd);
 				if(bool === false){
-					resultArr.push(idd);
+					if(resultCounter <= 4){
+						console.log("resultCounter :" +resultCounter);
+						resultArr.push(idd);
+						resultCounter++;
+					}
+					
 				}
 			}); 
 			 
@@ -407,13 +413,18 @@ function refresh(venue){
 			
 			var rr = resultRow[1].replace(/,/g,'-');
 			var resSplit = rr.split("-");
-		 	
+		 	 
 			resSplit.forEach(function(idd) {
-				
 				var bool =contains(resultArr, idd);
 				if(bool === false){
-					resultArr.push(idd);
+					if(resultCounter <= 4){
+						console.log("2)resultCounter :" +resultCounter+"["+idd+"]");
+						resultArr.push(idd);
+						
+					}
+					 
 				}
+				resultCounter++;
 			}); 
 			
 			leftView.add(leftLabel);  

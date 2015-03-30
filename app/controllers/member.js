@@ -51,9 +51,9 @@ function withdrawal(){
 function disablePlay(){
 	$.playView.image = "/images/Acc_Button01_gray.png";
 	$.raceOddView.image = "/images/Acc_Button03_gray.png";
-	$.racingView.image = "/images/Acc_Button04_gray.png";
+	//$.racingView.image = "/images/Acc_Button04_gray.png";
 	$.raceOddView.disable = "1";
-	$.racingView.disable = "1";
+	//$.racingView.disable = "1";
 	$.playView.disable = "1";
 	 
 	COMMON.hideLoading();
@@ -63,9 +63,9 @@ function enabledPlay(){
 	
 	$.playView.image = "/images/Acc_Button01.png";
 	$.raceOddView.image = "/images/Acc_Button03.png";
-	$.racingView.image = "/images/Acc_Button04.png";
+	//$.racingView.image = "/images/Acc_Button04.png";
 	$.raceOddView.disable = "0";
-	$.racingView.disable = "0";
+	//$.racingView.disable = "0";
 	$.playView.disable = "0";
 	 
 	COMMON.hideLoading();
@@ -208,14 +208,19 @@ function racing(){
 		width:'100%',
 		textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER,  
 	});
-		
+	
+	var raceCardImage = "/images/Button05.png";
+	if($.playView.disable == "1"){
+		raceCardImage = "/images/Button05_gray.png";
+	} 
+	
 	var imaView1 = Ti.UI.createImageView({
 		width    : "40%", 
 		left : 10,
 		right : 10, 
 		bottom:10,
 		destination : "raceCard",
-		image : "/images/Button05.png"
+		image : raceCardImage
 	});
 	var imaView2 = Ti.UI.createImageView({
 		width    : "40%", 
@@ -261,7 +266,13 @@ function racing(){
 
 function addClickEvent(myView, popView){
 	
+	
 	myView.addEventListener('click', function(e){
+		if($.playView.disable == "1"){ 
+			if(e.source.destination == "raceCard"){
+				return false;
+			}
+		}
 		if(e.source.destination != null){
 			DRAWER.navigation(e.source.destination,1); 
 			popView.close();

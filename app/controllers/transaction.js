@@ -119,8 +119,8 @@ function populateData(e){
 				layout: "horizontal",
 				width:"100%",
 				height:Ti.UI.SIZE,
-				top:10,
-				bottom:10
+				top:12,
+				bottom:12
 			});
 			
 			var venueLabel = $.UI.create('Label',{
@@ -142,7 +142,7 @@ function populateData(e){
 				classes : ['description_text'],  
 				height:Ti.UI.SIZE,
 				textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-				text:  transactionDetails[i].pool + " "+ transactionDetails[i].runner,
+				text:  transactionDetails[i].pool + "/"+ transactionDetails[i].runner,
 				width: "25%"
 			}); 
 			
@@ -163,13 +163,14 @@ function populateData(e){
 				classes : ['description_text'],  
 				height:Ti.UI.SIZE,
 				text: finalRes,
+				right:5,
 				textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT 
 			});
 			amountView.add(betAmountLabel);
 			
 			var lineView = Titanium.UI.createView({
 				backgroundColor: "#A5A5A5",
-				width:"90%",
+				width:"100%",
 				height:1
 			});
 			
