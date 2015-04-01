@@ -26,11 +26,11 @@
 					<ImageView image="/images/others_10.png" width="15" height="30" right="10%" /> 
 				</View>
 				<View width="100%"   height="30" backgroundColor="#EFEFEF" layout="vertical"><Label id="summaryLbl" left="15"   text="Total transaction(s) found :"  class="description_text" /></View>
-				<View layout="horizontal" height="Ti.UI.SIZE" backgroundColor="#EA431A" >
+				<View layout="horizontal" height="Ti.UI.SIZE" width="100%" backgroundColor="#EA431A" >
 					<Label class="medium_text white_text" left="5" width="25%" height="30">Loc.</Label>
 					<Label class="medium_text white_text"  width="25%" height="30">Race</Label>
-					<Label class="medium_text white_text" width="25%" height="30">Pool/ Bet Type</Label>
-					<Label class="medium_text white_text" width="auto" height="30">Play(RM)</Label>
+					<Label class="medium_text white_text" width="28%" height="30">Pool/ Bet Type</Label>
+					<Label class="medium_text white_text" textAlign="right"  width="20%" height="30">Play(RM)</Label>
 				</View>
 				<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 
 			</View>

@@ -3,6 +3,7 @@ var param_runner_position = args.runner || "";
 var param_runner_id = args.runner_id || "";
 var param_venue = args.venue || "";
 var param_race_id = args.race_id || "1";
+ 
 DRAWER.disableDrawer();
 //var param_race_id = 2;
 var raceCardInfo = Alloy.createCollection('raceCardInfo'); 
@@ -16,6 +17,7 @@ var apiFlag = false;
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 var raceNo;
+var defaultRace;
 var venue;
 
 if(param_venue != ""){
@@ -24,87 +26,14 @@ if(param_venue != ""){
 COMMON.construct($);
 COMMON.showLoading();
  
-setPicker1();  
-if(Ti.Platform.osname == "android") {
-	if(param_race_id == "1") {
-		setPicker2();
-	}
-}
- 
-function refresh(index){ 
-	if($.picker2.columns[0]) {
-	    var _col = $.picker2.columns[0];
-	        var len = _col.rowCount; 
-	        for(var x = len-1; x >= 0; x-- ){
-	                var _row = _col.rows[x];
-	                _col.removeRow(_row);
-	        }
-	}
-	detailsValue = raceCardDetails.getRaceCardDetails(index);
-	 
-	setPicker2();
-	if(Ti.Platform.osname == "android") { 
-		var selectedRunner = 0;
-		if(param_runner_position != ""){
-			selectedRunner = parseInt(param_runner_position) - 1;
-			if(selectedRunner == "0") {
-				if(param_race_id == "1") { 
-					API.futureRace({
-						raceNo: param_runner_id,
-						venue: param_venue
-					});
-				}
-				param_runner_position =   "";
-				param_runner_id =  "";
-				param_venue =  "";
-				param_race_id =  "1";
-			} else {
-				$.picker2.setSelectedRow(0,selectedRunner,false);
-			}
-		} else {
-			
-			if(param_runner_id != ""){ 
-				API.futureRace({
-					raceNo: param_runner_id,
-					venue: param_venue
-				});
-				param_runner_position =   "";
-				param_runner_id =  "";
-				param_venue =  "";
-				param_race_id =  "1";
-			}else{ 
-				if(raceNo == null) { 
-					API.futureRace({
-						raceNo: $.picker2.getSelectedRow(0).title,//1,//$.picker2.getSelectedRow(0).title
-						venue: venue
-					});
-				} else { 
-					apiFlag = true;
-					API.futureRace({
-						raceNo: detailsValue[0].runner_id,
-						venue: venue
-					});
-				}
-			}
-			
-		}
-	} if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad") { 
-		var selectedRunner = 0;
-		if(param_runner_position != ""){ 
-			selectedRunner = parseInt(param_runner_position) - 1;	
-		}
-		$.picker2.setSelectedRow(0,selectedRunner,false);
-	}
-}
-
+setPicker1();   
+  
 function setPicker1(){  
 	var venueIndex = 0;
 	for(var i = 0 ; i < infoValue.length; i++){
 		var venue1 = infoValue[i].venue;
-		if(param_venue == venue1)
-		{
-			venueIndex = i;
-			
+		if(param_venue == venue1) {
+			venueIndex = i; 
 		}
 		var race_id = infoValue[i].id;
 		var data = Ti.UI.createPickerRow({title:venue1.toString(),race_id:race_id.toString()}); 
@@ -114,37 +43,51 @@ function setPicker1(){
 	$.picker1.setSelectedRow(0,venueIndex,false);
 	 
 	if(Ti.Platform.osname == "android") { 
-		if(param_race_id != "1") {
-			var raceIndex = infoValue[venueIndex].id;
+		if(param_race_id != "1") { 
+			var raceIndex = infoValue[venueIndex].id;   
 			refresh(raceIndex.toString());
 		}
 	} 
 }
 
-function setPicker2(){  
+function refresh(index){  
+	detailsValue = raceCardDetails.getRaceCardDetails(index);  
+	setPicker2(); 
+}
+
+function setPicker2(){ 
+	if($.picker2.columns[0]) {
+	    var _col = $.picker2.columns[0];
+	        var len = _col.rowCount; 
+	        for(var x = len-1; x >= 0; x-- ){
+	                var _row = _col.rows[x];
+	                _col.removeRow(_row);
+	        }
+	}
+	 
 	raceNo = detailsValue[0].runner_id;
+	defaultRace = raceNo;
 	for(var i=0; i < detailsValue.length; i++){
 		var rec = detailsValue[i].runner_id; 
 	  	var row = Ti.UI.createPickerRow({
 	   		title: rec.toString(),
 	   		titleData: rec.toString()
 	  	}); 
+	   
 	  	$.picker2.add(row);
 		 
 	} 
+ 	
+ 	var selectedRunner = 0;
+	if(param_runner_position != ""){ 
+		selectedRunner = parseInt(param_runner_position) - 1;	
+	}
+	$.picker2.setSelectedRow(0,selectedRunner,false);
+	
 	if(Ti.Platform.osname == "android") { 
-		if(param_race_id != "1") { 
-			API.futureRace({
-				raceNo: param_runner_id,
-				venue: param_venue
-			});
-			
-			param_runner_position =   "";
-			param_runner_id =  "";
-			param_venue =  "";
-			param_race_id =  "1";
-		}
+		changeRaceNo();
 	} 
+	
 }
  
 function back(){	
@@ -154,6 +97,7 @@ function back(){
 }
 
 function changeVenue(e){
+	
 	venue = e.row.title;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.venueView.height = 50;
@@ -167,8 +111,13 @@ function changeVenue(e){
 	refresh(e.row.race_id);
 }
 
-function changeRaceNo(e){
-	raceNo = e.row.title;
+function changeRaceNo(e){ 
+	if(typeof e === undefined || e == null || e == ""){ 
+		raceNo = param_runner_id; 
+	}else{ 
+		raceNo = $.picker2.getSelectedRow(0).title;
+	}
+	
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
 		$.raceNoView.height = 50;
 		$.raceNoContentView.height = 50;
@@ -183,12 +132,13 @@ function changeRaceNo(e){
 			raceNo: raceNo,
 			venue: param_venue
 		});
-		param_runner_position =   "";
-		param_runner_id =  "";
-		param_venue =  "";
+		 
 		param_race_id =  "1";
-	} else { 
-		if(apiFlag == false) {
+	} else {
+		if(apiFlag == false) { 
+			if(raceNo == ""){
+				raceNo = defaultRace;
+			}
 			API.futureRace({
 				raceNo: raceNo,
 				venue: venue
@@ -199,6 +149,7 @@ function changeRaceNo(e){
 
 function raceOdd(data){ 
 	COMMON.showLoading();
+	$.scrollView.hide();
 	removeAllChildren($.scrollView);
 	if(data == "") {
 		$.mtr.text = "Min to Race: -";
@@ -275,6 +226,7 @@ function raceOdd(data){
 		$.scrollView.add(centerLineView);
 	}
 	COMMON.hideLoading();
+	$.scrollView.show();
 	apiFlag = false;
 }
 

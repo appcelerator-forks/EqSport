@@ -50,7 +50,7 @@ function refresh(race_id){
 	removeAllChildren($.scrollView);
 	 
 	detailsValue = raceCardDetails.getRaceCardDetails(race_id);
-	console.log(detailsValue);
+	 
 	var theDate = detailsValue[0].runner_date;
 	var dateConvert = theDate.split('/');
 	 

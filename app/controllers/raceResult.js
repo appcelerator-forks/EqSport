@@ -23,14 +23,14 @@ var result = [];
 var apiResult = function(e){   
 	 
 	removeAllChildren($.scrollView);
-	arr = e.raceResult;
- 	official = arr[0].official;
+	arr = e.raceResult; 
  	
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
 	$.picker.value = api_date;
 	var locations = [];
 	for(var i=0; i < arr.length; i++){
+		
 		locations.push(arr[i].location); 
 		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo, arr[i].official];
 	}
@@ -42,31 +42,41 @@ var apiResult = function(e){
 	                _col.removeRow(_row);
 	        }
 	}
+	 
+	var thePos = 0;
 	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+		thePos = setPicker2(locations,$.venueLabel.text);
 		refresh($.venueLabel.text);
+		
 	}
-	setPicker2(locations);
-	if(Ti.Platform.osname == "android")
-	{
+	
+	if(Ti.Platform.osname == "android") {
+		thePos = setPicker2(locations,androidLocation);
 		refresh(androidLocation); 
 	}
-	$.picker2.setSelectedRow(0,0,false);
+	$.picker2.setSelectedRow(0,thePos,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
 	COMMON.hideLoading();
 };
 $.mainView.addEventListener('raceResult', apiResult);
 
-function setPicker2(location){   
+function setPicker2(location, selLoc){ 
+	var myPos = 0;  
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
-		if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
-			$.venueLabel.text = location[0];
+		if(selLoc == location[i]){
+			if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+				$.venueLabel.text = location[i];
+			}
+			androidLocation = location[i];
+			myPos = i;
 		}
-		androidLocation = location[0];
+		
 		$.picker2.add(data);
 	}
-	 
+	
+	return myPos;
 }
 
 var transformPicker = Titanium.UI.create2DMatrix().scale(0.8);
@@ -125,9 +135,8 @@ function done(){
 	var month = monthInt.toString();
 	var year = yearInt.toString();
 	var date = day + month + year;
-	
-	displayDate(day,month,year);
-	
+	 
+	displayDate(day,month,year); 
 	if($.raceNo.value != "") {
 		firstLoad = false;
 	 	$.mainView.addEventListener('raceResult', apiResult);
@@ -224,10 +233,10 @@ function venue(e){
 	refresh(venue);
 }
  
-function refresh(venue){  
-	console.log("venueIndex:"+venueIndex);
+function refresh(venue){   
 	removeAllChildren($.scrollView);
 	var resultArr = [];
+	official = arr[venueIndex].official;  
 	var data = (arr[venueIndex].result).split("\n");
   	var resultCounter =1;
   	var resultTitle = "";
@@ -245,12 +254,14 @@ function refresh(venue){
 			
 			var leftView = Titanium.UI.createView({
 				width:"25%",
+				top:0,
 				height: Ti.UI.SIZE,
 			});
 			
 			var leftLabel = $.UI.create('Label',{
 				classes : ['medium_text'],
 				color: "black",
+				top:0,
 				text: resultRow[0],//result[index][1]
 				height: Ti.UI.SIZE,
 			});
@@ -310,8 +321,7 @@ function refresh(venue){
 			resSplit.forEach(function(idd) {
 				var bool =contains(resultArr, idd);
 				if(bool === false){
-					if(resultCounter <= 4){
-						console.log("resultCounter :" +resultCounter);
+					if(resultCounter <= 4){ 
 						resultArr.push(idd);
 						resultCounter++;
 					}
@@ -353,6 +363,7 @@ function refresh(venue){
 			
 			var leftView = Titanium.UI.createView({
 				height:Ti.UI.SIZE,
+				top:0,
 				width:"25%"
 			});
 			
@@ -360,11 +371,13 @@ function refresh(venue){
 				classes : ['medium_text'],
 				height:Ti.UI.SIZE,
 				color: "black",
+				top:0,
 				text: resultRow[0]
 			});
 			
 			var centerView = Titanium.UI.createView({
 				height:Ti.UI.SIZE,
+				layout: "vertical",
 				width:"44.9%"
 			});
 			 
@@ -417,8 +430,7 @@ function refresh(venue){
 			resSplit.forEach(function(idd) {
 				var bool =contains(resultArr, idd);
 				if(bool === false){
-					if(resultCounter <= 4){
-						console.log("2)resultCounter :" +resultCounter+"["+idd+"]");
+					if(resultCounter <= 4){ 
 						resultArr.push(idd);
 						
 					}
@@ -450,8 +462,12 @@ function refresh(venue){
 	
 }
 function noResult(){
-	firstLoad = true;
-	refresh();
+	removeAllChildren($.scrollView);
+	$.raceTitle.text = "-";
+	$.resultLabel.text = "RESULT (-)";
+	$.resultTitle.text = "-" ;
+	//firstLoad = true;
+	//refresh();
 }
 $.mainView.addEventListener('noResult', noResult);
 

@@ -247,24 +247,34 @@ exports.getRTOResults = function(ex){
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			
-		       			if(resultData.trim() != ""){
-		       				var raceObj = obj["raceNo"].split("(");
-			       			obj["official"] = "("+raceObj[1];
-			       			var dateDetail  = raceDate.split("/");
-			       			obj["raceDay"]  	 = dateDetail[0]; 
-			       			obj["raceMonth"]  	 = dateDetail[1]; 
-			       			obj["raceYear"]  	 = dateDetail[2]; 
+		       			console.log(resultData);
+		       			var raceObj = obj["raceNo"].split("(");
+		       			if(raceObj.length == 1){
+		       				obj["official"] = "(Unofficial)";
+		       			}else{
+		       				obj["official"] = "("+raceObj[1];
+		       			}
 			       			
-			       			var dataByRow   = resultData.split("\n");
-			       			
+			       		var dateDetail  = raceDate.split("/");
+			       		obj["raceDay"]  	 = dateDetail[0]; 
+			       		obj["raceMonth"]  	 = dateDetail[1]; 
+			       		obj["raceYear"]  	 = dateDetail[2]; 
+		       			if(resultData.trim() != ""){ 
+			       			var dataByRow   = resultData.split("\n"); 
 			       			var dataByRace  = dataByRow[0].split(":");
-			       			var dataByDetail= dataByRow[2].split(" ");
+			       			var dataByDetail = dataByRow[2].split(" ");
 			       			obj["raceNo"]  	 = dataByRace[1]; 
 			       			obj["raceRow1"]  = dataByDetail[0];  
 			       			obj["raceRow2"]  = dataByDetail[1];  
 			       			obj["raceRow3"]  = dataByDetail[2];
 			       			ary.push(obj);  
+		       			}else{
+		       				 
+		       				obj["raceNo"]  	 = "-"; 
+			       			obj["raceRow1"]  = "-"; 
+			       			obj["raceRow2"]  = "-";  
+			       			obj["raceRow3"]  = "-"; 
+		       				ary.push(obj); 
 		       			}
 		       			
 		       		} 

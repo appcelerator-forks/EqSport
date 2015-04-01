@@ -330,9 +330,21 @@ function favouriteOdd(myVenue, myRaceNo){
 	} 
 } 
 
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    };
+}
+		
 function getRaceOdd(ex){ 
 	apiRaceOdd = ex.returnData;
-	console.log(apiRaceOdd);
+	
 	if(apiRaceOdd == "") {
 		$.mtr.text = "Min to Race:-";
 		defaultOddsValue();
@@ -345,20 +357,30 @@ function getRaceOdd(ex){
 		var pla_odd = apiRaceOdd.pla_odd;
 		var pla = pla_odd.split("$");
 		
-		$.a1.text = run[0];
-		$.a2.text = run[1];
-		$.a3.text = run[2];
-		$.a4.text = run[3];
+		var arrList = [];
+		for(var a=0; a < run.length; a++){
+			var runList = {};
+			runList['runner'] = run[a];
+			runList['win'] = win[a];
+			runList['pla'] = pla[a];
+			arrList.push(runList);
+		}
 		
-		$.b1.text = win[0];
-		$.b2.text = win[1];
-		$.b3.text = win[2];
-		$.b4.text = win[3];
+		var my = arrList.sort(dynamicSort("win"));  
+		$.a1.text = my[0].runner;
+		$.a2.text = my[1].runner;
+		$.a3.text = my[2].runner;
+		$.a4.text = my[3].runner;
 		
-		$.c1.text = pla[0];
-		$.c2.text = pla[1];
-		$.c3.text = pla[2];
-		$.c4.text = pla[3];
+		$.b1.text = my[0].win;
+		$.b2.text = my[1].win;
+		$.b3.text = my[2].win;
+		$.b4.text = my[3].win;
+		
+		$.c1.text = my[0].pla;
+		$.c2.text = my[1].pla;
+		$.c3.text = my[2].pla;
+		$.c4.text = my[3].pla;
 	}
 }
 
