@@ -119,7 +119,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){  
 	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
-	console.log(url); 
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
