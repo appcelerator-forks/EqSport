@@ -2,7 +2,8 @@ var arr = [];
 var firstLoad = true;
 var androidLocation;
 var official = "";
-
+var venue;
+var myPos = 0; 
 if(Ti.Platform.osname == "android"){
 	$.date.width = "90%"; 
 	$.raceNo.textAlign = "left";
@@ -10,7 +11,7 @@ if(Ti.Platform.osname == "android"){
 Ti.App.Properties.setString('module',"member");
 Ti.App.Properties.setString('root',"0");
 COMMON.construct($);
-COMMON.showLoading();
+//COMMON.showLoading();
 DRAWER.disableDrawer();
 API.getRTOResults({
 	myView: $.mainView,
@@ -21,16 +22,15 @@ API.getRTOResults({
 var result = [];
 
 var apiResult = function(e){   
-	 
+	COMMON.showLoading(); 
+	$.scrollView.hide();
 	removeAllChildren($.scrollView);
-	arr = e.raceResult; 
- 	
+	arr = e.raceResult;  
 	displayDate(arr[0].raceDay,arr[0].raceMonth,arr[0].raceYear);
 	var api_date = new Date(arr[0].raceYear, arr[0].raceMonth-1, arr[0].raceDay);
 	$.picker.value = api_date;
 	var locations = [];
-	for(var i=0; i < arr.length; i++){
-		
+	for(var i=0; i < arr.length; i++){ 
 		locations.push(arr[i].location); 
 		result[i]=[arr[i].location, arr[i].raceRow1, arr[i].raceRow2, arr[i].raceRow3, arr[i].raceNo, arr[i].official];
 	}
@@ -51,17 +51,18 @@ var apiResult = function(e){
 	}
 	
 	if(Ti.Platform.osname == "android") {
-		thePos = setPicker2(locations,androidLocation);
+		thePos = setPicker2(locations,androidLocation); 
 		refresh(androidLocation); 
 	}
 	$.picker2.setSelectedRow(0,thePos,false);
 	$.mainView.removeEventListener('raceResult', apiResult);
+	$.scrollView.show();
 	COMMON.hideLoading();
 };
 $.mainView.addEventListener('raceResult', apiResult);
 
 function setPicker2(location, selLoc){ 
-	var myPos = 0;  
+	 
 	for(var i = 0 ; i < location.length; i++){
 		var data = Ti.UI.createPickerRow({title:location[i]});
 		//$.pickerColumn1.addRow(data);
@@ -71,6 +72,7 @@ function setPicker2(location, selLoc){
 			}
 			androidLocation = location[i];
 			myPos = i;
+			$.picker2.setSelectedRow(0,i,false);
 		}
 		
 		$.picker2.add(data);
@@ -150,7 +152,7 @@ function done(){
 }
 
 function submitText(){
- 
+	$.scrollView.hide();
 	if($.raceNo.value != "") {
 		value = $.picker.value;
 		dayInt = ("0"+value.getDate()).slice(-2);
@@ -218,9 +220,16 @@ function showVenue() {
 }
 
 var venueIndex = 0;
-function venue(e){ 
-	venue = e.row.title; 
-	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){
+function changeVenue(e){ 
+	COMMON.showLoading();
+	venueIndex = e.rowIndex; 
+	if(e.row !== null && e.row != "null"){ 
+		venue = e.row.title; 
+		androidLocation = e.row.title; 
+	} 
+
+	if(Ti.Platform.osname == "iphone" || Ti.Platform.osname == "ipad"){ 
+		 
 		$.venueView.height = 50;
 		$.venueContentView.height = 50;
 		$.pickerView2.height = 50;
@@ -229,13 +238,13 @@ function venue(e){
 		$.picker2.setVisible(false);
 		$.venueLabel.text = venue;
 	} 
-	venueIndex = e.rowIndex;
-	refresh(venue);
+	refresh(venue); 
 }
  
-function refresh(venue){   
+function refresh(venue){    
+	$.scrollView.hide();
 	removeAllChildren($.scrollView);
-	var resultArr = [];
+	var resultArr = []; 
 	official = arr[venueIndex].official;  
 	var data = (arr[venueIndex].result).split("\n");
   	var resultCounter =1;
@@ -459,7 +468,8 @@ function refresh(venue){
 		$.resultLabel.text = "RESULT "+official;
 		$.resultTitle.text = resultTitle ;
 	}
-	
+	$.scrollView.show();
+	COMMON.hideLoading();
 }
 function noResult(){
 	removeAllChildren($.scrollView);

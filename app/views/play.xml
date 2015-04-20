@@ -22,7 +22,7 @@
 								<Label id="venue" class="topLabel"  color="black">Venue: </Label>
 							</View>
 							<View width="1.9%">
-								<Label class="topLabel" class="topLabel" color="black"> | </Label>
+								<Label class="topLabel"  color="black"> | </Label>
 							</View>
 							<View width="32%">
 								<Label id="race" class="topLabel"  color="black">Race:</Label>

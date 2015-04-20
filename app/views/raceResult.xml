@@ -55,10 +55,7 @@
 				</View>
 				<View width="74.9%">
 					<ImageView image="/images/others_10.png"   width="15" height="30" right="10"></ImageView>
-					<Picker id="picker2" onChange="venue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" >
-						 
-					</Picker>
-					 
+					<Picker id="picker2" onChange="changeVenue" width="100%" selectionIndicator="true" backgroundColor="transparent" height="40" />
 				</View>
 			</View>
 			<View id="venueView" platform="ios" layout="horizontal" width="90%" height="50" top="10" backgroundColor="white">
@@ -70,7 +67,7 @@
 					<Label id="venueLabel" height="30" width="90%" backgroundColor="transparent" color="black" onClick="showVenue" textAlign="Ti.UI.TEXT_ALIGNMENT_CENTER"></Label>
 					<View id="pickerView2" height="50" width="100%" visible="false">
 						<Button id="done2" height="30" width="100%" backgroundColor="black" color="white" top="0" left="0" onClick="done2" visible="false">Done</Button>
-						<Picker id="picker2" onChange="venue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
+						<Picker id="picker2" onChange="changeVenue" width="100%" height="Ti.UI.SIZE" top="30" selectionIndicator="true" backgroundColor="#EFEFEF" visible="false">
 						</Picker>
 					</View>
 				</View>
@@ -88,7 +85,7 @@
 							<Label id="resultTitle" class="largeTitle" color="white" left="10">-</Label>
 						</View>
 					</View>
-				</View>
+			</View>
 			<ScrollView id="scrollView" layout="vertical" width="90%" backgroundColor="white" top="0" bottom="10">
 				<View layout="horizontal" width="100%" height="60">
 					<View width="25%">

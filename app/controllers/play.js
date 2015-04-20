@@ -21,8 +21,8 @@ var raceCardDetails = Alloy.createCollection('raceCardDetails');
 var favourite = Alloy.createCollection('favourite'); 
 var balanceInfo = balance.getBalance();
 var infoValue = raceCardInfo.getRaceCardInfo();
-var detailsValue = raceCardDetails.getRaceCardDetails("1"); 
- 
+var detailsValue; 
+var index; 
 var infoDetails = info.getInfo();  
 var cancelBtn;
 var confirmBtn;
@@ -67,6 +67,12 @@ var containerView = Ti.UI.createView({
 var presetBet = Ti.App.Properties.getString('presetBet') || "";
 $.bet.value = presetBet;
 if(param_runner_id != "" && param_runner_id != "-"){ 
+	if(param_runner_id == "08"){
+		param_runner_id = "8";
+	}
+	if(param_runner_id == "09"){
+		param_runner_id = "9";
+	}
 	$.runner.value = param_runner_id;
 }else{
 	var presetRunner = Ti.App.Properties.getString('presetRunner') || "";
@@ -102,8 +108,7 @@ function refresh(index){
 	setPicker2(); 
 }
 
-function setPicker1(){ 
-	var index;
+function setPicker1(){  
 	var race_id; 
 	if(param_venue != "") {
 		for (var g = 0;g < infoValue.length; g++) {
@@ -158,6 +163,7 @@ function setPicker2(){
 			$.venue.text = "Venue: " + venue;
 			$.race.text = "Race: " + raceNo;
 			favouriteOdd(venue, raceNo);
+			param_race_id="";
 		}
 	}else{ 
 		$.picker2.setSelectedRow(0,0,true); 
@@ -359,13 +365,20 @@ function getRaceOdd(ex){
 		
 		var arrList = [];
 		for(var a=0; a < run.length; a++){
+			if(run[a] == "08"){
+				run[a] = "8";
+			}
+			if(run[a] == "09"){
+				run[a] = "9";
+			}
+ 
 			var runList = {};
-			runList['runner'] = run[a];
-			runList['win'] = win[a];
-			runList['pla'] = pla[a];
+			runList['runner'] = parseInt(run[a]);
+			runList['win'] = parseInt(win[a]);
+			runList['pla'] = parseInt(pla[a]);
 			arrList.push(runList);
 		}
-		
+		 
 		var my = arrList.sort(dynamicSort("win"));  
 		$.a1.text = my[0].runner;
 		$.a2.text = my[1].runner;

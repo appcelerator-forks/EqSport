@@ -147,7 +147,7 @@ function changeRaceNo(e){
 	}
 }
 
-function raceOdd(data){ 
+function raceOdd(data){  
 	COMMON.showLoading();
 	$.scrollView.hide();
 	removeAllChildren($.scrollView);
@@ -283,5 +283,17 @@ function done2() {
 var getRaceOdd = function(e){
 	raceOdd(e.returnData);
 } ;
+
+
+/**********************
+ * Clear object and memory
+ **********************/
+var clearObject = function(){  
+	Ti.App.removeEventListener("futureRace", getRaceOdd);	
+	Ti.App.removeEventListener("clearObject", clearObject);
+	console.log("play clear");
+};
+Ti.App.addEventListener("clearObject", clearObject);	
+
 
 Ti.App.addEventListener("futureRace", getRaceOdd);

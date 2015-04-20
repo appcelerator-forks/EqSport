@@ -4,7 +4,7 @@ DRAWER.disableDrawer();
 var value = new Date();
 Ti.App.Properties.setString('root',"0");
 Ti.App.Properties.setString('module',"member");
-var dayInt = value.getDate();
+var dayInt = ("0"+(value.getDate())).slice(-2);
 var monthInt = ("0"+(value.getMonth()+1)).slice(-2);
 var yearInt = value.getFullYear();
  

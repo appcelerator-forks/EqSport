@@ -48,7 +48,7 @@ exports.getDomainUrl = function (ex){
 exports.login = function (ex){
 	var loginUrl = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=2&USERNAME="+USER+"&PWD="+KEY; 
 	var url		 = loginUrl+"&TLACC="+ex.acc_no+"&TLPIN="+ex.acc_pin; 
-	
+	console.log(url);
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available (3171)
 	     onload : function(e) { 
@@ -119,7 +119,7 @@ exports.login = function (ex){
 exports.checkBalance = function (ex){  
 	var checkBalance  = "http://"+Ti.App.Properties.getString('eqUrl')+"/webse/mytelelink.asp?REQTYPE=4&USERNAME="+USER+"&PWD="+KEY; 
 	var url = checkBalance+"&TLACC="+ex.account+"&TLPIN="+ex.pin; 
-	//console.log(url); 
+	console.log(url); 
 	var client = Ti.Network.createHTTPClient({
 	     // function called when the response data is available
 	     onload : function(e) {
@@ -247,7 +247,7 @@ exports.getRTOResults = function(ex){
 		       			obj["location"]  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'LOCATION'); 
 		       			obj["result"]    = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
 		       			var resultData  = getValueFromXml(this.responseXML, 'RESULTNO'+i , 'RESULT'); 
-		       			console.log(resultData);
+		       			 
 		       			var raceObj = obj["raceNo"].split("(");
 		       			if(raceObj.length == 1){
 		       				obj["official"] = "(Unofficial)";
@@ -496,6 +496,7 @@ exports.raceCard = function (ex){
 		     	}else{
 		     		Ti.App.fireEvent("enabledPlay");
 		     	}
+		     	Ti.App.Properties.setString('oddEnabled',"1");
 			}else{
 				if(ex.from == "menu"&& isAlert == "0"){ 
 		     		COMMON.createAlert("Play unavailable", "No game available now!"); 
@@ -517,6 +518,7 @@ exports.raceCard = function (ex){
 	     	//if( res.id > 0 ) { 
 	     	//	console.log(res);
 	     	Ti.App.Properties.setString('oddEnabled',"1");
+	     	//console.log(res);
 	     	if( res.length > 0 ) { 
 		     	var library = Alloy.createCollection('raceCardInfo'); 
 		     		library.resetInfo();
@@ -561,11 +563,13 @@ exports.raceCard = function (ex){
 				if(ex.from == "menu" && isAlert == "0"){ 
 	     			COMMON.createAlert("Play unavailable", "No game available now!"); 
 	     			isAlert= "1";
+	     			return false;
 	     		}else{
 	     			Ti.App.fireEvent("disablePlay");
 	     			//Ti.App.fireEvent("enabledPlay");
 	     		}
-	     		//Ti.App.Properties.setString('oddEnabled',"0");
+	     		
+	     		Ti.App.Properties.setString('oddEnabled',"0");
 	     		return false;
 			}
 			
@@ -670,15 +674,13 @@ exports.todayTransactionHistory = function (ex){
 		      	var startPoint = 2; 
 		      	var newCounter = 0;
 		      	var position = 1;
-		      	var ary = []; 
-		      	console.log(sdata);
+		      	var ary = [];  
 		      	for(var i = 1; i<= sdata.length; i++) {
 		      		//console.log(sdata);
 		      		
 		      		var obj = {};
 		      		if(parseInt(startPoint) + parseInt(newCounter) == i){ 
-		      			console.log(i);
-		      			console.log(sdata[i]);
+		      			 
 		      			var ext1 = sdata[i].split("^");   
 		      			var chkParam = ext1[0].split("="); 
 		      			if(chkParam[0] == "DATE"){

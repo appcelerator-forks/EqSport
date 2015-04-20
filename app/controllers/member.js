@@ -48,7 +48,7 @@ function withdrawal(){
 	
 }
 
-function disablePlay(){
+function disablePlay(){ 
 	$.playView.image = "/images/Acc_Button01_gray.png";
 	$.raceOddView.image = "/images/Acc_Button03_gray.png";
 	//$.racingView.image = "/images/Acc_Button04_gray.png";
@@ -101,6 +101,7 @@ function account(){
 		width    : "40%", 
 		left : 10,
 		right : 10, 
+		bottom: 10,
 		destination : "todayTransaction",
 		image : "/images/Button08.png"
 	});
@@ -126,7 +127,7 @@ function account(){
 	var label2 = Ti.UI.createLabel({
 	  color: '#ffffff',
 	  font: { fontSize:8 },
-	  left : 10, 
+	  left : 15, 
 	  text: 'View Transaction',
 	  destination : "transaction",
 	  textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER, 

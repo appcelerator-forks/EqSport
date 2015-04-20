@@ -29,7 +29,7 @@
 				<View layout="horizontal" height="Ti.UI.SIZE" width="100%" backgroundColor="#EA431A" >
 					<Label class="medium_text white_text" left="5" width="25%" height="30">Loc.</Label>
 					<Label class="medium_text white_text"  width="25%" height="30">Race</Label>
-					<Label class="medium_text white_text" width="28%" height="30">Pool/ Bet Type</Label>
+					<Label class="medium_text white_text" width="28%" height="30">Pool/Runner</Label>
 					<Label class="medium_text white_text" textAlign="right"  width="20%" height="30">Play(RM)</Label>
 				</View>
 				<ScrollView id="scrollView"  layout="vertical" height="Ti.UI.FILL" backgroundColor="#ffffff" /> 
